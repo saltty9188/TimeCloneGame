@@ -5,10 +5,7 @@ using UnityEngine;
 public class StartFirstBoss : MonoBehaviour
 {
     #region Inspector fields
-    [SerializeField] private Door doorBehind;
-
     [SerializeField] private FirstBossScript bossScript;
-
     [SerializeField] private GameObject bossUI;
     #endregion
 
@@ -16,7 +13,6 @@ public class StartFirstBoss : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            doorBehind.ResetEvent();
             bossScript.StartFight();
             bossUI.SetActive(true);  
         }

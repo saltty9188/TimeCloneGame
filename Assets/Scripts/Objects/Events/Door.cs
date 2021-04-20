@@ -19,7 +19,7 @@ public class Door : ButtonEvent
     private SpriteRenderer spriteRenderer;
     #endregion
 
-    void Start()
+    protected virtual void Start()
     {
         if(startsUp)
         {
@@ -41,7 +41,7 @@ public class Door : ButtonEvent
 
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if(transform.position.y >= upY)
         {
@@ -59,6 +59,7 @@ public class Door : ButtonEvent
             tempText.text = (requiredActivations - activations).ToString();
         }
         if(activations < 0) activations = 0;
+
     }
 
     //Replace with animation later

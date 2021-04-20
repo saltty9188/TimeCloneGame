@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d11fae65547caa4d98548fc65a21cf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraVerticalOffest: 4
   moveSpeed: 5
   jumpPower: 600
   knockBackSpeed: 10

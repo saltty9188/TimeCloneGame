@@ -52,7 +52,6 @@ public class FirstBossStatus : MonoBehaviour
     public void ExposeWeakPoint()
     {
         transform.GetChild(2).gameObject.SetActive(true);
-        flashScript.Flash();
         timer = weakPointExposeDuration;
     }
 

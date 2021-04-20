@@ -44,7 +44,7 @@ public abstract class ButtonEvent : MonoBehaviour
         }
     }
 
-    void TriggerIfValid()
+    protected void TriggerIfValid()
     {
         if(activations == requiredActivations) Activate();
         else Deactivate();

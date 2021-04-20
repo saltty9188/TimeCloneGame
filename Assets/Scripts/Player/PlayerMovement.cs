@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
     #region Inspector fields
+    [SerializeField] private float cameraVerticalOffest = 2.5f;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpPower;
     [SerializeField] private float knockBackSpeed = 6;
@@ -46,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         if(gameObject.tag == "Player")
         {
             //move camera for the player only
-            if(Camera.main) Camera.main.transform.position = transform.position + new Vector3(0, 2.5f, Camera.main.transform.position.z);
+            if(Camera.main) Camera.main.transform.position = transform.position + new Vector3(0, cameraVerticalOffest, Camera.main.transform.position.z);
         }
     }
 

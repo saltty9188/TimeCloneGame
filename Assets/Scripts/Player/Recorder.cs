@@ -14,6 +14,13 @@ public class Recorder : MonoBehaviour
     [SerializeField] private GameObject events;
     #endregion
 
+    #region Public fields
+    public bool IsRecording
+    {
+        get{return recording;}
+    }
+    #endregion
+
     #region Private fields
     private Aim aim;
     private TimeCloneDevice activeCloneMachine;

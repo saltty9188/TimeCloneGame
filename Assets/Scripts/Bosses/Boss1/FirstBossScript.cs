@@ -6,11 +6,9 @@ public class FirstBossScript : MonoBehaviour
 {
     #region Inspector fields
     [SerializeField] private GameObject bulletPrefab;
-
     [SerializeField] private int damage = 5;
-    
-
     [SerializeField] private float phaseTransitionTime = 10;
+    [SerializeField] private RecordingDoor roomEntrance;
 
     #endregion
 
@@ -55,6 +53,8 @@ public class FirstBossScript : MonoBehaviour
         {
             transform.position = initialPosition;
         }
+
+        roomEntrance.SetInFight(inFight);
     }
 
     public void Shoot()
