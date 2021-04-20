@@ -44,7 +44,7 @@ public class Button : MonoBehaviour
             float xPos = startX + (i * width / divisor);
             
             RaycastHit2D hit =  Physics2D.Raycast(new Vector2(xPos, yPos), Vector2.up, buttonSensitivity, canActivateButton);
-            if(hit && hit.collider.GetComponent<Rigidbody2D>().mass >= minWeight)
+            if(hit && hit.collider.GetComponent<Rigidbody2D>() && hit.collider.GetComponent<Rigidbody2D>().mass >= minWeight)
             {
                 buttonDown = true;
                 buttonDownThisFrame = true;

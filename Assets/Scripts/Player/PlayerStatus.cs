@@ -167,12 +167,14 @@ public class PlayerStatus : MonoBehaviour
         other.GetContacts(contacts);
         foreach(ContactPoint2D contact in contacts)
         {
-            if(contact.normal == Vector2.up)
+            float angle = Vector2.Angle(contact.normal, Vector2.up);
+
+            if(Mathf.Approximately(angle, 0))
             {
                 collisionBelow = true;
                 belowContact = contact.collider.GetComponent<Rigidbody2D>();
             }
-            else if(contact.normal == Vector2.down)
+            else if(Mathf.Approximately(angle, 180))
             {
                 collisionAbove = true;
                 aboveContact = contact.collider.GetComponent<Rigidbody2D>();
