@@ -19,23 +19,17 @@ public class PhysicsObject : MonoBehaviour
 
     #region  Private fields
     private static List<PhysicsObject> allPhysicsObjects;
-
     private Rigidbody2D rigidbody2D;
-
     private SpriteRenderer spriteRenderer;
     private float initialMass;
     private Vector3 recordingStartPosition;
-
     private PhysicsMaterial2D initialPhysicsMaterial;
-
     private float yPosOnGround;
     private float yPosInAir;
-
+    private bool touchingCeiling;
     private Coroutine floatRoutine;
-
     //Empty child that allows player to stand on a bouncing object without bouncing themselves
     private GameObject noBouncePlatform;
-
     #endregion
 
     void Awake()
@@ -74,7 +68,6 @@ public class PhysicsObject : MonoBehaviour
         rigidbody2D.mass = initialMass;
         rigidbody2D.sharedMaterial = initialPhysicsMaterial;
         rigidbody2D.gravityScale = 1;
-        //noBouncePlatform.SetActive(false);
         if (floatRoutine != null) StopCoroutine(floatRoutine);
 
         spriteRenderer.color = Color.white;
@@ -145,8 +138,8 @@ public class PhysicsObject : MonoBehaviour
     {
         while (transform.position.y < yPosInAir)
         {
-            Debug.Log("Going up");
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, floatSpeed);
+            if(touchingCeiling) rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
+            else rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, floatSpeed);
             yield return null;
         }
 
@@ -190,12 +183,20 @@ public class PhysicsObject : MonoBehaviour
         {
             yPosOnGround = transform.position.y;
         }
-        else if (other.GetContact(0).normal == Vector2.down && other.GetContact(0).collider.tag != "Player"
+    }
+
+    void OnCollisionStay2D(Collision2D other) 
+    {
+        if (other.GetContact(0).normal == Vector2.down && other.GetContact(0).collider.tag != "Player"
              && other.GetContact(0).collider.tag != "Clone" && floatRoutine != null)
         {
-            StopCoroutine(floatRoutine);
-            floatRoutine = null;
+            touchingCeiling = true;
         }
+    }
+
+    void OnCollisionExit2D(Collision2D other)
+    {
+        touchingCeiling = false;
     }
 
     void OnDestroy()

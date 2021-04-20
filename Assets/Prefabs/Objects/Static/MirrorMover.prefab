@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3339956301723709524}
   - component: {fileID: 3339956301723709525}
   - component: {fileID: 3339956301723709526}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MirrorMover
   m_TagString: Untagged
   m_Icon: {fileID: 0}

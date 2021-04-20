@@ -8,6 +8,8 @@ public class CheckPoint : MonoBehaviour
     [SerializeField] private TimeCloneController timeCloneController;
     [SerializeField] private GameObject previousEnemyGroup;
     [SerializeField] private Door doorBehind;
+    [SerializeField] private float minCameraY;
+    [SerializeField] private float maxCameraY;
     #endregion
 
     #region Public fields
@@ -29,6 +31,8 @@ public class CheckPoint : MonoBehaviour
                 r.CancelRecording();
                 r.ResetAllObjects();
             }
+
+            Camera.main.GetComponent<CameraTracker>().UpdateMaxAndMin(minCameraY, maxCameraY);
         }
     }
 

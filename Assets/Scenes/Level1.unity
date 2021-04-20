@@ -5050,7 +5050,7 @@ PrefabInstance:
     - target: {fileID: 1796333678008245537, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.83
+      value: 17.07
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245537, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
@@ -5101,6 +5101,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheckPoint 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
+        type: 3}
+      propertyPath: maxCameraY
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
@@ -13297,6 +13302,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab5cf3c32b8cff4fb8b6580f36ea591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1890742324 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2879771957952551433, guid: d1d92c333ecf1a146be33d5f05e3dba6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1679684564}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1933617099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13392,6 +13403,7 @@ GameObject:
   - component: {fileID: 1990087586}
   - component: {fileID: 1990087585}
   - component: {fileID: 1990087584}
+  - component: {fileID: 1990087587}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -13458,12 +13470,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1990087583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.6, y: 0, z: -10}
+  m_LocalPosition: {x: -13.38, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1990087587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990087583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e942d6a7b1f9af48b341e898e930afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 1890742324}
+  verticalOffset: 4
+  maxYPos: 10
+  minYPos: 0
 --- !u!4 &1990281728 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1294672955900094095, guid: 0985d78f2849f7f47abcf02de8c196ae,
@@ -13793,7 +13821,7 @@ PrefabInstance:
     - target: {fileID: 1796333678008245537, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.21
+      value: -4.73
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245537, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
@@ -13844,6 +13872,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheckPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
+        type: 3}
+      propertyPath: maxCameraY
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}

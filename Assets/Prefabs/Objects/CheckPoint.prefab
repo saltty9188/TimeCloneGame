@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1796333678008245543}
   - component: {fileID: 1796333678008245538}
   - component: {fileID: 1796333678008245536}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CheckPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeCloneController: {fileID: 0}
+  previousEnemyGroup: {fileID: 0}
+  doorBehind: {fileID: 0}
 --- !u!212 &1796333678008245538
 SpriteRenderer:
   m_ObjectHideFlags: 0

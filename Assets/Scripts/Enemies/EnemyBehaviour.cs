@@ -45,5 +45,6 @@ public class EnemyBehaviour : MonoBehaviour
     {
         transform.position = startPos;
         transform.localScale = startScale;
+        GetComponent<DamageFlash>().ResetShader();
     }
 }

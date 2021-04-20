@@ -32,9 +32,20 @@ public class DamageFlash : MonoBehaviour
         if(flashRoutine != null)
         {
             StopCoroutine(flashRoutine);
+            flashRoutine = null;
         }
 
         flashRoutine = StartCoroutine(FlashRoutine());
+    }
+
+    public void ResetShader()
+    {
+        SetFlash(startingMaterial, startingColor);
+        if(flashRoutine != null)
+        {
+            StopCoroutine(flashRoutine);
+            flashRoutine = null;
+        }
     }
 
     IEnumerator FlashRoutine()

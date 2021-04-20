@@ -412,6 +412,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1c61d63ea579843bb6f67999db7f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &278402577 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2879771957952551433, guid: d1d92c333ecf1a146be33d5f05e3dba6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1313741109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &288430323
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6597,6 +6603,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
+      propertyPath: maxCameraY
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
+        type: 3}
       propertyPath: timeCloneController
       value: 
       objectReference: {fileID: 88138071}
@@ -6857,6 +6868,7 @@ GameObject:
   - component: {fileID: 566533983}
   - component: {fileID: 566533982}
   - component: {fileID: 566533981}
+  - component: {fileID: 566533984}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6923,12 +6935,28 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 566533980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 38.15, y: 12.79, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &566533984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566533980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e942d6a7b1f9af48b341e898e930afb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 278402577}
+  verticalOffset: 4
+  maxYPos: 9
+  minYPos: 0
 --- !u!1001 &613828844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16477,6 +16505,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
+      propertyPath: maxCameraY
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
+        type: 3}
+      propertyPath: minCameraY
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
+        type: 3}
       propertyPath: timeCloneController
       value: 
       objectReference: {fileID: 88138071}
@@ -16509,12 +16547,12 @@ PrefabInstance:
     - target: {fileID: 2879771957952551433, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.81
+      value: -18.87
       objectReference: {fileID: 0}
     - target: {fileID: 2879771957952551433, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.3
+      value: -2.36
       objectReference: {fileID: 0}
     - target: {fileID: 2879771957952551433, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
@@ -16912,7 +16950,7 @@ PrefabInstance:
     - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
         type: 3}
       propertyPath: everythingButBullet.m_Bits
-      value: 3383
+      value: 3379
       objectReference: {fileID: 0}
     - target: {fileID: 5365053830334886447, guid: a48aa2887390e614b9c59e92ec15e217,
         type: 3}
@@ -17043,6 +17081,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheckPoint 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
+        type: 3}
+      propertyPath: maxCameraY
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
+        type: 3}
+      propertyPath: minCameraY
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}

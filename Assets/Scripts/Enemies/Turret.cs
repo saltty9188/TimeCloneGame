@@ -5,23 +5,26 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     #region Inspector fields
+    [SerializeField] private bool hasBase = false;
     [SerializeField] private float aimRadius = 10;
     [SerializeField] private GameObject projectilePrefab;
-
     [SerializeField] private float fireCooldown = 0.3f;
-
     [SerializeField] private LayerMask everythingButBullet;
     #endregion
     
     #region Private fields
     private float accumulatedTime;
-
     private GameObject currentTarget;
+    private bool collisionBelow = false;
+    private bool collisionAbove = false;
+    private Rigidbody2D aboveContact = null;
+    private Rigidbody2D belowContact = null;
     #endregion
 
-    void Awake()
+    void Start()
     {
         currentTarget = null;
+        EnemyManager.enemies.Add(gameObject);
     }
 
     void Update()
@@ -67,6 +70,20 @@ public class Turret : MonoBehaviour
         }
 
         if(accumulatedTime < fireCooldown) accumulatedTime += Time.deltaTime;
+
+        if(collisionAbove && collisionBelow)
+        {
+            if(hasBase)
+            {
+                transform.parent.gameObject.SetActive(false);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        if(collisionAbove) Debug.Log("Above");
+        if(collisionBelow) Debug.Log("Below");
     }
 
     void Shoot(Vector2 direction)
@@ -86,5 +103,40 @@ public class Turret : MonoBehaviour
         Vector3 direction = targetPosition - transform.position;
         float newRotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, newRotation);
+    }
+
+    void OnCollisionStay2D(Collision2D other) 
+    {
+        ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
+        other.GetContacts(contacts);
+        foreach(ContactPoint2D contact in contacts)
+        {
+            float angle = Vector2.Angle(contact.normal, Vector2.up);
+            Debug.Log(angle);
+            if(angle < 0.5f)
+            {
+                collisionBelow = true;
+                belowContact = contact.collider.GetComponent<Rigidbody2D>();
+            }
+            else if(angle > 179.5f)
+            {
+                collisionAbove = true;
+                aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+            }
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D other) 
+    {
+        if(other.collider.GetComponent<Rigidbody2D>() == aboveContact)
+        {
+            aboveContact = null;
+            collisionAbove = false;
+        }
+        else if(other.collider.GetComponent<Rigidbody2D>() == belowContact)
+        {
+            belowContact = null;
+            collisionBelow = false;
+        }
     }
 }

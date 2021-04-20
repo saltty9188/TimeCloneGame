@@ -43,12 +43,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("Jump", false); 
         } 
-
-        if(gameObject.tag == "Player")
-        {
-            //move camera for the player only
-            if(Camera.main) Camera.main.transform.position = transform.position + new Vector3(0, cameraVerticalOffest, Camera.main.transform.position.z);
-        }
     }
 
     public void move(Vector2 movement, bool jumping)

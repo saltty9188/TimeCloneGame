@@ -20,11 +20,10 @@ public class PlayerStatus : MonoBehaviour
     private float health;
     private float damageCooldown;
     private float invincibiltyTimer;
-
-    bool collisionBelow = false;
-    bool collisionAbove = false;
-    Rigidbody2D aboveContact = null;
-    Rigidbody2D belowContact = null;
+    private bool collisionBelow = false;
+    private bool collisionAbove = false;
+    private Rigidbody2D aboveContact = null;
+    private Rigidbody2D belowContact = null;
     #endregion
 
     void Start()
@@ -168,13 +167,12 @@ public class PlayerStatus : MonoBehaviour
         foreach(ContactPoint2D contact in contacts)
         {
             float angle = Vector2.Angle(contact.normal, Vector2.up);
-
-            if(Mathf.Approximately(angle, 0))
+            if(angle < 0.5f)
             {
                 collisionBelow = true;
                 belowContact = contact.collider.GetComponent<Rigidbody2D>();
             }
-            else if(Mathf.Approximately(angle, 180))
+            else if(angle > 179.5f)
             {
                 collisionAbove = true;
                 aboveContact = contact.collider.GetComponent<Rigidbody2D>();
