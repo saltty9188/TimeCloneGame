@@ -15,8 +15,8 @@ public class Button : MonoBehaviour
     #region Private fields
     private float defaultY;
     private bool buttonDown;
+    private bool buttonMovedDown;
     private bool[] eventsTriggered;
-
     private float startX;
     private float endX;
     private float yPos;
@@ -24,8 +24,9 @@ public class Button : MonoBehaviour
 
     void Start()
     {
-        defaultY = transform.position.y;
+        defaultY = transform.localPosition.y;
         buttonDown = false;
+        buttonMovedDown = false;
         eventsTriggered = new bool[attachedEvents.Length];
 
         startX = transform.position.x - (GetComponent<SpriteRenderer>().bounds.size.x / 2f);// * transform.localScale.x;
@@ -43,7 +44,7 @@ public class Button : MonoBehaviour
         {
             float xPos = startX + (i * width / divisor);
             
-            RaycastHit2D hit =  Physics2D.Raycast(new Vector2(xPos, yPos), Vector2.up, buttonSensitivity, canActivateButton);
+            RaycastHit2D hit =  Physics2D.Raycast(new Vector2(xPos, yPos), transform.up, buttonSensitivity, canActivateButton);
             if(hit && hit.collider.GetComponent<Rigidbody2D>() && hit.collider.GetComponent<Rigidbody2D>().mass >= minWeight)
             {
                 buttonDown = true;
@@ -58,8 +59,12 @@ public class Button : MonoBehaviour
 
         if(buttonDown)
         {
-            transform.position = new Vector3(transform.position.x, defaultY - (GetComponent<PolygonCollider2D>().bounds.size.y) / 2.0f, transform.position.z);
-            
+            if(!buttonMovedDown)
+            {
+                transform.Translate(new Vector3(0, -(GetComponent<PolygonCollider2D>().bounds.size.y) / 2.0f, 0), Space.Self);
+                buttonMovedDown = true;
+            }
+
             for(int i = 0; i < attachedEvents.Length; i++)
             {
                 if(!eventsTriggered[i]) 
@@ -72,7 +77,7 @@ public class Button : MonoBehaviour
         else
         {
             transform.position = new Vector3(transform.position.x, defaultY, transform.position.z);
-            
+            buttonMovedDown = false;
             for(int i = 0; i < attachedEvents.Length; i++)
             {
                 if(eventsTriggered[i]) 

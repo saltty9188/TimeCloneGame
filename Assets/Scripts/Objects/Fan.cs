@@ -17,7 +17,7 @@ public class Fan : MonoBehaviour
     {
         startX = transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2f;
         endX = transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2f;
-        yPos = transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2f + 0.01f;
+        yPos = transform.position.y + (GetComponent<SpriteRenderer>().bounds.size.y / 2f + 0.01f) * transform.up.y;
 
     }
 
@@ -30,7 +30,7 @@ public class Fan : MonoBehaviour
         for(float i = 0; i <= divisor; i += 1)
         {
             float xPos = startX + (i * width / divisor);
-            RaycastHit2D hit =  Physics2D.Raycast(new Vector2(xPos, yPos), Vector2.up, fanDist, layerMask);
+            RaycastHit2D hit =  Physics2D.Raycast(new Vector2(xPos, yPos), transform.up, fanDist, layerMask);
             if(hit)
             {
                 GameObject go = hit.collider.gameObject;
@@ -43,11 +43,11 @@ public class Fan : MonoBehaviour
                         rb.drag = 0.5f;
                         if(go.tag == "Player" || go.tag == "Clone")
                         {
-                            rb.AddForce(new Vector2(0, 10));
+                            rb.AddForce(transform.up * 10);
                         }
                         else
                         {
-                            rb.AddForce(new Vector2(0, fanPower));
+                            rb.AddForce(transform.up * fanPower);
                         }
                     }
                 }

@@ -28,8 +28,6 @@ public class PhysicsObject : MonoBehaviour
     private float yPosInAir;
     private bool touchingCeiling;
     private Coroutine floatRoutine;
-    //Empty child that allows player to stand on a bouncing object without bouncing themselves
-    private GameObject noBouncePlatform;
     #endregion
 
     void Awake()
@@ -44,7 +42,6 @@ public class PhysicsObject : MonoBehaviour
         initialMass = rigidbody2D.mass;
         recordingStartPosition = transform.position;
         initialPhysicsMaterial = rigidbody2D.sharedMaterial;
-        noBouncePlatform = transform.GetChild(0).gameObject;
         yPosOnGround = transform.position.y;
         allPhysicsObjects.Add(this);
     }
@@ -112,7 +109,6 @@ public class PhysicsObject : MonoBehaviour
     {
         rigidbody2D.sharedMaterial = bounceMaterial;
         rigidbody2D.drag = 0;
-        noBouncePlatform.SetActive(true);
 
         //Starting bounce if the object was stationary
         if (Mathf.Abs(rigidbody2D.velocity.y) < 1 &&
@@ -129,8 +125,8 @@ public class PhysicsObject : MonoBehaviour
         yPosInAir = yPosOnGround + floatHeight;
         floatRoutine = StartCoroutine(GoUp());
         rigidbody2D.gravityScale = 0;
-        rigidbody2D.isKinematic = true;
-        rigidbody2D.useFullKinematicContacts = true;
+        //rigidbody2D.isKinematic = true;
+        //rigidbody2D.useFullKinematicContacts = true;
         spriteRenderer.color = Color.yellow;
     }
 
@@ -138,8 +134,7 @@ public class PhysicsObject : MonoBehaviour
     {
         while (transform.position.y < yPosInAir)
         {
-            if(touchingCeiling) rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
-            else rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, floatSpeed);
+            rigidbody2D.velocity = new Vector2(0, floatSpeed);
             yield return null;
         }
 
@@ -185,19 +180,7 @@ public class PhysicsObject : MonoBehaviour
         }
     }
 
-    void OnCollisionStay2D(Collision2D other) 
-    {
-        if (other.GetContact(0).normal == Vector2.down && other.GetContact(0).collider.tag != "Player"
-             && other.GetContact(0).collider.tag != "Clone" && floatRoutine != null)
-        {
-            touchingCeiling = true;
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D other)
-    {
-        touchingCeiling = false;
-    }
+    
 
     void OnDestroy()
     {

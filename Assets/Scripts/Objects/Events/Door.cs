@@ -6,6 +6,7 @@ using TMPro;
 public class Door : ButtonEvent
 {
     #region Inspector fields
+    [SerializeField] private bool startsOn = false;
     [SerializeField] private bool startsUp = false;
     [SerializeField] private TextMeshProUGUI tempText;
     #endregion
@@ -21,6 +22,7 @@ public class Door : ButtonEvent
 
     protected virtual void Start()
     {
+
         if(startsUp)
         {
             defaultY = transform.position.y;
@@ -39,6 +41,11 @@ public class Door : ButtonEvent
         //Activate text showing number of required activations
         if(requiredActivations > 1) transform.GetChild(0).gameObject.SetActive(true);
 
+        if(startsOn)
+        {
+            activations = requiredActivations;
+            Activate();
+        }
     }
 
     protected virtual void Update()

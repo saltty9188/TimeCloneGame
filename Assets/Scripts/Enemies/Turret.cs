@@ -82,8 +82,6 @@ public class Turret : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
-        if(collisionAbove) Debug.Log("Above");
-        if(collisionBelow) Debug.Log("Below");
     }
 
     void Shoot(Vector2 direction)
@@ -112,7 +110,6 @@ public class Turret : MonoBehaviour
         foreach(ContactPoint2D contact in contacts)
         {
             float angle = Vector2.Angle(contact.normal, Vector2.up);
-            Debug.Log(angle);
             if(angle < 0.5f)
             {
                 collisionBelow = true;
