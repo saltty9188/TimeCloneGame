@@ -14,6 +14,7 @@ public class SecondBossScript : MonoBehaviour
     public Vector2 lowerLeft = new Vector2(72.5f, -0.5f);
     public bool onRight;
     public int shootingLandCount;
+    public float verticalSpeed;
     #endregion
 
     #region Private fields
@@ -94,6 +95,7 @@ public class SecondBossScript : MonoBehaviour
         {
             animator.SetBool("Jump", false);
             animator.SetTrigger("Land");
+            GetComponent<Rigidbody2D>().isKinematic = false;
         }
     }
     void SelectTarget()

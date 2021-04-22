@@ -6,12 +6,11 @@ public class SecondBossJump : StateMachineBehaviour
 {
     #region Inspector fields
     [SerializeField] private float horizontalSpeed = 10;
-    [SerializeField] private float jumpForce = 600;
+    [SerializeField] private float jumpForce = 20;
     #endregion
 
     #region Private fields
     private SecondBossScript bossScript;
-    private Rigidbody2D rigidbody2D;
     private bool firstFrame;
     #endregion
 
@@ -19,32 +18,24 @@ public class SecondBossJump : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossScript = animator.GetComponent<SecondBossScript>();
-        rigidbody2D = animator.GetComponent<Rigidbody2D>();
-        rigidbody2D.isKinematic = false;
-        firstFrame = true;
+        bossScript.verticalSpeed = jumpForce;
+        if(bossScript.shootingLandCount > 0) bossScript.verticalSpeed /= 1.5f;
+        animator.SetBool("Jump", true);
+        animator.GetComponent<Rigidbody2D>().isKinematic = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        
         if(bossScript.onRight)
         {
-            animator.transform.Translate(new Vector3(-horizontalSpeed * Time.deltaTime, 0, 0));
+            animator.transform.Translate(new Vector3(-horizontalSpeed, bossScript.verticalSpeed, 0)  * Time.deltaTime);
         }
         else
         {
-            animator.transform.Translate(new Vector3(horizontalSpeed * Time.deltaTime, 0, 0));
+            animator.transform.Translate(new Vector3(horizontalSpeed, bossScript.verticalSpeed, 0)  * Time.deltaTime);
         }
-
-        if(firstFrame)
-        {
-            float modifiedJumpForce = jumpForce / (bossScript.shootingLandCount > 0 ? 1.5f : 1);
-
-            rigidbody2D.AddForce(new Vector2(0, modifiedJumpForce));
-            animator.SetBool("Jump", true);
-            firstFrame = false;
-        }
+        bossScript.verticalSpeed -= 9.8f * Time.deltaTime;
 
         if(bossScript.onRight && animator.transform.position.x <= bossScript.lowerLeft.x)
         {
@@ -54,7 +45,6 @@ public class SecondBossJump : StateMachineBehaviour
         {
             animator.transform.position = new Vector3(bossScript.upperRight.x, animator.transform.position.y, animator.transform.position.z);
         }
-
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state

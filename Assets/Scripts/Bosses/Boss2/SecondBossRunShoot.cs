@@ -19,10 +19,8 @@ public class SecondBossRunShoot : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        bossScript = animator.GetComponent<SecondBossScript>();
-
-       Rigidbody2D rigidbody2D = animator.GetComponent<Rigidbody2D>();
-       rigidbody2D.velocity = new Vector2(0, 0);
-       rigidbody2D.isKinematic = true;
+       bossScript.transform.position = new Vector3(bossScript.upperRight.x, bossScript.lowerLeft.y, 0);
+       animator.GetComponent<Rigidbody2D>().isKinematic = true;
        nextStateSet = false;
     }
 
