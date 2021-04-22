@@ -19,7 +19,7 @@ public class DamageFlash : MonoBehaviour
     private Coroutine flashRoutine;
     #endregion
     
-    void Start()
+    void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         startingMaterial = spriteRenderer.material;
@@ -40,7 +40,7 @@ public class DamageFlash : MonoBehaviour
 
     public void ResetShader()
     {
-        SetFlash(startingMaterial, startingColor);
+        SetColour(startingMaterial, startingColor);
         if(flashRoutine != null)
         {
             StopCoroutine(flashRoutine);
@@ -50,24 +50,29 @@ public class DamageFlash : MonoBehaviour
 
     IEnumerator FlashRoutine()
     {
-        SetFlash(flashMaterial, color);
+        SetColour(flashMaterial, color);
 
         yield return new WaitForSeconds(duration);
 
-        SetFlash(startingMaterial, startingColor);
+        SetColour(startingMaterial, startingColor);
 
         flashRoutine = null;
     }
 
+    public void SetBaseColour(Color color)
+    {
+        startingColor = color;
+        SetColour(startingMaterial, startingColor);
+    }
 
-    void SetFlash(Material material, Color color)
+    void SetColour(Material material, Color color)
     {
         spriteRenderer.material = material;
         spriteRenderer.color = color;
-        if(transform.childCount > 0) SetFlash(material, color, gameObject);
+        if(transform.childCount > 0) SetColour(material, color, gameObject);
     }
 
-    void SetFlash(Material material, Color color, GameObject parent)
+    void SetColour(Material material, Color color, GameObject parent)
     {
         for(int i = 0; i < parent.transform.childCount; i++)
         {
@@ -78,7 +83,7 @@ public class DamageFlash : MonoBehaviour
                 sr.material = material;
                 sr.color = color;
             }
-            if(child.transform.childCount > 0) SetFlash(material, color, child);
+            if(child.transform.childCount > 0) SetColour(material, color, child);
         }
     }
 }

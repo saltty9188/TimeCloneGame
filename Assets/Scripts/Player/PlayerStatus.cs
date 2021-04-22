@@ -28,7 +28,7 @@ public class PlayerStatus : MonoBehaviour
 
     void Start()
     {
-        projectileParent = new GameObject("Player Projectiles");
+        projectileParent = new GameObject(tag + " Projectiles");
         //add player to target list
         if(EnemyManager.targets != null) EnemyManager.targets.Add(gameObject);
         damageCooldown = 0;
@@ -154,10 +154,10 @@ public class PlayerStatus : MonoBehaviour
         projectile.transform.parent = projectileParent.transform;
     }
 
-    public void DestroyAllProjectiles()
+    public void DestroyAllProjectiles(bool createNewParent = true)
     {
         Destroy(projectileParent);
-        projectileParent = new GameObject("Player Projectiles");
+        if(createNewParent) projectileParent = new GameObject(tag  + " Projectiles");
     }
 
     void OnCollisionStay2D(Collision2D other) 

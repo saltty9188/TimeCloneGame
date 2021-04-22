@@ -6,6 +6,7 @@ public class TimeCloneDevice : MonoBehaviour
 {
     #region Inspector fields
     [SerializeField] private GameObject recordingTemplate;
+    [SerializeField] private bool unstable = false;
     #endregion
 
     #region Private fields
@@ -44,10 +45,9 @@ public class TimeCloneDevice : MonoBehaviour
             
             timeCloneController.activeClones.Add(clone);
 
-           // if(EnemyTargets.targets != null) EnemyTargets.targets.Add(clone);
-
             ExecuteCommands ec = clone.GetComponent<ExecuteCommands>();
             ec.SetCommands(new List<RecordedCommand>(commands));
+            ec.SetUnstable(unstable);
             Aim cloneArm = clone.transform.GetChild(0).GetComponent<Aim>();
             if(weapon != null)
             {

@@ -10,6 +10,7 @@ public class ExecuteCommands : MonoBehaviour
     private List<RecordedCommand> recordedCommands;
     private int commandIndex;
     private float playbackTime;
+    private bool unstable; 
     #endregion
 
     void Awake()
@@ -57,9 +58,26 @@ public class ExecuteCommands : MonoBehaviour
         else Physics2D.IgnoreLayerCollision(8, 8, false);
     }
 
+    public void SetUnstable(bool unstable)
+    {
+        this.unstable = unstable;
+        if(unstable)
+        {
+            GetComponent<DamageFlash>().SetBaseColour(new Color(1, 0, 0, 0.59f));
+        }
+    }
+
     public void SetCommands(List<RecordedCommand> commands)
     {
         recordedCommands = commands;
         commandIndex = 0;
+    }
+
+    void OnCollisionEnter2D(Collision2D other) 
+    {
+        if(unstable && other.GetContact(0).collider.tag == "Player")
+        {
+            other.GetContact(0).collider.GetComponent<PlayerStatus>().Die();
+        }
     }
 }
