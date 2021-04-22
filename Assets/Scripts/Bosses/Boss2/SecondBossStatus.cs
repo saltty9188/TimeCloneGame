@@ -16,15 +16,12 @@ public class SecondBossStatus : MonoBehaviour
 
     #region Private fields
     private float health;
-    private float timer;
-
     private DamageFlash flashScript;
     #endregion
 
     void Start()
     {
         flashScript = GetComponent<DamageFlash>();
-        timer = 0;
         health = maxHealth;
         UpdateUI();
     }

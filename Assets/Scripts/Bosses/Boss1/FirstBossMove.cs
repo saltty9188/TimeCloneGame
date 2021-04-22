@@ -48,6 +48,7 @@ public class FirstBossMove : StateMachineBehaviour
                 onRight = !onRight;
                 animator.SetBool("OnRight", onRight);
                 animator.SetBool("Moving", false);
+                animator.GetComponents<FirstBossWeakpoint>()[0].HideWeakPoint();
             }
         }
     }

@@ -168,7 +168,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   healthText: {fileID: 0}
   enemyManager: {fileID: 0}
-  invincibleTime: 0.5
+  invincibleTime: 0.3
 --- !u!114 &7965813964980945995
 MonoBehaviour:
   m_ObjectHideFlags: 0

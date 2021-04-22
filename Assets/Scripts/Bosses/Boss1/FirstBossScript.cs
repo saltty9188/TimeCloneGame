@@ -20,7 +20,7 @@ public class FirstBossScript : MonoBehaviour
     private Animator animator;
     private GameObject closestTarget;
     private float shootTime;
-    bool inFight;
+    private bool inFight;
     private Vector3 initialScale;
     #endregion
 

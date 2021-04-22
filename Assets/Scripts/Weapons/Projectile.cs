@@ -92,10 +92,6 @@ public class Projectile : MonoBehaviour
                 t.Activate();
             }
         }
-        else if (collider.tag == "Boss1")
-        {
-            collider.GetComponent<FirstBossStatus>().ExposeWeakPoint();
-        }
         else if (collider.tag == "WeakPoint")
         {
             if (collider.transform.parent)
