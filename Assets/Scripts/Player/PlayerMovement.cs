@@ -6,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
 {
 
     #region Inspector fields
-    [SerializeField] private float cameraVerticalOffest = 2.5f;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpPower;
     [SerializeField] private float knockBackSpeed = 6;

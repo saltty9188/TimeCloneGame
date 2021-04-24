@@ -119,8 +119,7 @@ public class PlayerStatus : MonoBehaviour
         if(tag == "Player")
         {
             Recorder r = GetComponent<Recorder>();
-            r.ResetAllObjects();
-            r.CancelRecording();
+            r.CancelRecording(true);
             DestroyAllProjectiles();
             if(enemyManager) 
             {

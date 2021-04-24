@@ -30,7 +30,6 @@ public abstract class ButtonEvent : MonoBehaviour
         if(isOn)
         {
             activations++;
-            Debug.Log(activations);
             TriggerIfValid();
         }
     }

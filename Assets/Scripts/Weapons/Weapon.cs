@@ -26,6 +26,7 @@ public class Weapon : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Aim aimScript;
     private Vector3 initialSpawn;
+    private bool justDropped = false;
     #endregion
 
     protected virtual void Awake()
@@ -37,31 +38,32 @@ public class Weapon : MonoBehaviour
         initialSpawn = transform.position;
     }
 
+    void Start()
+    {
+        WeaponManager.weapons.Add(this);
+    }
+
     void Update()
     {
-        var colliders = Physics2D.OverlapCircleAll(transform.position, spriteRenderer.bounds.size.x);
-
-        if(!held)
-        {
-            //Check for collision
-            foreach(Collider2D collider in colliders)
-            {  
-                if(collider.gameObject == player)
-                {
-                    aimScript.PickUpWeapon(this);
-                    held = true;
-                }
-            }
-        }
         if(accumulatedTime < fireCooldown) accumulatedTime += Time.deltaTime;
     }
 
     public void PickUp(GameObject holder)
     {
         transform.SetParent(holder.transform);
+        held = true;
         transform.localPosition = pickUpPoint;
         transform.localRotation = new Quaternion();
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+    }
+
+    public void Drop(GameObject oldHolder)
+    {
+        transform.SetParent(null);
+        transform.rotation = new Quaternion();
+        transform.position = oldHolder.transform.position;
+        held = false;
+        justDropped = true;
     }
 
     public virtual GameObject Shoot(Quaternion rotation)
@@ -79,6 +81,11 @@ public class Weapon : MonoBehaviour
         return null;
     }
 
+    public void SetDefaultPosition()
+    {
+        initialSpawn = transform.position;
+    }
+
     public virtual void ResetWeapon()
     {
         held = false;
@@ -86,5 +93,22 @@ public class Weapon : MonoBehaviour
         transform.position = initialSpawn;
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         transform.rotation = new Quaternion();
+    }
+
+    void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(!held && !justDropped && other.gameObject == player)
+        {
+            aimScript.PickUpWeapon(this);
+            Debug.Log("Picked up " + gameObject.name);
+        }    
+    }
+
+    void OnTriggerExit2D(Collider2D other) 
+    {
+        if(other.gameObject == player && !held)
+        {
+            justDropped = false;
+        }
     }
 }

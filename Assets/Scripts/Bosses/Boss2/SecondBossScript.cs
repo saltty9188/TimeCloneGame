@@ -138,7 +138,6 @@ public class SecondBossScript : MonoBehaviour
 
     public void ResetBoss()
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2();
         transform.position = initialPosition;
         transform.localScale = initialScale;
         

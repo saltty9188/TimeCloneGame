@@ -65,11 +65,14 @@ public class PhysicsRay : Weapon
     #region Private fields
     private RayType currentRayType;
     private int index;
+
+    private int recordingStartIndex = -1;
     #endregion
     protected override void Awake()
     {
         base.Awake();
-        index = 1;
+        index = 0;
+        recordingStartIndex = index;
         currentRayType = RayType.Light;
     }
 
@@ -150,8 +153,13 @@ public class PhysicsRay : Weapon
 
     public void ResetRayType()
     {
-        index = 1;
-        currentRayType = RayType.Light;
+        index = recordingStartIndex;
+        currentRayType = allowedTypes[index].type;
+    }
+
+    public void SetStartingType()
+    {
+        recordingStartIndex = index;
     }
 
     public void SetRayType(RayType rayType)

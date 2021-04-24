@@ -29,8 +29,8 @@ public class Button : MonoBehaviour
         buttonMovedDown = false;
         eventsTriggered = new bool[attachedEvents.Length];
 
-        startX = transform.position.x - (GetComponent<SpriteRenderer>().bounds.size.x / 2f);// * transform.localScale.x;
-        endX = transform.position.x + (GetComponent<SpriteRenderer>().bounds.size.x / 2f);// * transform.localScale.x;
+        startX = transform.position.x - (GetComponent<SpriteRenderer>().bounds.size.x / 2f);
+        endX = transform.position.x + (GetComponent<SpriteRenderer>().bounds.size.x / 2f);
         yPos = transform.position.y + 0.01f;
     }
 

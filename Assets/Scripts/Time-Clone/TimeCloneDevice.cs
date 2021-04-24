@@ -11,16 +11,13 @@ public class TimeCloneDevice : MonoBehaviour
 
     #region Private fields
     private List<RecordedCommand> commands;
-    private GameObject weapon;
     private Vector3 spawn;
     private TimeCloneController timeCloneController;
-    private PhysicsRay.RayType startingRayType;
     #endregion
     
     void Awake()
     {
         commands = null;
-        weapon = null;
     }
 
     void Start()
@@ -28,12 +25,10 @@ public class TimeCloneDevice : MonoBehaviour
         timeCloneController = transform.parent.GetComponent<TimeCloneController>();
     }
 
-    public void StoreClone(List<RecordedCommand> commands, GameObject weapon, Vector3 spawn, PhysicsRay.RayType startingRayType)
+    public void StoreClone(List<RecordedCommand> commands, Vector3 spawn)
     {
         this.commands = commands;
-        this.weapon = weapon;
         this.spawn = spawn;
-        this.startingRayType = startingRayType;
     }
 
     public void Play()
@@ -49,21 +44,21 @@ public class TimeCloneDevice : MonoBehaviour
             ec.SetCommands(new List<RecordedCommand>(commands));
             ec.SetUnstable(unstable);
             Aim cloneArm = clone.transform.GetChild(0).GetComponent<Aim>();
-            if(weapon != null)
-            {
-                GameObject w = Instantiate(weapon, Vector3.zero, new Quaternion());
-                Weapon s = w.GetComponent<Weapon>();
-                cloneArm.PickUpWeapon(s);
-                Color baseCol = w.GetComponent<SpriteRenderer>().color;
-                baseCol.a = 0.6f;
-                w.GetComponent<SpriteRenderer>().color = baseCol;
+            // if(weapon != null)
+            // {
+            //     GameObject w = Instantiate(weapon, Vector3.zero, new Quaternion());
+            //     Weapon s = w.GetComponent<Weapon>();
+            //     cloneArm.PickUpWeapon(s);
+            //     Color baseCol = w.GetComponent<SpriteRenderer>().color;
+            //     baseCol.a = 0.6f;
+            //     w.GetComponent<SpriteRenderer>().color = baseCol;
 
-                if(typeof(PhysicsRay).IsInstanceOfType(s))
-                {
-                    PhysicsRay clonePhysicsRay = (PhysicsRay) s;
-                    clonePhysicsRay.SetRayType(startingRayType); 
-                }
-            }
+            //     if(typeof(PhysicsRay).IsInstanceOfType(s))
+            //     {
+            //         PhysicsRay clonePhysicsRay = (PhysicsRay) s;
+            //         clonePhysicsRay.SetRayType(startingRayType); 
+            //     }
+            // }
         }
     }
 
@@ -73,7 +68,6 @@ public class TimeCloneDevice : MonoBehaviour
         {
             commands.Clear();
             commands = null;
-            weapon = null;
             spawn = Vector3.zero;
         }
     }

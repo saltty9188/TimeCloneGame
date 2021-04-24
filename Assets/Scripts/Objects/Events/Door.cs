@@ -12,9 +12,9 @@ public class Door : ButtonEvent
     #endregion
 
     #region Private fields
-    private float defaultY;
-    private float activeY;
-    private float upY;
+    private Vector3 defaultPosition;
+    private Vector3 activePosition;
+    private Vector3 upPosition;
     private BoxCollider2D boxCollider2D;
 
     private SpriteRenderer spriteRenderer;
@@ -25,16 +25,16 @@ public class Door : ButtonEvent
 
         if(startsUp)
         {
-            defaultY = transform.position.y;
-            activeY = defaultY - GetComponent<BoxCollider2D>().bounds.size.y;
+            defaultPosition = transform.position;
+            activePosition = defaultPosition - transform.up * GetComponent<SpriteRenderer>().sprite.bounds.size.y;
         }
         else
         {
-            defaultY = transform.position.y;
-            activeY = defaultY + GetComponent<BoxCollider2D>().bounds.size.y;
+            defaultPosition = transform.position;
+            activePosition = defaultPosition + transform.up * GetComponent<SpriteRenderer>().sprite.bounds.size.y;
         }
 
-        upY = (defaultY > activeY ? defaultY : activeY);
+        upPosition = (startsUp ? defaultPosition : activePosition);
         boxCollider2D = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -50,7 +50,7 @@ public class Door : ButtonEvent
 
     protected virtual void Update()
     {
-        if(transform.position.y >= upY)
+        if(transform.position == upPosition)
         {
             boxCollider2D.enabled = false;
             spriteRenderer.enabled = false;
@@ -72,19 +72,19 @@ public class Door : ButtonEvent
     //Replace with animation later
     protected override void Activate() 
     {
-        transform.position = new Vector3(transform.position.x, activeY, transform.position.z);
+        transform.position = activePosition;
         if(tempText) tempText.gameObject.SetActive(false);
     }
 
     protected override void Deactivate()
     {
-        transform.position = new Vector3(transform.position.x, defaultY, transform.position.z);
+        transform.position = defaultPosition;
         if(tempText) tempText.gameObject.SetActive(true);
     }
 
     public override void ResetEvent()
     {
-        transform.position = new Vector3(transform.position.x, defaultY, transform.position.z);
+        transform.position = defaultPosition;
         if(tempText) tempText.gameObject.SetActive(true);
         activations = 0;
     }

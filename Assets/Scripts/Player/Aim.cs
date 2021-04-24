@@ -68,14 +68,14 @@ public class Aim : MonoBehaviour
 
             if(Mathf.Abs(armRotation) > 90 && facingRight)
             {
-                flip();
+                Flip();
                 facingRight = false;
                 angleOffset = 180;
             }
                 
             if(Mathf.Abs(armRotation) < 90 && !facingRight)
             {
-                flip();
+                Flip();
                 facingRight = true;
                 angleOffset = 0;
             }
@@ -95,14 +95,14 @@ public class Aim : MonoBehaviour
     {
         if(Mathf.Abs(armRotation) > 90 && facingRight)
         {
-            flip();
+            Flip();
             facingRight = false;
             angleOffset = 180;
         }
             
         if(Mathf.Abs(armRotation) < 90 && !facingRight)
         {
-            flip();
+            Flip();
             facingRight = true;
             angleOffset = 0;
         }
@@ -115,7 +115,7 @@ public class Aim : MonoBehaviour
         }
     }
 
-    void flip()
+    void Flip()
     {
         Vector3 temp = gameObject.transform.parent.localScale;
         temp.x *= -1;
@@ -124,9 +124,19 @@ public class Aim : MonoBehaviour
 
     public void PickUpWeapon(Weapon weapon)
     {
+        if(this.weapon != null)
+        {
+            DropWeapon();
+        }
         this.weapon = weapon;
         weapon.PickUp(gameObject);
-        weapon.held = true;
+        SetRayTypeText();
+    }
+
+    public void DropWeapon()
+    {
+        weapon.Drop(gameObject);
+        this.weapon = null;
         SetRayTypeText();
     }
 

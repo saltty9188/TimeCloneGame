@@ -41,7 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
         startScale = transform.localScale;
     }
 
-    public void ResetEnemy()
+    public virtual void ResetEnemy()
     {
         transform.position = startPos;
         transform.localScale = startScale;

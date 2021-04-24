@@ -412,6 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d11fae65547caa4d98548fc65a21cf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraVerticalOffest: 2.5
   moveSpeed: 5
   jumpPower: 600
   knockBackSpeed: 6
@@ -444,7 +445,7 @@ MonoBehaviour:
   healthBar: {fileID: 1324011766297427647}
   healthText: {fileID: 0}
   enemyManager: {fileID: 0}
-  invincibleTime: 2
+  invincibleTime: 0.3
 --- !u!114 &1098297579546745
 MonoBehaviour:
   m_ObjectHideFlags: 0

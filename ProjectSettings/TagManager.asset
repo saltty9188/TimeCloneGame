@@ -19,6 +19,8 @@ TagManager:
   - Boss1
   - Boss2
   - Ladder
+  - EnemyInvuln
+  - Weapon
   layers:
   - Default
   - TransparentFX

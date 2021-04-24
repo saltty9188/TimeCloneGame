@@ -29,8 +29,27 @@ public class ExecuteCommands : MonoBehaviour
             RecordedCommand rc = recordedCommands[commandIndex];
             if(rc.time >= playbackTime)
             {
-                //Remove weapon if player didn't have it yet
-                if(aim.CurrentWeapon) aim.CurrentWeapon.gameObject.SetActive(rc.hadWeapon);
+                //Equip the weapon the clone just picked up
+                if(rc.newWeapon)
+                {
+                    GameObject newWeapon = Instantiate(rc.newWeapon, new Vector3(), new Quaternion());
+                    Weapon weaponScript = newWeapon.GetComponent<Weapon>();
+                    Color baseCol = newWeapon.GetComponent<SpriteRenderer>().color;
+                    baseCol.a = GetComponent<SpriteRenderer>().color.a;
+                    newWeapon.GetComponent<SpriteRenderer>().color = baseCol;
+                    
+                    GameObject oldWeapon = null;
+                    if(aim.CurrentWeapon != null) oldWeapon = aim.CurrentWeapon.gameObject;
+                    aim.PickUpWeapon(weaponScript);
+                    if(oldWeapon != null) Destroy(oldWeapon);
+
+                        if(typeof(PhysicsRay).IsInstanceOfType(weaponScript))
+                        {
+                            PhysicsRay clonePhysicsRay = (PhysicsRay) weaponScript;
+                            PhysicsRay originalPhysicsRay = rc.newWeapon.GetComponent<PhysicsRay>();
+                            clonePhysicsRay.SetRayType(originalPhysicsRay.CurrentRay); 
+                        }
+                } 
                 playerMovement.move(rc.movement, rc.jumping);
 
                 if(rc.raySwitchValue > 0)

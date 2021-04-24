@@ -94,12 +94,20 @@ public class Projectile : MonoBehaviour
         }
         else if (collider.tag == "WeakPoint")
         {
-            if (collider.transform.parent)
+            if (collider.transform.parent && collider.transform.parent.tag == "Boss1")
             {
                 FirstBossStatus bs = collider.transform.parent.GetComponent<FirstBossStatus>();
                 if (bs)
                 {
                     bs.TakeDamage(damage);
+                }
+            }
+            else if(collider.transform.parent && collider.transform.parent.tag == "EnemyInvuln")
+            {
+                EnemyStatus es = collider.transform.parent.GetComponent<EnemyStatus>();
+                if(es && collider.transform.parent.gameObject != shooter)
+                {
+                    es.TakeDamage(damage);
                 }
             }
         }

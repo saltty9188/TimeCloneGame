@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private bool shooting;
     private float raySwitchValue;
     private bool recording;
+    private GameObject prevWeapon;
     private bool movingMirrors;
     private bool mirrorButtonHeld;
     #endregion
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
         controls = new PlayerControls();
 
         recording = false;
+        prevWeapon = null;
         nearbyCloneMachine = null;
         nearbyMirrorMover = null;
         movingMirrors = false;
@@ -93,6 +95,7 @@ public class PlayerController : MonoBehaviour
                 else if(recording)
                 {
                     recording = false;
+                    prevWeapon = null;
                     recorder.StopRecording();
                 }
             };
@@ -181,11 +184,18 @@ public class PlayerController : MonoBehaviour
 
         if(recording)
         {
-            recorder.AddCommand(movement, jumping, angle, shooting, aim.CurrentWeapon != null, raySwitchValue); // bool for mirror moving
+            //Check if weapon changed while recording
+            GameObject newWeapon = null;
+            if(aim.CurrentWeapon != null && prevWeapon != aim.CurrentWeapon.gameObject) newWeapon = aim.CurrentWeapon.gameObject;
+            prevWeapon = (aim.CurrentWeapon == null ? null : aim.CurrentWeapon.gameObject);
+
+            recorder.AddCommand(movement, jumping, angle, shooting, raySwitchValue, newWeapon); // bool for mirror moving
         }
 
         //Reset raySwitchValue after it has been recorded
         raySwitchValue = 0;
+
+        Debug.Log(nearbyCloneMachine == null);
     }
 
     void OnEnable() 
@@ -203,15 +213,21 @@ public class PlayerController : MonoBehaviour
         recording = false;
     }
 
-    void OnTriggerEnter2D(Collider2D other) 
+    void OnTriggerStay2D(Collider2D other) 
     {
-        nearbyCloneMachine = other.GetComponent<TimeCloneDevice>();
-        nearbyMirrorMover = other.GetComponent<MirrorMover>();
+        if(other.tag != "Weapon")
+        {
+            nearbyCloneMachine = other.GetComponent<TimeCloneDevice>();
+            nearbyMirrorMover = other.GetComponent<MirrorMover>();
+        }
     }
 
     void OnTriggerExit2D(Collider2D other) 
     {
-        nearbyCloneMachine = null;
-        nearbyMirrorMover = null;
+        if(other.tag != "Weapon")
+        {
+            nearbyCloneMachine = null;
+            nearbyMirrorMover = null;
+        }
     }
 }

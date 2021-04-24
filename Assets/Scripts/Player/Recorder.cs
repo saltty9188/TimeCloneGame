@@ -25,10 +25,9 @@ public class Recorder : MonoBehaviour
     private Aim aim;
     private TimeCloneDevice activeCloneMachine;
     private List<RecordedCommand> commands;
-    private PhysicsRay.RayType startingRayType;
     private bool recording;
     private Vector3 recordingStartPos;
-    private bool startedWithGun;
+    private Weapon startingWeapon;
     private float accumulatedTime;
     private float timer;
     #endregion
@@ -40,7 +39,6 @@ public class Recorder : MonoBehaviour
         commands = new List<RecordedCommand>();
         accumulatedTime = 0;
         timer = 0;
-        startingRayType = PhysicsRay.RayType.None;
     }
 
     void Update()
@@ -64,20 +62,21 @@ public class Recorder : MonoBehaviour
         PhysicsObject.UpdateAllInitialPositions();
         recordingStartPos = transform.position;
         activeCloneMachine = nearbyCloneMachine;
-        startedWithGun = weapon != null;
+        startingWeapon = weapon;
         timer = 60;
 
         timeCloneController.PlayBack(activeCloneMachine);
         if(enemyManager) enemyManager.CacheEnemyInfo();
+        WeaponManager.SetDefaultPosition();
         recordingIcon.SetActive(true);
         UpdateTimerText();
 
-        if(startedWithGun)
+        if(startingWeapon != null)
         {
             if(typeof(PhysicsRay).IsInstanceOfType(weapon))
             {
                 PhysicsRay pr = (PhysicsRay) weapon;
-                startingRayType = pr.CurrentRay;
+                pr.SetStartingType();
             }
         }
     }
@@ -89,8 +88,11 @@ public class Recorder : MonoBehaviour
         transform.position = recordingStartPos;
         timer = 0;
 
-        GameObject weapon = (aim.CurrentWeapon ? aim.CurrentWeapon.gameObject : null);
-        activeCloneMachine.StoreClone(new List<RecordedCommand>(commands), weapon, recordingStartPos, startingRayType);
+        GameObject endingWeapon = (aim.CurrentWeapon ? aim.CurrentWeapon.gameObject : null);
+        //FIX
+        activeCloneMachine.StoreClone(new List<RecordedCommand>(commands), recordingStartPos);
+        //
+
         commands.Clear();
         activeCloneMachine = null;
         recordingIcon.SetActive(false);
@@ -103,10 +105,9 @@ public class Recorder : MonoBehaviour
             enemyManager.ResetEnemies();
             enemyManager.ResetCurrentBoss();
         }
-        if(!startedWithGun)
-        {
-            aim.ResetWeapon();
-        }
+        if(aim.CurrentWeapon != null) aim.DropWeapon();
+        WeaponManager.ResetAllWeapons();
+        if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
     }
 
     public void ResetAllObjects()
@@ -136,14 +137,14 @@ public class Recorder : MonoBehaviour
         }
     }
 
-    public void AddCommand(Vector2 movement, bool jumping, float angle, bool shooting, bool hasWeapon, float raySwitchValue)
+    public void AddCommand(Vector2 movement, bool jumping, float angle, bool shooting, float raySwitchValue, GameObject newWeapon = null)
     {
         accumulatedTime += Time.fixedDeltaTime;
-        RecordedCommand command = new RecordedCommand(movement, jumping, angle, shooting, accumulatedTime, hasWeapon, raySwitchValue);
+        RecordedCommand command = new RecordedCommand(movement, jumping, angle, shooting, accumulatedTime, raySwitchValue, newWeapon);
         commands.Add(command);
     }
 
-    public void CancelRecording()
+    public void CancelRecording(bool playerDied = false)
     {
         if(recording)
         {
@@ -154,6 +155,20 @@ public class Recorder : MonoBehaviour
             recordingIcon.SetActive(false);
             timeCloneController.RemoveAllActiveClones();
             GetComponent<PlayerController>().RecordingCancelled();
+            if(playerDied)
+            {
+                ResetAllObjects();
+                PhysicsObject.ResetAllPhysics(true);
+                GetComponent<PlayerStatus>().DestroyAllProjectiles();
+                if(enemyManager)
+                {
+                    enemyManager.ResetEnemies();
+                    enemyManager.ResetCurrentBoss();
+                }
+                if(aim.CurrentWeapon != null) aim.DropWeapon();
+                WeaponManager.ResetAllWeapons();
+                if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
+            }
         }
     }
 
