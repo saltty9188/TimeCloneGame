@@ -37,10 +37,30 @@ public class MirrorMover : MonoBehaviour
         UpdateRigidBodies();
         MakeOutline();
     }
-    public void StartMover()
+
+    public void SetInitialPositions()
     {
-        moveCamera.enabled = true;
-        mainCamera.enabled = false;
+        foreach(GameObject go in movableObjects)
+        {
+            go.GetComponent<MovableObject>().SetInitialPosition();
+        }
+    }
+
+    public void ResetPositions()
+    {
+        foreach(GameObject go in movableObjects)
+        {
+            go.GetComponent<MovableObject>().ResetPosition();
+        }
+    }
+
+    public void StartMover(bool switchCam = true)
+    {
+        if(switchCam)
+        {
+            moveCamera.enabled = true;
+            mainCamera.enabled = false;
+        }
         Initialise();
     }
 
@@ -51,7 +71,7 @@ public class MirrorMover : MonoBehaviour
         foreach(GameObject obj in movableObjects)
         {
             Rigidbody2D temp = obj.GetComponent<Rigidbody2D>();
-            temp.isKinematic = false;
+            temp.isKinematic = true;
             temp.useFullKinematicContacts = false;
         }
         Destroy(outline);
@@ -96,7 +116,6 @@ public class MirrorMover : MonoBehaviour
         UpdateOutline();
         currentObjectRigidbody.velocity = direction * objectMoveSpeed;
         UpdateCamera();
-        
     }
 
     void UpdateCamera()
@@ -106,7 +125,6 @@ public class MirrorMover : MonoBehaviour
 
     void UpdateRigidBodies()
     {
-
         foreach(GameObject obj in movableObjects)
         {
             Rigidbody2D temp = obj.GetComponent<Rigidbody2D>();

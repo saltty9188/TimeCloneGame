@@ -19,6 +19,7 @@ public class PhysicsObject : MonoBehaviour
 
     #region  Private fields
     private static List<PhysicsObject> allPhysicsObjects;
+    private Transform originalParent;
     private Rigidbody2D rigidbody2D;
     private SpriteRenderer spriteRenderer;
     private float initialMass;
@@ -37,6 +38,7 @@ public class PhysicsObject : MonoBehaviour
 
     void Start()
     {
+        originalParent = transform;
         rigidbody2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         initialMass = rigidbody2D.mass;
@@ -68,6 +70,11 @@ public class PhysicsObject : MonoBehaviour
         if (floatRoutine != null) StopCoroutine(floatRoutine);
 
         spriteRenderer.color = Color.white;
+    }
+
+    public void ResetParent()
+    {
+        transform.parent = originalParent;
     }
 
     public static void UpdateAllInitialPositions()

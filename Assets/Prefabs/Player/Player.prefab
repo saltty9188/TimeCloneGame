@@ -147,11 +147,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d11fae65547caa4d98548fc65a21cf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraVerticalOffest: 4
   moveSpeed: 5
   jumpPower: 600
   knockBackSpeed: 10
   knockBackDuration: 0.2
+  boxGrabDistance: 0.75
+  allButPlayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &7145441696750806144
 MonoBehaviour:
   m_ObjectHideFlags: 0

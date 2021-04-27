@@ -12,6 +12,7 @@ public class Recorder : MonoBehaviour
     [SerializeField] private GameObject recordingIcon;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject events;
+    [SerializeField] private MirrorMover[] mirrorMovers;
     #endregion
 
     #region Public fields
@@ -70,6 +71,10 @@ public class Recorder : MonoBehaviour
         WeaponManager.SetDefaultPosition();
         recordingIcon.SetActive(true);
         UpdateTimerText();
+        foreach(MirrorMover mover in mirrorMovers)
+        {
+            mover.SetInitialPositions();
+        }
 
         if(startingWeapon != null)
         {
@@ -89,9 +94,7 @@ public class Recorder : MonoBehaviour
         timer = 0;
 
         GameObject endingWeapon = (aim.CurrentWeapon ? aim.CurrentWeapon.gameObject : null);
-        //FIX
         activeCloneMachine.StoreClone(new List<RecordedCommand>(commands), recordingStartPos);
-        //
 
         commands.Clear();
         activeCloneMachine = null;
@@ -105,6 +108,12 @@ public class Recorder : MonoBehaviour
             enemyManager.ResetEnemies();
             enemyManager.ResetCurrentBoss();
         }
+
+        foreach(MirrorMover mover in mirrorMovers)
+        {
+            mover.ResetPositions();
+        }
+
         if(aim.CurrentWeapon != null) aim.DropWeapon();
         WeaponManager.ResetAllWeapons();
         if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
@@ -137,10 +146,10 @@ public class Recorder : MonoBehaviour
         }
     }
 
-    public void AddCommand(Vector2 movement, bool jumping, float angle, bool shooting, float raySwitchValue, GameObject newWeapon = null)
+    public void AddCommand(Vector2 movement, bool jumping, float angle, bool shooting, float raySwitchValue, bool grabbing, bool movingMirror, float mirrorMoveValue, GameObject newWeapon = null)
     {
         accumulatedTime += Time.fixedDeltaTime;
-        RecordedCommand command = new RecordedCommand(movement, jumping, angle, shooting, accumulatedTime, raySwitchValue, newWeapon);
+        RecordedCommand command = new RecordedCommand(movement, jumping, angle, shooting, accumulatedTime, raySwitchValue, grabbing, movingMirror, mirrorMoveValue, newWeapon);
         commands.Add(command);
     }
 
@@ -168,6 +177,11 @@ public class Recorder : MonoBehaviour
                 if(aim.CurrentWeapon != null) aim.DropWeapon();
                 WeaponManager.ResetAllWeapons();
                 if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
+
+                foreach(MirrorMover mover in mirrorMovers)
+                {
+                    mover.ResetPositions();
+                }
             }
         }
     }

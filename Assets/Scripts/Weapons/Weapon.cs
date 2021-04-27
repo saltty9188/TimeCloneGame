@@ -89,6 +89,7 @@ public class Weapon : MonoBehaviour
     public virtual void ResetWeapon()
     {
         held = false;
+        justDropped = false;
         transform.parent = null;
         transform.position = initialSpawn;
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);

@@ -5,21 +5,27 @@ using UnityEngine;
 public class ExecuteCommands : MonoBehaviour
 {
     #region Private fields
+    private Rigidbody2D rigidbody2D;
     private PlayerMovement playerMovement;
     private Aim aim;
     private List<RecordedCommand> recordedCommands;
     private int commandIndex;
     private float playbackTime;
     private bool unstable; 
+    private MirrorMover nearbyMirrorMover;
+    private bool wasMovingMirror;
     #endregion
 
     void Awake()
     {
         recordedCommands = null;
         commandIndex = -1;
+        rigidbody2D = GetComponent<Rigidbody2D>();
         playerMovement = GetComponent<PlayerMovement>();
         aim = transform.GetChild(0).GetComponent<Aim>();
         playbackTime = 0;
+        nearbyMirrorMover = null;
+        wasMovingMirror = false;
     }
 
     void FixedUpdate()
@@ -50,17 +56,51 @@ public class ExecuteCommands : MonoBehaviour
                             clonePhysicsRay.SetRayType(originalPhysicsRay.CurrentRay); 
                         }
                 } 
-                playerMovement.move(rc.movement, rc.jumping);
 
-                if(rc.raySwitchValue > 0)
+                if(rc.movingMirror)
                 {
-                    aim.NextRayType();
+                    if(!wasMovingMirror)
+                    {
+                        nearbyMirrorMover.StartMover(false);
+                        rigidbody2D.isKinematic = true;
+                        rigidbody2D.useFullKinematicContacts = true;
+                    }
+
+                    if(rc.mirrorMoveValue > 0)
+                    {
+                        nearbyMirrorMover.CycleNextObject();
+                    }
+                    else if(rc.mirrorMoveValue < 0)
+                    {
+                        nearbyMirrorMover.CyclePrevObject();
+                    }
+
+                    nearbyMirrorMover.Move(rc.movement);
+                    
                 }
-                else if (rc.raySwitchValue < 0)
+                else
                 {
-                    aim.PrevRayType();
+                    if(wasMovingMirror)
+                    {
+                        nearbyMirrorMover.ExitMover();
+                        rigidbody2D.isKinematic = false;
+                        rigidbody2D.useFullKinematicContacts = false;
+                    }
+
+
+                    if(rc.raySwitchValue > 0)
+                    {
+                        aim.NextRayType();
+                    }
+                    else if (rc.raySwitchValue < 0)
+                    {
+                        aim.PrevRayType();
+                    }
+                    playerMovement.move(rc.movement, rc.jumping, rc.grabbing);
+                    aim.CloneRotate(rc.aimAngle, rc.shooting);
                 }
-                aim.CloneRotate(rc.aimAngle, rc.shooting);
+
+                wasMovingMirror = rc.movingMirror;
                 playbackTime += Time.fixedDeltaTime;
             }
             commandIndex++;
@@ -68,7 +108,7 @@ public class ExecuteCommands : MonoBehaviour
         else
         {
             //Stop moving clone once commands end
-            playerMovement.move(Vector2.zero, false);
+            playerMovement.move(Vector2.zero, false, false);
             RecordedCommand rc = recordedCommands[commandIndex - 1];
             aim.CloneRotate(rc.aimAngle, rc.shooting);
         }
@@ -94,9 +134,17 @@ public class ExecuteCommands : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other) 
     {
-        if(unstable && other.GetContact(0).collider.tag == "Player")
+        if(unstable && (other.GetContact(0).collider.tag == "Player" || other.GetContact(0).collider.tag == "Clone"))
         {
             other.GetContact(0).collider.GetComponent<PlayerStatus>().Die();
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.tag != "Weapon")
+        {
+            nearbyMirrorMover = other.GetComponent<MirrorMover>();
         }
     }
 }

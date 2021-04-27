@@ -10,9 +10,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpPower;
     [SerializeField] private float knockBackSpeed = 6;
     [SerializeField] private float knockBackDuration = 0.25f;
+    [SerializeField] private float boxGrabDistance = 0.75f;
+    [SerializeField] private LayerMask allButPlayer;
     #endregion
 
     #region Private fields
+    private Aim aimScript;
     private Rigidbody2D rigidbody;
     private Animator animator;
     private Vector2 playerSize;
@@ -20,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private bool betweenTwoLadders;
     private bool onLadder;
     private bool grounded;
+    private bool grabbing;
     private Transform originalParent;
     protected float knockBackTime;
     protected Vector2 knockBackDirection;
@@ -31,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         playerSize = GetComponent<CapsuleCollider2D>().size;
         originalParent = transform.parent;
+        aimScript = transform.GetChild(0).GetComponent<Aim>();
     }
 
     void FixedUpdate()
@@ -44,8 +49,28 @@ public class PlayerMovement : MonoBehaviour
         } 
     }
 
-    public void move(Vector2 movement, bool jumping)
+    public void move(Vector2 movement, bool jumping, bool grabbing)
     {
+        this.grabbing = grabbing;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, boxGrabDistance, allButPlayer);
+        if(hit && hit.collider.tag == "Box")
+        {
+            FixedJoint2D joint = hit.collider.GetComponent<FixedJoint2D>();
+            if(grabbing)
+            {
+                joint.enabled = true;
+                joint.connectedBody = rigidbody;
+                aimScript.enabled = false;
+            }
+            else
+            {
+                joint.enabled = false;
+                joint.connectedBody = null;
+                aimScript.enabled = true;
+            }
+        }
+
         if(knockBackTime > 0)
         {
             knockBackTime -= Time.deltaTime;
@@ -149,23 +174,22 @@ public class PlayerMovement : MonoBehaviour
             transform.parent = other.GetContact(0).collider.transform;
         }
 
+        float angle = Vector2.Angle(other.GetContact(0).normal, Vector2.up);
+
         PhysicsObject po = other.GetContact(0).collider.GetComponent<PhysicsObject>();
-        if(po)
+        if(po && angle < 45)
         {
             transform.parent = other.GetContact(0).collider.transform;
         }
+
     }
 
     void OnCollisionStay2D(Collision2D other)
     {
-        ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
-        other.GetContacts(contacts);
-        foreach(var contact in contacts)
-        {
-            float angle = Vector2.Angle(contact.normal, Vector2.up);
-            if(angle < 40) {
-                grounded = true; 
-            }
+        float angle = Vector2.Angle(other.GetContact(0).normal, Vector2.up);
+
+        if(angle < 40) {
+            grounded = true; 
         }
     }
 
@@ -173,6 +197,8 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.parent = originalParent;
         grounded = false;
+
+        
     }  
 
     public void ReceiveKnockBack(Vector2 direction)

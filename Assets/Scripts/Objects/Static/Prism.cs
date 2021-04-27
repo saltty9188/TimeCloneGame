@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Prism : MonoBehaviour
+public class Prism : MovableObject
 {
     #region Inspector fields
     [SerializeField] private Vector2[] outputDirections;
@@ -26,9 +26,7 @@ public class Prism : MonoBehaviour
                 Physics2D.IgnoreCollision(GetComponent<Collider2D>(), go.GetComponent<Collider2D>());
             }
 
-            Destroy(other.GetContact(0).collider.gameObject);
-
-            
+            Destroy(other.GetContact(0).collider.gameObject);            
         }
     }
 

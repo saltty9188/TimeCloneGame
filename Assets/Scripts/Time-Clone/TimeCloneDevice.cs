@@ -44,21 +44,6 @@ public class TimeCloneDevice : MonoBehaviour
             ec.SetCommands(new List<RecordedCommand>(commands));
             ec.SetUnstable(unstable);
             Aim cloneArm = clone.transform.GetChild(0).GetComponent<Aim>();
-            // if(weapon != null)
-            // {
-            //     GameObject w = Instantiate(weapon, Vector3.zero, new Quaternion());
-            //     Weapon s = w.GetComponent<Weapon>();
-            //     cloneArm.PickUpWeapon(s);
-            //     Color baseCol = w.GetComponent<SpriteRenderer>().color;
-            //     baseCol.a = 0.6f;
-            //     w.GetComponent<SpriteRenderer>().color = baseCol;
-
-            //     if(typeof(PhysicsRay).IsInstanceOfType(s))
-            //     {
-            //         PhysicsRay clonePhysicsRay = (PhysicsRay) s;
-            //         clonePhysicsRay.SetRayType(startingRayType); 
-            //     }
-            // }
         }
     }
 

@@ -20,10 +20,12 @@ public class PlayerController : MonoBehaviour
     private Vector2 movement;
     private bool jumping;
     private bool shooting;
+    private bool grabbing;
     private float raySwitchValue;
     private bool recording;
     private GameObject prevWeapon;
     private bool movingMirrors;
+    float mirrorMoveValue;
     private bool mirrorButtonHeld;
     #endregion
 
@@ -87,12 +89,12 @@ public class PlayerController : MonoBehaviour
         //recording
         controls.Gameplay.Record.performed += ctx =>
             {
-                if(nearbyCloneMachine && !recording)
+                if(nearbyCloneMachine && !recording && !movingMirrors)
                 {
                     recording = true;
                     recorder.StartRecording(nearbyCloneMachine, aim.CurrentWeapon);
                 }
-                else if(recording)
+                else if(recording && !movingMirrors)
                 {
                     recording = false;
                     prevWeapon = null;
@@ -141,12 +143,12 @@ public class PlayerController : MonoBehaviour
             {
                 if(movingMirrors && !mirrorButtonHeld)
                 {
-                    float moveValue = ctx.ReadValue<float>();
-                    if(moveValue > 0)
+                    mirrorMoveValue = ctx.ReadValue<float>();
+                    if(mirrorMoveValue > 0)
                     {
                         nearbyMirrorMover.CycleNextObject();
                     }
-                    else if(moveValue < 0)
+                    else if(mirrorMoveValue < 0)
                     {
                         nearbyMirrorMover.CyclePrevObject();
                     }
@@ -164,6 +166,17 @@ public class PlayerController : MonoBehaviour
                     rigidbody2D.useFullKinematicContacts = false;
                 }
             };
+
+        // Grab
+        controls.Gameplay.Grab.performed += ctx =>
+            {
+                grabbing = true;
+            };
+
+        controls.Gameplay.Grab.canceled += ctx =>
+            {
+                grabbing = false;
+            };
     }
 
     void FixedUpdate()
@@ -177,7 +190,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            playerMovement.move(movement, jumping);
+            Debug.Log(grabbing);
+            playerMovement.move(movement, jumping, grabbing);
             angle = aim.Rotate(controlScheme.displayName, aimVector, shooting);
         }
         
@@ -189,13 +203,12 @@ public class PlayerController : MonoBehaviour
             if(aim.CurrentWeapon != null && prevWeapon != aim.CurrentWeapon.gameObject) newWeapon = aim.CurrentWeapon.gameObject;
             prevWeapon = (aim.CurrentWeapon == null ? null : aim.CurrentWeapon.gameObject);
 
-            recorder.AddCommand(movement, jumping, angle, shooting, raySwitchValue, newWeapon); // bool for mirror moving
+            recorder.AddCommand(movement, jumping, angle, shooting, raySwitchValue, grabbing, movingMirrors, mirrorMoveValue, newWeapon); // bool for mirror moving
         }
 
-        //Reset raySwitchValue after it has been recorded
+        //Reset move values after they have been recorded
         raySwitchValue = 0;
-
-        Debug.Log(nearbyCloneMachine == null);
+        mirrorMoveValue = 0;
     }
 
     void OnEnable() 
@@ -211,6 +224,13 @@ public class PlayerController : MonoBehaviour
     public void RecordingCancelled()
     {
         recording = false;
+        if(movingMirrors)
+        {
+            movingMirrors = false;
+            nearbyMirrorMover.ExitMover();
+            rigidbody2D.isKinematic = false;
+            rigidbody2D.useFullKinematicContacts = false;
+        }
     }
 
     void OnTriggerStay2D(Collider2D other) 
