@@ -132,6 +132,14 @@ public class ExecuteCommands : MonoBehaviour
         commandIndex = 0;
     }
 
+    public void RemoveWeapon()
+    {
+        if(aim.CurrentWeapon != null)
+        {
+            Destroy(aim.CurrentWeapon.gameObject);
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D other) 
     {
         if(unstable && (other.GetContact(0).collider.tag == "Player" || other.GetContact(0).collider.tag == "Clone"))

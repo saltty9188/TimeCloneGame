@@ -68,7 +68,7 @@ public class Recorder : MonoBehaviour
 
         timeCloneController.PlayBack(activeCloneMachine);
         if(enemyManager) enemyManager.CacheEnemyInfo();
-        WeaponManager.SetDefaultPosition();
+        if(WeaponManager.weapons != null) WeaponManager.SetDefaultPosition();
         recordingIcon.SetActive(true);
         UpdateTimerText();
         foreach(MirrorMover mover in mirrorMovers)
@@ -115,7 +115,7 @@ public class Recorder : MonoBehaviour
         }
 
         if(aim.CurrentWeapon != null) aim.DropWeapon();
-        WeaponManager.ResetAllWeapons();
+        if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
         if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
     }
 
@@ -175,12 +175,19 @@ public class Recorder : MonoBehaviour
                     enemyManager.ResetCurrentBoss();
                 }
                 if(aim.CurrentWeapon != null) aim.DropWeapon();
-                WeaponManager.ResetAllWeapons();
+                if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
                 if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
 
                 foreach(MirrorMover mover in mirrorMovers)
                 {
                     mover.ResetPositions();
+                }
+            }
+            else
+            {
+                foreach(MirrorMover mover in mirrorMovers)
+                {
+                    mover.ExitMover();
                 }
             }
         }

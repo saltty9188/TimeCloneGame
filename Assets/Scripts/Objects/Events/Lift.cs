@@ -90,7 +90,6 @@ public class Lift : ButtonEvent
     {
         while(transform.position.y < upY)
         {
-            Debug.Log("Going up");
             transform.Translate(new Vector3(0, speed * Time.deltaTime, 0), Space.World);
             yield return null;
         }
@@ -100,7 +99,6 @@ public class Lift : ButtonEvent
     {
         while(transform.position.y > downY)
         {
-            Debug.Log("Going down");
             transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0), Space.World);
             yield return null;
         }

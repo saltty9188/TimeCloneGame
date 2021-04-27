@@ -63,12 +63,15 @@ public class Projectile : MonoBehaviour
 
         if(cooldown > 0) cooldown -= Time.deltaTime;
 
-        Vector3 screenPos = Camera.main.WorldToViewportPoint(transform.position);
-
-        //Destroy projectile if its off camera
-        if (screenPos.x < -0.5f || screenPos.x > 1.5f || screenPos.y < -0.5f || screenPos.y > 1.5f)
+        if(Camera.main)
         {
-            GameObject.Destroy(gameObject);
+            Vector3 screenPos = Camera.main.WorldToViewportPoint(transform.position);
+
+            //Destroy projectile if its off camera
+            if (screenPos.x < -0.5f || screenPos.x > 1.5f || screenPos.y < -0.5f || screenPos.y > 1.5f)
+            {
+                GameObject.Destroy(gameObject);
+            }
         }
 
         //Catch collision bugs
