@@ -12,6 +12,7 @@ public class GuardBot : EnemyBehaviour
     [SerializeField] private int damage = 5;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private LayerMask everythingButBullet;
+    [SerializeField] private Door roomExit;
     #endregion
     
     #region Private fields
@@ -20,6 +21,7 @@ public class GuardBot : EnemyBehaviour
     private float leftBoundary;
     private float rightBoundary;
     private GameObject currentTarget;
+    private float startSpeed;
     private bool collisionBelow = false;
     private bool collisionAbove = false;
     private Rigidbody2D aboveContact = null;
@@ -27,13 +29,14 @@ public class GuardBot : EnemyBehaviour
     #endregion
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         leftBoundary = transform.position.x - moveBoundaryWidth / 2f;
         rightBoundary = transform.position.x + moveBoundaryWidth / 2f;
         currentTarget = null;
+        startSpeed = moveSpeed;
         EnemyManager.enemies.Add(gameObject);
     }
 
@@ -184,12 +187,15 @@ public class GuardBot : EnemyBehaviour
 
     public void Shoot()
     {
-        Vector2 direction = currentTarget.transform.position - transform.position;
-        GameObject go = Instantiate(projectilePrefab, transform.GetChild(0).position, new Quaternion());
-        Projectile p = go.GetComponent<Projectile>();
-        p.direction = direction;
-        p.damage = damage;
-        p.SetShooter(gameObject);     
+        if(currentTarget != null)
+        {
+            Vector2 direction = currentTarget.transform.position - transform.position;
+            GameObject go = Instantiate(projectilePrefab, transform.GetChild(0).position, new Quaternion());
+            Projectile p = go.GetComponent<Projectile>();
+            p.direction = direction;
+            p.damage = damage;
+            p.SetShooter(gameObject);   
+        }  
     }
 
     void Flip()
@@ -199,10 +205,16 @@ public class GuardBot : EnemyBehaviour
         transform.localScale = temp;
     }
 
+    public override void RecordingStarted()
+    {
+        base.RecordingStarted();
+        startSpeed = moveSpeed;
+    }
+
     public override void ResetEnemy()
     {
         base.ResetEnemy();
-        moveSpeed = Mathf.Abs(moveSpeed);
+        moveSpeed = startSpeed;
     }
 
     void OnCollisionStay2D(Collision2D other) 
@@ -211,16 +223,19 @@ public class GuardBot : EnemyBehaviour
         other.GetContacts(contacts);
         foreach(ContactPoint2D contact in contacts)
         {
-            float angle = Vector2.Angle(contact.normal, Vector2.up);
-            if(angle < 0.5f)
+            if(contact.collider.tag != "Player" && contact.collider.tag != "Clone")
             {
-                collisionBelow = true;
-                belowContact = contact.collider.GetComponent<Rigidbody2D>();
-            }
-            else if(angle > 179.5f)
-            {
-                collisionAbove = true;
-                aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+                float angle = Vector2.Angle(contact.normal, Vector2.up);
+                if(angle < 0.5f)
+                {
+                    collisionBelow = true;
+                    belowContact = contact.collider.GetComponent<Rigidbody2D>();
+                }
+                else if(angle > 179.5f)
+                {
+                    collisionAbove = true;
+                    aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+                }
             }
         }
     }
@@ -242,5 +257,10 @@ public class GuardBot : EnemyBehaviour
     private void OnDrawGizmos() {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, aimRadius);
+    }
+
+    void OnDisable() 
+    {
+        if(roomExit) roomExit.AddActivation();    
     }
 }

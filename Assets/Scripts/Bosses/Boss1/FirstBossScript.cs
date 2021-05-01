@@ -8,8 +8,6 @@ public class FirstBossScript : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private int damage = 5;
     [SerializeField] private float phaseTransitionTime = 10;
-    [SerializeField] private RecordingDoor roomEntrance;
-
     #endregion
 
     #region Public fields
@@ -53,8 +51,6 @@ public class FirstBossScript : MonoBehaviour
         {
             transform.position = initialPosition;
         }
-
-        roomEntrance.SetInFight(inFight);
     }
 
     public void Shoot()
@@ -99,7 +95,7 @@ public class FirstBossScript : MonoBehaviour
         shootTime = 0;
         inFight = false;
 
-        GetComponent<FirstBossStatus>().ResetStatus();
+        GetComponent<BossStatus>().ResetStatus();
 
         animator.ResetTrigger("Start Fight");
         animator.SetBool("OnRight", true);

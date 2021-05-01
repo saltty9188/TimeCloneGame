@@ -8,6 +8,7 @@ public class Recorder : MonoBehaviour
 
     #region Inspector fields
     [SerializeField] private TimeCloneController timeCloneController;
+    [SerializeField] private float recordingTimeLimit = 60;
     [SerializeField] private EnemyManager enemyManager;
     [SerializeField] private GameObject recordingIcon;
     [SerializeField] private TextMeshProUGUI timerText;
@@ -64,7 +65,7 @@ public class Recorder : MonoBehaviour
         recordingStartPos = transform.position;
         activeCloneMachine = nearbyCloneMachine;
         startingWeapon = weapon;
-        timer = 60;
+        timer = recordingTimeLimit;
 
         timeCloneController.PlayBack(activeCloneMachine);
         if(enemyManager) enemyManager.CacheEnemyInfo();

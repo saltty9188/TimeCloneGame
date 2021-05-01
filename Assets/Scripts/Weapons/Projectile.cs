@@ -99,7 +99,7 @@ public class Projectile : MonoBehaviour
         {
             if (collider.transform.parent && collider.transform.parent.tag == "Boss1")
             {
-                FirstBossStatus bs = collider.transform.parent.GetComponent<FirstBossStatus>();
+                BossStatus bs = collider.transform.parent.GetComponent<BossStatus>();
                 if (bs)
                 {
                     bs.TakeDamage(damage);
@@ -110,7 +110,7 @@ public class Projectile : MonoBehaviour
                 ThirdBossScript tbs = collider.transform.parent.GetComponent<ThirdBossScript>();
                 if(tbs)
                 {
-                    tbs.GetHit();
+                    tbs.GetHit(damage);
                 }
             }
             else if(collider.transform.parent && collider.transform.parent.tag == "EnemyInvuln")
@@ -124,10 +124,18 @@ public class Projectile : MonoBehaviour
         }
         else if(collider.tag == "Boss2")
         {
-            SecondBossStatus sbs = collider.GetComponent<SecondBossStatus>();
+            BossStatus sbs = collider.GetComponent<BossStatus>();
             if(sbs)
             {
                 sbs.TakeDamage(damage);
+            }
+        }
+        else if(collider.tag == "Boss3Back")
+        {
+            ThirdBossScript tbs = collider.transform.parent.GetComponent<ThirdBossScript>();
+            if(tbs)
+            {
+                tbs.MakeVulnerable();
             }
         }
         else if(collider.tag == "Enemy")

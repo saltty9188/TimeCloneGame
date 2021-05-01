@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class FirstBossStatus : MonoBehaviour
+public class BossStatus : MonoBehaviour
 {
 
     #region  Inspector fields
@@ -37,6 +37,12 @@ public class FirstBossStatus : MonoBehaviour
 
     public void Die()
     {
+        ThirdBossScript tbs = GetComponent<ThirdBossScript>();
+        if(tbs)
+        {
+            tbs.SetDoorsClosed();
+        }
+
         health = 0;
         Destroy(gameObject);
         healthBar.transform.parent.gameObject.SetActive(false);

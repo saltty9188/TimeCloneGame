@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartFirstBoss : MonoBehaviour
+public class StartThirdBoss : MonoBehaviour
 {
     #region Inspector fields
-    [SerializeField] private FirstBossScript bossScript;
+    [SerializeField] private ThirdBossScript bossScript;
     [SerializeField] private GameObject bossUI;
     [SerializeField] private RecordingDoor entrance;
     #endregion
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.tag == "Clone")
         {

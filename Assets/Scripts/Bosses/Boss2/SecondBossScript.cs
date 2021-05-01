@@ -20,7 +20,7 @@ public class SecondBossScript : MonoBehaviour
     #region Private fields
     private GameObject projectileParent;
     private Animator animator;
-    private SecondBossStatus status;
+    private BossStatus status;
     private GameObject closestTarget;
     private Vector3 initialPosition;
     private Vector3 initialScale;
@@ -32,7 +32,7 @@ public class SecondBossScript : MonoBehaviour
     {
         projectileParent = new GameObject();
         animator = GetComponent<Animator>();
-        status = GetComponent<SecondBossStatus>();
+        status = GetComponent<BossStatus>();
         onRight = true;
 
         initialPosition = transform.position;

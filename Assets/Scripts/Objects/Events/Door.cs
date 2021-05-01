@@ -65,8 +65,6 @@ public class Door : ButtonEvent
         {
             tempText.text = (requiredActivations - activations).ToString();
         }
-        if(activations < 0) activations = 0;
-
     }
 
     //Replace with animation later

@@ -13,6 +13,7 @@ public class EnemyBehaviour : MonoBehaviour
     protected Rigidbody2D rigidbody;
     protected float knockBackTime;
     protected Vector2 knockBackDirection;
+    protected bool startActiveState;
     #endregion
 
     #region Private fields
@@ -26,6 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
         knockBackTime = 0;
         startPos = transform.position;
         startScale = transform.localScale;
+        startActiveState = gameObject.activeSelf;
         EnemyManager.enemies.Add(gameObject);
     }
 
@@ -35,16 +37,18 @@ public class EnemyBehaviour : MonoBehaviour
         knockBackDirection = direction;
     }
 
-    public void RecordingStarted()
+    public virtual void RecordingStarted()
     {
         startPos = transform.position;
         startScale = transform.localScale;
+        startActiveState = gameObject.activeSelf;
     }
 
     public virtual void ResetEnemy()
     {
+        gameObject.SetActive(startActiveState);
         transform.position = startPos;
         transform.localScale = startScale;
-        GetComponent<DamageFlash>().ResetShader();
+        if(GetComponent<DamageFlash>()) GetComponent<DamageFlash>().ResetShader();
     }
 }

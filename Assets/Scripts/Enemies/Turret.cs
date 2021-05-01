@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret : EnemyBehaviour
 {
     #region Inspector fields
-    [SerializeField] private bool hasBase = false;
+    [SerializeField] public bool hasBase = false;
     [SerializeField] private float aimRadius = 10;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float fireCooldown = 0.3f;
@@ -15,15 +15,15 @@ public class Turret : MonoBehaviour
     #region Private fields
     private float accumulatedTime;
     private GameObject currentTarget;
-    private bool collisionBelow = false;
-    private bool collisionAbove = false;
+    public bool collisionBelow = false;
+    public bool collisionAbove = false;
     private Rigidbody2D aboveContact = null;
     private Rigidbody2D belowContact = null;
     #endregion
 
-    void Start()
+    protected override void Start()
     {
-        currentTarget = null;
+        base.Start();
         EnemyManager.enemies.Add(gameObject);
     }
 
@@ -103,22 +103,67 @@ public class Turret : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, newRotation);
     }
 
+    void OnCollisionEnter2D(Collision2D other) 
+    {
+        ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
+        other.GetContacts(contacts);
+        foreach(ContactPoint2D contact in contacts)
+        {
+            if(contact.collider.tag != "Player" && contact.collider.tag != "Clone")
+            {
+                if(contact.point.y < transform.position.y)
+                {
+                    collisionBelow = true;
+                    belowContact = contact.collider.GetComponent<Rigidbody2D>();
+                }
+                else if(contact.point.y > transform.position.y)
+                {
+                    collisionAbove = true;
+                    aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+                }
+            }
+        }
+
+        if(collisionAbove && collisionBelow)
+        {
+            if(hasBase)
+            {
+                transform.parent.gameObject.SetActive(false);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+        }
+    }
+
     void OnCollisionStay2D(Collision2D other) 
     {
         ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
         other.GetContacts(contacts);
         foreach(ContactPoint2D contact in contacts)
         {
-            float angle = Vector2.Angle(contact.normal, Vector2.up);
-            if(angle < 0.5f)
+            if(contact.point.y < transform.position.y)
             {
                 collisionBelow = true;
                 belowContact = contact.collider.GetComponent<Rigidbody2D>();
             }
-            else if(angle > 179.5f)
+            else if(contact.point.y > transform.position.y)
             {
                 collisionAbove = true;
                 aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+            }
+        }
+
+        if(collisionAbove && collisionBelow)
+        {
+            if(hasBase)
+            {
+                transform.parent.gameObject.SetActive(false);
+            }
+            else
+            {
+                gameObject.SetActive(false);
             }
         }
     }
@@ -134,6 +179,15 @@ public class Turret : MonoBehaviour
         {
             belowContact = null;
             collisionBelow = false;
+        }
+    }
+
+    public override void ResetEnemy()
+    {
+        base.ResetEnemy();
+        if(hasBase)
+        {
+            transform.parent.gameObject.SetActive(startActiveState);
         }
     }
 

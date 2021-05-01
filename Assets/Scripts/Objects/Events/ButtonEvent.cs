@@ -39,6 +39,7 @@ public abstract class ButtonEvent : MonoBehaviour
         if(isOn)
         {
             activations--;
+            if(activations < 0) activations = 0;
             TriggerIfValid();
         }
     }

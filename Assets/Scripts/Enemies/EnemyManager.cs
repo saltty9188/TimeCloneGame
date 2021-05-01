@@ -13,6 +13,7 @@ public class EnemyManager : MonoBehaviour
     #region Inspector fields
     [SerializeField] private FirstBossScript firstBossScript = null;
     [SerializeField] private SecondBossScript secondBossScript = null;
+    [SerializeField] private ThirdBossScript thirdBossScript = null;
     #endregion
     void Awake()
     {
@@ -32,7 +33,6 @@ public class EnemyManager : MonoBehaviour
             }
             else
             {
-                Debug.Log(enemy.name);
                 EnemyBehaviour eb = enemy.GetComponent<EnemyBehaviour>();
                 if(eb)
                 {
@@ -54,7 +54,14 @@ public class EnemyManager : MonoBehaviour
             }
             else
             {
-                enemy.SetActive(true);
+                //enemy.SetActive(true);
+
+                Turret turret = enemy.GetComponent<Turret>();
+                if(turret && turret.hasBase)
+                {
+                    enemy.transform.parent.gameObject.SetActive(true);
+                }
+
                 EnemyBehaviour eb = enemy.GetComponent<EnemyBehaviour>();
                 if(eb)
                 {
@@ -85,6 +92,10 @@ public class EnemyManager : MonoBehaviour
         else if(secondBossScript)
         {
             secondBossScript.ResetBoss();
+        }
+        else if(thirdBossScript)
+        {
+            thirdBossScript.ResetBoss();
         }
     }
 }

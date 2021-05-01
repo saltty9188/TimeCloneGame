@@ -24,6 +24,11 @@ public class RecordingDoor : Door
     protected override void Update()
     {
         base.Update();
+        if(!playerRecorder.IsRecording) 
+        {
+            inFight = false;
+        }
+
         if(playerRecorder.IsRecording && !inFight)
         {
             activations = requiredActivations;
@@ -33,12 +38,9 @@ public class RecordingDoor : Door
             activations = 0;
         }
 
-        TriggerIfValid();
-    }
+        
 
-    public override void ResetEvent()
-    {
-        base.ResetEvent();
+        TriggerIfValid();
     }
 
     public void SetInFight(bool inFight)
