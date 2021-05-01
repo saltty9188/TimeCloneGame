@@ -8,29 +8,27 @@ public class Fan : MonoBehaviour
     public LayerMask layerMask;
     public float fanDist = 10;
     public float fanPower = 10;
-    float startX;
-    float endX;
-    float yPos;
+    Vector2 startPoint;
+    Vector2 endPoint;
+    //float yPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        startX = transform.position.x - GetComponent<SpriteRenderer>().bounds.size.x / 2f;
-        endX = transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2f;
-        yPos = transform.position.y + (GetComponent<SpriteRenderer>().bounds.size.y / 2f + 0.01f) * transform.up.y;
-
+        startPoint = transform.position - transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
+        endPoint = transform.position + transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
     }
 
     // Update is called once per frame
     void Update()
     {
         List<GameObject> objectsHit = new List<GameObject>();
-        float width = endX - startX;
+        float width = Vector2.Distance(startPoint, endPoint);
         float divisor = 6;
         for(float i = 0; i <= divisor; i += 1)
         {
-            float xPos = startX + (i * width / divisor);
-            RaycastHit2D hit =  Physics2D.Raycast(new Vector2(xPos, yPos), transform.up, fanDist, layerMask);
+            Vector2 pos = startPoint + new Vector2(transform.right.x, transform.right.y) * (i * width / divisor);
+            RaycastHit2D hit =  Physics2D.Raycast(pos, transform.up, fanDist, layerMask);
             if(hit)
             {
                 GameObject go = hit.collider.gameObject;
@@ -53,5 +51,13 @@ public class Fan : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.yellow;
+        Vector2 v1 = transform.position - transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
+        Vector2 v2 = transform.position + transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
+        Gizmos.DrawLine(v1, v1 + (Vector2) transform.up * fanDist);
+        Gizmos.DrawLine(v2, v2 + (Vector2) transform.up * fanDist);
     }
 }

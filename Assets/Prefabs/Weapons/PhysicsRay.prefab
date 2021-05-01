@@ -99,17 +99,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 2566887443693260406, guid: 23ce229603db7ff4893a16ba52698310,
     type: 3}
-  player: {fileID: 0}
   fireCooldown: 0.4
   held: 0
   allowedTypes:
+  - type: 0
+    allowed: 1
   - type: 1
     allowed: 1
   - type: 2
     allowed: 1
   - type: 3
-    allowed: 1
-  - type: 4
     allowed: 1
 --- !u!61 &1294457731972478125
 BoxCollider2D:

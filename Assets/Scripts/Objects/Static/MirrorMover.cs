@@ -5,7 +5,7 @@ using UnityEngine;
 public class MirrorMover : MonoBehaviour
 {
     #region Inspector fields
-    [SerializeField] private GameObject[] movableObjects;
+    [SerializeField] public GameObject[] movableObjects;
     [SerializeField] private Camera moveCamera;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float objectMoveSpeed = 0.4f;
@@ -26,6 +26,11 @@ public class MirrorMover : MonoBehaviour
         currentObject = movableObjects[0];
         currentObjectRigidbody = currentObject.GetComponent<Rigidbody2D>();
         color.a = 1;
+    }
+
+    void Update()
+    {
+        if(currentObject.transform.parent.tag == "Enemy") UpdateRigidBodies();
     }
 
     void Initialise()
@@ -51,6 +56,7 @@ public class MirrorMover : MonoBehaviour
         foreach(GameObject go in movableObjects)
         {
             go.GetComponent<MovableObject>().ResetPosition();
+            go.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
     }
 
@@ -68,6 +74,14 @@ public class MirrorMover : MonoBehaviour
     {
         moveCamera.enabled = false;
         mainCamera.enabled = true;
+        if(currentObject.transform.parent.tag == "Enemy")
+        {
+            SpiderBot sb = currentObject.transform.parent.GetComponent<SpiderBot>();
+            if(sb)
+            {
+                //sb.DropObject();
+            }
+        }
         foreach(GameObject obj in movableObjects)
         {
             Rigidbody2D temp = obj.GetComponent<Rigidbody2D>();
@@ -114,7 +128,7 @@ public class MirrorMover : MonoBehaviour
     public void Move(Vector2 direction)
     {
         UpdateOutline();
-        currentObjectRigidbody.velocity = direction * objectMoveSpeed;
+        if(currentObject.transform.parent.tag != "Enemy") currentObjectRigidbody.velocity = direction * objectMoveSpeed;
         UpdateCamera();
     }
 
@@ -132,9 +146,12 @@ public class MirrorMover : MonoBehaviour
             temp.useFullKinematicContacts = true;
         }
 
-        currentObjectRigidbody.isKinematic = false;
-        currentObjectRigidbody.useFullKinematicContacts = false;
-        currentObjectRigidbody.gravityScale = 0;
+        if(currentObject.transform.parent.tag != "Enemy")
+        {
+            currentObjectRigidbody.isKinematic = false;
+            currentObjectRigidbody.useFullKinematicContacts = false;
+            currentObjectRigidbody.gravityScale = 0;
+        }
     }
 
     void MakeOutline()
@@ -159,6 +176,7 @@ public class MirrorMover : MonoBehaviour
         sr.material = solidColour;
         sr.color = color;
         sr.sortingOrder = 1;
+        outlineObject.GetComponent<Collider2D>().enabled = false;
     }
 
     void UpdateOutline()

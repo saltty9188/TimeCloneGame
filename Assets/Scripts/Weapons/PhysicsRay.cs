@@ -10,7 +10,6 @@ public class PhysicsRay : Weapon
     #region Public enum
     public enum RayType
     {
-        None,
         Light,
         Heavy,
         Bouncy,
@@ -71,9 +70,8 @@ public class PhysicsRay : Weapon
     protected override void Awake()
     {
         base.Awake();
-        index = 0;
+        NextRayType();
         recordingStartIndex = index;
-        currentRayType = RayType.Light;
     }
 
     public override GameObject Shoot(Quaternion rotation)
@@ -163,18 +161,15 @@ public class PhysicsRay : Weapon
     }
 
     public void SetRayType(RayType rayType)
-    {
-        if(rayType != RayType.None)
-        {   
-            bool indexFound = false;
-            currentRayType = rayType;
-            for(int i = 0; (i < allowedTypes.Length && !indexFound); i++)
+    {   
+        bool indexFound = false;
+        currentRayType = rayType;
+        for(int i = 0; (i < allowedTypes.Length && !indexFound); i++)
+        {
+            if(rayType == allowedTypes[i].type) 
             {
-                if(rayType == allowedTypes[i].type) 
-                {
-                    index = i;
-                    indexFound = true;
-                }
+                index = i;
+                indexFound = true;
             }
         }    
     }

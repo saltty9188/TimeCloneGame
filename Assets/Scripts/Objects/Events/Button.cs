@@ -17,9 +17,8 @@ public class Button : MonoBehaviour
     private bool buttonDown;
     private bool buttonMovedDown;
     private bool[] eventsTriggered;
-    private float startX;
-    private float endX;
-    private float yPos;
+    private Vector2 startPoint;
+    private Vector2 endPoint;
     #endregion
 
     void Start()
@@ -29,22 +28,21 @@ public class Button : MonoBehaviour
         buttonMovedDown = false;
         eventsTriggered = new bool[attachedEvents.Length];
 
-        startX = transform.position.x - (GetComponent<SpriteRenderer>().bounds.size.x / 2f);
-        endX = transform.position.x + (GetComponent<SpriteRenderer>().bounds.size.x / 2f);
-        yPos = transform.position.y + 0.01f;
+        startPoint = transform.position - transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
+        endPoint = transform.position + transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float width = endX - startX;
+        float width = Vector2.Distance(startPoint, endPoint);
         float divisor = 6;
         bool buttonDownThisFrame = false;
         for(float i = 0; i <= divisor; i += 1)
         {
-            float xPos = startX + (i * width / divisor);
+            Vector2 point = startPoint + new Vector2(transform.right.x, transform.right.y) * (i * width / divisor);
             
-            RaycastHit2D hit =  Physics2D.Raycast(new Vector2(xPos, yPos), transform.up, buttonSensitivity, canActivateButton);
+            RaycastHit2D hit =  Physics2D.Raycast(point, transform.up, buttonSensitivity, canActivateButton);
             if(hit && hit.collider.GetComponent<Rigidbody2D>() && hit.collider.GetComponent<Rigidbody2D>().mass >= minWeight)
             {
                 buttonDown = true;
@@ -97,5 +95,13 @@ public class Button : MonoBehaviour
             attachedEvents[i].ResetEvent();
             eventsTriggered[i] = false;
         }
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.yellow;
+        Vector2 v1 = transform.position - transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
+        Vector2 v2 = transform.position + transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
+        Gizmos.DrawLine(v1, v1 + (Vector2) transform.up * buttonSensitivity);
+        Gizmos.DrawLine(v2, v2 + (Vector2) transform.up * buttonSensitivity);
     }
 }

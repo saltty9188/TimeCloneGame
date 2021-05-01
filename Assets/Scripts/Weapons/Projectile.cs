@@ -105,6 +105,14 @@ public class Projectile : MonoBehaviour
                     bs.TakeDamage(damage);
                 }
             }
+            else if(collider.transform.parent && collider.transform.parent.tag == "Boss3")
+            {
+                ThirdBossScript tbs = collider.transform.parent.GetComponent<ThirdBossScript>();
+                if(tbs)
+                {
+                    tbs.GetHit();
+                }
+            }
             else if(collider.transform.parent && collider.transform.parent.tag == "EnemyInvuln")
             {
                 EnemyStatus es = collider.transform.parent.GetComponent<EnemyStatus>();

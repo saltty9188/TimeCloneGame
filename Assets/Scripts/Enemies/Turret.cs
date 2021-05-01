@@ -136,4 +136,9 @@ public class Turret : MonoBehaviour
             collisionBelow = false;
         }
     }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, aimRadius);
+    }
 }

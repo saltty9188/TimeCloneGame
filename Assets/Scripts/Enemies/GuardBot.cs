@@ -238,4 +238,9 @@ public class GuardBot : EnemyBehaviour
             collisionBelow = false;
         }
     }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, aimRadius);
+    }
 }

@@ -21,6 +21,7 @@ TagManager:
   - Ladder
   - EnemyInvuln
   - Weapon
+  - Boss3
   layers:
   - Default
   - TransparentFX
@@ -63,4 +64,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1842072199
+    locked: 0
+  - name: Laser
+    uniqueID: 3944989173
     locked: 0

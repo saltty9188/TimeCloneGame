@@ -186,10 +186,16 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D other)
     {
-        float angle = Vector2.Angle(other.GetContact(0).normal, Vector2.up);
+        ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
+        other.GetContacts(contacts);
 
-        if(angle < 40) {
-            grounded = true; 
+        foreach(ContactPoint2D contact in contacts)
+        {
+            float angle = Vector2.Angle(contact.normal, Vector2.up);
+
+            if(angle < 40) {
+                grounded = true; 
+            }
         }
     }
 

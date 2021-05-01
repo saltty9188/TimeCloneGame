@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8167153989646902169}
   - component: {fileID: 8167153989646902174}
   - component: {fileID: 8302076624452944762}
+  - component: {fileID: 2453985268409474740}
   m_Layer: 10
   m_Name: Box
   m_TagString: Box
@@ -176,3 +177,21 @@ MonoBehaviour:
   bounceMaterial: {fileID: 6200000, guid: 2457d30e55d1a8f45a820ff0060d40fa, type: 2}
   floatHeight: 10
   floatSpeed: 2
+--- !u!255 &2453985268409474740
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167153989646902175}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 104.74, y: 3.12}
+  m_DampingRatio: 0
+  m_Frequency: 0

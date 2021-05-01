@@ -32,6 +32,7 @@ public class EnemyManager : MonoBehaviour
             }
             else
             {
+                Debug.Log(enemy.name);
                 EnemyBehaviour eb = enemy.GetComponent<EnemyBehaviour>();
                 if(eb)
                 {
@@ -64,6 +65,12 @@ public class EnemyManager : MonoBehaviour
                 if(es)
                 {
                     es.ResetHealth();
+                }
+
+                Animator enemyAnimator = enemy.GetComponent<Animator>();
+                if(enemyAnimator)
+                {
+                    enemyAnimator.SetTrigger("Reset");
                 }
             }
         }

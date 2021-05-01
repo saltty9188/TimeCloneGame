@@ -101,7 +101,7 @@ public class Recorder : MonoBehaviour
         recordingIcon.SetActive(false);
         timeCloneController.RemoveAllActiveClones();
         ResetAllObjects();
-        PhysicsObject.ResetAllPhysics(true);
+        PhysicsObject.ResetAllPhysics(true, true);
         GetComponent<PlayerStatus>().DestroyAllProjectiles();
         if(enemyManager)
         {
@@ -167,7 +167,7 @@ public class Recorder : MonoBehaviour
             if(playerDied)
             {
                 ResetAllObjects();
-                PhysicsObject.ResetAllPhysics(true);
+                PhysicsObject.ResetAllPhysics(true, true);
                 GetComponent<PlayerStatus>().DestroyAllProjectiles();
                 if(enemyManager)
                 {

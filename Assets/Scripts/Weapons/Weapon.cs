@@ -7,7 +7,6 @@ public class Weapon : MonoBehaviour
 
     #region Inspector fields
     [SerializeField] protected GameObject projectile;
-    [SerializeField] private GameObject player;
     [SerializeField] protected float fireCooldown;
     #endregion
 
@@ -32,7 +31,6 @@ public class Weapon : MonoBehaviour
     protected virtual void Awake()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        aimScript = player.transform.GetChild(0).gameObject.GetComponent<Aim>();
         accumulatedTime = 0;
         held = false;
         initialSpawn = transform.position;
@@ -98,8 +96,9 @@ public class Weapon : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) 
     {
-        if(!held && !justDropped && other.gameObject == player)
+        if(!held && !justDropped && other.gameObject.tag == "Player")
         {
+            aimScript = other.gameObject.transform.GetChild(0).GetComponent<Aim>();
             aimScript.PickUpWeapon(this);
             Debug.Log("Picked up " + gameObject.name);
         }    
@@ -107,7 +106,7 @@ public class Weapon : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other) 
     {
-        if(other.gameObject == player && !held)
+        if(other.gameObject.tag == "Player" && !held)
         {
             justDropped = false;
         }

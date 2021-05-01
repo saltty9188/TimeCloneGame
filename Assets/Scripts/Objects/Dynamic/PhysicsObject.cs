@@ -10,6 +10,7 @@ public class PhysicsObject : MonoBehaviour
     [SerializeField] private float heavyMass;
 
     [SerializeField] private PhysicsMaterial2D bounceMaterial;
+    [SerializeField] private float initialBounceHeight = 10;
 
     [SerializeField] private float floatHeight;
 
@@ -61,8 +62,9 @@ public class PhysicsObject : MonoBehaviour
         recordingStartPosition = transform.position;
     }
 
-    void ResetPhysics()
+    void ResetPhysics(bool resetVelocity)
     {
+        if(resetVelocity) rigidbody2D.velocity = Vector2.zero;
         rigidbody2D.isKinematic = false;
         rigidbody2D.mass = initialMass;
         rigidbody2D.sharedMaterial = initialPhysicsMaterial;
@@ -88,14 +90,18 @@ public class PhysicsObject : MonoBehaviour
         }
     }
 
-    public static void ResetAllPhysics(bool resetPosition)
+    public static void ResetAllPhysics(bool resetPosition, bool resetVelocity)
     {
         if (allPhysicsObjects != null)
         {
             foreach (PhysicsObject physicsObject in allPhysicsObjects)
             {
-                physicsObject.ResetPhysics();
-                if (resetPosition) physicsObject.transform.position = physicsObject.recordingStartPosition;
+                physicsObject.ResetPhysics(resetVelocity);
+                if (resetPosition) 
+                {
+                    physicsObject.transform.position = physicsObject.recordingStartPosition;
+                    physicsObject.yPosOnGround = physicsObject.transform.position.y;
+                }
             }
         }
     }
@@ -121,7 +127,7 @@ public class PhysicsObject : MonoBehaviour
         if (Mathf.Abs(rigidbody2D.velocity.y) < 1 &&
             Mathf.Abs(transform.position.y - yPosOnGround) < 0.1f)
         {
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 10);
+            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, initialBounceHeight);
         }
 
         spriteRenderer.color = Color.green;
@@ -132,8 +138,6 @@ public class PhysicsObject : MonoBehaviour
         yPosInAir = yPosOnGround + floatHeight;
         floatRoutine = StartCoroutine(GoUp());
         rigidbody2D.gravityScale = 0;
-        //rigidbody2D.isKinematic = true;
-        //rigidbody2D.useFullKinematicContacts = true;
         spriteRenderer.color = Color.yellow;
     }
 
@@ -144,13 +148,12 @@ public class PhysicsObject : MonoBehaviour
             rigidbody2D.velocity = new Vector2(0, floatSpeed);
             yield return null;
         }
-
         floatRoutine = null;
     }
 
     public void AlterPhysics(PhysicsRay.RayType rayType)
     {
-        ResetAllPhysics(false);
+        ResetAllPhysics(false, false);
         switch (rayType)
         {
             case PhysicsRay.RayType.Light:
@@ -179,20 +182,21 @@ public class PhysicsObject : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    void OnCollisionStay2D(Collision2D other)
     {
-        if (other.GetContact(0).normal == Vector2.up)
+        ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
+        other.GetContacts(contacts);
+
+        foreach(ContactPoint2D contact in contacts)
         {
-            yPosOnGround = transform.position.y;
+            if(contact.normal == Vector2.up && rigidbody2D.gravityScale > 0)
+            {
+                yPosOnGround = transform.position.y;
+            }
         }
     }
-
-    
-
     void OnDestroy()
     {
         allPhysicsObjects.Remove(this);
     }
-
-
 }

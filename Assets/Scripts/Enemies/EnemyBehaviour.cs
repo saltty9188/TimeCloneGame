@@ -20,7 +20,7 @@ public class EnemyBehaviour : MonoBehaviour
     private Vector3 startScale;
     #endregion
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         knockBackTime = 0;

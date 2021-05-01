@@ -71,6 +71,12 @@ public class EnemyStatus : MonoBehaviour
 
     public void Die()
     {
+        SpiderBot sb = GetComponent<SpiderBot>();
+        if(sb)
+        {
+            sb.DropObject();
+        }
+
         health = 0;
         gameObject.SetActive(false);
     }
