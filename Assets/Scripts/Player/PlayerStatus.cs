@@ -17,9 +17,11 @@ public class PlayerStatus : MonoBehaviour
     private GameObject projectileParent;
     private DamageFlash flashScript;
     private PlayerMovement movementScript;
+    private Aim aim;
     private float health;
     private float damageCooldown;
     private float invincibiltyTimer;
+    private Weapon startingWeapon;
     private bool collisionBelow = false;
     private bool collisionAbove = false;
     private Rigidbody2D aboveContact = null;
@@ -35,6 +37,8 @@ public class PlayerStatus : MonoBehaviour
         health = maxHealth;
         flashScript = GetComponent<DamageFlash>();
         movementScript = GetComponent<PlayerMovement>();
+        aim = transform.GetChild(0).GetComponent<Aim>();
+        startingWeapon = null;
     }
     void Update()
     {
@@ -88,27 +92,31 @@ public class PlayerStatus : MonoBehaviour
        {
             health -= damage;
             UpdateUI();
-            flashScript.Flash();
-            if(health < 1) Die();
-            else 
+            
+            if(health < 1) 
             {
-                damageCooldown = 3;
-                invincibiltyTimer = invincibleTime;
-                if(knockBackDirection != Vector2.zero)
+                Die();
+                return;
+            }
+
+            flashScript.Flash();
+
+            damageCooldown = 3;
+            invincibiltyTimer = invincibleTime;
+            if(knockBackDirection != Vector2.zero)
+            {
+                if(knockBackDirection.x == 0)
                 {
-                    if(knockBackDirection.x == 0)
+                    if(transform.localScale.x > 0)
                     {
-                        if(transform.localScale.x > 0)
-                        {
-                            knockBackDirection.x = -1;
-                        }
-                        else
-                        {
-                            knockBackDirection.x = 1;
-                        }
+                        knockBackDirection.x = -1;
                     }
-                    movementScript.ReceiveKnockBack(knockBackDirection);
+                    else
+                    {
+                        knockBackDirection.x = 1;
+                    }
                 }
+                movementScript.ReceiveKnockBack(knockBackDirection);
             }
         }
     }
@@ -120,12 +128,17 @@ public class PlayerStatus : MonoBehaviour
         {
             Recorder r = GetComponent<Recorder>();
             r.CancelRecording(true);
+            r.ResetAllEvents();
             DestroyAllProjectiles();
             if(enemyManager) 
             {
                 enemyManager.ResetCurrentBoss();
                 enemyManager.ResetEnemies();
             }
+            PhysicsObject.ResetAllPhysics(true, true);
+            if(aim.CurrentWeapon != null) aim.DropWeapon();
+            if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
+            if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
             Respawn();
         }
         else
@@ -157,6 +170,11 @@ public class PlayerStatus : MonoBehaviour
     {
         Destroy(projectileParent);
         if(createNewParent) projectileParent = new GameObject(tag  + " Projectiles");
+    }
+
+    public void SetStartingWeapon()
+    {
+        startingWeapon = aim.CurrentWeapon;
     }
 
     void OnCollisionStay2D(Collision2D other) 

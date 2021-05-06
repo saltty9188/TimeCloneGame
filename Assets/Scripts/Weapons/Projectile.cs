@@ -44,8 +44,6 @@ public class Projectile : MonoBehaviour
     protected virtual void Start()
     {
         Redirect(direction);
-        IgnoreShooterCollision(true);
-
     }
 
     // Update is called once per frame
@@ -191,6 +189,7 @@ public class Projectile : MonoBehaviour
     {
         this.shooter = shooter;
         this.ignoringShooter = ignoreShooter;
+        IgnoreShooterCollision(true);
     }
 
     public void Redirect(Vector2 newDirection)

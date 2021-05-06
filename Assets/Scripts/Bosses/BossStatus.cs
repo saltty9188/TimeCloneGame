@@ -31,8 +31,12 @@ public class BossStatus : MonoBehaviour
     {
         health -= damage;
         UpdateUI();
+        if(health < 1) 
+        {
+            Die();
+            return;
+        }
         flashScript.Flash();
-        if(health < 1) Die();
     }
 
     public void Die()

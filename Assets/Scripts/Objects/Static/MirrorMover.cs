@@ -15,6 +15,7 @@ public class MirrorMover : MonoBehaviour
 
     #region Private fields
     private GameObject currentObject;
+    private bool usingCamera;
     private int index;
     private Rigidbody2D currentObjectRigidbody;
     private GameObject outline;
@@ -62,6 +63,7 @@ public class MirrorMover : MonoBehaviour
 
     public void StartMover(bool switchCam = true)
     {
+        usingCamera = switchCam;
         if(switchCam)
         {
             moveCamera.enabled = true;
@@ -72,8 +74,12 @@ public class MirrorMover : MonoBehaviour
 
     public void ExitMover()
     {
-        moveCamera.enabled = false;
-        mainCamera.enabled = true;
+        if(usingCamera)
+        {
+            moveCamera.enabled = false;
+            mainCamera.enabled = true;
+        }
+
         if(currentObject.transform.parent.tag == "Enemy")
         {
             SpiderBot sb = currentObject.transform.parent.GetComponent<SpiderBot>();
@@ -134,7 +140,7 @@ public class MirrorMover : MonoBehaviour
 
     void UpdateCamera()
     {
-        moveCamera.transform.position = currentObject.transform.position + new Vector3(0, 0, moveCamera.transform.position.z);
+        if(usingCamera) moveCamera.transform.position = currentObject.transform.position + new Vector3(0, 0, moveCamera.transform.position.z);
     }
 
     void UpdateRigidBodies()

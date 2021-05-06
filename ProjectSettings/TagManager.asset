@@ -23,6 +23,8 @@ TagManager:
   - Weapon
   - Boss3
   - Boss3Back
+  - MirrorMover
+  - CloneDevice
   layers:
   - Default
   - TransparentFX
@@ -37,7 +39,7 @@ TagManager:
   - Objects
   - Button
   - Boss
-  - BossTrigger
+  - 
   - 
   - 
   - 

@@ -9,23 +9,15 @@ public class Target : MonoBehaviour
     [SerializeField] protected ButtonEvent attachedEvent;
     #endregion
 
-    #region Private fields
-    private SpriteRenderer sr;
-    #endregion
-    void Start()
-    {
-        sr = GetComponent<SpriteRenderer>();
-    }
-
     public virtual void Activate()
     {
-        attachedEvent.AddActivation();
+        if(attachedEvent) attachedEvent.AddActivation();
         gameObject.SetActive(false);    
     }
 
     public void ResetTarget()
     {
         gameObject.SetActive(true);
-        attachedEvent.ResetEvent();
+        if(attachedEvent) attachedEvent.ResetEvent();
     }
 }

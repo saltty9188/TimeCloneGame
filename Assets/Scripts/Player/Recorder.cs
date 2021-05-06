@@ -101,7 +101,7 @@ public class Recorder : MonoBehaviour
         activeCloneMachine = null;
         recordingIcon.SetActive(false);
         timeCloneController.RemoveAllActiveClones();
-        ResetAllObjects();
+        ResetAllEvents();
         PhysicsObject.ResetAllPhysics(true, true);
         GetComponent<PlayerStatus>().DestroyAllProjectiles();
         if(enemyManager)
@@ -120,12 +120,12 @@ public class Recorder : MonoBehaviour
         if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
     }
 
-    public void ResetAllObjects()
+    public void ResetAllEvents()
     {
-        ResetObjects(events);
+        ResetEvents(events);
     }
 
-    void ResetObjects(GameObject parent)
+    void ResetEvents(GameObject parent)
     {
         for(int i = 0; i < parent.transform.childCount; i++)
         {
@@ -142,7 +142,7 @@ public class Recorder : MonoBehaviour
             }
             else if(child.transform.childCount > 0 && child.GetComponents<Component>().Length == 1)
             {
-                ResetObjects(child);
+                ResetEvents(child);
             }
         }
     }
@@ -167,7 +167,7 @@ public class Recorder : MonoBehaviour
             GetComponent<PlayerController>().RecordingCancelled();
             if(playerDied)
             {
-                ResetAllObjects();
+                ResetAllEvents();
                 PhysicsObject.ResetAllPhysics(true, true);
                 GetComponent<PlayerStatus>().DestroyAllProjectiles();
                 if(enemyManager)

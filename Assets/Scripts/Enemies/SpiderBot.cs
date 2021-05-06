@@ -64,7 +64,7 @@ public class SpiderBot : EnemyBehaviour
             if(collider.GetComponent<MovableObject>())
             {
                 float dist = Vector3.Distance(transform.position, collider.transform.position);
-                if(dist < closestDist)
+                if(dist < closestDist && collider.transform.parent.tag != "Enemy")
                 {
                     closestDist = dist;
                     closestTarget = collider.gameObject;
@@ -174,4 +174,5 @@ public class SpiderBot : EnemyBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, searchRadius);
     }
+    
 }

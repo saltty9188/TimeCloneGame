@@ -89,6 +89,7 @@ public class SecondBossScript : MonoBehaviour
         p.SetShooter(gameObject, true);
         p.transform.parent = projectileParent.transform;
     }
+    
     void OnCollisionEnter2D(Collision2D other)
     {    
         if(other.GetContact(0).normal == Vector2.up && animator.GetBool("Jump") && other.GetContact(0).collider.tag == "Reflective")

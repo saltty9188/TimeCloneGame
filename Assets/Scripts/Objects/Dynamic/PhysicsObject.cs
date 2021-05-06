@@ -69,6 +69,7 @@ public class PhysicsObject : MonoBehaviour
         rigidbody2D.mass = initialMass;
         rigidbody2D.sharedMaterial = initialPhysicsMaterial;
         rigidbody2D.gravityScale = 1;
+        rigidbody2D.drag = 0;
         if (floatRoutine != null) StopCoroutine(floatRoutine);
 
         spriteRenderer.color = Color.white;

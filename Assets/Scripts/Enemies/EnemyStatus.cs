@@ -15,7 +15,6 @@ public class EnemyStatus : MonoBehaviour
     private DamageFlash flashScript;
     private EnemyBehaviour behaviour;
     private float health;
-
     #endregion
 
     // Start is called before the first frame update
@@ -24,6 +23,8 @@ public class EnemyStatus : MonoBehaviour
         flashScript = GetComponent<DamageFlash>();
         behaviour = GetComponent<EnemyBehaviour>();
         health = maxHealth;
+        healthBar.maxValue = maxHealth;
+        healthBar.minValue = 0;
     }
 
     // Update is called once per frame
@@ -55,9 +56,13 @@ public class EnemyStatus : MonoBehaviour
     {
         health -= damage;
         UpdateUI();
+        if(health < 1) 
+        {   
+            Die();
+            return;
+        }
         flashScript.Flash();
-        if(health < 1) Die();
-        else if(knockBackDirection != Vector2.zero)
+        if(knockBackDirection != Vector2.zero)
         {
             behaviour.ReceiveKnockBack(knockBackDirection.normalized);
         }
@@ -76,7 +81,6 @@ public class EnemyStatus : MonoBehaviour
         {
             sb.DropObject();
         }
-
         health = 0;
         gameObject.SetActive(false);
     }

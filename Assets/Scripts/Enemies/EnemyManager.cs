@@ -36,7 +36,7 @@ public class EnemyManager : MonoBehaviour
                 EnemyBehaviour eb = enemy.GetComponent<EnemyBehaviour>();
                 if(eb)
                 {
-                    eb.RecordingStarted();
+                    eb.CacheInfo();
                 }
             }
         }

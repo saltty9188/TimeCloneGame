@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
                 jumping = false;
             };
 
+
         //Movement
         controls.Gameplay.Move.performed += ctx => movement = ctx.ReadValue<Vector2>();
         controls.Gameplay.Move.canceled += ctx => movement = Vector2.zero;
@@ -214,6 +215,7 @@ public class PlayerController : MonoBehaviour
     void OnEnable() 
     {
         controls.Gameplay.Enable();      
+        
     }
 
     void OnDisable()
@@ -235,19 +237,25 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other) 
     {
-        if(other.tag != "Weapon")
+        if(other.tag == "MirrorMover")
+        {
+            nearbyMirrorMover = other.GetComponent<MirrorMover>();
+        }
+        else if(other.tag == "CloneDevice")
         {
             nearbyCloneMachine = other.GetComponent<TimeCloneDevice>();
-            nearbyMirrorMover = other.GetComponent<MirrorMover>();
         }
     }
 
     void OnTriggerExit2D(Collider2D other) 
     {
-        if(other.tag != "Weapon")
+        if(other.tag == "MirrorMover")
+        {
+            nearbyMirrorMover = null;
+        }
+        else if(other.tag == "CloneDevice")
         {
             nearbyCloneMachine = null;
-            nearbyMirrorMover = null;
         }
     }
 }

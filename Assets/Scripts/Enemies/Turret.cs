@@ -9,6 +9,7 @@ public class Turret : EnemyBehaviour
     [SerializeField] private float aimRadius = 10;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float fireCooldown = 0.3f;
+    [SerializeField] private int damage = 10;
     [SerializeField] private LayerMask everythingButBullet;
     #endregion
     
@@ -91,6 +92,7 @@ public class Turret : EnemyBehaviour
             GameObject go = Instantiate(projectilePrefab, transform.GetChild(0).GetChild(0).position, new Quaternion());
             Projectile p = go.GetComponent<Projectile>();
             p.direction = direction;
+            p.damage = damage;
             p.SetShooter(gameObject);
             accumulatedTime = 0;
         }

@@ -120,9 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canActivateButton:
     serializedVersion: 2
-    m_Bits: 1280
+    m_Bits: 1024
   buttonSensitivity: 0.3
-  minWeight: 1
+  minWeight: 300
   attachedEvents: []
 --- !u!60 &3951330807107098735
 PolygonCollider2D:

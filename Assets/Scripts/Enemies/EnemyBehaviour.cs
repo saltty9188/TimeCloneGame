@@ -37,7 +37,7 @@ public class EnemyBehaviour : MonoBehaviour
         knockBackDirection = direction;
     }
 
-    public virtual void RecordingStarted()
+    public virtual void CacheInfo()
     {
         startPos = transform.position;
         startScale = transform.localScale;

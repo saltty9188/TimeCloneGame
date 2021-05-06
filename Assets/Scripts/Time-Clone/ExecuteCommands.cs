@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class ExecuteCommands : MonoBehaviour
 {
+
+    #region Private struct
+    private struct OldWeapon
+    {
+        public GameObject originalWeapon;
+        public Weapon clonedWeapon;
+
+        public OldWeapon(GameObject originalWeapon, Weapon clonedWeapon)
+        {
+            this.originalWeapon = originalWeapon;
+            this.clonedWeapon = clonedWeapon;
+        }
+    }
+    #endregion
+
     #region Private fields
     private Rigidbody2D rigidbody2D;
     private PlayerMovement playerMovement;
@@ -14,6 +29,7 @@ public class ExecuteCommands : MonoBehaviour
     private bool unstable; 
     private MirrorMover nearbyMirrorMover;
     private bool wasMovingMirror;
+    private List<OldWeapon> oldWeapons;
     #endregion
 
     void Awake()
@@ -26,6 +42,7 @@ public class ExecuteCommands : MonoBehaviour
         playbackTime = 0;
         nearbyMirrorMover = null;
         wasMovingMirror = false;
+        oldWeapons = new List<OldWeapon>();
     }
 
     void FixedUpdate()
@@ -38,16 +55,27 @@ public class ExecuteCommands : MonoBehaviour
                 //Equip the weapon the clone just picked up
                 if(rc.newWeapon)
                 {
-                    GameObject newWeapon = Instantiate(rc.newWeapon, new Vector3(), new Quaternion());
-                    Weapon weaponScript = newWeapon.GetComponent<Weapon>();
-                    Color baseCol = newWeapon.GetComponent<SpriteRenderer>().color;
-                    baseCol.a = GetComponent<SpriteRenderer>().color.a;
-                    newWeapon.GetComponent<SpriteRenderer>().color = baseCol;
-                    
-                    GameObject oldWeapon = null;
-                    if(aim.CurrentWeapon != null) oldWeapon = aim.CurrentWeapon.gameObject;
-                    aim.PickUpWeapon(weaponScript);
-                    if(oldWeapon != null) Destroy(oldWeapon);
+                    if(PickedUpBefore(rc.newWeapon))
+                    {
+                        Weapon weapon = GetPreviousWeapon(rc.newWeapon);
+                        weapon.gameObject.SetActive(true);
+                        GameObject oldWeapon = null;
+                        if(aim.CurrentWeapon != null) oldWeapon = aim.CurrentWeapon.gameObject;
+                        if(oldWeapon != null) oldWeapon.gameObject.SetActive(false);
+                        aim.PickUpWeapon(weapon);
+                    }
+                    else
+                    {
+                        GameObject newWeapon = Instantiate(rc.newWeapon, new Vector3(), new Quaternion());
+                        Weapon weaponScript = newWeapon.GetComponent<Weapon>();
+                        Color baseCol = newWeapon.GetComponent<SpriteRenderer>().color;
+                        baseCol.a = GetComponent<SpriteRenderer>().color.a;
+                        newWeapon.GetComponent<SpriteRenderer>().color = baseCol;
+                        
+                        GameObject oldWeapon = null;
+                        if(aim.CurrentWeapon != null) oldWeapon = aim.CurrentWeapon.gameObject;
+                        aim.PickUpWeapon(weaponScript);
+                        if(oldWeapon != null) oldWeapon.gameObject.SetActive(false);
 
                         if(typeof(PhysicsRay).IsInstanceOfType(weaponScript))
                         {
@@ -55,6 +83,12 @@ public class ExecuteCommands : MonoBehaviour
                             PhysicsRay originalPhysicsRay = rc.newWeapon.GetComponent<PhysicsRay>();
                             clonePhysicsRay.SetRayType(originalPhysicsRay.CurrentRay); 
                         }
+
+                        oldWeapons.Add(new OldWeapon(rc.newWeapon, weaponScript));
+                    }
+
+
+                    
                 } 
 
                 if(rc.movingMirror)
@@ -110,6 +144,7 @@ public class ExecuteCommands : MonoBehaviour
             //Stop moving clone once commands end
             playerMovement.move(Vector2.zero, false, false);
             RecordedCommand rc = recordedCommands[commandIndex - 1];
+            DestroyPreviousWeapons(aim.CurrentWeapon);
             aim.CloneRotate(rc.aimAngle, rc.shooting);
         }
 
@@ -137,6 +172,34 @@ public class ExecuteCommands : MonoBehaviour
         if(aim.CurrentWeapon != null)
         {
             Destroy(aim.CurrentWeapon.gameObject);
+        }
+    }
+
+    bool PickedUpBefore(GameObject newWeapon)
+    {
+        foreach(OldWeapon oldWeapon in oldWeapons)
+        {
+            if(oldWeapon.originalWeapon == newWeapon) return true;
+        }
+
+        return false;
+    }
+
+    Weapon GetPreviousWeapon(GameObject originalWeapon)
+    {
+        foreach(OldWeapon oldWeapon in oldWeapons)
+        {
+            if(oldWeapon.originalWeapon == originalWeapon) return oldWeapon.clonedWeapon;
+        }
+
+        return null;
+    }
+
+    void DestroyPreviousWeapons(Weapon ignoreWeapon)
+    {
+        foreach(OldWeapon oldWeapon in oldWeapons)
+        {
+            if(oldWeapon.clonedWeapon != ignoreWeapon && oldWeapon.clonedWeapon != null) Destroy(oldWeapon.clonedWeapon.gameObject);
         }
     }
 

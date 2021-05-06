@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     private bool betweenTwoLadders;
     private bool onLadder;
     private bool grounded;
-    private bool grabbing;
     private Transform originalParent;
     protected float knockBackTime;
     protected Vector2 knockBackDirection;
@@ -51,13 +50,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void move(Vector2 movement, bool jumping, bool grabbing)
     {
-        this.grabbing = grabbing;
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, boxGrabDistance, allButPlayer);
         if(hit && hit.collider.tag == "Box")
         {
             FixedJoint2D joint = hit.collider.GetComponent<FixedJoint2D>();
-            if(grabbing)
+            if(grabbing && grounded)
             {
                 joint.enabled = true;
                 joint.connectedBody = rigidbody;

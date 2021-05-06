@@ -29,8 +29,9 @@ public class CheckPoint : MonoBehaviour
             if(r) 
             {
                 r.CancelRecording();
-                r.ResetAllObjects();
+                r.ResetAllEvents();
             }
+            other.GetComponent<PlayerStatus>().SetStartingWeapon();
 
             Camera.main.GetComponent<CameraTracker>().UpdateMaxAndMin(minCameraY, maxCameraY);
         }

@@ -205,9 +205,9 @@ public class GuardBot : EnemyBehaviour
         transform.localScale = temp;
     }
 
-    public override void RecordingStarted()
+    public override void CacheInfo()
     {
-        base.RecordingStarted();
+        base.CacheInfo();
         startSpeed = moveSpeed;
     }
 

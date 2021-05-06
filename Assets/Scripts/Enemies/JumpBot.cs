@@ -34,6 +34,7 @@ public class JumpBot : EnemyBehaviour
             {
                 if(grounded)
                 {
+                    rigidbody.drag = 0;
                     rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
                     rigidbody.AddForce(new Vector2(0, jumpPower));
                     grounded = false;

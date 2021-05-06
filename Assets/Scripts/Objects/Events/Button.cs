@@ -9,11 +9,13 @@ public class Button : MonoBehaviour
     [SerializeField] private LayerMask canActivateButton;
     [SerializeField] private float buttonSensitivity;
     [SerializeField] private float minWeight = 1;
+    [SerializeField] private bool stayDown = false;
     [SerializeField] private ButtonEvent[] attachedEvents;
     #endregion
 
     #region Private fields
-    private float defaultY;
+    private Vector3 defaultPos;
+    private float buttonHeight;
     private bool buttonDown;
     private bool buttonMovedDown;
     private bool[] eventsTriggered;
@@ -23,11 +25,12 @@ public class Button : MonoBehaviour
 
     void Start()
     {
-        defaultY = transform.localPosition.y;
+        defaultPos = transform.localPosition;
         buttonDown = false;
         buttonMovedDown = false;
         eventsTriggered = new bool[attachedEvents.Length];
 
+        buttonHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
         startPoint = transform.position - transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
         endPoint = transform.position + transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
     }
@@ -57,11 +60,7 @@ public class Button : MonoBehaviour
 
         if(buttonDown)
         {
-            if(!buttonMovedDown)
-            {
-                transform.Translate(new Vector3(0, -(GetComponent<PolygonCollider2D>().bounds.size.y) / 2.0f, 0), Space.Self);
-                buttonMovedDown = true;
-            }
+            transform.position = defaultPos - transform.up * buttonHeight / 2;
 
             for(int i = 0; i < attachedEvents.Length; i++)
             {
@@ -72,9 +71,9 @@ public class Button : MonoBehaviour
                 }
             }
         }
-        else
+        else if(!stayDown)
         {
-            transform.position = new Vector3(transform.position.x, defaultY, transform.position.z);
+            transform.position = defaultPos;
             buttonMovedDown = false;
             for(int i = 0; i < attachedEvents.Length; i++)
             {
@@ -90,6 +89,8 @@ public class Button : MonoBehaviour
 
     public void ResetAttachedEvents()
     {
+        transform.position = defaultPos;
+        buttonDown = false;
         for(int i = 0; i < attachedEvents.Length; i++)
         {
             attachedEvents[i].ResetEvent();

@@ -11,6 +11,7 @@ public class RecordingDoor : Door
 
     #region Private fields
     private bool inFight;
+    private bool stayOpen;
     #endregion
 
     // Start is called before the first frame update
@@ -18,6 +19,7 @@ public class RecordingDoor : Door
     {
         base.Start();
         inFight = false;
+        stayOpen = false;
     }
 
     // Update is called once per frame
@@ -33,13 +35,18 @@ public class RecordingDoor : Door
         {
             activations = requiredActivations;
         }
-        else
+        else if(!stayOpen)
         {
             activations = 0;
-        }
+        }  
 
-        
+        TriggerIfValid();
+    }
 
+    public void KeepOpen()
+    {
+        stayOpen = true;
+        activations = requiredActivations;
         TriggerIfValid();
     }
 
