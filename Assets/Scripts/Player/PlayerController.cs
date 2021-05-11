@@ -7,6 +7,18 @@ using UnityEngine.InputSystem.Users;
 public class PlayerController : MonoBehaviour
 {
 
+    #region Inspector fields
+    [SerializeField] private PauseMenu pauseMenu;
+    #endregion
+
+    #region Public fields
+    public static string controlScheme;
+    public PlayerControls CurrentControls
+    {
+        get {return controls;}
+    }
+    #endregion
+
     #region Private fields
     private Rigidbody2D rigidbody2D;
     private PlayerMovement playerMovement;
@@ -15,7 +27,6 @@ public class PlayerController : MonoBehaviour
     private Recorder recorder;
     private TimeCloneDevice nearbyCloneMachine;
     private MirrorMover nearbyMirrorMover;
-    private InputDevice controlScheme;
     private Vector2 aimVector;
     private Vector2 movement;
     private bool jumping;
@@ -43,6 +54,7 @@ public class PlayerController : MonoBehaviour
         nearbyMirrorMover = null;
         movingMirrors = false;
 
+
         //Jumping
         controls.Gameplay.Jump.performed += ctx => 
             {
@@ -52,6 +64,7 @@ public class PlayerController : MonoBehaviour
             {
                 jumping = false;
             };
+
 
 
         //Movement
@@ -65,10 +78,10 @@ public class PlayerController : MonoBehaviour
                 {
                     var inputAction = (InputAction) obj;
                     var lastControl = inputAction.activeControl;
-                    controlScheme = lastControl.device;
+                    var lastDevice = lastControl.device;
+                    SetControlScheme(lastDevice);
                 }
             };
-        controlScheme = new InputDevice();
 
         //Aiming
         controls.Gameplay.AimStick.performed += ctx => aimVector = ctx.ReadValue<Vector2>();
@@ -178,11 +191,26 @@ public class PlayerController : MonoBehaviour
             {
                 grabbing = false;
             };
+
+
+        //pause
+        controls.Gameplay.Pause.performed += ctx =>
+            {
+                if(Time.timeScale > 0)
+                {
+                    pauseMenu.Pause();
+                }
+                else
+                {
+                    pauseMenu.Resume();
+                }
+            };
     }
 
     void FixedUpdate()
     {
-
+        Debug.Log(Gamepad.current);
+        Debug.Log(Keyboard.current);
         float angle = 0;
 
         if(movingMirrors)
@@ -193,7 +221,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log(grabbing);
             playerMovement.move(movement, jumping, grabbing);
-            angle = aim.Rotate(controlScheme.displayName, aimVector, shooting);
+            angle = aim.Rotate(aimVector, shooting);
         }
         
 
@@ -257,5 +285,19 @@ public class PlayerController : MonoBehaviour
         {
             nearbyCloneMachine = null;
         }
+    }
+
+    public void SetControlScheme(InputDevice device)
+    {
+        if(device.displayName == "Mouse" || device.displayName == "Keyboard")
+        {
+            controlScheme = "KeyboardMouse";
+        }
+        else
+        {
+            controlScheme = "Gamepad";
+        }
+
+        Debug.Log(controlScheme);
     }
 }

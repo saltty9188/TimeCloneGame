@@ -14,15 +14,14 @@ public class Lift : ButtonEvent
     private float upY;
     private float downY;
 
-    private bool goingUp;
-
-    private bool goingDown;
+    private Rigidbody2D rigidbody2D;
 
     private Coroutine coroutine;
     #endregion
 
     void Start()
     {
+        rigidbody2D = GetComponent<Rigidbody2D>();
         if(startsUp)
         {
             upY = transform.position.y;
@@ -39,15 +38,11 @@ public class Lift : ButtonEvent
     {
         if(startsUp)
        {
-           goingDown = true;
-           goingUp = false;
            if(coroutine != null) StopCoroutine(coroutine);
            coroutine = StartCoroutine(GoDown());
        }
        else
        {
-           goingDown = false;
-           goingUp = true;
            if(coroutine != null) StopCoroutine(coroutine);
            coroutine = StartCoroutine(GoUp());
        }
@@ -57,15 +52,11 @@ public class Lift : ButtonEvent
     {
        if(startsUp)
        {
-           goingDown = false;
-           goingUp = true;
            if(coroutine != null) StopCoroutine(coroutine);
            coroutine = StartCoroutine(GoUp());
        }
        else
        {
-           goingDown = true;
-           goingUp = false;
            if(coroutine != null) StopCoroutine(coroutine);
            coroutine = StartCoroutine(GoDown());
        }
@@ -73,6 +64,7 @@ public class Lift : ButtonEvent
 
     public override void ResetEvent()
     {
+        rigidbody2D.velocity = Vector2.zero;
         if(startsUp)
         {
             transform.position = new Vector3(transform.position.x, upY, transform.position.z);
@@ -90,17 +82,21 @@ public class Lift : ButtonEvent
     {
         while(transform.position.y < upY)
         {
-            transform.Translate(new Vector3(0, speed * Time.deltaTime, 0), Space.World);
+            //transform.Translate(new Vector3(0, speed * Time.deltaTime, 0), Space.World);
+            rigidbody2D.velocity = Vector2.up * speed;
             yield return null;
         }
+        rigidbody2D.velocity = Vector2.zero;
     }
 
     IEnumerator GoDown()
     {
         while(transform.position.y > downY)
         {
-            transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0), Space.World);
+            //transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0), Space.World);
+            rigidbody2D.velocity = Vector2.up * -speed;
             yield return null;
         }
+        rigidbody2D.velocity = Vector2.zero;
     }
 }

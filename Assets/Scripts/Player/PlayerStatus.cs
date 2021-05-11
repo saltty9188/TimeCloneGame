@@ -126,19 +126,6 @@ public class PlayerStatus : MonoBehaviour
         health = 0;
         if(tag == "Player")
         {
-            Recorder r = GetComponent<Recorder>();
-            r.CancelRecording(true);
-            r.ResetAllEvents();
-            DestroyAllProjectiles();
-            if(enemyManager) 
-            {
-                enemyManager.ResetCurrentBoss();
-                enemyManager.ResetEnemies();
-            }
-            PhysicsObject.ResetAllPhysics(true, true);
-            if(aim.CurrentWeapon != null) aim.DropWeapon();
-            if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
-            if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
             Respawn();
         }
         else
@@ -147,8 +134,21 @@ public class PlayerStatus : MonoBehaviour
         }
     }
 
-    void Respawn()
+    public void Respawn()
     {
+        Recorder r = GetComponent<Recorder>();
+        r.CancelRecording(true);
+        r.ResetAllEvents();
+        DestroyAllProjectiles();
+        if(enemyManager) 
+        {
+            enemyManager.ResetCurrentBoss();
+            enemyManager.ResetEnemies();
+        }
+        PhysicsObject.ResetAllPhysics(true, true);
+        if(aim.CurrentWeapon != null) aim.DropWeapon();
+        if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
+        if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
         health = maxHealth;
         UpdateUI();
         transform.position = CheckPoint.lastCheckpoint.transform.position;

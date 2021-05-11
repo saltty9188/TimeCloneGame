@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Private fields
     private Aim aimScript;
+    private ToolTips toolTips;
     private Rigidbody2D rigidbody;
     private Animator animator;
     private Vector2 playerSize;
@@ -35,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         playerSize = GetComponent<CapsuleCollider2D>().size;
         originalParent = transform.parent;
         aimScript = transform.GetChild(0).GetComponent<Aim>();
+        toolTips = GetComponent<ToolTips>();
     }
 
     void FixedUpdate()
@@ -52,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, boxGrabDistance, allButPlayer);
+        toolTips.GrabToolTip(hit && hit.collider.tag == "Box");
         if(hit && hit.collider.tag == "Box")
         {
             FixedJoint2D joint = hit.collider.GetComponent<FixedJoint2D>();

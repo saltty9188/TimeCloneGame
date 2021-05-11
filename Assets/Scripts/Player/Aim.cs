@@ -49,16 +49,23 @@ public class Aim : MonoBehaviour
         }
     }
 
-    public float Rotate(string controlScheme, Vector2 inputDirection, bool shoot)
+    public float Rotate(Vector2 inputDirection, bool shoot)
     {
 
         if(this.enabled)
-            {
-                if(controlScheme.Equals("Mouse") || controlScheme.Equals("Keyboard"))
+        {
+            if(PlayerController.controlScheme == "KeyboardMouse")
             {
                 Vector2 mousePos2D = Camera.main.ScreenToWorldPoint(inputDirection);
 
-                armRotation = Mathf.Atan2(mousePos2D.y - transform.position.y, mousePos2D.x - transform.position.x) * Mathf.Rad2Deg;
+                //Make the aim more accurate to the weapon's fire point if one is equipped
+                float aimVerticalOffset = 0;
+                if(CurrentWeapon != null)
+                {
+                    aimVerticalOffset = weapon.transform.localPosition.y + weapon.transform.GetChild(0).localPosition.y;
+                }
+                
+                armRotation = Mathf.Atan2(mousePos2D.y - transform.position.y - aimVerticalOffset, mousePos2D.x - transform.position.x) * Mathf.Rad2Deg;
             }
             else
             {

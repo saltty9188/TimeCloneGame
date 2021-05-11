@@ -113,10 +113,10 @@ public class Projectile : MonoBehaviour
             }
             else if(collider.transform.parent && collider.transform.parent.tag == "EnemyInvuln")
             {
-                EnemyStatus es = collider.transform.parent.GetComponent<EnemyStatus>();
-                if(es && collider.transform.parent.gameObject != shooter)
+                GuardBot gb = collider.transform.parent.GetComponent<GuardBot>();
+                if(gb && collider.transform.parent.gameObject != shooter)
                 {
-                    es.TakeDamage(damage);
+                    gb.TakeDamage(damage);
                 }
             }
         }

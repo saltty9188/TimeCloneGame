@@ -18,6 +18,7 @@ public class GuardBot : EnemyBehaviour
     #region Private fields
     private Animator animator;
     private Rigidbody2D rigidbody2D;
+    private EnemyStatus enemyStatus;
     private float leftBoundary;
     private float rightBoundary;
     private GameObject currentTarget;
@@ -33,6 +34,7 @@ public class GuardBot : EnemyBehaviour
     {
         animator = GetComponent<Animator>();
         rigidbody2D = GetComponent<Rigidbody2D>();
+        enemyStatus = GetComponent<EnemyStatus>();
         leftBoundary = transform.position.x - moveBoundaryWidth / 2f;
         rightBoundary = transform.position.x + moveBoundaryWidth / 2f;
         currentTarget = null;
@@ -215,6 +217,19 @@ public class GuardBot : EnemyBehaviour
     {
         base.ResetEnemy();
         moveSpeed = startSpeed;
+        if(roomExit) roomExit.RemoveActivation();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if(currentTarget == null)
+        {
+            moveSpeed *= -1;
+            Flip();
+        }
+
+        enemyStatus.TakeDamage(damage);
+
     }
 
     void OnCollisionStay2D(Collision2D other) 

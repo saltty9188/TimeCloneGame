@@ -25,6 +25,8 @@ TagManager:
   - Boss3Back
   - MirrorMover
   - CloneDevice
+  - NewFile
+  - ExistingFile
   layers:
   - Default
   - TransparentFX
