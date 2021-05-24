@@ -27,6 +27,8 @@ TagManager:
   - CloneDevice
   - NewFile
   - ExistingFile
+  - Lights
+  - Boss3Base
   layers:
   - Default
   - TransparentFX
@@ -67,9 +69,9 @@ TagManager:
   - name: BG
     uniqueID: 2728964423
     locked: 0
+  - name: Platforms
+    uniqueID: 3944989173
+    locked: 0
   - name: Player
     uniqueID: 1842072199
-    locked: 0
-  - name: Laser
-    uniqueID: 3944989173
     locked: 0
