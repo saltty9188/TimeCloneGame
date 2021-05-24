@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class DeathLaser : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class DeathLaser : MonoBehaviour
 
         Vector3[] points = new Vector3[]{transform.GetChild(0).position, transform.GetChild(1).position};
         line.SetPositions(points);
+
     }
 
     // Update is called once per frame

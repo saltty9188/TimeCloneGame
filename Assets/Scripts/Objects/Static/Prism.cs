@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Prism : MovableObject
 {
@@ -19,6 +20,7 @@ public class Prism : MovableObject
             foreach(Vector2 direction in outputDirections)
             {
                 GameObject go = Instantiate(template, transform.position + new Vector3(direction.x, direction.y, 0) * 0.5f, Quaternion.identity);
+                go.transform.GetChild(0).GetComponent<Light2D>().enabled = true;
                 Projectile p1 = go.GetComponent<Projectile>();
                 p1.direction = direction;
                 p1.SetShooter(gameObject, true);
