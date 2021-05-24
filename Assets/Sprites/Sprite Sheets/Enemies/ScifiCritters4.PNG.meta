@@ -1,0 +1,708 @@
+fileFormatVersion: 2
+guid: 913dd98885ef56141b13147760431e2f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2262920612508956139
+    second: ScifiCritters4_0
+  - first:
+      213: 249417551512067365
+    second: ScifiCritters4_1
+  - first:
+      213: 7895566840608365664
+    second: ScifiCritters4_2
+  - first:
+      213: 5555856389121256303
+    second: ScifiCritters4_3
+  - first:
+      213: -2719495024563551057
+    second: TankBot
+  - first:
+      213: 8803198235942273578
+    second: ScifiCritters4_5
+  - first:
+      213: -2622105600913747815
+    second: ScifiCritters4_6
+  - first:
+      213: 9177152736702974650
+    second: ScifiCritters4_7
+  - first:
+      213: 892282387184693418
+    second: ScifiCritters4_8
+  - first:
+      213: -8319767051021800259
+    second: ScifiCritters4_9
+  - first:
+      213: 1987770262168709802
+    second: ScifiCritters4_10
+  - first:
+      213: -2534842867123941447
+    second: ScifiCritters4_11
+  - first:
+      213: 1121770903781736629
+    second: ScifiCritters4_12
+  - first:
+      213: -1164720567776187148
+    second: ScifiCritters4_13
+  - first:
+      213: -6147505275318498479
+    second: ScifiCritters4_14
+  - first:
+      213: 4236093683691195813
+    second: JumpBot
+  - first:
+      213: 3653087272839273002
+    second: ScifiCritters4_16
+  - first:
+      213: 4336613154708232081
+    second: ScifiCritters4_17
+  - first:
+      213: 7030769351013102050
+    second: ScifiCritters4_18
+  - first:
+      213: 6305416467771162499
+    second: ScifiCritters4_19
+  - first:
+      213: -9017766613125855590
+    second: ScifiCritters4_20
+  - first:
+      213: -3098364051184253285
+    second: ScifiCritters4_21
+  - first:
+      213: 5886975895690467302
+    second: ScifiCritters4_22
+  - first:
+      213: 5415764304829108383
+    second: ScifiCritters4_23
+  - first:
+      213: 7982462340544527930
+    second: ScifiCritters4_24
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 16
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ScifiCritters4_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 134
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be5718fbe42876f10800000000000000
+      internalID: 2262920612508956139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_1
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 133
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52ddf9e01fb167300800000000000000
+      internalID: 249417551512067365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_2
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 133
+        width: 32
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06c90d28530b29d60800000000000000
+      internalID: 7895566840608365664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_3
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 133
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6b28a023fd5a1d40800000000000000
+      internalID: 5555856389121256303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TankBot
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 133
+        width: 24
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa482740fa9624ad0800000000000000
+      internalID: -2719495024563551057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_5
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 100
+        width: 25
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a224fac772e3b2a70800000000000000
+      internalID: 8803198235942273578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_6
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 100
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99059f539d86c9bd0800000000000000
+      internalID: -2622105600913747815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_7
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 100
+        width: 29
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aba4fa89acbcb5f70800000000000000
+      internalID: 9177152736702974650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_8
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 100
+        width: 26
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa03b778a16026c00800000000000000
+      internalID: 892282387184693418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_9
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 106
+        width: 15
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbca8d572ff3a8c80800000000000000
+      internalID: -8319767051021800259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_10
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 67
+        width: 28
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaaa6a3958af59b10800000000000000
+      internalID: 1987770262168709802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_11
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 67
+        width: 28
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bf05afa7dd62dcd0800000000000000
+      internalID: -2534842867123941447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_12
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 70
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b0874f81b4519f00800000000000000
+      internalID: 1121770903781736629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_13
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 67
+        width: 24
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fceb1780d416dfe0800000000000000
+      internalID: -1164720567776187148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_14
+      rect:
+        serializedVersion: 2
+        x: 134
+        y: 67
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15b0dc1e58cafaaa0800000000000000
+      internalID: -6147505275318498479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JumpBot
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 38
+        width: 27
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ad80b3f2c0a9ca30800000000000000
+      internalID: 4236093683691195813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_16
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 34
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2ad51f058f52b230800000000000000
+      internalID: 3653087272839273002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_17
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 34
+        width: 23
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1979ba610bebe2c30800000000000000
+      internalID: 4336613154708232081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_18
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 34
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e1f6d0697f429160800000000000000
+      internalID: 7030769351013102050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_19
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 38
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38ff562bed6518750800000000000000
+      internalID: 6305416467771162499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9681452b057ad280800000000000000
+      internalID: -9017766613125855590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_21
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 1
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b968250bf466005d0800000000000000
+      internalID: -3098364051184253285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_22
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 7
+        width: 31
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e7dae7f26db2b150800000000000000
+      internalID: 5886975895690467302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_23
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 7
+        width: 32
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f905498f0f8a82b40800000000000000
+      internalID: 5415764304829108383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ScifiCritters4_24
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 1
+        width: 32
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3ef611b43767ce60800000000000000
+      internalID: 7982462340544527930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

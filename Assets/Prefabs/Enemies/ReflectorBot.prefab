@@ -464,7 +464,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -483,7 +483,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1842072199
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 6434264691078382150, guid: 809075aa7bb7ae6489f8064a6979835a,
     type: 3}
@@ -546,6 +546,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthBar: {fileID: 5239441098278352942}
+  numExplosions: 2
 --- !u!114 &5239441099142130897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,7 +624,7 @@ PrefabInstance:
     - target: {fileID: 2267681428197159538, guid: 2b5cedd0d70973343a0040cc20539e06,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.29509944
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2267681428197159538, guid: 2b5cedd0d70973343a0040cc20539e06,
         type: 3}

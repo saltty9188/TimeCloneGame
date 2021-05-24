@@ -6,6 +6,7 @@ public class EnemyManager : MonoBehaviour
 {
 
     #region Public fields
+    public static EnemyManager instance;
     public static List<GameObject> targets;
     public static List<GameObject> enemies;
     #endregion
@@ -14,9 +15,12 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private FirstBossScript firstBossScript = null;
     [SerializeField] private SecondBossScript secondBossScript = null;
     [SerializeField] private ThirdBossScript thirdBossScript = null;
+    [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private float explosionDelay;
     #endregion
     void Awake()
     {
+        instance = this;
         targets = new List<GameObject>();
         enemies = new List<GameObject>();
     }
@@ -96,6 +100,20 @@ public class EnemyManager : MonoBehaviour
         else if(thirdBossScript)
         {
             thirdBossScript.ResetBoss();
+        }
+    }
+
+    public void SpawnExplosions(params Vector3[] positions)
+    {
+        StartCoroutine(Explosions(positions));
+    }
+
+    IEnumerator Explosions(Vector3[] positions)
+    {
+        foreach(Vector3 position in positions)
+        {
+            Instantiate(explosionPrefab, position, new Quaternion());
+            yield return new WaitForSeconds(explosionDelay);
         }
     }
 }

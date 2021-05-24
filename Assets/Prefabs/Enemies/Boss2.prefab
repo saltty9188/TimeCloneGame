@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 383817762066587238}
   - component: {fileID: 383817762066587232}
   - component: {fileID: 383817762066587233}
-  - component: {fileID: 383817762066587235}
   - component: {fileID: 383817762066587234}
+  - component: {fileID: 7410235641490825729}
   m_Layer: 12
   m_Name: Boss2
   m_TagString: Boss2
@@ -128,6 +128,7 @@ MonoBehaviour:
   lowerLeft: {x: 72.5, y: -0.5}
   onRight: 0
   shootingLandCount: 0
+  verticalSpeed: 0
 --- !u!61 &383817762066587232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -175,22 +176,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &383817762066587235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 383817762066587242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff3591275dc4e94eb4368d97de2e581, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 500
-  healthBar: {fileID: 0}
-  healthText: {fileID: 0}
-  exit: {fileID: 0}
 --- !u!114 &383817762066587234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +191,23 @@ MonoBehaviour:
   flashMaterial: {fileID: 2100000, guid: 5b52bd8ae719599419f51d75d5c46066, type: 2}
   color: {r: 1, g: 1, b: 1, a: 1}
   duration: 0.1
+--- !u!114 &7410235641490825729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383817762066587242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2681052c1a66ab246b740a12eff9d769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 500
+  healthBar: {fileID: 0}
+  healthText: {fileID: 0}
+  exit: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &383817762259594328
 GameObject:
   m_ObjectHideFlags: 0

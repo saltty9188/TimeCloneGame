@@ -8,6 +8,8 @@ public class FirstBossScript : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private int damage = 5;
     [SerializeField] private float phaseTransitionTime = 10;
+    [SerializeField] private Sprite[] deathPieces;
+    [SerializeField] private GameObject deathPiecePrefab;
     #endregion
 
     #region Public fields
@@ -126,6 +128,21 @@ public class FirstBossScript : MonoBehaviour
                     closestTarget = target;
                 }
             }     
+        }
+    }
+
+    public void DeathGibs()
+    {
+        foreach(Sprite deathSprite in deathPieces)
+        {
+            Vector3 direction = new Vector3(Random.Range(-1.0f, 1.0f), Random.value, 0).normalized;
+            GameObject piece = Instantiate(deathPiecePrefab, transform.position + direction, new Quaternion());
+            piece.GetComponent<SpriteRenderer>().sprite = deathSprite;
+            
+            Physics2D.IgnoreCollision(piece.GetComponent<Collider2D>(), GameObject.Find("Player").GetComponent<Collider2D>());
+
+            Rigidbody2D rb = piece.GetComponent<Rigidbody2D>();
+            rb.AddForce(direction * 2000);
         }
     }
 }
