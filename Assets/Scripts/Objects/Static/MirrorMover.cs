@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class MirrorMover : MonoBehaviour
 {
     #region Inspector fields
+    
     [SerializeField] public GameObject[] movableObjects;
     [SerializeField] private Camera moveCamera;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private float objectMoveSpeed = 0.4f;
     [SerializeField] private Material solidColour;
     [SerializeField] private Color color = Color.white;
+    [SerializeField] private Image[] toolTipIcons;
+    [SerializeField] private Image backImage;
     #endregion
 
     #region Private fields
@@ -18,7 +23,6 @@ public class MirrorMover : MonoBehaviour
     private bool usingCamera;
     private int index;
     private Rigidbody2D currentObjectRigidbody;
-    private GameObject outline;
     #endregion
 
     void Start()
@@ -67,6 +71,7 @@ public class MirrorMover : MonoBehaviour
         if(switchCam)
         {
             moveCamera.enabled = true;
+            toolTipIcons[0].transform.parent.gameObject.SetActive(true);
             mainCamera.enabled = false;
         }
         Initialise();
@@ -77,24 +82,18 @@ public class MirrorMover : MonoBehaviour
         if(usingCamera)
         {
             moveCamera.enabled = false;
+            toolTipIcons[0].transform.parent.gameObject.SetActive(false);
             mainCamera.enabled = true;
         }
 
-        if(currentObject.transform.parent.tag == "Enemy")
-        {
-            SpiderBot sb = currentObject.transform.parent.GetComponent<SpiderBot>();
-            if(sb)
-            {
-                //sb.DropObject();
-            }
-        }
         foreach(GameObject obj in movableObjects)
         {
             Rigidbody2D temp = obj.GetComponent<Rigidbody2D>();
             temp.isKinematic = true;
             temp.useFullKinematicContacts = false;
         }
-        Destroy(outline);
+
+        ResetOutline();
     }
 
     public void CycleNextObject()
@@ -133,7 +132,6 @@ public class MirrorMover : MonoBehaviour
 
     public void Move(Vector2 direction)
     {
-        UpdateOutline();
         if(currentObject.transform.parent.tag != "Enemy") currentObjectRigidbody.velocity = direction * objectMoveSpeed;
         UpdateCamera();
     }
@@ -162,31 +160,25 @@ public class MirrorMover : MonoBehaviour
 
     void MakeOutline()
     {
-        if(outline != null) Destroy(outline);
-        outline = Instantiate(currentObject);
-        SetUpOutline(outline);
-        if(outline.tag == "Reflective")
-        {
-            SetUpOutline(outline.transform.GetChild(0).gameObject);
+        ResetOutline();
+
+        Light2D currentLight = currentObject.GetComponentInChildren<Light2D>();
+        currentLight.color = Color.cyan;
+    }
+
+    void ResetOutline()
+    {
+        foreach(GameObject go in movableObjects)
+        {    
+            Light2D light = go.GetComponentInChildren<Light2D>();
+            light.color = Color.white;
         }
-        Vector3 temp = outline.transform.localScale;
-        temp.x += 0.2f;
-        temp.y += 0.2f;
-        outline.transform.localScale = temp;
     }
 
-    void SetUpOutline(GameObject outlineObject)
+    public void SetToolTips(Sprite[] sprites, Sprite backSprite)
     {
-        outlineObject.GetComponent<BoxCollider2D>().enabled = false;
-        SpriteRenderer sr = outlineObject.GetComponent<SpriteRenderer>(); 
-        sr.material = solidColour;
-        sr.color = color;
-        sr.sortingOrder = 1;
-        outlineObject.GetComponent<Collider2D>().enabled = false;
-    }
-
-    void UpdateOutline()
-    {
-        outline.transform.position = currentObject.transform.position;
+        toolTipIcons[0].sprite = sprites[0];
+        toolTipIcons[1].sprite = sprites[1];
+        backImage.sprite = backSprite;
     }
 }

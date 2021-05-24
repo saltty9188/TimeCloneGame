@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Redirector : MovableObject
 {
@@ -11,10 +12,11 @@ public class Redirector : MovableObject
         {
             GameObject template = p.gameObject;
 
-            Vector2 direction = transform.GetChild(1).position - transform.position;
+            Vector2 direction = transform.GetChild(0).position - transform.position;
             direction.Normalize();
 
-            GameObject go = Instantiate(template, transform.GetChild(1).position, Quaternion.identity);
+            GameObject go = Instantiate(template, transform.GetChild(0).position, Quaternion.identity);
+            go.transform.GetChild(0).GetComponent<Light2D>().enabled = true;
             Projectile p1 = go.GetComponent<Projectile>();
             p1.direction = direction;
             p1.SetShooter(gameObject, true);

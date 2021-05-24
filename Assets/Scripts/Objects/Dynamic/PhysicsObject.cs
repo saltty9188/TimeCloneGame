@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class PhysicsObject : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class PhysicsObject : MonoBehaviour
     private float yPosInAir;
     private bool touchingCeiling;
     private Coroutine floatRoutine;
+    private Light2D light;
     #endregion
 
     void Awake()
@@ -47,6 +49,8 @@ public class PhysicsObject : MonoBehaviour
         initialPhysicsMaterial = rigidbody2D.sharedMaterial;
         yPosOnGround = transform.position.y;
         allPhysicsObjects.Add(this);
+        light = transform.GetChild(0).GetComponent<Light2D>();
+        light.pointLightOuterRadius *= transform.localScale.x;
     }
 
     void Update()
@@ -73,6 +77,7 @@ public class PhysicsObject : MonoBehaviour
         if (floatRoutine != null) StopCoroutine(floatRoutine);
 
         spriteRenderer.color = Color.white;
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
     public void ResetParent()
@@ -181,6 +186,8 @@ public class PhysicsObject : MonoBehaviour
                     break;
                 }
         }
+        light.gameObject.SetActive(true);
+        light.color = spriteRenderer.color;
     }
 
     void OnCollisionStay2D(Collision2D other)

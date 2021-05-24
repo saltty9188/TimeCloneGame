@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Button : MonoBehaviour
 {
@@ -14,10 +15,10 @@ public class Button : MonoBehaviour
     #endregion
 
     #region Private fields
+    private Light2D light;
     private Vector3 defaultPos;
     private float buttonHeight;
     private bool buttonDown;
-    private bool buttonMovedDown;
     private bool[] eventsTriggered;
     private Vector2 startPoint;
     private Vector2 endPoint;
@@ -25,9 +26,9 @@ public class Button : MonoBehaviour
 
     void Start()
     {
+        light = GetComponentInChildren<Light2D>();
         defaultPos = transform.localPosition;
         buttonDown = false;
-        buttonMovedDown = false;
         eventsTriggered = new bool[attachedEvents.Length];
 
         buttonHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y;
@@ -61,6 +62,7 @@ public class Button : MonoBehaviour
         if(buttonDown)
         {
             transform.position = defaultPos - transform.up * buttonHeight / 2;
+            light.enabled = true;
 
             for(int i = 0; i < attachedEvents.Length; i++)
             {
@@ -74,7 +76,7 @@ public class Button : MonoBehaviour
         else if(!stayDown)
         {
             transform.position = defaultPos;
-            buttonMovedDown = false;
+            light.enabled = false;
             for(int i = 0; i < attachedEvents.Length; i++)
             {
                 if(eventsTriggered[i]) 
@@ -90,6 +92,7 @@ public class Button : MonoBehaviour
     public void ResetAttachedEvents()
     {
         transform.position = defaultPos;
+        light.enabled = false;
         buttonDown = false;
         for(int i = 0; i < attachedEvents.Length; i++)
         {
