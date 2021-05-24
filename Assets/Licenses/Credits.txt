@@ -1,14 +1,46 @@
-3X UPDATED 32x32 Scifi Roguelike Enemies by Stephen Challener (Redshrike) OpenGameArt.org
+Developed By
+
+Ty Salter
+
+
+This work includes material from the following sources (listed sequentially)...
+
+"Basic Character Pixel Art" by Jameos
+https://jameos.itch.io/basic-player-character-pixel-art
+
+"3X UPDATED 32x32 Scifi Roguelike Enemies by Stephen Challener (Redshrike)" OpenGameArt.org
 https://opengameart.org/content/3x-updated-32x32-scifi-roguelike-enemies under Attribution 3.0 Unported (CC BY 3.0)
 Full terms at https://creativecommons.org/licenses/by/3.0/
 
-Robot Shooter PixelArt 128x128 by Hooking
-https://melvin-costner.itch.io/robot-shooter-pixelart-128x128
-
-Roguelike sprites (Redshrike mods) by Stephen Challener (Redshrike) OpenGameArt.org
+"Roguelike sprites (Redshrike mods)" by Stephen Challener (Redshrike) OpenGameArt.org
 https://opengameart.org/content/3x-updated-32x32-scifi-roguelike-enemies under Attribution 3.0 Unported (CC BY 3.0)
 Full terms at https://creativecommons.org/licenses/by/3.0/
 
-Security Robot by NARFNra
+"Space Weapon" by knik1985
+https://opengameart.org/content/space-weapon under Attribution 3.0 Unported (CC BY 3.0)
+Full terms at https://creativecommons.org/licenses/by/3.0/
+
+"Square Crystals (Rework)" Created by Hansjörg Malthaner (Varkalandar) & Jordan Irwin (AntumDeluge)
+https://opengameart.org/users/varkalandar
+https://opengameart.org/content/square-crystals-rework under Attribution 3.0 Unported (CC BY 3.0)
+Full terms at https://creativecommons.org/licenses/by/3.0/
+
+"Sci-Fi Console / Screen" by oparaskos
+https://opengameart.org/content/sci-fi-console-screen under Attribution-ShareAlike 3.0 Unported (CC BY-SA 4.0)
+Full terms at https://creativecommons.org/licenses/by-sa/4.0/
+
+"Security Robot" by NARFNra
 https://opengameart.org/content/security-robot under Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 Full terms at https://creativecommons.org/licenses/by-sa/3.0/
+
+"Robot Shooter PixelArt 128x128" by Hooking
+https://melvin-costner.itch.io/robot-shooter-pixelart-128x128
+
+"Wind - Pixel Art" by NYKNCK
+https://kvsr.itch.io/wind
+
+"Farewell" by Cleyton Kauffman - https://soundcloud.com/cleytonkauffman
+https://opengameart.org/content/end-credits-theme under Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+Full terms at https://creativecommons.org/licenses/by-sa/3.0/
+
+Thank You For Playing My Game!

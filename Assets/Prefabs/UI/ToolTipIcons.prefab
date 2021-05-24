@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &967366856096859899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2382256796515331406}
+  - component: {fileID: 2536036454316556596}
+  m_Layer: 0
+  m_Name: ToolTipIcons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &2382256796515331406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967366856096859899}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 531.3005, y: 261.64133, z: -1794.059}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2536036454316556596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 967366856096859899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce522bccd004e4468d32beab5048779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyboardIcons:
+  - {fileID: -5263310844400493299, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
+  - {fileID: 2542707744995195014, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
+  - {fileID: 5545413270143534739, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
+  - {fileID: -441525437775891900, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
+  - {fileID: -2196051395753998488, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
+  - {fileID: -6482817751432757665, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
+  - {fileID: -429637653282652726, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
+  - {fileID: -5699620784097544111, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
+  - {fileID: -2145124410647425405, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
+  xboxIcons:
+  - {fileID: 21300052, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+  - {fileID: 21300054, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+  - {fileID: 21300048, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+  - {fileID: 21300018, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+  - {fileID: 21300040, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+  - {fileID: 21300032, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+  - {fileID: 21300028, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+  - {fileID: 21300036, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+  - {fileID: 21300046, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
+  psIcons:
+  - {fileID: 21300052, guid: 10045ad39fef69944b33bedc39310592, type: 3}
+  - {fileID: 21300050, guid: 10045ad39fef69944b33bedc39310592, type: 3}
+  - {fileID: 21300046, guid: 10045ad39fef69944b33bedc39310592, type: 3}
+  - {fileID: 21300018, guid: 10045ad39fef69944b33bedc39310592, type: 3}
+  - {fileID: 21300034, guid: 10045ad39fef69944b33bedc39310592, type: 3}
+  - {fileID: 21300036, guid: 10045ad39fef69944b33bedc39310592, type: 3}
+  - {fileID: 21300028, guid: 10045ad39fef69944b33bedc39310592, type: 3}
+  - {fileID: 21300030, guid: 10045ad39fef69944b33bedc39310592, type: 3}
+  - {fileID: 21300042, guid: 10045ad39fef69944b33bedc39310592, type: 3}

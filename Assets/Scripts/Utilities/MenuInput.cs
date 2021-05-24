@@ -9,6 +9,8 @@ public class MenuInput : MonoBehaviour
     [SerializeField] private OptionsMenu optionsMenu;
     [SerializeField] private FileViewer fileViewer;
     [SerializeField] private LevelSelect levelSelect;
+    [SerializeField] private Credits credits;
+    [SerializeField] private TitleScreenIntro intro;
     #endregion
 
     #region Private fields
@@ -21,7 +23,11 @@ public class MenuInput : MonoBehaviour
         
         controls.Menus.Back.performed += ctx =>
         {
-            if(optionsMenu.gameObject.activeSelf)
+            if(intro.inIntro)
+            {
+                intro.SkipIntro();
+            }
+            else if(optionsMenu.gameObject.activeSelf)
             {
                 optionsMenu.GoBack();
             }
@@ -32,6 +38,10 @@ public class MenuInput : MonoBehaviour
             else if(levelSelect.gameObject.activeSelf)
             {
                 levelSelect.GoBack();
+            }
+            else if(credits.gameObject.activeSelf)
+            {
+                credits.GoBack();
             }
         };
     }
