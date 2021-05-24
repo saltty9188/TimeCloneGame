@@ -86,9 +86,6 @@ public class ExecuteCommands : MonoBehaviour
 
                         oldWeapons.Add(new OldWeapon(rc.newWeapon, weaponScript));
                     }
-
-
-                    
                 } 
 
                 if(rc.movingMirror)
@@ -108,9 +105,7 @@ public class ExecuteCommands : MonoBehaviour
                     {
                         nearbyMirrorMover.CyclePrevObject();
                     }
-
-                    nearbyMirrorMover.Move(rc.movement);
-                    
+                    nearbyMirrorMover.Move(rc.movement);      
                 }
                 else
                 {
@@ -208,6 +203,7 @@ public class ExecuteCommands : MonoBehaviour
         if(unstable && (other.GetContact(0).collider.tag == "Player" || other.GetContact(0).collider.tag == "Clone"))
         {
             other.GetContact(0).collider.GetComponent<PlayerStatus>().Die();
+            GetComponent<PlayerStatus>().Die();
         }
     }
 

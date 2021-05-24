@@ -72,6 +72,8 @@ public class PhysicsRay : Weapon
         base.Awake();
         NextRayType();
         recordingStartIndex = index;
+
+        pickUpPoint = new Vector3(0.963f, 0.069f, 0);
     }
 
     public override GameObject Shoot(Quaternion rotation)

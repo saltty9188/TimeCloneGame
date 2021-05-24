@@ -40,6 +40,7 @@ public class WeaponManager : MonoBehaviour
             }
             else
             {
+                weapon.gameObject.SetActive(true);
                 if(weapon != exclude)
                 {
                     weapon.ResetWeapon();

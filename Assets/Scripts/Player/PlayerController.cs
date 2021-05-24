@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     #region Private fields
     private Rigidbody2D rigidbody2D;
+    private ToolTips toolTips;
     private PlayerMovement playerMovement;
     private PlayerControls controls;
     private Aim aim;
@@ -43,10 +44,12 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        toolTips = GetComponent<ToolTips>();
         playerMovement = gameObject.GetComponent<PlayerMovement>();
         aim = gameObject.GetComponentInChildren<Aim>();
         recorder = GetComponent<Recorder>();
         controls = new PlayerControls();
+        controlScheme = "KeyboardMouse";
 
         recording = false;
         prevWeapon = null;
@@ -106,6 +109,7 @@ public class PlayerController : MonoBehaviour
                 if(nearbyCloneMachine && !recording && !movingMirrors)
                 {
                     recording = true;
+                    prevWeapon = null;
                     recorder.StartRecording(nearbyCloneMachine, aim.CurrentWeapon);
                 }
                 else if(recording && !movingMirrors)
@@ -209,17 +213,15 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(Gamepad.current);
-        Debug.Log(Keyboard.current);
         float angle = 0;
 
         if(movingMirrors)
         {
             nearbyMirrorMover.Move(movement);
+            toolTips.SetMoverToolTips(nearbyMirrorMover);
         }
         else
         {
-            Debug.Log(grabbing);
             playerMovement.move(movement, jumping, grabbing);
             angle = aim.Rotate(aimVector, shooting);
         }
@@ -297,7 +299,5 @@ public class PlayerController : MonoBehaviour
         {
             controlScheme = "Gamepad";
         }
-
-        Debug.Log(controlScheme);
     }
 }

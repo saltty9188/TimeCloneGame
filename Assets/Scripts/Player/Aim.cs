@@ -6,6 +6,7 @@ using TMPro;
 public class Aim : MonoBehaviour
 {
     #region Inspector fields
+    [SerializeField] private Sprite[] armSprites;
     [SerializeField] private Weapon weapon;
     [SerializeField] private TextMeshProUGUI rayTypeText;
     [SerializeField] private LayerMask ignorePlayerAndClone;
@@ -20,12 +21,10 @@ public class Aim : MonoBehaviour
 
     #region Private fields
     private bool facingRight;
-
     private float angleOffset;
-
     private float armRotation;
     private Projectile shoot;
-
+    private Sprite weaponArm;
     #endregion
     
     void Awake()
@@ -34,25 +33,13 @@ public class Aim : MonoBehaviour
         angleOffset = 0;
         armRotation = 0;
         SetRayTypeText();
-    }
-
-    void Update()
-    {
-        //Hide back arm when pointing down
-        if(transform.rotation.z < -20 * Mathf.Deg2Rad)
-        {
-            transform.GetChild(0).gameObject.SetActive(false);
-        }
-        else
-        {
-            transform.GetChild(0).gameObject.SetActive(true);
-        }
+        weaponArm = armSprites[0];
     }
 
     public float Rotate(Vector2 inputDirection, bool shoot)
     {
-
-        if(this.enabled)
+        // only rotate the arm if the script is enabled and the character isn't pushing
+        if(this.enabled && GetComponent<SpriteRenderer>().sprite != armSprites[2])
         {
             if(PlayerController.controlScheme == "KeyboardMouse")
             {
@@ -73,18 +60,19 @@ public class Aim : MonoBehaviour
                 if(inputDirection != Vector2.zero) armRotation = Mathf.Atan2(inputDirection.y, inputDirection.x) * Mathf.Rad2Deg;
             }
 
+            facingRight = transform.parent.localScale.x > 0;
+            angleOffset = (facingRight ? 0 : 180);
+
             if(Mathf.Abs(armRotation) > 90 && facingRight)
             {
                 Flip();
-                facingRight = false;
-                angleOffset = 180;
+                //angleOffset = 180;
             }
                 
             if(Mathf.Abs(armRotation) < 90 && !facingRight)
             {
                 Flip();
-                facingRight = true;
-                angleOffset = 0;
+                //angleOffset = 0;
             }
 
             transform.rotation = Quaternion.Euler(0,0, armRotation + angleOffset);
@@ -100,25 +88,30 @@ public class Aim : MonoBehaviour
 
     public void CloneRotate(float armRotation, bool shoot)
     {
-        if(Mathf.Abs(armRotation) > 90 && facingRight)
+        // only rotate the arm if the script is enabled and the character isn't pushing
+        if(this.enabled && GetComponent<SpriteRenderer>().sprite != armSprites[2])
         {
-            Flip();
-            facingRight = false;
-            angleOffset = 180;
-        }
-            
-        if(Mathf.Abs(armRotation) < 90 && !facingRight)
-        {
-            Flip();
-            facingRight = true;
-            angleOffset = 0;
-        }
-        
-        transform.rotation = Quaternion.Euler(0,0, armRotation + angleOffset);
+            facingRight = transform.parent.localScale.x > 0;
+            angleOffset = (facingRight ? 0 : 180);
 
-        if(shoot)
-        {
-            Shoot();
+            if(Mathf.Abs(armRotation) > 90 && facingRight)
+            {
+                Flip();
+                //angleOffset = 180;
+            }
+                
+            if(Mathf.Abs(armRotation) < 90 && !facingRight)
+            {
+                Flip();
+                //angleOffset = 0;
+            }
+            
+            transform.rotation = Quaternion.Euler(0,0, armRotation + angleOffset);
+
+            if(shoot)
+            {
+                Shoot();
+            }
         }
     }
 
@@ -137,6 +130,16 @@ public class Aim : MonoBehaviour
         }
         this.weapon = weapon;
         weapon.PickUp(gameObject);
+        if(weapon != null && typeof(PhysicsRay).IsInstanceOfType(weapon))
+        {
+            weaponArm = armSprites[1];
+        }
+        else
+        {
+            weaponArm = armSprites[0];
+        }
+
+        GetComponent<SpriteRenderer>().sprite = weaponArm;
         SetRayTypeText();
     }
 
@@ -149,7 +152,7 @@ public class Aim : MonoBehaviour
 
     public void Shoot()
     {
-        if(weapon != null)
+        if(weapon != null && weapon.gameObject.activeSelf)
         {
             Vector3 firePoint = weapon.transform.GetChild(0).position;
 
@@ -163,6 +166,24 @@ public class Aim : MonoBehaviour
             }
 
             if(firedProjectile) transform.parent.GetComponent<PlayerStatus>().AddProjectile(firedProjectile);
+        }
+    }
+
+    public void GrabArm(bool nearBox)
+    {
+        if(nearBox)
+        {
+            GetComponent<SpriteRenderer>().sprite = armSprites[2];
+            transform.rotation = new Quaternion();
+        }
+        else
+        {
+            GetComponent<SpriteRenderer>().sprite = weaponArm;
+        }
+
+        if(weapon != null)
+        {
+            weapon.gameObject.SetActive(!nearBox);
         }
     }
 
