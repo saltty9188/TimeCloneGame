@@ -10,6 +10,7 @@ public class Turret : EnemyBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float fireCooldown = 0.3f;
     [SerializeField] private int damage = 10;
+    [SerializeField] private int numExplosions = 2;
     [SerializeField] private LayerMask everythingButBullet;
     #endregion
     
@@ -89,7 +90,7 @@ public class Turret : EnemyBehaviour
     {
         if(accumulatedTime >= fireCooldown)
         {
-            GameObject go = Instantiate(projectilePrefab, transform.GetChild(0).GetChild(0).position, new Quaternion());
+            GameObject go = Instantiate(projectilePrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, new Quaternion());
             Projectile p = go.GetComponent<Projectile>();
             p.direction = direction;
             p.damage = damage;
@@ -102,7 +103,7 @@ public class Turret : EnemyBehaviour
     {
         Vector3 direction = targetPosition - transform.position;
         float newRotation = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, newRotation);
+        transform.GetChild(0).rotation = Quaternion.Euler(0, 0, newRotation);
     }
 
     void OnCollisionEnter2D(Collision2D other) 
@@ -111,8 +112,9 @@ public class Turret : EnemyBehaviour
         other.GetContacts(contacts);
         foreach(ContactPoint2D contact in contacts)
         {
-            if(contact.collider.tag != "Player" && contact.collider.tag != "Clone")
+            if(contact.collider.tag != "Player" && contact.collider.tag != "Clone" && contact.collider.tag != "Projectile")
             {
+                
                 if(contact.point.y < transform.position.y)
                 {
                     collisionBelow = true;
@@ -128,6 +130,7 @@ public class Turret : EnemyBehaviour
 
         if(collisionAbove && collisionBelow)
         {
+            CreateExplosions();
             if(hasBase)
             {
                 transform.parent.gameObject.SetActive(false);
@@ -159,6 +162,7 @@ public class Turret : EnemyBehaviour
 
         if(collisionAbove && collisionBelow)
         {
+            CreateExplosions();
             if(hasBase)
             {
                 transform.parent.gameObject.SetActive(false);
@@ -191,6 +195,20 @@ public class Turret : EnemyBehaviour
         {
             transform.parent.gameObject.SetActive(startActiveState);
         }
+    }
+
+    void CreateExplosions()
+    {
+        float explosionRadius = GetComponent<SpriteRenderer>().sprite.bounds.size.x / 4.0f;
+        Vector3[] positions = new Vector3[numExplosions];
+        for(int i = 0; i < numExplosions; i++)
+        {
+            Vector3 position = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0);
+            position.Normalize();
+            positions[i] = (position * explosionRadius * Random.Range(0.0f, 1.0f)) + transform.position;
+        }
+
+        EnemyManager.instance.SpawnExplosions(positions);
     }
 
     private void OnDrawGizmos() {

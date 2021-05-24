@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Robot Boss 2
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: dd03a9e7156ea0d418345a284bcf09a3, type: 3}
+    - {fileID: 2800000, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+    - {fileID: 2800000, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+    - {fileID: 2800000, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+    - {fileID: 2800000, guid: cb60bb6a64b62fb488375bc0ac37a5a2, type: 3}
+    - {fileID: 2800000, guid: 75702cc62f7c1ed46bfa79edbbd480d7, type: 3}
+    - {fileID: 2800000, guid: fb70310bf71e509439621786a25775ff, type: 3}
+    - {fileID: 2800000, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+    totalSpriteSurfaceArea: 247681
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -1803958970419039415, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+  - {fileID: 4170879883987551284, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+  - {fileID: -4400718479840553212, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+  - {fileID: -5628975401402228084, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+  - {fileID: 6481568080888224992, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+  - {fileID: -377024509336689084, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+  - {fileID: -7659503362370002773, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+  - {fileID: -1959795855802038874, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+  - {fileID: 2666267544084801289, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+  - {fileID: -6433253717049287430, guid: 5c0a4fe521548ab47ae1e4a5ff2d79e2, type: 3}
+  - {fileID: -938240998953624235, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: 5546099600422680351, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: -5135287828617798933, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: 6836063087192025627, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: 8878324223613483864, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: -4132302302245616990, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: -8980606372199926789, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: -6281739638228321136, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: 773962413920995273, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: -2349003790290076352, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: 795854173413565818, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: 4632806544317564570, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: 4640705921133535633, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
+  - {fileID: -4934640117604599776, guid: 75702cc62f7c1ed46bfa79edbbd480d7, type: 3}
+  - {fileID: -5284128410742970744, guid: 75702cc62f7c1ed46bfa79edbbd480d7, type: 3}
+  - {fileID: 8842479363645980008, guid: 75702cc62f7c1ed46bfa79edbbd480d7, type: 3}
+  - {fileID: 8211922087779822601, guid: 75702cc62f7c1ed46bfa79edbbd480d7, type: 3}
+  - {fileID: -1888356793856767192, guid: 75702cc62f7c1ed46bfa79edbbd480d7, type: 3}
+  - {fileID: 679236103791966377, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: -3548589398853215386, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: -1995750730701402263, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: 6852443156055125507, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: -663491127349239750, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: -5148468397919444833, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: -4775907451638007761, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: 7506232066055013735, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: -8473699420372463174, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: -2876893151901155940, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: 1391611236851110571, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: -8788327664343328577, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: -6885031628506796321, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+  - {fileID: 6205793425759620764, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+  - {fileID: -8790327655586582288, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+  - {fileID: 1833225008323519405, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+  - {fileID: -2670579224142220575, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+  - {fileID: -427565858244769439, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+  - {fileID: -5126144416948113431, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+  - {fileID: 1678695518426126423, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+  - {fileID: -8397587080780957431, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+  - {fileID: -6394873380197643020, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
+  - {fileID: 237059735332247392, guid: dd03a9e7156ea0d418345a284bcf09a3, type: 3}
+  - {fileID: -7302273328070523534, guid: dd03a9e7156ea0d418345a284bcf09a3, type: 3}
+  - {fileID: -4382203697780470456, guid: dd03a9e7156ea0d418345a284bcf09a3, type: 3}
+  - {fileID: -6784758420162382790, guid: dd03a9e7156ea0d418345a284bcf09a3, type: 3}
+  - {fileID: -334584508986051645, guid: dd03a9e7156ea0d418345a284bcf09a3, type: 3}
+  - {fileID: -7806444407861978545, guid: cb60bb6a64b62fb488375bc0ac37a5a2, type: 3}
+  - {fileID: -2333985793349093927, guid: cb60bb6a64b62fb488375bc0ac37a5a2, type: 3}
+  - {fileID: 2914235043890541096, guid: cb60bb6a64b62fb488375bc0ac37a5a2, type: 3}
+  - {fileID: 6507308982793938714, guid: cb60bb6a64b62fb488375bc0ac37a5a2, type: 3}
+  - {fileID: 7879759115704981519, guid: fb70310bf71e509439621786a25775ff, type: 3}
+  - {fileID: 3107342639928695726, guid: fb70310bf71e509439621786a25775ff, type: 3}
+  - {fileID: -6281598605608167341, guid: fb70310bf71e509439621786a25775ff, type: 3}
+  - {fileID: 3636941717727715581, guid: fb70310bf71e509439621786a25775ff, type: 3}
+  - {fileID: -950021363193178250, guid: fb70310bf71e509439621786a25775ff, type: 3}
+  - {fileID: -3904388532896203534, guid: fb70310bf71e509439621786a25775ff, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - PowerSuit_Running_Shooting_8
+  - PowerSuit_Running_Shooting_9
+  - PowerSuit_Running_Shooting_6
+  - PowerSuit_Running_Shooting_7
+  - PowerSuit_Running_Shooting_4
+  - PowerSuit_Running_Shooting_5
+  - PowerSuit_Running_Shooting_2
+  - PowerSuit_Running_Shooting_3
+  - PowerSuit_Running_Shooting_0
+  - PowerSuit_Running_Shooting_1
+  - PowerSuit_Death_9
+  - PowerSuit_Death_8
+  - PowerSuit_Death_3
+  - PowerSuit_Death_2
+  - PowerSuit_Death_1
+  - PowerSuit_Death_0
+  - PowerSuit_Death_7
+  - PowerSuit_Death_6
+  - PowerSuit_Death_5
+  - PowerSuit_Death_4
+  - PowerSuit_Death_12
+  - PowerSuit_Death_10
+  - PowerSuit_Death_11
+  - PowerSuit_Doblejumping_3
+  - PowerSuit_Doblejumping_2
+  - PowerSuit_Doblejumping_1
+  - PowerSuit_Doblejumping_0
+  - PowerSuit_Doblejumping_4
+  - PowerSuit_jumping_5
+  - PowerSuit_jumping_4
+  - PowerSuit_jumping_7
+  - PowerSuit_jumping_6
+  - PowerSuit_jumping_1
+  - PowerSuit_jumping_0
+  - PowerSuit_jumping_3
+  - PowerSuit_jumping_2
+  - PowerSuit_jumping_9
+  - PowerSuit_jumping_8
+  - PowerSuit_jumping_10
+  - PowerSuit_jumping_11
+  - PowerSuit_Running_4
+  - PowerSuit_Running_5
+  - PowerSuit_Running_6
+  - PowerSuit_Running_7
+  - PowerSuit_Running_0
+  - PowerSuit_Running_1
+  - PowerSuit_Running_2
+  - PowerSuit_Running_3
+  - PowerSuit_Running_8
+  - PowerSuit_Running_9
+  - PowerSuit_DashFort_2
+  - PowerSuit_DashFort_3
+  - PowerSuit_DashFort_0
+  - PowerSuit_DashFort_1
+  - PowerSuit_DashFort_4
+  - PowerSuit_jumping_Shooting_1
+  - PowerSuit_jumping_Shooting_0
+  - PowerSuit_jumping_Shooting_3
+  - PowerSuit_jumping_Shooting_2
+  - PowerSuit_Idle_3
+  - PowerSuit_Idle_2
+  - PowerSuit_Idle_1
+  - PowerSuit_Idle_0
+  - PowerSuit_Idle_5
+  - PowerSuit_Idle_4
+  m_RenderDataMap: {}
+  m_Tag: Robot Boss 2
+  m_IsVariant: 0

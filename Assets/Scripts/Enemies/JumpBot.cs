@@ -13,45 +13,46 @@ public class JumpBot : EnemyBehaviour
     #endregion
 
     #region Private fields
+    private Animator animator;
+    private GameObject target;
     private bool grounded;
-    private bool knockedBack;
+    private bool canLand;
     #endregion
+
+    protected override void Start()
+    {
+        base.Start();
+        animator = GetComponent<Animator>();
+    }
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(knockBackTime > 0)
         {
             knockBackTime -= Time.deltaTime;
             rigidbody.velocity = new Vector2(knockBackDirection.x * knockBackSpeed, rigidbody.velocity.y);
-            knockedBack = true;
         }
         else
         {
-            GameObject target = SearchForTargets();
-            if(target)
+            target = SearchForTargets();
+            if(grounded && canLand)
             {
-                if(grounded)
-                {
-                    rigidbody.drag = 0;
-                    rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
-                    rigidbody.AddForce(new Vector2(0, jumpPower));
-                    grounded = false;
-                    knockedBack = false;
-                }
-                else if(!knockedBack)
-                {
-                   rigidbody.velocity = new Vector2(moveSpeed * (transform.position.x - target.transform.position.x > 0 ? -1 : 1), rigidbody.velocity.y);
-                }
+                animator.SetTrigger("Land");
+            }
+
+            if(target && !grounded)
+            {
+                rigidbody.velocity = new Vector2(moveSpeed * (transform.position.x - target.transform.position.x > 0 ? -1 : 1), rigidbody.velocity.y);
             }
             else
             {
                 rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
-            }
-            
+            } 
         }
     }
+
     void OnCollisionEnter2D(Collision2D other)
     {
         if(other.GetContact(0).collider.tag == "Player" || other.GetContact(0).collider.tag == "Clone")
@@ -60,6 +61,17 @@ public class JumpBot : EnemyBehaviour
             if(ps)
             {
                 ps.TakeDamage(touchDamage, -other.GetContact(0).normal);
+            }
+        }
+
+        ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
+        other.GetContacts(contacts);
+        foreach (var contact in contacts)
+        {
+            float angle = Vector2.Angle(contact.normal, Vector2.up);
+            if (angle < 40)
+            {
+                grounded = true;
             }
         }
     }
@@ -119,6 +131,27 @@ public class JumpBot : EnemyBehaviour
         if(closestDist > searchRadius) closestTarget = null;
 
         return closestTarget;
+    }
+
+    public void LandingComplete()
+    {
+        animator.ResetTrigger("Land");
+        animator.SetTrigger("Jump");
+        canLand = false;
+    }
+
+    public void Jump()
+    {
+        animator.ResetTrigger("Jump");
+        rigidbody.drag = 0;
+        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+        rigidbody.AddForce(new Vector2(0, jumpPower*2));
+        grounded = false;
+    }
+
+    public void JumpFinished()
+    {
+        canLand = true;
     }
 
     private void OnDrawGizmos() {

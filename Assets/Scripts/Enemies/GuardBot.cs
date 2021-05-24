@@ -40,6 +40,7 @@ public class GuardBot : EnemyBehaviour
         currentTarget = null;
         startSpeed = moveSpeed;
         EnemyManager.enemies.Add(gameObject);
+        transform.GetChild(1).GetComponent<Animator>().SetBool("IsOpen", true);
     }
 
     // Update is called once per frame

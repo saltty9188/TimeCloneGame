@@ -9,6 +9,7 @@ public class EnemyStatus : MonoBehaviour
     #region Inspector fields
     [SerializeField] private float maxHealth = 100;
     [SerializeField] private Slider healthBar;
+    [SerializeField] private int numExplosions;
     #endregion
 
     #region Private fields
@@ -82,11 +83,26 @@ public class EnemyStatus : MonoBehaviour
             sb.DropObject();
         }
         health = 0;
+        CreateExplosions();
         gameObject.SetActive(false);
     }
 
     void UpdateUI()
     {
         if(healthBar != null) healthBar.value = (int) health;
+    }
+
+    void CreateExplosions()
+    {
+        float explosionRadius = GetComponent<SpriteRenderer>().sprite.bounds.size.x / 4.0f;
+        Vector3[] positions = new Vector3[numExplosions];
+        for(int i = 0; i < numExplosions; i++)
+        {
+            Vector3 position = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0);
+            position.Normalize();
+            positions[i] = (position * explosionRadius * Random.Range(0.0f, 1.0f)) + transform.position;
+        }
+
+        EnemyManager.instance.SpawnExplosions(positions);
     }
 }

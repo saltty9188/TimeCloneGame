@@ -13,6 +13,7 @@ public class Respawner : MonoBehaviour
     #region Private fields
     private EnemyBehaviour enemyBehaviour;
     private EnemyStatus enemyStatus;
+    private Animator animator;
     private Animator enemyAnimator;
     private float respawnCountdown;
     private bool waitingToRespawn;
@@ -22,6 +23,7 @@ public class Respawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         enemy.transform.position = transform.position;
         enemyBehaviour = enemy.GetComponent<EnemyBehaviour>();
         enemyBehaviour.CacheInfo();
@@ -47,13 +49,14 @@ public class Respawner : MonoBehaviour
         }
         else if(waitingToRespawn)
         {
-            Respawn();
-            waitingToRespawn = false;
+            animator.ResetTrigger("Close");
+            animator.SetTrigger("Open");          
         }
     }
 
-    void Respawn()
+    public void Respawn()
     {
+        animator.ResetTrigger("Open");
         enemy.SetActive(true);
         enemy.transform.position = transform.position;
         enemyBehaviour.CacheInfo();
@@ -62,5 +65,11 @@ public class Respawner : MonoBehaviour
         {
             enemyAnimator.SetTrigger("Reset");
         }
+        waitingToRespawn = false;
+    }
+
+    public void Close()
+    {
+        animator.SetTrigger("Close");
     }
 }

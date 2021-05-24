@@ -155,4 +155,10 @@ public class SecondBossScript : MonoBehaviour
 
         animator.SetTrigger("Reset Fight");
     }
+
+    public void Death()
+    {
+        Destroy(gameObject);
+        Destroy(projectileParent);
+    }
 }

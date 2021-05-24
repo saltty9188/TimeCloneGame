@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class ThirdBossScript : MonoBehaviour
 {
 
     #region Inspector fields
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject deathPrefab;
     [SerializeField] private float cooldownTime = 0.3f;
     [SerializeField] private float ventSwapDelay = 20;
-    //TEMP
-    [SerializeField] private float shootDelay = 1f;
     [SerializeField] private LayerMask ignoreSelf;
     [SerializeField] private Door topDoor;
     [SerializeField] private Door bottomDoor;
@@ -20,9 +20,12 @@ public class ThirdBossScript : MonoBehaviour
     #region Private fields
     private BossStatus status;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
+    private Animator frontVent;
+    private Animator topVent;
+    private Light2D shootLight;
     private GameObject closestTarget;
     private GameObject projectileParent;
-    private float shootTime;
     private bool inFight;
     private float hitCooldown;
     private bool topVulnerable;
@@ -34,10 +37,15 @@ public class ThirdBossScript : MonoBehaviour
     {
         status = GetComponent<BossStatus>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
+        shootLight = GetComponentInChildren<Light2D>();   
+
+        topVent =  transform.GetChild(2).GetComponent<Animator>();
+        frontVent = transform.parent.GetChild(1).GetComponent<Animator>();
+
         InitialValues();
 
         projectileParent = new GameObject(name + " Projectiles");
-        shootTime = shootDelay;
     }
 
     // Update is called once per frame
@@ -47,19 +55,9 @@ public class ThirdBossScript : MonoBehaviour
         {
             SelectTarget();
 
-            //shoot (temp)
-            if(shootTime > 0)
-            {
-                shootTime -= Time.deltaTime;
-            }
-            else
-            {
-                Shoot();
-                shootTime = shootDelay;
-            }
-
             if(hitCooldown > 0)
             {
+                // remove or change later?
                 spriteRenderer.color = Color.cyan;
                 hitCooldown -= Time.deltaTime;
             } 
@@ -78,15 +76,15 @@ public class ThirdBossScript : MonoBehaviour
                 topVulnerable = !topVulnerable;
                 if(topVulnerable)
                 {
-                    transform.GetChild(2).gameObject.SetActive(true);
-                    transform.GetChild(3).gameObject.SetActive(false);
+                    topVent.SetBool("IsOpen", true);
+                    frontVent.SetBool("IsOpen", false);
                     bottomDoor.AddActivation();
                     topDoor.RemoveActivation();
                 }
                 else
                 {
-                    transform.GetChild(3).gameObject.SetActive(true);
-                    transform.GetChild(2).gameObject.SetActive(false);
+                    topVent.SetBool("IsOpen", false);
+                    frontVent.SetBool("IsOpen", true);
                     topDoor.AddActivation();
                     bottomDoor.RemoveActivation();
                 }
@@ -106,8 +104,6 @@ public class ThirdBossScript : MonoBehaviour
         status.ResetStatus();
         hitCooldown = 0;
         InitialValues();
-        //TODO: shoot time reset
-        shootTime = shootDelay;
 
         Destroy(projectileParent);
         projectileParent = new GameObject(name + " Projectiles");
@@ -116,6 +112,7 @@ public class ThirdBossScript : MonoBehaviour
     void SelectTarget()
     {
         float closestDist = float.MaxValue;
+        closestTarget = null;
         for(int i = 0; i < EnemyManager.targets.Count; i++)
         {
             if(EnemyManager.targets[i] == null)
@@ -137,6 +134,8 @@ public class ThirdBossScript : MonoBehaviour
                 }
             }     
         }
+
+        animator.SetBool("targetFound", closestTarget);
     }
 
     public void Shoot()
@@ -158,14 +157,16 @@ public class ThirdBossScript : MonoBehaviour
     {
         ventSwapCooldown = ventSwapDelay;
         topVulnerable = true;
-        transform.GetChild(2).gameObject.SetActive(true);
-        transform.GetChild(3).gameObject.SetActive(false);
+        animator.SetBool("targetFound", false);
+        topVent.SetBool("IsOpen", true);
+        frontVent.SetBool("IsOpen", false);
         bottomDoor.ResetEvent();
         bottomDoor.AddActivation();
         topDoor.ResetEvent();
         topDoor.RemoveActivation();
 
         inFight = false;
+        closestTarget = null;
     }
 
     public void GetHit(int damage)
@@ -197,5 +198,15 @@ public class ThirdBossScript : MonoBehaviour
                 door.ResetAndTurnOff();
             }
         }
+    }
+
+    public void Death()
+    {
+        GameObject go = Instantiate(deathPrefab, transform.position - Vector3.right, Quaternion.Euler(0, 0, 60));
+        
+        go.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 500);
+
+        transform.parent.GetChild(2).gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 }

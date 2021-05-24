@@ -7,7 +7,7 @@ public class CameraTracker : MonoBehaviour
     
     #region Inspector fields
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private float verticalOffset = 4;
+    [SerializeField] public float verticalOffset = 4;
     [SerializeField] private float maxYPos;
     [SerializeField] private float minYPos;
     #endregion
