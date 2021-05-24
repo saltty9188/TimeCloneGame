@@ -104,6 +104,61 @@
             ],
             "bindings": [
                 {
+                    "name": "WASD",
+                    "id": "3762c1dd-f4de-409c-b790-2dd9d77f9188",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "eb563724-49d9-4b07-88d1-3b994ec177ff",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "0da10cdf-1fe8-4601-9c41-c58dedf2a601",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "29a2e76b-67a5-436e-9955-667cc9f14894",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "60efab70-cdca-4ea9-a95d-c85c321dc8cd",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "696376e9-6dad-4f25-b45e-37fc0fccccee",
                     "path": "<Gamepad>/dpad",
@@ -181,61 +236,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "WASD",
-                    "id": "3762c1dd-f4de-409c-b790-2dd9d77f9188",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "eb563724-49d9-4b07-88d1-3b994ec177ff",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "0da10cdf-1fe8-4601-9c41-c58dedf2a601",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "29a2e76b-67a5-436e-9955-667cc9f14894",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "60efab70-cdca-4ea9-a95d-c85c321dc8cd",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "b56bca98-d69c-4e80-9544-388b18ffbb90",
                     "path": "<Gamepad>/buttonSouth",
@@ -262,7 +262,7 @@
                     "id": "76554bb6-e04e-4834-a48c-f239c26831ad",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "AxisDeadzone(min=0.35)",
                     "groups": "Gamepad",
                     "action": "AimStick",
                     "isComposite": false,
@@ -561,6 +561,17 @@
             "bindings": [
                 {
                     "name": "",
+                    "id": "1af64f04-d4b4-493d-92f7-5207a0b47e4a",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f113ae87-3eeb-40ec-8a8e-5425605a7dfa",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
@@ -574,17 +585,6 @@
                     "name": "",
                     "id": "51531725-37d6-4cda-947b-a2cc7335a2b3",
                     "path": "<Keyboard>/backspace",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KeyboardMouse",
-                    "action": "Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1af64f04-d4b4-493d-92f7-5207a0b47e4a",
-                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",

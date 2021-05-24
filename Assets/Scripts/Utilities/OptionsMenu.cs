@@ -89,7 +89,7 @@ public class OptionsMenu : MonoBehaviour
     public void GoBack()
     {
         gameObject.SetActive(false);
-        optionsButton.transform.parent.gameObject.SetActive(true);
+        optionsButton.transform.parent.parent.gameObject.SetActive(true);
         SetSelectedGameObject(optionsButton);
     }
 
