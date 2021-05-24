@@ -111,6 +111,14 @@ public class Projectile : MonoBehaviour
                     tbs.GetHit(damage);
                 }
             }
+            else if(collider.transform.parent && collider.transform.parent.tag == "Boss3Base")
+            {
+                ThirdBossScript tbs = collider.transform.parent.GetComponentInChildren<ThirdBossScript>();
+                if(tbs)
+                {
+                    tbs.GetHit(damage);
+                }
+            }
             else if(collider.transform.parent && collider.transform.parent.tag == "EnemyInvuln")
             {
                 GuardBot gb = collider.transform.parent.GetComponent<GuardBot>();

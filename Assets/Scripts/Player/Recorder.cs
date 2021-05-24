@@ -64,6 +64,7 @@ public class Recorder : MonoBehaviour
         PhysicsObject.UpdateAllInitialPositions();
         recordingStartPos = transform.position;
         activeCloneMachine = nearbyCloneMachine;
+        activeCloneMachine.SetActiveLight();
         startingWeapon = weapon;
         timer = recordingTimeLimit;
 
@@ -91,6 +92,7 @@ public class Recorder : MonoBehaviour
     {
         recording = false;
         accumulatedTime = 0;
+        transform.parent = null;
         transform.position = recordingStartPos;
         timer = 0;
 
@@ -161,6 +163,7 @@ public class Recorder : MonoBehaviour
             recording = false;
             accumulatedTime = 0;
             commands.Clear();
+            activeCloneMachine.SetEmptyLight();
             activeCloneMachine = null;
             recordingIcon.SetActive(false);
             timeCloneController.RemoveAllActiveClones();

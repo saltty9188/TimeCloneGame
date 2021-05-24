@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class PlayerStatus : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private EnemyManager enemyManager = null;
     [SerializeField] private float invincibleTime = 2f;
+    [SerializeField] private GameObject cloneDeathPrefab;
     #endregion
 
     #region Private fields
@@ -18,6 +20,8 @@ public class PlayerStatus : MonoBehaviour
     private DamageFlash flashScript;
     private PlayerMovement movementScript;
     private Aim aim;
+    private Rigidbody2D rigidbody2D;
+    private Animator animator;
     private float health;
     private float damageCooldown;
     private float invincibiltyTimer;
@@ -26,6 +30,7 @@ public class PlayerStatus : MonoBehaviour
     private bool collisionAbove = false;
     private Rigidbody2D aboveContact = null;
     private Rigidbody2D belowContact = null;
+    private Coroutine deathAnimation;
     #endregion
 
     void Start()
@@ -38,7 +43,10 @@ public class PlayerStatus : MonoBehaviour
         flashScript = GetComponent<DamageFlash>();
         movementScript = GetComponent<PlayerMovement>();
         aim = transform.GetChild(0).GetComponent<Aim>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         startingWeapon = null;
+        deathAnimation = null;
     }
     void Update()
     {
@@ -69,7 +77,7 @@ public class PlayerStatus : MonoBehaviour
         if(damageCooldown > 0) damageCooldown -= Time.deltaTime;
         else
         {
-            if(health < maxHealth)
+            if(health < maxHealth && deathAnimation == null)
             {
                 health += 10 * Time.deltaTime;
                 if(health > maxHealth) health = maxHealth;
@@ -124,18 +132,60 @@ public class PlayerStatus : MonoBehaviour
     public void Die()
     {
         health = 0;
+        // just in case they were stopped on a ladder before dying
+        movementScript.OffLadder();
         if(tag == "Player")
         {
-            Respawn();
+            if(deathAnimation == null)
+            {
+                animator.ResetTrigger("Respawn");
+                movementScript.enabled = false;
+                if(aim.CurrentWeapon)
+                {
+                    aim.CurrentWeapon.gameObject.SetActive(false);
+                    aim.DropWeapon();
+                }
+                deathAnimation = StartCoroutine(DeathAnimation());
+            }
         }
         else
         {
+            GameObject go = Instantiate(cloneDeathPrefab, transform.position, new Quaternion());
+            go.transform.localScale = transform.localScale;
+            go.GetComponent<CloneDeath>().SetColor(GetComponent<SpriteRenderer>().color);
             Destroy(gameObject);
         }
     }
 
+    IEnumerator DeathAnimation()
+    {
+        animator.SetTrigger("Die");
+        // Have player drop to the ground more quickly and not be able to be moved by other objects
+        rigidbody2D.gravityScale = 30;
+        rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        // Wait one frame for animation to start
+        yield return null;
+        AnimationClip[] ac = animator.runtimeAnimatorController.animationClips;
+        float animationTime = 0;
+        foreach(AnimationClip clip in ac)
+        {
+            if(clip.name == "Death")
+            {
+                animationTime = clip.length;
+            }
+        }
+        animator.ResetTrigger("Die");
+        yield return new WaitForSeconds(animationTime + 1);
+
+        Respawn();
+        deathAnimation = null;
+        
+    }   
     public void Respawn()
     {
+        animator.SetTrigger("Respawn");
+        rigidbody2D.gravityScale = 3;
+        rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         Recorder r = GetComponent<Recorder>();
         r.CancelRecording(true);
         r.ResetAllEvents();
@@ -152,6 +202,7 @@ public class PlayerStatus : MonoBehaviour
         health = maxHealth;
         UpdateUI();
         transform.position = CheckPoint.lastCheckpoint.transform.position;
+        movementScript.enabled = true;
     }
 
     void UpdateUI()
@@ -183,16 +234,19 @@ public class PlayerStatus : MonoBehaviour
         other.GetContacts(contacts);
         foreach(ContactPoint2D contact in contacts)
         {
-            float angle = Vector2.Angle(contact.normal, Vector2.up);
-            if(angle < 0.5f)
+            if(contact.collider.tag != "Player" && contact.collider.tag != "Clone")
             {
-                collisionBelow = true;
-                belowContact = contact.collider.GetComponent<Rigidbody2D>();
-            }
-            else if(angle > 179.5f)
-            {
-                collisionAbove = true;
-                aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+                float angle = Vector2.Angle(contact.normal, Vector2.up);
+                if(angle < 0.5f)
+                {
+                    collisionBelow = true;
+                    belowContact = contact.collider.GetComponent<Rigidbody2D>();
+                }
+                else if(angle > 179.5f)
+                {
+                    collisionAbove = true;
+                    aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+                }
             }
         }
     }

@@ -14,6 +14,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask allButPlayer;
     #endregion
 
+    #region Public fields
+    public bool PushingBox
+    {
+        get {return nearBox;}
+    }
+    #endregion
+
     #region Private fields
     private Aim aimScript;
     private ToolTips toolTips;
@@ -24,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     private bool betweenTwoLadders;
     private bool onLadder;
     private bool grounded;
+    private bool facingRight;
+    private bool nearBox;
     private Transform originalParent;
     protected float knockBackTime;
     protected Vector2 knockBackDirection;
@@ -44,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         bool wasGrounded = grounded;
 
         //Disable jump animation upon landing
-        if(grounded && wasGrounded) 
+        if(grounded)// && wasGrounded) 
         {
             animator.SetBool("Jump", false); 
         } 
@@ -53,57 +62,98 @@ public class PlayerMovement : MonoBehaviour
     public void move(Vector2 movement, bool jumping, bool grabbing)
     {
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, boxGrabDistance, allButPlayer);
-        toolTips.GrabToolTip(hit && hit.collider.tag == "Box");
-        if(hit && hit.collider.tag == "Box")
+        if(this.enabled)
         {
-            FixedJoint2D joint = hit.collider.GetComponent<FixedJoint2D>();
-            if(grabbing && grounded)
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, boxGrabDistance, allButPlayer);
+
+            nearBox = hit && hit.collider.tag == "Box";
+
+            if(aimScript.CurrentWeapon == null && !nearBox)
             {
-                joint.enabled = true;
-                joint.connectedBody = rigidbody;
+                aimScript.gameObject.SetActive(false);
                 aimScript.enabled = false;
             }
             else
             {
-                joint.enabled = false;
-                joint.connectedBody = null;
+                aimScript.gameObject.SetActive(true);
                 aimScript.enabled = true;
             }
-        }
 
-        if(knockBackTime > 0)
-        {
-            knockBackTime -= Time.deltaTime;
-            rigidbody.velocity = new Vector2(knockBackDirection.x * knockBackSpeed, rigidbody.velocity.y);
-            animator.SetFloat("Speed", 0);
-        }
-        else
-        {
+            animator.SetBool("HasWeapon", aimScript.gameObject.activeSelf);
 
-            if(nearbyLadder && ((movement.y > 0 && transform.position.y < nearbyLadder.transform.GetChild(0).position.y)
-                || movement.y < 0 && transform.position.y > nearbyLadder.transform.position.y))
+            // Set grab tool tip for the player only
+            if(tag == "Player") toolTips.GrabToolTip(nearBox);
+            aimScript.GrabArm(nearBox);
+
+            if(nearBox)
             {
-                onLadder = true;
-                transform.position = new Vector3(nearbyLadder.transform.position.x, transform.position.y, transform.position.z);
+                FixedJoint2D joint = hit.collider.GetComponent<FixedJoint2D>();
+                if(grabbing && grounded)
+                {
+                    joint.enabled = true;
+                    joint.connectedBody = rigidbody;
+                    aimScript.enabled = false;
+                }
+                else
+                {
+                    joint.enabled = false;
+                    joint.connectedBody = null;
+                    aimScript.enabled = true;
+                }
             }
 
-            if(onLadder)
+            if(knockBackTime > 0)
             {
-                ClimbLadder(movement, jumping);
+                knockBackTime -= Time.deltaTime;
+                rigidbody.velocity = new Vector2(knockBackDirection.x * knockBackSpeed, rigidbody.velocity.y);
+                animator.SetFloat("Speed", 0);
             }
             else
             {
-                rigidbody.velocity = new Vector2(movement.x * moveSpeed, rigidbody.velocity.y);
 
-                //Put in if statement so it doesn't get reset until the player hits the ground
-                if(jumping && grounded)
+                if(nearbyLadder && ((movement.y > 0.5 && transform.position.y < nearbyLadder.transform.GetChild(0).position.y)
+                    || movement.y < -0.5 && transform.position.y > nearbyLadder.transform.position.y))
                 {
-                    //rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
-                    Jump();
+                    onLadder = true;
+                    transform.position = new Vector3(nearbyLadder.transform.position.x, transform.position.y, transform.position.z);
                 }
 
-                animator.SetFloat("Speed", Mathf.Abs(movement.x));
+                if(onLadder && nearbyLadder)
+                {
+                    ClimbLadder(movement, jumping);
+                }
+                else
+                {
+                    OffLadder();
+                    rigidbody.velocity = new Vector2(movement.x * moveSpeed, rigidbody.velocity.y);
+                    if(!aimScript.gameObject.activeSelf)
+                    {
+                        facingRight = transform.localScale.x > 0;
+                        if(movement.x < 0 && facingRight)
+                        {
+                            Debug.Log(facingRight);
+                            Flip();
+                        }
+                        else if(movement.x > 0 && !facingRight)
+                        {
+                            Flip();
+                        }
+                    }
+                    else
+                    {
+                        bool runningBackwards = movement.x * transform.localScale.x < 0;
+                        animator.SetBool("RunningBackwards", runningBackwards);
+                    }
+
+                    //Put in if statement so it doesn't get reset until the player hits the ground
+                    if(jumping && grounded)
+                    {
+                        //rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
+                        Jump();
+                    }
+
+                    animator.SetFloat("Speed", Mathf.Abs(movement.x));
+                }
             }
         }
     }
@@ -204,14 +254,21 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.parent = originalParent;
         grounded = false;
-
-        
     }  
 
     public void ReceiveKnockBack(Vector2 direction)
     {
         knockBackTime = knockBackDuration;
         knockBackDirection = direction;
+    }
+
+    public void OffLadder()
+    {
+        animator.enabled = true;
+        rigidbody.isKinematic = false;
+        rigidbody.useFullKinematicContacts = false;
+        onLadder = false;
+        animator.SetBool("OnLadder", onLadder);
     }
 
     void OnTriggerEnter2D(Collider2D other) 
@@ -239,5 +296,12 @@ public class PlayerMovement : MonoBehaviour
                 nearbyLadder = null;
             }
         }
+    }
+
+    void Flip()
+    {
+        Vector3 temp = gameObject.transform.localScale;
+        temp.x *= -1;
+        gameObject.transform.localScale = temp;
     }
 }

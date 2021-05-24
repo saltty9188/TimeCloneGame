@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Weapon : MonoBehaviour
 {
@@ -21,9 +22,10 @@ public class Weapon : MonoBehaviour
 
     #region Private fields
     //Local position of weapon when picked up by Player
-    private Vector3 pickUpPoint = new Vector3(1.58f, 0.17f, 0);
+    protected Vector3 pickUpPoint = new Vector3(1.428f, 0.138f, 0);
     private SpriteRenderer spriteRenderer;
     private Aim aimScript;
+    private Light2D light;
     private Vector3 initialSpawn;
     private bool justDropped = false;
     #endregion
@@ -34,6 +36,7 @@ public class Weapon : MonoBehaviour
         accumulatedTime = 0;
         held = false;
         initialSpawn = transform.position;
+        if(transform.childCount > 1) light = transform.GetChild(1).GetComponent<Light2D>();
     }
 
     void Start()
@@ -44,6 +47,8 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         if(accumulatedTime < fireCooldown) accumulatedTime += Time.deltaTime;
+
+        if(light && accumulatedTime >= 0.1f) light.gameObject.SetActive(false);
     }
 
     public void PickUp(GameObject holder)
@@ -71,9 +76,12 @@ public class Weapon : MonoBehaviour
             GameObject go = Instantiate(projectile, transform.GetChild(0).position, rotation);
             go.layer = 9;
             Projectile p = go.GetComponent<Projectile>();
-            p.direction = transform.parent.GetChild(1).position - transform.parent.position;
+            p.direction = transform.parent.GetChild(0).position - transform.parent.position;
             p.SetShooter(transform.parent.parent.gameObject);
             accumulatedTime = 0;
+
+            // Muzzle flash
+            if(light) light.gameObject.SetActive(true);
             return go;
         }
         return null;
@@ -100,7 +108,6 @@ public class Weapon : MonoBehaviour
         {
             aimScript = other.gameObject.transform.GetChild(0).GetComponent<Aim>();
             aimScript.PickUpWeapon(this);
-            Debug.Log("Picked up " + gameObject.name);
         }    
     }
 
