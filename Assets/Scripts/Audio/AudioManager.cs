@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -7,7 +7,8 @@ public class AudioManager : MonoBehaviour
 {
     #region Inspector fields
     [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private Sound[] sounds;
+    [SerializeField] private Sound[] music;
+    [SerializeField] private Sound[] effects;
     #endregion
     
     #region Public fields
@@ -24,7 +25,7 @@ public class AudioManager : MonoBehaviour
     #endregion
 
     void Awake()
-    {
+    {  
 
         if(instance == null)
         {
@@ -38,21 +39,22 @@ public class AudioManager : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
 
-        foreach(Sound s in sounds)
+        foreach(Sound s in music)
         {
             s.AssignSource(gameObject.AddComponent<AudioSource>());
         }
 
-        targetCountdown = Array.Find<Sound>(sounds, sound => sound.Name == "TargetCountdown");
-        numPlaying = 0;
+        foreach(Sound s in effects)
+        {
+            s.AssignSource(gameObject.AddComponent<AudioSource>());
+        }
 
-        Application.targetFrameRate = 300;
-        
+        targetCountdown = Array.Find<Sound>(effects, sound => sound.Name == "TargetCountdown");
+        numPlaying = 0;
     }
 
     void Start()
     {
-        Debug.Log(PlayerPrefs.GetFloat(MASTER_VOLUME_PREF_KEY, 0));
         // Set audio levels
         audioMixer.SetFloat("MasterVolume", PlayerPrefs.GetFloat(MASTER_VOLUME_PREF_KEY, 0));
         audioMixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat(MUSIC_VOLUME_PREF_KEY, 0));
@@ -61,7 +63,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(string name, float pitch = -1)
     {
-        Sound sfx = Array.Find<Sound>(sounds, sound => sound.Name == name);
+        Sound sfx = Array.Find<Sound>(effects, sound => sound.Name == name);
         if(sfx == null)
         {
             Debug.LogError("Cannot find sound with name " + name);
@@ -72,13 +74,15 @@ public class AudioManager : MonoBehaviour
         {
             sfx.SetPitch(pitch);
         }
+
+        
         sfx.Play();
     }
 
     public void PlayMusic(string name)
     {
-        Sound music = Array.Find<Sound>(sounds, sound => sound.Name == name);
-        if(music == null)
+        Sound track = Array.Find<Sound>(music, sound => sound.Name == name);
+        if(track == null)
         {
             Debug.LogError("Cannot find sound with name " + name);
             return;
@@ -92,7 +96,7 @@ public class AudioManager : MonoBehaviour
         }
         if(currentTrack == null || !currentTrack.IsPlaying())
         {
-            currentTrack = music;
+            currentTrack = track;
             currentTrack.Play();
         }
         
