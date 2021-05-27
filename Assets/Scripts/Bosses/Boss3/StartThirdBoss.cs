@@ -22,6 +22,8 @@ public class StartThirdBoss : MonoBehaviour
             bossScript.StartFight();
             bossUI.SetActive(true);
             entrance.SetInFight(true);
+
+            AudioManager.instance.PlayMusic("FinalBossTheme");
         }
     }
 }

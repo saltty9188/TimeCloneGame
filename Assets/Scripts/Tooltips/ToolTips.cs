@@ -11,12 +11,14 @@ public class ToolTips : MonoBehaviour
     [SerializeField] private Image[] physicsCycleIcons;
     [SerializeField] private Image cancelRecordingImage;
     private PlayerControls controls;
+    private PlayerController playerController;
     private Aim aim;
     private Recorder recorder;
 
     void Start()
     {
-        controls = GetComponent<PlayerController>().CurrentControls;
+        playerController = GetComponent<PlayerController>();
+        controls = playerController.CurrentControls;
         recorder = GetComponent<Recorder>();
         aim = transform.GetChild(0).GetComponent<Aim>();
     }
@@ -37,7 +39,7 @@ public class ToolTips : MonoBehaviour
         }
 
         SetPhysicsIcons();
-        if(recorder.IsRecording)
+        if(recorder.IsRecording && !playerController.MovingMirrors)
         {
             cancelRecordingImage.gameObject.SetActive(true);
             cancelRecordingImage.sprite = ToolTipIcons.instance.GetIcon(GetToolTip(controls.Gameplay.Record));

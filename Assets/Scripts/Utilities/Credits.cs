@@ -7,18 +7,19 @@ public class Credits : MonoBehaviour
 {
     [SerializeField] private TextAsset creditsFile;
     [SerializeField] private TextMeshProUGUI creditsText;
+    [SerializeField] private GameObject thankYouText;
     [SerializeField] private GameObject creditsButton;
     [SerializeField] private GameObject backGround;
     [SerializeField] private GameObject lights;
     [SerializeField] private float scrollSpeed;
 
     private float initialPosition;
+    private float thankYouPosition;
 
     void Awake()
     {
         creditsText.text = creditsFile.text;
         initialPosition = creditsText.GetComponent<RectTransform>().anchoredPosition.y;
-        Debug.Log(initialPosition);
     }
 
     // Update is called once per frame
@@ -26,16 +27,24 @@ public class Credits : MonoBehaviour
     {
         creditsText.transform.Translate(Vector3.up * scrollSpeed * Time.deltaTime);
 
-        if(creditsText.GetComponent<RectTransform>().anchoredPosition.y - creditsText.GetComponent<RectTransform>().rect.height > 10)
+        if(thankYouPosition == 0 && creditsText.GetComponent<RectTransform>().anchoredPosition.y - creditsText.GetComponent<RectTransform>().rect.height 
+            - thankYouText.GetComponent<RectTransform>().rect.height/2.0f >= -GetComponent<RectTransform>().rect.height / 2.0f)
         {
-            GoBack();
+            thankYouPosition = thankYouText.transform.position.y;
         }
-         
+
+        if(thankYouPosition != 0 && Mathf.Abs(thankYouText.transform.position.y - thankYouPosition) < 1)
+        {
+            thankYouText.transform.position = new Vector3(thankYouText.transform.position.x, thankYouPosition, thankYouText.transform.position.z);
+            if(GetComponent<AudioSource>().time >= GetComponent<AudioSource>().clip.length) GoBack();
+        }
     }
 
     public void StartCredits()
     {
         creditsText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, initialPosition);
+        thankYouText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -51);
+        AudioManager.instance.PlayMusic("Credits");
     }
 
     public void GoBack()
@@ -54,6 +63,6 @@ public class Credits : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(creditsButton);
         lights.SetActive(true);
         backGround.SetActive(true);
-
+        AudioManager.instance.PlayMusic("TitleTheme");
     }
 }

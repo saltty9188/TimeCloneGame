@@ -23,7 +23,8 @@ public class Redirector : MovableObject
             p1.enabled = true;
             p1.GetComponent<Collider2D>().enabled = true;
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), go.GetComponent<Collider2D>());      
-
+            AudioManager.instance.PlaySFX("PrismHit");
+            
             Destroy(other.GetContact(0).collider.gameObject);            
         }
     }

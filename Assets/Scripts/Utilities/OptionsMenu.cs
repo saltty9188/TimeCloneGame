@@ -14,9 +14,6 @@ public class OptionsMenu : MonoBehaviour
     #region Player pref key constants
     private const string RESOLUTION_PREF_KEY = "resolution";
     private const string WINDOWED_PREF_KEY = "windowed";
-    private const string MASTER_VOLUME_PREF_KEY = "masterVolume";
-    private const string MUSIC_VOLUME_PREF_KEY = "musicVolume";
-    private const string SFX_VOLUME_PREF_KEY = "SFXVolume";
     #endregion
 
     #region Inspector fields
@@ -66,15 +63,15 @@ public class OptionsMenu : MonoBehaviour
         Screen.fullScreen = !windowed;
 
         //Set volume sliders
-        float masterValue = PlayerPrefs.GetFloat(MASTER_VOLUME_PREF_KEY, 0);
+        float masterValue = PlayerPrefs.GetFloat(AudioManager.MASTER_VOLUME_PREF_KEY, 0);
         masterVolume.value = masterValue;
         SetMasterVolume(masterValue);
 
-        float musicValue = PlayerPrefs.GetFloat(MUSIC_VOLUME_PREF_KEY, 0);
+        float musicValue = PlayerPrefs.GetFloat(AudioManager.MUSIC_VOLUME_PREF_KEY, 0);
         musicVolume.value = musicValue;
         SetMusicVolume(musicValue);
 
-        float SFXValue = PlayerPrefs.GetFloat(SFX_VOLUME_PREF_KEY, 0);
+        float SFXValue = PlayerPrefs.GetFloat(AudioManager.SFX_VOLUME_PREF_KEY, 0);
         SFXVolume.value = SFXValue;
         SetSFXVolume(SFXValue);
 
@@ -90,6 +87,7 @@ public class OptionsMenu : MonoBehaviour
     {
         gameObject.SetActive(false);
         optionsButton.transform.parent.parent.gameObject.SetActive(true);
+        optionsButton.transform.parent.gameObject.SetActive(true);
         SetSelectedGameObject(optionsButton);
     }
 
@@ -108,21 +106,21 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetMasterVolume(float value)
     {
-        PlayerPrefs.SetFloat(MASTER_VOLUME_PREF_KEY, value);
+        PlayerPrefs.SetFloat(AudioManager.MASTER_VOLUME_PREF_KEY, value);
         audioMixer.SetFloat("MasterVolume", value);
         SetVolumeText(masterVolume.GetComponentInChildren<TextMeshProUGUI>(), value);
     }
 
     public void SetMusicVolume(float value)
     {
-        PlayerPrefs.SetFloat(MUSIC_VOLUME_PREF_KEY, value);
+        PlayerPrefs.SetFloat(AudioManager.MUSIC_VOLUME_PREF_KEY, value);
         audioMixer.SetFloat("MusicVolume", value);
         SetVolumeText(musicVolume.GetComponentInChildren<TextMeshProUGUI>(), value);
     }
 
     public void SetSFXVolume(float value)
     {
-        PlayerPrefs.SetFloat(SFX_VOLUME_PREF_KEY, value);
+        PlayerPrefs.SetFloat(AudioManager.SFX_VOLUME_PREF_KEY, value);
         audioMixer.SetFloat("SFXVolume", value);
         SetVolumeText(SFXVolume.GetComponentInChildren<TextMeshProUGUI>(), value);
     }

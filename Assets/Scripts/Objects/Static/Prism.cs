@@ -29,6 +29,7 @@ public class Prism : MovableObject
                 Physics2D.IgnoreCollision(GetComponent<Collider2D>(), go.GetComponent<Collider2D>());
             }
 
+            AudioManager.instance.PlaySFX("PrismHit");
             Destroy(other.GetContact(0).collider.gameObject);            
         }
     }

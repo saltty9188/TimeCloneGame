@@ -17,6 +17,12 @@ public class PlayerController : MonoBehaviour
     {
         get {return controls;}
     }
+
+    // Returns true if the player is currently using the mirror mover
+    public bool MovingMirrors
+    {
+        get {return _movingMirrors;}
+    }
     #endregion
 
     #region Private fields
@@ -36,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private float raySwitchValue;
     private bool recording;
     private GameObject prevWeapon;
-    private bool movingMirrors;
+    private bool _movingMirrors;
     float mirrorMoveValue;
     private bool mirrorButtonHeld;
     #endregion
@@ -55,7 +61,7 @@ public class PlayerController : MonoBehaviour
         prevWeapon = null;
         nearbyCloneMachine = null;
         nearbyMirrorMover = null;
-        movingMirrors = false;
+        _movingMirrors = false;
 
 
         //Jumping
@@ -106,13 +112,13 @@ public class PlayerController : MonoBehaviour
         //recording
         controls.Gameplay.Record.performed += ctx =>
             {
-                if(nearbyCloneMachine && !recording && !movingMirrors)
+                if(nearbyCloneMachine && !recording && !_movingMirrors)
                 {
                     recording = true;
                     prevWeapon = null;
                     recorder.StartRecording(nearbyCloneMachine, aim.CurrentWeapon);
                 }
-                else if(recording && !movingMirrors)
+                else if(recording && !_movingMirrors)
                 {
                     recording = false;
                     prevWeapon = null;
@@ -140,9 +146,9 @@ public class PlayerController : MonoBehaviour
             {
                 if(nearbyMirrorMover)
                 {
-                    if(!movingMirrors)
+                    if(!_movingMirrors)
                     {
-                        movingMirrors = true;
+                        _movingMirrors = true;
                         nearbyMirrorMover.StartMover();
                         rigidbody2D.isKinematic = true;
                         rigidbody2D.useFullKinematicContacts = true;
@@ -159,7 +165,7 @@ public class PlayerController : MonoBehaviour
         // Cycle between movable objects
         controls.Gameplay.CycleObjects.performed += ctx =>
             {
-                if(movingMirrors && !mirrorButtonHeld)
+                if(_movingMirrors && !mirrorButtonHeld)
                 {
                     mirrorMoveValue = ctx.ReadValue<float>();
                     if(mirrorMoveValue > 0)
@@ -176,9 +182,9 @@ public class PlayerController : MonoBehaviour
         // Cancel
         controls.Gameplay.Cancel.performed += ctx =>
             {
-                if(movingMirrors)
+                if(_movingMirrors)
                 {
-                    movingMirrors = false;
+                    _movingMirrors = false;
                     nearbyMirrorMover.ExitMover();
                     rigidbody2D.isKinematic = false;
                     rigidbody2D.useFullKinematicContacts = false;
@@ -215,7 +221,7 @@ public class PlayerController : MonoBehaviour
     {
         float angle = 0;
 
-        if(movingMirrors)
+        if(_movingMirrors)
         {
             nearbyMirrorMover.Move(movement);
             toolTips.SetMoverToolTips(nearbyMirrorMover);
@@ -234,7 +240,7 @@ public class PlayerController : MonoBehaviour
             if(aim.CurrentWeapon != null && prevWeapon != aim.CurrentWeapon.gameObject) newWeapon = aim.CurrentWeapon.gameObject;
             prevWeapon = (aim.CurrentWeapon == null ? null : aim.CurrentWeapon.gameObject);
 
-            recorder.AddCommand(movement, jumping, angle, shooting, raySwitchValue, grabbing, movingMirrors, mirrorMoveValue, newWeapon); // bool for mirror moving
+            recorder.AddCommand(movement, jumping, angle, shooting, raySwitchValue, grabbing, _movingMirrors, mirrorMoveValue, newWeapon); // bool for mirror moving
         }
 
         //Reset move values after they have been recorded
@@ -256,9 +262,9 @@ public class PlayerController : MonoBehaviour
     public void RecordingCancelled()
     {
         recording = false;
-        if(movingMirrors)
+        if(_movingMirrors)
         {
-            movingMirrors = false;
+            _movingMirrors = false;
             nearbyMirrorMover.ExitMover();
             rigidbody2D.isKinematic = false;
             rigidbody2D.useFullKinematicContacts = false;

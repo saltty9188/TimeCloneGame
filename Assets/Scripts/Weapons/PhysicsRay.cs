@@ -87,6 +87,7 @@ public class PhysicsRay : Weapon
             p.SetShooter(transform.parent.parent.gameObject);
             p.rayType = currentRayType;
             accumulatedTime = 0;
+            AudioManager.instance.PlaySFX("PhysicsRay");
             return go;
         }
         return null;

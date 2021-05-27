@@ -90,11 +90,18 @@ public class ExecuteCommands : MonoBehaviour
 
                 if(rc.movingMirror)
                 {
-                    if(!wasMovingMirror)
+                    if(!wasMovingMirror && nearbyMirrorMover)
                     {
                         nearbyMirrorMover.StartMover(false);
                         rigidbody2D.isKinematic = true;
                         rigidbody2D.useFullKinematicContacts = true;
+                    }
+                    else if(!wasMovingMirror && !nearbyMirrorMover)
+                    {
+                        transform.parent.GetComponent<TimeCloneController>().OutOfSynch();
+                        //skip to end
+                        commandIndex = recordedCommands.Count;
+                        return;
                     }
 
                     if(rc.mirrorMoveValue > 0)
@@ -143,6 +150,7 @@ public class ExecuteCommands : MonoBehaviour
             aim.CloneRotate(rc.aimAngle, rc.shooting);
         }
 
+        // Wait a second before enabling collision with the player/other clones
         if(playbackTime < 1.0f) Physics2D.IgnoreLayerCollision(8, 8, true);
         else Physics2D.IgnoreLayerCollision(8, 8, false);
     }

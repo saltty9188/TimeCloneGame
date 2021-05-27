@@ -88,6 +88,8 @@ public class SecondBossScript : MonoBehaviour
         p.transform.localScale = new Vector3(2, 2, 2);
         p.SetShooter(gameObject, true);
         p.transform.parent = projectileParent.transform;
+
+        AudioManager.instance.PlaySFX("LaserFire", 0.7f);
     }
     
     void OnCollisionEnter2D(Collision2D other)

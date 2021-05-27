@@ -26,6 +26,11 @@ public class TimedTarget : Target
     {
         if(timer < resetTime) timer += Time.deltaTime;
         else if(!boxCollider2D.enabled) Deactivate();
+
+        if(dontResetWhenActive && attachedEvent.IsActivated)
+        {
+            AudioManager.instance.StopTargetCountdown();
+        }
     }
 
     public override void Activate()
@@ -33,12 +38,16 @@ public class TimedTarget : Target
         attachedEvent.AddActivation();
         timer = 0;
         SetTargetVisibility(false);
+        AudioManager.instance.PlayTargetCountdown();
     }
 
     void Deactivate()
     {
+        // Only deactivate if the don't reset when active flag is set
+        // or it is set and the attached event is not active (i.e. not all targets were hit in time)
         if(!dontResetWhenActive || (dontResetWhenActive && !attachedEvent.IsActivated))
         {
+            AudioManager.instance.StopTargetCountdown();
             SetTargetVisibility(true);
             attachedEvent.RemoveActivation();
         }
