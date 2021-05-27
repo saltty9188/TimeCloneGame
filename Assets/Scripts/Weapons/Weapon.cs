@@ -28,6 +28,8 @@ public class Weapon : MonoBehaviour
     private Light2D light;
     private Vector3 initialSpawn;
     private bool justDropped = false;
+    private float bobValue;
+    private float baseY;
     #endregion
 
     protected virtual void Awake()
@@ -36,6 +38,8 @@ public class Weapon : MonoBehaviour
         accumulatedTime = 0;
         held = false;
         initialSpawn = transform.position;
+        baseY = initialSpawn.y;
+        bobValue = 0;
         if(transform.childCount > 1) light = transform.GetChild(1).GetComponent<Light2D>();
     }
 
@@ -46,6 +50,15 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        // make the weapon bob up and down when not held
+        if(!held)
+        {
+            transform.position = new Vector3(transform.position.x, baseY + Mathf.Sin(bobValue) / 8.0f, transform.position.z);
+            bobValue += Time.deltaTime * 2.0f;
+            // Clamp the input angle between 0 and 2PI
+            if(bobValue >= Mathf.PI * 2.0f) bobValue -= Mathf.PI * 2.0f;
+        }
+
         if(accumulatedTime < fireCooldown) accumulatedTime += Time.deltaTime;
 
         if(light && accumulatedTime >= 0.1f) light.gameObject.SetActive(false);
@@ -65,6 +78,7 @@ public class Weapon : MonoBehaviour
         transform.SetParent(null);
         transform.rotation = new Quaternion();
         transform.position = oldHolder.transform.position;
+        baseY = transform.position.y;
         held = false;
         justDropped = true;
     }
@@ -80,6 +94,15 @@ public class Weapon : MonoBehaviour
             p.SetShooter(transform.parent.parent.gameObject);
             accumulatedTime = 0;
 
+            if(p.laser)
+            {
+                AudioManager.instance.PlaySFX("LaserFire");
+            }
+            else
+            {
+                AudioManager.instance.PlaySFX("GunShot");
+            }
+
             // Muzzle flash
             if(light) light.gameObject.SetActive(true);
             return go;
@@ -90,6 +113,7 @@ public class Weapon : MonoBehaviour
     public void SetDefaultPosition()
     {
         initialSpawn = transform.position;
+        baseY = initialSpawn.y;
     }
 
     public virtual void ResetWeapon()
@@ -98,6 +122,7 @@ public class Weapon : MonoBehaviour
         justDropped = false;
         transform.parent = null;
         transform.position = initialSpawn;
+        baseY = initialSpawn.y;
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         transform.rotation = new Quaternion();
     }

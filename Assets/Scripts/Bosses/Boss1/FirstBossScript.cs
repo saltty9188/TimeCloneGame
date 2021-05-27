@@ -79,6 +79,8 @@ public class FirstBossScript : MonoBehaviour
             p.transform.localScale = new Vector3(2, 2, 2);
             p.IgnoreCollision(transform.GetChild(2).gameObject);
             p.SetShooter(gameObject);
+
+            AudioManager.instance.PlaySFX("GunShot", 0.7f);
         }   
     }
 

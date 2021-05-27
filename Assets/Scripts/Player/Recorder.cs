@@ -86,6 +86,8 @@ public class Recorder : MonoBehaviour
                 pr.SetStartingType();
             }
         }
+
+        AudioManager.instance.PlaySFX("StartRecording");
     }
 
     public void StopRecording()
@@ -120,6 +122,8 @@ public class Recorder : MonoBehaviour
         if(aim.CurrentWeapon != null) aim.DropWeapon();
         if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
         if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
+
+        AudioManager.instance.PlaySFX("EndRecording");
     }
 
     public void ResetAllEvents()

@@ -8,6 +8,9 @@ public class TimeCloneController : MonoBehaviour
     public List<GameObject> activeClones;
     #endregion
 
+    #region Inspector fields
+    [SerializeField] private GameObject timeCloneText;
+    #endregion
     void Start()
     {
         activeClones = new List<GameObject>();
@@ -30,6 +33,7 @@ public class TimeCloneController : MonoBehaviour
     public void RemoveAllActiveClones(bool destroyProjectiles = true)
     {
         //Remove any previous time-clones
+        timeCloneText.SetActive(false);
         for(int i = 0; i < activeClones.Count; i++)
         {
             GameObject go = activeClones[i];
@@ -61,5 +65,10 @@ public class TimeCloneController : MonoBehaviour
                 timeCloneDevice.Empty();
             }
         }
+    }
+
+    public void OutOfSynch()
+    {
+        timeCloneText.SetActive(true);
     }
 }

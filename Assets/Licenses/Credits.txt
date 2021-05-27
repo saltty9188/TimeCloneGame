@@ -5,20 +5,44 @@ Ty Salter
 
 This work includes material from the following sources (listed sequentially)...
 
+"Tranquility - title theme" by Justin Dalessandro(ColdOneK)
+https://opengameart.org/content/tranquility-title-theme under Attribution 4.0 Unported (CC BY 4.0)
+Full terms at https://creativecommons.org/licenses/by/4.0/
+
 "Basic Character Pixel Art" by Jameos
 https://jameos.itch.io/basic-player-character-pixel-art
 
+"What are we doing here?" by Konrad "FeniX" Gadzina http://enklawa-tworcza.blogspot.com/
+https://opengameart.org/content/what-are-we-doing-here-0 under Attribution 3.0 Unported (CC BY 3.0)
+Full terms at https://creativecommons.org/licenses/by/3.0/
+
+"Crystal Cave + Mysterious Ambience (seamless loop)" by cynicmusic pixelsphere.org
+https://opengameart.org/content/crystal-cave-mysterious-ambience-seamless-loop under Attribution 3.0 Unported (CC BY 3.0)
+Full terms at https://creativecommons.org/licenses/by/3.0/
+
 "3X UPDATED 32x32 Scifi Roguelike Enemies by Stephen Challener (Redshrike)" OpenGameArt.org
 https://opengameart.org/content/3x-updated-32x32-scifi-roguelike-enemies under Attribution 3.0 Unported (CC BY 3.0)
+Full terms at https://creativecommons.org/licenses/by/3.0/
+
+"8-bit platformer SFX" by bart commissioned by Mark McCorkle for OpenGameArt.org (http://opengameart.org)
+https://opengameart.org/content/8-bit-platformer-sfx under Attribution 3.0 Unported (CC BY 3.0)
 Full terms at https://creativecommons.org/licenses/by/3.0/
 
 "Roguelike sprites (Redshrike mods)" by Stephen Challener (Redshrike) OpenGameArt.org
 https://opengameart.org/content/3x-updated-32x32-scifi-roguelike-enemies under Attribution 3.0 Unported (CC BY 3.0)
 Full terms at https://creativecommons.org/licenses/by/3.0/
 
+"Mysterious Ambience (song21)"  by cynicmusic pixelsphere.org
+https://opengameart.org/content/mysterious-ambience-song21 under Attribution 3.0 Unported (CC BY 3.0)
+Full terms at https://creativecommons.org/licenses/by/3.0/
+
 "Space Weapon" by knik1985
 https://opengameart.org/content/space-weapon under Attribution 3.0 Unported (CC BY 3.0)
 Full terms at https://creativecommons.org/licenses/by/3.0/
+
+"Shots" by Gumichan01
+https://opengameart.org/content/shots under Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+Full terms at https://creativecommons.org/licenses/by-sa/3.0/
 
 "Square Crystals (Rework)" Created by Hansjörg Malthaner (Varkalandar) & Jordan Irwin (AntumDeluge)
 https://opengameart.org/users/varkalandar
@@ -36,11 +60,17 @@ Full terms at https://creativecommons.org/licenses/by-sa/3.0/
 "Robot Shooter PixelArt 128x128" by Hooking
 https://melvin-costner.itch.io/robot-shooter-pixelart-128x128
 
+"Puzzle Tune 1" by rezoner
+https://opengameart.org/content/puzzle-tune-1 under Attribution 3.0 Unported (CC BY 3.0)
+Full terms at Full terms at https://creativecommons.org/licenses/by/3.0/
+
 "Wind - Pixel Art" by NYKNCK
 https://kvsr.itch.io/wind
+
+"CPU Showdown" by MegaPixel Music
+https://opengameart.org/content/cpu-showdown under Attribution 3.0 Unported (CC BY 3.0)
+Full terms at Full terms at https://creativecommons.org/licenses/by/3.0/
 
 "Farewell" by Cleyton Kauffman - https://soundcloud.com/cleytonkauffman
 https://opengameart.org/content/end-credits-theme under Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
 Full terms at https://creativecommons.org/licenses/by-sa/3.0/
-
-Thank You For Playing My Game!

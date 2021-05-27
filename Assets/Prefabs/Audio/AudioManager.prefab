@@ -1,0 +1,180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4334731076124924065
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4334731076124924067}
+  - component: {fileID: 4334731076124924066}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4334731076124924067
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4334731076124924065}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4334731076124924066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4334731076124924065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3162675d9e4ae334a8cf945c35ba4bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 4439e088ae4b0bd41b2d5ccbde20a343, type: 2}
+  sounds:
+  - _name: TitleTheme
+    _clip: {fileID: 8300000, guid: 32b4d59f6ca9fca4aa4c19b770c51887, type: 3}
+    _volume: 0.15
+    _pitch: 1
+    _loop: 1
+    _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: Intro
+    _clip: {fileID: 8300000, guid: cb00795bd7b3c7748a1936284849fbdc, type: 3}
+    _volume: 0.5
+    _pitch: 1
+    _loop: 1
+    _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: LevelMusic1
+    _clip: {fileID: 8300000, guid: 97459b4a5e7138a4aa671e2ca791e557, type: 3}
+    _volume: 0.21
+    _pitch: 1
+    _loop: 1
+    _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: LevelMusic2
+    _clip: {fileID: 8300000, guid: ec636bf4029b1f6438472628fba260b7, type: 3}
+    _volume: 0.15
+    _pitch: 1
+    _loop: 1
+    _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: LevelMusic3
+    _clip: {fileID: 8300000, guid: 57a073520f3f9f942b1b1ce9e9732571, type: 3}
+    _volume: 0.15
+    _pitch: 1
+    _loop: 1
+    _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: LevelMusic4
+    _clip: {fileID: 8300000, guid: 176398646bf133a409cf428b21f05932, type: 3}
+    _volume: 0.14
+    _pitch: 1
+    _loop: 1
+    _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: BossTheme
+    _clip: {fileID: 8300000, guid: 993b93b64c953c548bfcb86acbac5774, type: 3}
+    _volume: 0.088
+    _pitch: 1
+    _loop: 1
+    _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: FinalBossTheme
+    _clip: {fileID: 8300000, guid: 86b7bd0553a66394fb84232a1e1abb97, type: 3}
+    _volume: 0.088
+    _pitch: 1
+    _loop: 1
+    _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: Credits
+    _clip: {fileID: 8300000, guid: 3db992159eb8f574d8a07d441f8ccc6a, type: 3}
+    _volume: 0.322
+    _pitch: 1
+    _loop: 1
+    _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: GunShot
+    _clip: {fileID: 8300000, guid: c3a56935f35e34043b8aa47c09a2c673, type: 3}
+    _volume: 0.02
+    _pitch: 1
+    _loop: 0
+    _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: LaserFire
+    _clip: {fileID: 8300000, guid: 0d48af0651a9c874eb907b1e29884809, type: 3}
+    _volume: 0.015
+    _pitch: 1.6
+    _loop: 0
+    _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: PhysicsRay
+    _clip: {fileID: 8300000, guid: 9aa06e998f8e7ea409bc01359b161d6a, type: 3}
+    _volume: 0.03
+    _pitch: 0.35
+    _loop: 0
+    _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: Hit
+    _clip: {fileID: 8300000, guid: 0138f045ab0b40c478bdcfc705cff9a3, type: 3}
+    _volume: 0.15
+    _pitch: 1
+    _loop: 0
+    _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: PlayerJump
+    _clip: {fileID: 8300000, guid: f64c8fdbb0824a14a9ab168075f9fd8e, type: 3}
+    _volume: 0.2
+    _pitch: 1
+    _loop: 0
+    _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: PlayerDeath
+    _clip: {fileID: 8300000, guid: 891175088fde9ca4d81cf34cedf69d09, type: 3}
+    _volume: 0.2
+    _pitch: 1
+    _loop: 0
+    _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: PrismHit
+    _clip: {fileID: 8300000, guid: a589cc429339f3745ad15e211874b1e9, type: 3}
+    _volume: 0.1
+    _pitch: 0.92
+    _loop: 0
+    _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: TargetCountdown
+    _clip: {fileID: 8300000, guid: 8c03c5e6f997e8c43aab066c5a58014a, type: 3}
+    _volume: 0.2
+    _pitch: 1
+    _loop: 1
+    _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: EndRecording
+    _clip: {fileID: 8300000, guid: bd78a6094fd30e34a8c37b434ccb9277, type: 3}
+    _volume: 0.088
+    _pitch: 1
+    _loop: 0
+    _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}
+  - _name: StartRecording
+    _clip: {fileID: 8300000, guid: d30973ce2b98a984cb93e9aad2258f4c, type: 3}
+    _volume: 0.088
+    _pitch: 1
+    _loop: 0
+    _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
+      type: 2}

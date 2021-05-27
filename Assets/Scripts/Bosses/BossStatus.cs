@@ -40,6 +40,7 @@ public class BossStatus : MonoBehaviour
                 Die();
                 return;
             }
+            AudioManager.instance.PlaySFX("Hit");
             flashScript.Flash();
        }
     }

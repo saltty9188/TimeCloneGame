@@ -100,13 +100,12 @@ public class PlayerStatus : MonoBehaviour
        {
             health -= damage;
             UpdateUI();
-            
             if(health < 1) 
             {
                 Die();
                 return;
             }
-
+            AudioManager.instance.PlaySFX("Hit");
             flashScript.Flash();
 
             damageCooldown = 3;
@@ -138,12 +137,14 @@ public class PlayerStatus : MonoBehaviour
         {
             if(deathAnimation == null)
             {
+                AudioManager.instance.PlaySFX("PlayerDeath");
                 animator.ResetTrigger("Respawn");
                 movementScript.enabled = false;
                 if(aim.CurrentWeapon)
                 {
                     aim.CurrentWeapon.gameObject.SetActive(false);
                     aim.DropWeapon();
+                    aim.gameObject.SetActive(false);
                 }
                 deathAnimation = StartCoroutine(DeathAnimation());
             }
@@ -198,7 +199,11 @@ public class PlayerStatus : MonoBehaviour
         PhysicsObject.ResetAllPhysics(true, true);
         if(aim.CurrentWeapon != null) aim.DropWeapon();
         if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
-        if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
+        if(startingWeapon != null) 
+        {
+            aim.gameObject.SetActive(true);
+            aim.PickUpWeapon(startingWeapon);
+        }
         health = maxHealth;
         UpdateUI();
         transform.position = CheckPoint.lastCheckpoint.transform.position;

@@ -96,6 +96,15 @@ public class Turret : EnemyBehaviour
             p.damage = damage;
             p.SetShooter(gameObject);
             accumulatedTime = 0;
+
+            if(p.laser)
+            {
+                AudioManager.instance.PlaySFX("LaserFire", 0.7f);
+            }
+            else
+            {
+                AudioManager.instance.PlaySFX("GunShot");
+            }
         }
     }
 
