@@ -35,7 +35,7 @@ public class Sound
     {
         this.source = source;
         this.source.clip = this._clip;
-        this.source.volume = this._volume;
+        this.source.volume = 1;//this._volume;
         this.source.pitch = this._pitch;
         this.source.loop = this._loop;
         this.source.outputAudioMixerGroup = this._audioGroup;

@@ -56,7 +56,7 @@ public class LevelSelect : MonoBehaviour
         scrollRect.content.sizeDelta = new Vector2(0, originalHeight);
 
         int unlockedLevels = SaveData.currentSaveFile.levelIndex;
-        Vector3 buttonPos = levelSelectTemplate.transform.position;
+        Vector3 buttonPos = levelSelectTemplate.transform.localPosition;
 
         float totalHeight = unlockedLevels * levelSelectTemplate.GetComponent<RectTransform>().rect.height;
 
@@ -71,6 +71,8 @@ public class LevelSelect : MonoBehaviour
             GameObject button = Instantiate(levelSelectTemplate, buttonPos, new Quaternion());
             button.name = displayName;
             button.transform.parent = levelSelectTemplate.transform.parent;
+            button.transform.localScale = Vector3.one;
+            button.transform.localPosition = buttonPos;
             buttonPos.y -= levelSelectTemplate.GetComponent<RectTransform>().rect.height;
 
             TextMeshProUGUI levelName = button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();

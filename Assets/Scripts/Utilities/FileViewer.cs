@@ -67,14 +67,14 @@ public class FileViewer : MonoBehaviour
         this.newGame = newGame;
         fileSelectTemplate.SetActive(true);
         scrollRect.content.sizeDelta = new Vector2(0, originalHeight);
-
+        Debug.Log(fileSelectTemplate.GetComponent<RectTransform>().rect.height);
         string[] fileNames = SaveSystem.AllFileNames();
         if(fileNames.Length > 0 || newGame)
         {
             transform.GetChild(2).gameObject.SetActive(false);
-            Vector3 buttonPos = fileSelectTemplate.transform.position;
+            Vector3 buttonPos = fileSelectTemplate.transform.localPosition;
 
-            float totalHeight = fileNames.Length * (fileSelectTemplate.GetComponent<RectTransform>().rect.height + BUTTON_PADDING);
+            float totalHeight = fileNames.Length * fileSelectTemplate.GetComponent<RectTransform>().rect.height;
             if(newGame) totalHeight += fileSelectTemplate.GetComponent<RectTransform>().rect.height;
 
             if(totalHeight > scrollRect.content.rect.height)
@@ -85,8 +85,8 @@ public class FileViewer : MonoBehaviour
             if(newGame)
             {
                 newFileButton.SetActive(true);
-                newFileButton.transform.position = buttonPos;
-                buttonPos.y -= (fileSelectTemplate.GetComponent<RectTransform>().rect.height + BUTTON_PADDING);
+                newFileButton.transform.localPosition = buttonPos;
+                buttonPos.y -= fileSelectTemplate.GetComponent<RectTransform>().rect.height;
                 transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "New Game";
             }
             else
@@ -101,9 +101,14 @@ public class FileViewer : MonoBehaviour
                 SaveData temp = SaveSystem.LoadGame(strippedName);
                 GameObject button = Instantiate(fileSelectTemplate, buttonPos, new Quaternion());
                 button.name = temp.fileName;
-                button.GetComponent<RectTransform>().SetParent(fileSelectTemplate.transform.parent, false);
-                button.transform.position = buttonPos;
-                buttonPos.y -= (fileSelectTemplate.GetComponent<RectTransform>().rect.height + BUTTON_PADDING);
+
+                button.transform.parent = fileSelectTemplate.transform.parent;
+                button.transform.localScale = Vector3.one;
+                button.transform.localPosition = buttonPos;
+
+                buttonPos.y -= fileSelectTemplate.GetComponent<RectTransform>().rect.height;
+                Debug.Log(fileSelectTemplate.GetComponent<RectTransform>().rect.height);
+                Debug.Log(buttonPos);
 
                 UnityEngine.UI.Button b = button.GetComponent<UnityEngine.UI.Button>();
                 FileManager fm = button.GetComponent<FileManager>();

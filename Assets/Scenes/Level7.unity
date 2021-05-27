@@ -2903,6 +2903,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartLevel
       objectReference: {fileID: 0}
+    - target: {fileID: 2497308255073680534, guid: f04f29e39270b834a8939e5d7a61631f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f04f29e39270b834a8939e5d7a61631f, type: 3}
 --- !u!1001 &1092799878
@@ -17621,7 +17626,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: a4b9c0fea5bfad1449edbd5e2fddfa75,
+      objectReference: {fileID: 21300000, guid: b36dd2dae550fac44a3b41db681b713f,
         type: 3}
     - target: {fileID: 2879771958325902123, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}

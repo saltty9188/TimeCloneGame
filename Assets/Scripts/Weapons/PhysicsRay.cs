@@ -83,7 +83,7 @@ public class PhysicsRay : Weapon
             GameObject go = Instantiate(projectile, transform.GetChild(0).position, rotation);
             go.layer = 9;
             PhysicsProjectile p = go.GetComponent<PhysicsProjectile>();
-            p.direction = transform.parent.GetChild(1).position - transform.parent.position;
+            p.direction = transform.parent.GetChild(0).position - transform.parent.position;
             p.SetShooter(transform.parent.parent.gameObject);
             p.rayType = currentRayType;
             accumulatedTime = 0;
