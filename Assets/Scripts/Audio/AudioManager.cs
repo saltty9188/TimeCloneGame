@@ -26,7 +26,6 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {  
-
         if(instance == null)
         {
             instance = this;
@@ -56,9 +55,9 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         // Set audio levels
-        audioMixer.SetFloat("MasterVolume", PlayerPrefs.GetFloat(MASTER_VOLUME_PREF_KEY, 0));
-        audioMixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat(MUSIC_VOLUME_PREF_KEY, 0));
-        audioMixer.SetFloat("SFXVolume", PlayerPrefs.GetFloat(SFX_VOLUME_PREF_KEY, 0));
+        audioMixer.SetFloat("MasterVolume", PlayerPrefs.GetFloat(MASTER_VOLUME_PREF_KEY, 1));
+        audioMixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat(MUSIC_VOLUME_PREF_KEY, 1));
+        audioMixer.SetFloat("SFXVolume", PlayerPrefs.GetFloat(SFX_VOLUME_PREF_KEY, 1));
     }
 
     public void PlaySFX(string name, float pitch = -1)
@@ -90,7 +89,7 @@ public class AudioManager : MonoBehaviour
 
         // Stop playing the current music if something is playing and it's a different track to the current one
         // TODO: add fade out
-        if(currentTrack != null)
+        if(currentTrack != null && currentTrack != track)
         {
             currentTrack.Stop();
         }
