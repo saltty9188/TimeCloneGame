@@ -184,7 +184,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("OnLadder", onLadder);
             animator.SetFloat("Speed", 0);
             Jump();
-            SetArmActive(true);
         }
         else if(transform.position.y - playerSize.y / 2 >= nearbyLadder.transform.GetChild(0).position.y && movement.y >= 0)
         {
@@ -192,14 +191,12 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.isKinematic = false;
             onLadder = false;
             animator.SetBool("OnLadder", onLadder);
-            SetArmActive(true);
         }
         else if((transform.position.y - playerSize.y / 2) <= (nearbyLadder.transform.GetChild(1).position.y) && movement.y <= 0)
         {
             rigidbody.isKinematic = false;
             onLadder = false;
             animator.SetBool("OnLadder", onLadder);
-            SetArmActive(true);
         }
     }
 

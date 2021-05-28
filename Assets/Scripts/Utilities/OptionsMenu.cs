@@ -25,6 +25,7 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private Slider musicVolume;
     [SerializeField] private Slider SFXVolume;
     [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private float audioMultiplier = 30;
     #endregion
 
     #region Private fields
@@ -33,6 +34,7 @@ public class OptionsMenu : MonoBehaviour
 
     void Awake()
     {
+        
         resolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height}).Distinct().ToArray();
         List<string> resolutionsText = new List<string>(resolutions.Length);
         int currentIndex = -1;
@@ -63,15 +65,15 @@ public class OptionsMenu : MonoBehaviour
         Screen.fullScreen = !windowed;
 
         //Set volume sliders
-        float masterValue = PlayerPrefs.GetFloat(AudioManager.MASTER_VOLUME_PREF_KEY, 0);
+        float masterValue = PlayerPrefs.GetFloat(AudioManager.MASTER_VOLUME_PREF_KEY, 1);
         masterVolume.value = masterValue;
         SetMasterVolume(masterValue);
 
-        float musicValue = PlayerPrefs.GetFloat(AudioManager.MUSIC_VOLUME_PREF_KEY, 0);
+        float musicValue = PlayerPrefs.GetFloat(AudioManager.MUSIC_VOLUME_PREF_KEY, 1);
         musicVolume.value = musicValue;
         SetMusicVolume(musicValue);
 
-        float SFXValue = PlayerPrefs.GetFloat(AudioManager.SFX_VOLUME_PREF_KEY, 0);
+        float SFXValue = PlayerPrefs.GetFloat(AudioManager.SFX_VOLUME_PREF_KEY, 1);
         SFXVolume.value = SFXValue;
         SetSFXVolume(SFXValue);
 
@@ -106,23 +108,26 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetMasterVolume(float value)
     {
-        PlayerPrefs.SetFloat(AudioManager.MASTER_VOLUME_PREF_KEY, value);
-        audioMixer.SetFloat("MasterVolume", value);
         SetVolumeText(masterVolume.GetComponentInChildren<TextMeshProUGUI>(), value);
+        PlayerPrefs.SetFloat(AudioManager.MASTER_VOLUME_PREF_KEY, value);
+        value = Mathf.Log10(value) * audioMultiplier;
+        audioMixer.SetFloat("MasterVolume", value);
     }
 
     public void SetMusicVolume(float value)
     {
-        PlayerPrefs.SetFloat(AudioManager.MUSIC_VOLUME_PREF_KEY, value);
-        audioMixer.SetFloat("MusicVolume", value);
         SetVolumeText(musicVolume.GetComponentInChildren<TextMeshProUGUI>(), value);
+        PlayerPrefs.SetFloat(AudioManager.MUSIC_VOLUME_PREF_KEY, value);
+        value = Mathf.Log10(value) * audioMultiplier;
+        audioMixer.SetFloat("MusicVolume", value);
     }
 
     public void SetSFXVolume(float value)
     {
-        PlayerPrefs.SetFloat(AudioManager.SFX_VOLUME_PREF_KEY, value);
-        audioMixer.SetFloat("SFXVolume", value);
         SetVolumeText(SFXVolume.GetComponentInChildren<TextMeshProUGUI>(), value);
+        PlayerPrefs.SetFloat(AudioManager.SFX_VOLUME_PREF_KEY, value);
+        value = Mathf.Log10(value) * audioMultiplier;
+        audioMixer.SetFloat("SFXVolume", value);
     }
 
     void SetSelectedGameObject(GameObject go)
@@ -133,8 +138,7 @@ public class OptionsMenu : MonoBehaviour
 
     void SetVolumeText(TextMeshProUGUI text, float value)
     {
-        float number = (value + 80) / 80;
-        int roundedNumber = (int)Mathf.Round(number * 100);
+        int roundedNumber = (int)Mathf.Round(value * 100);
         text.text = roundedNumber.ToString();
     }
 }

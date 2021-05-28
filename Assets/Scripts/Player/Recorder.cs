@@ -7,6 +7,7 @@ public class Recorder : MonoBehaviour
 {
 
     #region Inspector fields
+    [SerializeField] private GameObject teleportPrefab;
     [SerializeField] private TimeCloneController timeCloneController;
     [SerializeField] private float recordingTimeLimit = 60;
     [SerializeField] private EnemyManager enemyManager;
@@ -95,8 +96,8 @@ public class Recorder : MonoBehaviour
         recording = false;
         accumulatedTime = 0;
         transform.parent = null;
-        transform.position = recordingStartPos;
         timer = 0;
+        AudioManager.instance.PlaySFX("EndRecording");
 
         GameObject endingWeapon = (aim.CurrentWeapon ? aim.CurrentWeapon.gameObject : null);
         activeCloneMachine.StoreClone(new List<RecordedCommand>(commands), recordingStartPos);
@@ -105,6 +106,41 @@ public class Recorder : MonoBehaviour
         activeCloneMachine = null;
         recordingIcon.SetActive(false);
         timeCloneController.RemoveAllActiveClones();
+
+        if(aim.CurrentWeapon != null) aim.DropWeapon();
+        if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
+        if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
+
+
+        StartCoroutine(TeleportAnimation());
+        
+    }
+
+    IEnumerator TeleportAnimation()
+    {
+        // Hide the player
+        DisablePlayer(false);
+        GetComponent<Rigidbody2D>().gravityScale = 0;
+        aim.gameObject.SetActive(false);
+
+        // Start the teleportation animation
+        GameObject tp = Instantiate(teleportPrefab, transform.position, transform.rotation);
+        tp.transform.localScale = transform.localScale;
+        //Wait one frame for the animation to start
+        yield return null;
+
+        AnimationClip[] ac = tp.GetComponent<Animator>().runtimeAnimatorController.animationClips;
+        float animationTime = 0;
+        foreach(AnimationClip clip in ac)
+        {
+            if(clip.name == "TeleportIn")
+            {
+                animationTime = clip.length;
+            }
+        }
+        yield return new WaitForSeconds(animationTime);
+
+        // Reset the objects and events
         ResetAllEvents();
         PhysicsObject.ResetAllPhysics(true, true);
         GetComponent<PlayerStatus>().DestroyAllProjectiles();
@@ -119,11 +155,36 @@ public class Recorder : MonoBehaviour
             mover.ResetPositions();
         }
 
-        if(aim.CurrentWeapon != null) aim.DropWeapon();
-        if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
-        if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
+        // Do the second half of the teleport
+        transform.position = recordingStartPos;
+        tp.transform.position = recordingStartPos;
+        tp.GetComponent<Animator>().SetTrigger("Reappear");
+        //Wait one frame for the animation to start
+        yield return null;
 
-        AudioManager.instance.PlaySFX("EndRecording");
+        ac = tp.GetComponent<Animator>().runtimeAnimatorController.animationClips;
+        foreach(AnimationClip clip in ac)
+        {
+            if(clip.name == "TeleportOut")
+            {
+                animationTime = clip.length;
+            }
+        }
+
+        yield return new WaitForSeconds(animationTime);
+
+        // Show the player again
+        Destroy(tp);
+        DisablePlayer(true);
+        GetComponent<Rigidbody2D>().gravityScale = 3;
+    }
+
+    void DisablePlayer(bool enabled)
+    {
+        GetComponent<SpriteRenderer>().enabled = enabled;
+        GetComponent<PlayerMovement>().enabled = enabled;
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        GetComponent<Collider2D>().enabled = enabled;
     }
 
     public void ResetAllEvents()

@@ -289,6 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1c61d63ea579843bb6f67999db7f1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  teleportPrefab: {fileID: 7292393088912249878, guid: 2bba17a487d276743be008c7547a6d0d,
+    type: 3}
   timeCloneController: {fileID: 0}
   recordingTimeLimit: 60
   enemyManager: {fileID: 0}
@@ -402,6 +404,7 @@ MonoBehaviour:
   physicsCycleIcons:
   - {fileID: 0}
   - {fileID: 0}
+  cancelRecordingImage: {fileID: 0}
 --- !u!1 &2879771958325902120
 GameObject:
   m_ObjectHideFlags: 0
