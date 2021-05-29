@@ -15,7 +15,7 @@ public class Target : MonoBehaviour
         gameObject.SetActive(false);    
     }
 
-    public void ResetTarget()
+    public virtual void ResetTarget()
     {
         gameObject.SetActive(true);
         if(attachedEvent) attachedEvent.ResetEvent();
