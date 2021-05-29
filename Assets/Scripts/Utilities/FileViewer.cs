@@ -100,7 +100,7 @@ public class FileViewer : MonoBehaviour
                 string strippedName = name.Remove(name.IndexOf("."));
                 SaveData temp = SaveSystem.LoadGame(strippedName);
                 GameObject button = Instantiate(fileSelectTemplate, buttonPos, new Quaternion());
-                button.name = temp.fileName;
+                button.name = temp.FileName;
 
                 button.transform.parent = fileSelectTemplate.transform.parent;
                 button.transform.localScale = Vector3.one;
@@ -122,10 +122,10 @@ public class FileViewer : MonoBehaviour
                 }
 
                 TextMeshProUGUI fileName = button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-                fileName.text = temp.fileName;
+                fileName.text = temp.FileName;
 
                 TextMeshProUGUI currentLevel = button.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                currentLevel.text = "Level: " + (temp.levelIndex == 14 ? "Final Boss" : temp.levelIndex.ToString());
+                currentLevel.text = "Level: " + (temp.LevelIndex == 14 ? "Final Boss" : temp.LevelIndex.ToString());
             }
 
             UnityEngine.UI.Button UIButton = backButton.GetComponent<UnityEngine.UI.Button>();

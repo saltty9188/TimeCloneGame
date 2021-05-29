@@ -51,6 +51,7 @@ public class AudioManager : MonoBehaviour
 
         targetCountdown = Array.Find<Sound>(effects, sound => sound.Name == "TargetCountdown");
         numPlaying = 0;
+
     }
 
     void Start()
@@ -141,13 +142,23 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public float GetCurrentTrackTime()
+    ///<summary>Fades out the current song.</summary>
+    ///<param name="delta"> The maximum normalised amount for the song to decrease in volume this frame.</param>
+    ///<returns>True if the song has faded out completely, false otherwise.</returns>
+    public bool FadeOutSong(float delta)
     {
-        return currentTrack.Time();
+        currentTrack.LowerVolume(delta);
+        Debug.Log(currentTrack.Volume);
+        if(currentTrack.Volume <= 0)
+        {
+            currentTrack.Stop();
+            currentTrack.ResetVolume();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    public float GetCurrentTrackLength()
-    {
-        return currentTrack.Length();
-    }
 }

@@ -106,7 +106,7 @@ MonoBehaviour:
     _clip: {fileID: 8300000, guid: 3db992159eb8f574d8a07d441f8ccc6a, type: 3}
     _volume: 1
     _pitch: 1
-    _loop: 0
+    _loop: 1
     _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
       type: 2}
   effects:

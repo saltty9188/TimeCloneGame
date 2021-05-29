@@ -38,7 +38,8 @@ public class Credits : MonoBehaviour
         {
             thankYouCentered = true;
             thankYouText.transform.position = new Vector3(thankYouText.transform.position.x, thankYouPosition, thankYouText.transform.position.z);
-            if(AudioManager.instance.GetCurrentTrackTime() >= AudioManager.instance.GetCurrentTrackLength()) GoBack();
+
+            if(AudioManager.instance.FadeOutSong(0.2f * Time.deltaTime)) GoBack();
         }
     }
 
@@ -69,6 +70,8 @@ public class Credits : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(creditsButton);
             lights.SetActive(true);
             backGround.SetActive(true);
+            // Force volume to reset again in case the player skipped during the fade out
+            AudioManager.instance.FadeOutSong(1.0f);
             AudioManager.instance.PlayMusic("TitleTheme");
         }
         else

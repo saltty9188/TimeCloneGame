@@ -119,7 +119,7 @@ MonoBehaviour:
   creditsButton: {fileID: 0}
   backGround: {fileID: 0}
   lights: {fileID: 0}
-  scrollSpeed: 50
+  scrollSpeed: 100
 --- !u!1 &2260567454376190019
 GameObject:
   m_ObjectHideFlags: 0
