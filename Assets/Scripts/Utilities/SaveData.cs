@@ -7,14 +7,33 @@ public class SaveData
 {
     #region Public fields
     public static SaveData currentSaveFile;
-    public string fileName;
-    public int levelIndex;
+    
+    public string FileName
+    {
+        get{return _fileName;}
+    }
+
+    public int LevelIndex
+    {
+        get {return _levelIndex;}
+        set
+        {
+            if(value > 14) value = 14;
+            if(value < 1) value = 1;
+            _levelIndex = value;
+        }
+    }
+    #endregion
+
+    #region Private fields
+    private string _fileName;
+    private int _levelIndex;
     #endregion
 
     public SaveData(string fileName, int levelIndex)
     {
-        this.fileName = fileName;
-        this.levelIndex = levelIndex;
-        if(levelIndex > 14) this.levelIndex = 14;
+        _fileName = fileName;
+        _levelIndex = levelIndex;
+        if(levelIndex > 14) this._levelIndex = 14;
     }
 }

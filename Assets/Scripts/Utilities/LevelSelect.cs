@@ -55,7 +55,7 @@ public class LevelSelect : MonoBehaviour
         LevelSelectButton.totalLevelNumber = 0;
         scrollRect.content.sizeDelta = new Vector2(0, originalHeight);
 
-        int unlockedLevels = SaveData.currentSaveFile.levelIndex;
+        int unlockedLevels = SaveData.currentSaveFile.LevelIndex;
         Vector3 buttonPos = levelSelectTemplate.transform.localPosition;
 
         float totalHeight = unlockedLevels * levelSelectTemplate.GetComponent<RectTransform>().rect.height;

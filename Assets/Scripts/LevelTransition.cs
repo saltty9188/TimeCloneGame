@@ -127,9 +127,9 @@ public class LevelTransition : MonoBehaviour
     void LoadNextLevel()
     {
         int levelIndex = SceneManager.GetActiveScene().buildIndex;
-        if(SaveData.currentSaveFile != null && SaveData.currentSaveFile.levelIndex <= levelIndex)
+        if(SaveData.currentSaveFile != null && SaveData.currentSaveFile.LevelIndex <= levelIndex)
         {
-            SaveData.currentSaveFile.levelIndex = levelIndex + 1;
+            SaveData.currentSaveFile.LevelIndex = levelIndex + 1;
             SaveSystem.SaveGame(SaveData.currentSaveFile);
         }
         SceneManager.LoadScene(levelIndex + 1);

@@ -6,7 +6,7 @@ public static class SaveSystem
 {
     public static void SaveGame(SaveData saveData)
     {
-        string path = Application.persistentDataPath + "/" + saveData.fileName + ".sav";
+        string path = Application.persistentDataPath + "/" + saveData.FileName + ".sav";
         BinaryFormatter formatter = new BinaryFormatter();
         FileStream stream = new FileStream(path, FileMode.Create);
 

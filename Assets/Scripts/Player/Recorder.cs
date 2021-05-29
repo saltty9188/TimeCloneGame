@@ -54,8 +54,8 @@ public class Recorder : MonoBehaviour
         else if(recording)
         {
             recording = false;
-            StopRecording();
             GetComponent<PlayerController>().RecordingCancelled();
+            StopRecording();
         } 
     }
 

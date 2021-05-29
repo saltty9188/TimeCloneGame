@@ -24,6 +24,11 @@ public class Sound
     {
         get {return _name;}
     }
+
+    public float Volume
+    {
+        get {return source.volume;}
+    }
     #endregion
 
     #region Private fields
@@ -79,13 +84,19 @@ public class Sound
         return source.isPlaying;
     }
 
-    public float Time()
+    public void LowerVolume(float delta)
     {
-        return source.time;
+        if(source == null)
+        {
+            Debug.LogError("AudioSource has not been configured for sound " + _name);
+            return;
+        }
+
+        source.volume -= delta;
     }
 
-    public float Length()
+    public void ResetVolume()
     {
-        return _clip.length;
+        source.volume = _volume;
     }
 }
