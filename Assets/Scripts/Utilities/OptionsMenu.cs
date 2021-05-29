@@ -25,7 +25,6 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField] private Slider musicVolume;
     [SerializeField] private Slider SFXVolume;
     [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private float audioMultiplier = 30;
     #endregion
 
     #region Private fields
@@ -110,7 +109,7 @@ public class OptionsMenu : MonoBehaviour
     {
         SetVolumeText(masterVolume.GetComponentInChildren<TextMeshProUGUI>(), value);
         PlayerPrefs.SetFloat(AudioManager.MASTER_VOLUME_PREF_KEY, value);
-        value = Mathf.Log10(value) * audioMultiplier;
+        value = Mathf.Log10(value) * AudioManager.AUDIO_MULTIPLIER;
         audioMixer.SetFloat("MasterVolume", value);
     }
 
@@ -118,7 +117,7 @@ public class OptionsMenu : MonoBehaviour
     {
         SetVolumeText(musicVolume.GetComponentInChildren<TextMeshProUGUI>(), value);
         PlayerPrefs.SetFloat(AudioManager.MUSIC_VOLUME_PREF_KEY, value);
-        value = Mathf.Log10(value) * audioMultiplier;
+        value = Mathf.Log10(value) * AudioManager.AUDIO_MULTIPLIER;
         audioMixer.SetFloat("MusicVolume", value);
     }
 
@@ -126,7 +125,7 @@ public class OptionsMenu : MonoBehaviour
     {
         SetVolumeText(SFXVolume.GetComponentInChildren<TextMeshProUGUI>(), value);
         PlayerPrefs.SetFloat(AudioManager.SFX_VOLUME_PREF_KEY, value);
-        value = Mathf.Log10(value) * audioMultiplier;
+        value = Mathf.Log10(value) * AudioManager.AUDIO_MULTIPLIER;
         audioMixer.SetFloat("SFXVolume", value);
     }
 

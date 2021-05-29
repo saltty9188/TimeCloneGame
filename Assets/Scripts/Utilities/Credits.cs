@@ -15,6 +15,7 @@ public class Credits : MonoBehaviour
 
     private float initialPosition;
     private float thankYouPosition;
+    private bool thankYouCentered;
 
     void Awake()
     {
@@ -33,10 +34,11 @@ public class Credits : MonoBehaviour
             thankYouPosition = thankYouText.transform.position.y;
         }
 
-        if(thankYouPosition != 0 && Mathf.Abs(thankYouText.transform.position.y - thankYouPosition) < 1)
+        if(thankYouCentered || (thankYouPosition != 0 && Mathf.Abs(thankYouText.transform.position.y - thankYouPosition) < 1))
         {
+            thankYouCentered = true;
             thankYouText.transform.position = new Vector3(thankYouText.transform.position.x, thankYouPosition, thankYouText.transform.position.z);
-            if(GetComponent<AudioSource>().time >= GetComponent<AudioSource>().clip.length) GoBack();
+            if(AudioManager.instance.GetCurrentTrackTime() >= AudioManager.instance.GetCurrentTrackLength()) GoBack();
         }
     }
 
@@ -44,25 +46,35 @@ public class Credits : MonoBehaviour
     {
         creditsText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, initialPosition);
         thankYouText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -51);
+        thankYouCentered = false;
         AudioManager.instance.PlayMusic("Credits");
     }
 
     public void GoBack()
     {
-        GameObject[] gameObjects = SceneManager.GetActiveScene().GetRootGameObjects();
-        foreach(GameObject go in gameObjects)
+        // Credits accessed from the title screen
+        if(SceneManager.GetActiveScene().buildIndex == 0)
         {
-            if(go != Camera.main.gameObject && go.GetComponent<EventSystem>() == null && go.GetComponent<MenuInput>() == null)
+            GameObject[] gameObjects = SceneManager.GetActiveScene().GetRootGameObjects();
+            foreach(GameObject go in gameObjects)
             {
-                go.SetActive(false);
+                if(go != Camera.main.gameObject && go.GetComponent<EventSystem>() == null && go.GetComponent<MenuInput>() == null)
+                {
+                    go.SetActive(false);
+                }
             }
-        }
 
-        creditsButton.transform.parent.parent.gameObject.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(creditsButton);
-        lights.SetActive(true);
-        backGround.SetActive(true);
-        AudioManager.instance.PlayMusic("TitleTheme");
+            creditsButton.transform.parent.parent.gameObject.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(creditsButton);
+            lights.SetActive(true);
+            backGround.SetActive(true);
+            AudioManager.instance.PlayMusic("TitleTheme");
+        }
+        else
+        {
+            // Credits shown from the ending
+            SceneManager.LoadScene(0);
+        }
     }
 }

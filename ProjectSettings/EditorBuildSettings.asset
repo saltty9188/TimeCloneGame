@@ -50,6 +50,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelX.unity
     guid: 7b02ec417194de142b527655922c9394
+  - enabled: 1
+    path: Assets/Scenes/Ending.unity
+    guid: f5a11a50fea30fb4495675ded6e6d6e6
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 368f012abd890c445b8f07849d7c6285,
       type: 2}

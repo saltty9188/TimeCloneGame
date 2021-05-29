@@ -3921,6 +3921,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Time-Clone Device 2-1
       objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5723176943656069693, guid: 403b12cf93111354895be3489f13419d,
         type: 3}
       propertyPath: m_RootOrder
@@ -5154,6 +5159,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Time-Clone Device 2-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5723176943656069693, guid: 403b12cf93111354895be3489f13419d,
         type: 3}
@@ -25308,6 +25328,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Time-Clone Device 1-1
       objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5723176943656069693, guid: 403b12cf93111354895be3489f13419d,
         type: 3}
       propertyPath: m_RootOrder
@@ -25954,6 +25979,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Time-Clone Device 1-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5723176943656069693, guid: 403b12cf93111354895be3489f13419d,
         type: 3}

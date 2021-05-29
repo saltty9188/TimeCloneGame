@@ -51,7 +51,10 @@ public class TimeCloneDevice : MonoBehaviour
 
             ExecuteCommands ec = clone.GetComponent<ExecuteCommands>();
             ec.SetCommands(new List<RecordedCommand>(commands));
-            ec.SetUnstable(unstable);
+            if(unstable) ec.MakeUnstable();
+            Color cloneColour = GetComponent<SpriteRenderer>().color;
+            cloneColour.a = 0.59f;
+            ec.GetComponent<DamageFlash>().SetBaseColour(cloneColour);
             Aim cloneArm = clone.transform.GetChild(0).GetComponent<Aim>();
         }
     }

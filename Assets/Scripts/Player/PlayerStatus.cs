@@ -139,6 +139,7 @@ public class PlayerStatus : MonoBehaviour
             {
                 AudioManager.instance.PlaySFX("PlayerDeath");
                 animator.ResetTrigger("Respawn");
+                animator.SetBool("Jump", false);
                 movementScript.enabled = false;
                 if(aim.CurrentWeapon)
                 {

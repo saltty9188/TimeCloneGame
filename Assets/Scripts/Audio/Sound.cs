@@ -78,4 +78,14 @@ public class Sound
 
         return source.isPlaying;
     }
+
+    public float Time()
+    {
+        return source.time;
+    }
+
+    public float Length()
+    {
+        return _clip.length;
+    }
 }
