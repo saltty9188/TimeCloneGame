@@ -68,6 +68,7 @@ public class LevelSelect : MonoBehaviour
         for(int i = 1; i <= unlockedLevels; i++)
         {
             string displayName = "Level " + i.ToString();
+            if(i == 14) displayName = "Final Boss";
             GameObject button = Instantiate(levelSelectTemplate, buttonPos, new Quaternion());
             button.name = displayName;
             button.transform.parent = levelSelectTemplate.transform.parent;

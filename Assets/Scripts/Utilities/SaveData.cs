@@ -15,5 +15,6 @@ public class SaveData
     {
         this.fileName = fileName;
         this.levelIndex = levelIndex;
+        if(levelIndex > 14) this.levelIndex = 14;
     }
 }

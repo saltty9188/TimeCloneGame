@@ -11971,6 +11971,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4484876445280104047, guid: dc1fa2dfcfc222b4f88223eae0b2939f,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1fa2dfcfc222b4f88223eae0b2939f, type: 3}
 --- !u!4 &84524987 stripped
@@ -13073,6 +13078,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Time-Clone Device 3-2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5723176943656069693, guid: 403b12cf93111354895be3489f13419d,
         type: 3}
@@ -15218,6 +15233,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Time-Clone Device 1-2
       objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5723176943656069693, guid: 403b12cf93111354895be3489f13419d,
         type: 3}
       propertyPath: m_RootOrder
@@ -16422,6 +16447,16 @@ PrefabInstance:
     - target: {fileID: 4484876445280104046, guid: dc1fa2dfcfc222b4f88223eae0b2939f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484876445280104047, guid: dc1fa2dfcfc222b4f88223eae0b2939f,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4484876445280104047, guid: dc1fa2dfcfc222b4f88223eae0b2939f,
+        type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -24090,6 +24125,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Time-Clone Device 3-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5723176943656069693, guid: 403b12cf93111354895be3489f13419d,
         type: 3}
@@ -58325,6 +58365,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4484876445280104047, guid: dc1fa2dfcfc222b4f88223eae0b2939f,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc1fa2dfcfc222b4f88223eae0b2939f, type: 3}
 --- !u!1001 &1722014963
@@ -60409,6 +60454,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Time-Clone Device 1-1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5723176943656069692, guid: 403b12cf93111354895be3489f13419d,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5723176943656069693, guid: 403b12cf93111354895be3489f13419d,
         type: 3}

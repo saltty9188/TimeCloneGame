@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     public const string MASTER_VOLUME_PREF_KEY = "masterVolume";
     public const string MUSIC_VOLUME_PREF_KEY = "musicVolume";
     public const string SFX_VOLUME_PREF_KEY = "SFXVolume";
+    public const float AUDIO_MULTIPLIER = 40;
     #endregion
 
     #region Private fields
@@ -55,9 +56,9 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         // Set audio levels
-        audioMixer.SetFloat("MasterVolume", PlayerPrefs.GetFloat(MASTER_VOLUME_PREF_KEY, 1));
-        audioMixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat(MUSIC_VOLUME_PREF_KEY, 1));
-        audioMixer.SetFloat("SFXVolume", PlayerPrefs.GetFloat(SFX_VOLUME_PREF_KEY, 1));
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat(MASTER_VOLUME_PREF_KEY, 1)) * AUDIO_MULTIPLIER);
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(PlayerPrefs.GetFloat(MUSIC_VOLUME_PREF_KEY, 1)) * AUDIO_MULTIPLIER);
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(PlayerPrefs.GetFloat(SFX_VOLUME_PREF_KEY, 1)) * AUDIO_MULTIPLIER);
     }
 
     public void PlaySFX(string name, float pitch = -1)
@@ -138,5 +139,15 @@ public class AudioManager : MonoBehaviour
         {
             targetCountdown.Stop();
         }
+    }
+
+    public float GetCurrentTrackTime()
+    {
+        return currentTrack.Time();
+    }
+
+    public float GetCurrentTrackLength()
+    {
+        return currentTrack.Length();
     }
 }

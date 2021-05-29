@@ -30,12 +30,15 @@ public class ExecuteCommands : MonoBehaviour
     private MirrorMover nearbyMirrorMover;
     private bool wasMovingMirror;
     private List<OldWeapon> oldWeapons;
+    private SpriteRenderer spriteRenderer;
+    private float flickerTime;
     #endregion
 
     void Awake()
     {
         recordedCommands = null;
         commandIndex = -1;
+        spriteRenderer = GetComponent<SpriteRenderer>();
         rigidbody2D = GetComponent<Rigidbody2D>();
         playerMovement = GetComponent<PlayerMovement>();
         aim = transform.GetChild(0).GetComponent<Aim>();
@@ -153,15 +156,34 @@ public class ExecuteCommands : MonoBehaviour
         // Wait a second before enabling collision with the player/other clones
         if(playbackTime < 1.0f) Physics2D.IgnoreLayerCollision(8, 8, true);
         else Physics2D.IgnoreLayerCollision(8, 8, false);
+
     }
 
-    public void SetUnstable(bool unstable)
+    void Update()
     {
-        this.unstable = unstable;
         if(unstable)
         {
-            GetComponent<DamageFlash>().SetBaseColour(new Color(1, 0, 0, 0.59f));
+            if(flickerTime > 0)
+            {
+                flickerTime -= Time.deltaTime;
+                spriteRenderer.enabled = false;
+            }
+            else
+            {
+                spriteRenderer.enabled = true;
+                int chance = Random.Range(0, 20);
+                if(chance == 0)
+                {
+                    flickerTime = 0.083f;
+                }
+            }
         }
+    }
+
+    public void MakeUnstable()
+    {
+        this.unstable = true;
+        transform.GetChild(2).gameObject.SetActive(true);
     }
 
     public void SetCommands(List<RecordedCommand> commands)

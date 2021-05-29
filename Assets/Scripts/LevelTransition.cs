@@ -63,6 +63,7 @@ public class LevelTransition : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(animationTime);
+        
         player.GetComponent<PlayerMovement>().enabled = true;
         player.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
         cameraTracker.enabled = true;
