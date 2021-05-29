@@ -53,6 +53,12 @@ public class TimedTarget : Target
         }
     }
 
+    public override void ResetTarget()
+    {
+        base.ResetTarget();
+        AudioManager.instance.StopTargetCountdown();
+    }
+
     void SetTargetVisibility(bool visible)
     {
         boxCollider2D.enabled = visible;
