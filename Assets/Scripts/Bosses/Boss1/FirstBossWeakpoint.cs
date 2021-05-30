@@ -2,45 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The FirstBossWeakpoint class is a ButtonEvent that shows the first boss's weakpoint when the appropriate Button is pressed.
+/// </summary>
 public class FirstBossWeakpoint : ButtonEvent
 {
     #region Inspector fields
-    [SerializeField] private bool activateOnRight = true;
+    [Tooltip("Will this script activate when the boss is on the right or the left?")]
+    [SerializeField] private bool _activateOnRight = true;
     #endregion
 
     #region Private fields
-    private Animator animator;
-    private GameObject weakpoint;
+    private Animator _animator;
+    private GameObject _weakpoint;
     #endregion
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        weakpoint = transform.GetChild(2).gameObject;
+        _animator = GetComponent<Animator>();
+        _weakpoint = transform.GetChild(2).gameObject;
     }
 
-    void Update()
-    {
-        if(animator.GetBool("OnRight") != activateOnRight)
-        {
-            //Deactivate();
-        }
-    }
-
+    /// <summary>
+    /// Resets the number of activations and hides the weakpoint.
+    /// </summary>
     public override void ResetEvent()
     {
         activations = 0;
         Deactivate();
     }
 
+    /// <summary>
+    /// Exposes the weakpoint only if the boss is currently on the correct side of the arena.
+    /// </summary>
     protected override void Activate()
     {
-        if(animator.GetBool("OnRight") == activateOnRight)
+        if(_animator.GetBool("OnRight") == _activateOnRight)
         {
             ExposeWeakPoint();
         }
     }
 
+    /// <summary>
+    /// Hides the boss weakpoint.
+    /// </summary>
     protected override void Deactivate()
     {
         HideWeakPoint();
@@ -48,11 +53,14 @@ public class FirstBossWeakpoint : ButtonEvent
     
     void ExposeWeakPoint()
     {
-        if(weakpoint) weakpoint.SetActive(true);
+        if(_weakpoint) _weakpoint.SetActive(true);
     }
 
+    /// <summary>
+    /// Public function for directly hiding the boss weakpoint.
+    /// </summary>
     public void HideWeakPoint()
     {
-        if(weakpoint) weakpoint.SetActive(false);
+        if(_weakpoint) _weakpoint.SetActive(false);
     }
 }

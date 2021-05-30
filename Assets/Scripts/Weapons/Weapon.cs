@@ -96,11 +96,11 @@ public class Weapon : MonoBehaviour
 
             if(p.laser)
             {
-                AudioManager.instance.PlaySFX("LaserFire");
+                AudioManager.Instance.PlaySFX("LaserFire");
             }
             else
             {
-                AudioManager.instance.PlaySFX("GunShot");
+                AudioManager.Instance.PlaySFX("GunShot");
             }
 
             // Muzzle flash

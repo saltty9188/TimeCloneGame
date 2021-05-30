@@ -89,7 +89,7 @@ public class SecondBossScript : MonoBehaviour
         p.SetShooter(gameObject, true);
         p.transform.parent = projectileParent.transform;
 
-        AudioManager.instance.PlaySFX("LaserFire", 0.7f);
+        AudioManager.Instance.PlaySFX("LaserFire", 0.7f);
     }
     
     void OnCollisionEnter2D(Collision2D other)

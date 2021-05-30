@@ -199,7 +199,7 @@ public class GuardBot : EnemyBehaviour
             p.damage = damage;
             p.SetShooter(gameObject);   
 
-            AudioManager.instance.PlaySFX("GunShot");
+            AudioManager.Instance.PlaySFX("GunShot");
         }  
     }
 

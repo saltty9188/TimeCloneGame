@@ -32582,17 +32582,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7410235641490825729, guid: d0617774d1aa87b468c0beb70df34837,
         type: 3}
-      propertyPath: exit
+      propertyPath: _exit
       value: 
       objectReference: {fileID: 381281231}
     - target: {fileID: 7410235641490825729, guid: d0617774d1aa87b468c0beb70df34837,
         type: 3}
-      propertyPath: healthBar
+      propertyPath: _healthBar
       value: 
       objectReference: {fileID: 85453406}
     - target: {fileID: 7410235641490825729, guid: d0617774d1aa87b468c0beb70df34837,
         type: 3}
-      propertyPath: healthText
+      propertyPath: _healthText
       value: 
       objectReference: {fileID: 85453405}
     m_RemovedComponents: []

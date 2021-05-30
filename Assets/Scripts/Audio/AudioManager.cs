@@ -24,7 +24,7 @@ public class AudioManager : MonoBehaviour
     /// <summary>
     /// The static instance of this class.
     /// </summary>
-    public static AudioManager instance;
+    public static AudioManager Instance;
     /// <summary>
     /// The PlayerPrefs key for controlling the Master Volume AudioMixer.
     /// </summary>
@@ -52,9 +52,9 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {  
         // Singleton class so destroy this object if its not the instance
-        if(instance == null)
+        if(Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {

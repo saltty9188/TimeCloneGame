@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3162675d9e4ae334a8cf945c35ba4bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 4439e088ae4b0bd41b2d5ccbde20a343, type: 2}
-  music:
+  _audioMixer: {fileID: 24100000, guid: 4439e088ae4b0bd41b2d5ccbde20a343, type: 2}
+  _music:
   - _name: TitleTheme
     _clip: {fileID: 8300000, guid: 32b4d59f6ca9fca4aa4c19b770c51887, type: 3}
     _volume: 1
@@ -109,7 +109,7 @@ MonoBehaviour:
     _loop: 1
     _audioGroup: {fileID: -485853872299277888, guid: 4439e088ae4b0bd41b2d5ccbde20a343,
       type: 2}
-  effects:
+  _effects:
   - _name: GunShot
     _clip: {fileID: 8300000, guid: c3a56935f35e34043b8aa47c09a2c673, type: 3}
     _volume: 1

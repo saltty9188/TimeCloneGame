@@ -62,7 +62,7 @@ public class EnemyStatus : MonoBehaviour
             Die();
             return;
         }
-        AudioManager.instance.PlaySFX("Hit");
+        AudioManager.Instance.PlaySFX("Hit");
         flashScript.Flash();
         if(knockBackDirection != Vector2.zero)
         {
