@@ -33,7 +33,7 @@ public class TitleScreenIntro : MonoBehaviour
         panDist = Camera.main.transform.position.y - cameraY;
         eventSystem.gameObject.SetActive(false);
         coroutine = StartCoroutine(Intro());
-        AudioManager.instance.PlayMusic("TitleTheme");
+        AudioManager.Instance.PlayMusic("TitleTheme");
     }
 
     IEnumerator Intro()

@@ -105,7 +105,7 @@ public class PlayerStatus : MonoBehaviour
                 Die();
                 return;
             }
-            AudioManager.instance.PlaySFX("Hit");
+            AudioManager.Instance.PlaySFX("Hit");
             flashScript.Flash();
 
             damageCooldown = 3;
@@ -137,7 +137,7 @@ public class PlayerStatus : MonoBehaviour
         {
             if(deathAnimation == null)
             {
-                AudioManager.instance.PlaySFX("PlayerDeath");
+                AudioManager.Instance.PlaySFX("PlayerDeath");
                 animator.ResetTrigger("Respawn");
                 animator.SetBool("Jump", false);
                 movementScript.enabled = false;

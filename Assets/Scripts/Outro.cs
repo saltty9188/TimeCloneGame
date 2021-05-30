@@ -19,7 +19,7 @@ public class Outro : MonoBehaviour
         Camera.main.transform.position = new Vector3(-1.5f, -7f, -10);
         player.transform.position = new Vector3(-1.5f, -0.7f);
         StartCoroutine(OutroScene());
-        AudioManager.instance.PlayMusic("Credits");
+        AudioManager.Instance.PlayMusic("Credits");
     }
 
     IEnumerator OutroScene()

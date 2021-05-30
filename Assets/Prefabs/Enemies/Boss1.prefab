@@ -193,6 +193,8 @@ GameObject:
   - component: {fileID: 4391070823407290456}
   - component: {fileID: 4391070823407290463}
   - component: {fileID: 4391070823407290436}
+  - component: {fileID: 9072631593318882048}
+  - component: {fileID: 4690230902700482502}
   m_Layer: 0
   m_Name: Boss1
   m_TagString: Boss1
@@ -282,17 +284,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 379b0322ddfe1db49a7d1f605f8054b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7686343687046668330, guid: bbd9761a43b4cf042a5173e0c1023285,
+  _bulletPrefab: {fileID: 7686343687046668330, guid: bbd9761a43b4cf042a5173e0c1023285,
     type: 3}
-  damage: 5
-  phaseTransitionTime: 10
-  deathPieces:
+  _damage: 5
+  _phaseTransitionTime: 10
+  _deathPieces:
   - {fileID: 21300000, guid: 130a68fa1ad88cb4cb34c78cf574cac1, type: 3}
   - {fileID: 21300000, guid: 80326cef44620e948846b4885fc92610, type: 3}
   - {fileID: 21300000, guid: 9782864b72727cc4b97602116dddd4f6, type: 3}
   - {fileID: 21300000, guid: 906fce84f4ad66e438194bca7ae4ba6e, type: 3}
   - {fileID: 21300000, guid: c03e27a5f918e90488353d791506b82f, type: 3}
-  deathPiecePrefab: {fileID: 3151741147064833597, guid: 3ab636e0b206b9940ab618d63912aea3,
+  _deathPiecePrefab: {fileID: 3151741147064833597, guid: 3ab636e0b206b9940ab618d63912aea3,
     type: 3}
   initialPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2854783580804814422
@@ -307,11 +309,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2681052c1a66ab246b740a12eff9d769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
-  healthBar: {fileID: 0}
-  healthText: {fileID: 0}
-  exit: {fileID: 0}
-  player: {fileID: 0}
+  _maxHealth: 500
+  _healthBar: {fileID: 0}
+  _healthText: {fileID: 0}
+  _exit: {fileID: 0}
+  _player: {fileID: 0}
 --- !u!114 &1436213153692772087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -507,6 +509,34 @@ CompositeCollider2D:
       - {x: -1.3181291, y: -2.2075372}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
+--- !u!114 &9072631593318882048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4391070823407290451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7e1502ab6bdf54dab62981960c8b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredActivations: 1
+  _activateOnRight: 0
+--- !u!114 &4690230902700482502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4391070823407290451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7e1502ab6bdf54dab62981960c8b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  requiredActivations: 1
+  _activateOnRight: 1
 --- !u!1 &4391070824843908209
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class TimedTarget : Target
 
         if(dontResetWhenActive && attachedEvent.IsActivated)
         {
-            AudioManager.instance.StopTargetCountdown();
+            AudioManager.Instance.StopTargetCountdown();
         }
     }
 
@@ -38,7 +38,7 @@ public class TimedTarget : Target
         attachedEvent.AddActivation();
         timer = 0;
         SetTargetVisibility(false);
-        AudioManager.instance.PlayTargetCountdown();
+        AudioManager.Instance.PlayTargetCountdown();
     }
 
     void Deactivate()
@@ -47,7 +47,7 @@ public class TimedTarget : Target
         // or it is set and the attached event is not active (i.e. not all targets were hit in time)
         if(!dontResetWhenActive || (dontResetWhenActive && !attachedEvent.IsActivated))
         {
-            AudioManager.instance.StopTargetCountdown();
+            AudioManager.Instance.StopTargetCountdown();
             SetTargetVisibility(true);
             attachedEvent.RemoveActivation();
         }
@@ -56,7 +56,7 @@ public class TimedTarget : Target
     public override void ResetTarget()
     {
         base.ResetTarget();
-        AudioManager.instance.StopTargetCountdown();
+        AudioManager.Instance.StopTargetCountdown();
     }
 
     void SetTargetVisibility(bool visible)

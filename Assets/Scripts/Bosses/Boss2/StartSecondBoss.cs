@@ -20,7 +20,7 @@ public class StartSecondBoss : MonoBehaviour
             bossAnimator.ResetTrigger("Reset Fight");
             bossUI.SetActive(true);  
 
-            AudioManager.instance.PlayMusic("BossTheme");
+            AudioManager.Instance.PlayMusic("BossTheme");
         }
     }
 }

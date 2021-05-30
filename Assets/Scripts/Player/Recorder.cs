@@ -88,7 +88,7 @@ public class Recorder : MonoBehaviour
             }
         }
 
-        AudioManager.instance.PlaySFX("StartRecording");
+        AudioManager.Instance.PlaySFX("StartRecording");
     }
 
     public void StopRecording()
@@ -97,7 +97,7 @@ public class Recorder : MonoBehaviour
         accumulatedTime = 0;
         transform.parent = null;
         timer = 0;
-        AudioManager.instance.PlaySFX("EndRecording");
+        AudioManager.Instance.PlaySFX("EndRecording");
 
         GameObject endingWeapon = (aim.CurrentWeapon ? aim.CurrentWeapon.gameObject : null);
         activeCloneMachine.StoreClone(new List<RecordedCommand>(commands), recordingStartPos);

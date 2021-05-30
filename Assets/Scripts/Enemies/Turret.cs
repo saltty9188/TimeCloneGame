@@ -99,11 +99,11 @@ public class Turret : EnemyBehaviour
 
             if(p.laser)
             {
-                AudioManager.instance.PlaySFX("LaserFire", 0.7f);
+                AudioManager.Instance.PlaySFX("LaserFire", 0.7f);
             }
             else
             {
-                AudioManager.instance.PlaySFX("GunShot");
+                AudioManager.Instance.PlaySFX("GunShot");
             }
         }
     }

@@ -34,7 +34,7 @@ public class LevelTransition : MonoBehaviour
             player.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
             player.transform.GetChild(0).GetComponent<Aim>().enabled = false;
             StartCoroutine(EnterLevelTransition());
-            AudioManager.instance.PlayLevelTheme(SceneManager.GetActiveScene().buildIndex);
+            AudioManager.Instance.PlayLevelTheme(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

@@ -206,7 +206,7 @@ public class PlayerMovement : MonoBehaviour
         rigidbody.AddForce(new Vector2(0, jumpPower));
         grounded = false;
         animator.SetBool("Jump", true);
-        AudioManager.instance.PlaySFX("PlayerJump");
+        AudioManager.Instance.PlaySFX("PlayerJump");
     }
 
     void SetArmActive(bool active)

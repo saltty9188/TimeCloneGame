@@ -4,63 +4,78 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// The BossStatus class is responsible for performing actions related to the health of the boss.
+/// </summary>
 public class BossStatus : MonoBehaviour
 {
 
-    #region  Inspector fields
-    [SerializeField] private float maxHealth = 500;
-    [SerializeField] private Slider healthBar;
-    [SerializeField] private TextMeshProUGUI healthText;
-    [SerializeField] private Door exit;
-    [SerializeField] private GameObject player;
+    #region Inspector fields
+    [Tooltip("The maximum health value for the boss fight.")]
+    [SerializeField] private float _maxHealth = 500;
+    [Tooltip("The slider that will display the boss's current health.")]
+    [SerializeField] private Slider _healthBar;
+    [Tooltip("The text element that is inside the health bar to display the boss's current health.")]
+    [SerializeField] private TextMeshProUGUI _healthText;
+    [Tooltip("The exit of the arena that will be open upon the boss's death.")]
+    [SerializeField] private Door _exit;
+    [Tooltip("A reference to the player that will be used to cancel the recording if applicable.")]
+    [SerializeField] private GameObject _player;
     #endregion
 
     #region Private fields
-    private float health;
-    private DamageFlash flashScript;
-    private bool dead;
+    private float _health;
+    private DamageFlash _flashScript;
+    private bool _dead;
     #endregion
     
     void Start()
     {
-        flashScript = GetComponent<DamageFlash>();
-        health = maxHealth;
+        _flashScript = GetComponent<DamageFlash>();
+        _health = _maxHealth;
         UpdateUI();
-        dead = false;
+        _dead = false;
     }
 
+    /// <summary>
+    /// Deals damage to the boss and updates the UI.
+    /// </summary>
+    /// <remarks>
+    /// Kills the boss if health is at or below zero.
+    /// </remarks>
+    /// <param name="damage">The amount of damage to be taken.</param>
     public void TakeDamage(int damage)
     {
-       if(!dead)
-       {
-            health -= damage;
+        if(!_dead)
+        {
+            _health -= damage;
             UpdateUI();
-            if(health < 1) 
+            if(_health < 1) 
             {
                 Die();
                 return;
             }
-            AudioManager.instance.PlaySFX("Hit");
-            flashScript.Flash();
-       }
+            AudioManager.Instance.PlaySFX("Hit");
+            _flashScript.Flash();
+        }
     }
 
-    public void Die()
+    void Die()
     {
         //Only run the death script once
-        if(!dead)
+        if(!_dead)
         {
-            dead = true;
+            _dead = true;
             ThirdBossScript tbs = GetComponent<ThirdBossScript>();
             if(tbs)
             {
                 tbs.SetDoorsClosed();
             }
 
-            health = 0;
-            healthBar.transform.parent.gameObject.SetActive(false);
-            exit.AddActivation();
-            if(player) player.GetComponent<Recorder>().CancelRecording();
+            _health = 0;
+            _healthBar.transform.parent.gameObject.SetActive(false);
+            _exit.AddActivation();
+            if(_player) _player.GetComponent<Recorder>().CancelRecording();
 
             CreateExplosions();
 
@@ -68,7 +83,7 @@ public class BossStatus : MonoBehaviour
             switch(tag)
             {
                 case "Boss1":
-                    GetComponent<FirstBossScript>().DeathGibs();
+                    GetComponent<FirstBossScript>().DeathPieces();
                     Destroy(gameObject);
                     break;
 
@@ -81,11 +96,17 @@ public class BossStatus : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Resets the boss to full health and updates the UI accordingly.
+    /// </summary>
+    /// <remarks>
+    /// Also hides the UI.
+    /// </remarks>
     public void ResetStatus()
     {
-        health = maxHealth;
+        _health = _maxHealth;
         UpdateUI();
-        healthBar.transform.parent.gameObject.SetActive(false);
+        _healthBar.transform.parent.gameObject.SetActive(false);
     }
 
     void CreateExplosions()
@@ -104,7 +125,7 @@ public class BossStatus : MonoBehaviour
 
     void UpdateUI()
     {
-        if(healthBar != null) healthBar.value = health/maxHealth * 100.0f;
-        if(healthText != null) healthText.text = ((int) health < 0 ? "0" : ((int) health).ToString());
+        if(_healthBar != null) _healthBar.value = _health/_maxHealth * 100.0f;
+        if(_healthText != null) _healthText.text = ((int) _health < 0 ? "0" : ((int) _health).ToString());
     }
 }

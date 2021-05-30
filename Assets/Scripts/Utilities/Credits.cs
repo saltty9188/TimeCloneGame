@@ -39,7 +39,7 @@ public class Credits : MonoBehaviour
             thankYouCentered = true;
             thankYouText.transform.position = new Vector3(thankYouText.transform.position.x, thankYouPosition, thankYouText.transform.position.z);
 
-            if(AudioManager.instance.FadeOutSong(0.2f * Time.deltaTime)) GoBack();
+            if(AudioManager.Instance.FadeOutSong(0.2f * Time.deltaTime)) GoBack();
         }
     }
 
@@ -48,7 +48,7 @@ public class Credits : MonoBehaviour
         creditsText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, initialPosition);
         thankYouText.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -51);
         thankYouCentered = false;
-        AudioManager.instance.PlayMusic("Credits");
+        AudioManager.Instance.PlayMusic("Credits");
     }
 
     public void GoBack()
@@ -71,8 +71,8 @@ public class Credits : MonoBehaviour
             lights.SetActive(true);
             backGround.SetActive(true);
             // Force volume to reset again in case the player skipped during the fade out
-            AudioManager.instance.FadeOutSong(1.0f);
-            AudioManager.instance.PlayMusic("TitleTheme");
+            AudioManager.Instance.FadeOutSong(1.0f);
+            AudioManager.Instance.PlayMusic("TitleTheme");
         }
         else
         {
