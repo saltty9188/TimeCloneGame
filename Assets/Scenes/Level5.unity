@@ -1585,7 +1585,7 @@ PrefabInstance:
     - target: {fileID: 2879771957952551433, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 59.6
+      value: -6.52
       objectReference: {fileID: 0}
     - target: {fileID: 2879771957952551433, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
@@ -25636,7 +25636,7 @@ PrefabInstance:
     - target: {fileID: 2497308255073680534, guid: f04f29e39270b834a8939e5d7a61631f,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f04f29e39270b834a8939e5d7a61631f, type: 3}
@@ -29468,7 +29468,7 @@ PrefabInstance:
     - target: {fileID: 7356404572358810895, guid: e31726a7a86b3304e9f1534ad69de340,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 63.21
+      value: -4.39
       objectReference: {fileID: 0}
     - target: {fileID: 7356404572358810895, guid: e31726a7a86b3304e9f1534ad69de340,
         type: 3}
@@ -30630,21 +30630,6 @@ PrefabInstance:
     - target: {fileID: 7697119603554909446, guid: 123af540201416345ac83cfd7bd0372a,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7697119603554909446, guid: 123af540201416345ac83cfd7bd0372a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7697119603554909446, guid: 123af540201416345ac83cfd7bd0372a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7697119603554909446, guid: 123af540201416345ac83cfd7bd0372a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7697119603554909464, guid: 123af540201416345ac83cfd7bd0372a,
@@ -32197,9 +32182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9206f7d0c33484db9bd2ceea27194a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorBehind: {fileID: 1418507322}
-  bossAnimator: {fileID: 672985034}
-  bossUI: {fileID: 625818686}
+  _doorBehind: {fileID: 1418507322}
+  _bossAnimator: {fileID: 672985034}
+  _bossUI: {fileID: 625818686}
 --- !u!4 &1968843139
 Transform:
   m_ObjectHideFlags: 0
