@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The SecondBossScript class is the main class that drives the actions of the Second Boss.
+/// </summary>
 public class SecondBossScript : MonoBehaviour
 {
 
     #region Inspector fields
-    [SerializeField] private GameObject projectilePrefab;
+    [Tooltip("Prefab for the bullets the boss fires.")]
+    [SerializeField] private GameObject _projectilePrefab;
     #endregion
 
     #region Public fields
-    public Vector2 upperRight = new Vector2(97.5f, 8.25f);
-    public Vector2 lowerLeft = new Vector2(72.5f, -0.5f);
-    public bool onRight;
+    public const float UPPER_BOUND = 7.0f;
+    public const float LOWER_BOUND = -2.0f;
+    public const float RIGHT_BOUND = 97.5f;
+    public const float LEFT_BOUND = 72.5f;
+    public const float PLATFORM_HEIGHT = 2.0f;
+    //public bool onRight;
     public int shootingLandCount;
     public float verticalSpeed;
     #endregion
@@ -33,7 +40,6 @@ public class SecondBossScript : MonoBehaviour
         projectileParent = new GameObject();
         animator = GetComponent<Animator>();
         status = GetComponent<BossStatus>();
-        onRight = true;
 
         initialPosition = transform.position;
         initialScale = transform.localScale;
@@ -68,11 +74,12 @@ public class SecondBossScript : MonoBehaviour
 
     public void Shoot()
     {
-        Vector2 direction = (onRight ? Vector2.left : Vector2.right);
+        Vector2 direction = (animator.GetBool("On Right") ? Vector2.left : Vector2.right);
 
         //aim at the player if the boss is facing them
         if(closestTarget != null && 
-            ((onRight && closestTarget.transform.position.x <= transform.position.x) || (!onRight && closestTarget.transform.position.x >= transform.position.x)))
+            ((animator.GetBool("On Right") && closestTarget.transform.position.x <= transform.position.x) || 
+            (!animator.GetBool("On Right") && closestTarget.transform.position.x >= transform.position.x)))
         {
             direction = closestTarget.transform.position - transform.position;  
         }
@@ -82,7 +89,7 @@ public class SecondBossScript : MonoBehaviour
             direction.y += Random.Range(-1.0f, 1.0f);
         }
 
-        GameObject go = Instantiate(projectilePrefab, transform.GetChild(0).position, new Quaternion());
+        GameObject go = Instantiate(_projectilePrefab, transform.GetChild(0).position, new Quaternion());
         Projectile p = go.GetComponent<Projectile>();
         p.direction = direction;
         p.transform.localScale = new Vector3(2, 2, 2);
@@ -92,15 +99,6 @@ public class SecondBossScript : MonoBehaviour
         AudioManager.Instance.PlaySFX("LaserFire", 0.7f);
     }
     
-    void OnCollisionEnter2D(Collision2D other)
-    {    
-        if(other.GetContact(0).normal == Vector2.up && animator.GetBool("Jump") && other.GetContact(0).collider.tag == "Reflective")
-        {
-            animator.SetBool("Jump", false);
-            animator.SetTrigger("Land");
-            GetComponent<Rigidbody2D>().isKinematic = false;
-        }
-    }
     void SelectTarget()
     {
         float closestDist = float.MaxValue;
@@ -149,7 +147,6 @@ public class SecondBossScript : MonoBehaviour
 
         ResetAllTriggers();
         DestroyAllProjectiles();
-        onRight = true;
         shootingLandCount = 0;
         animator.SetBool("On Right", true);
         animator.SetBool("Jump", false);
