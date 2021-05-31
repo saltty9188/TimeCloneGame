@@ -184,12 +184,12 @@ PrefabInstance:
         type: 3}
       propertyPath: movableObjects.Array.data[4]
       value: 
-      objectReference: {fileID: 180935382}
+      objectReference: {fileID: 1215021316}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
       propertyPath: movableObjects.Array.data[5]
       value: 
-      objectReference: {fileID: 1215021316}
+      objectReference: {fileID: 180935382}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
       propertyPath: movableObjects.Array.data[6]
@@ -248,6 +248,11 @@ PrefabInstance:
     - target: {fileID: 3339956301723709527, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4119215570678670446, guid: ab3515d08798ea1498b1848765824d1f,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1500,9 +1505,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 224606a399479944d9f9f48a5f425984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossScript: {fileID: 950531833}
-  bossUI: {fileID: 1023848312}
-  entrance: {fileID: 1585780642}
+  _bossScript: {fileID: 950531833}
+  _bossUI: {fileID: 1023848312}
+  _entrance: {fileID: 1585780642}
 --- !u!61 &283258706
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2790,7 +2795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4906859f030e444394c630e3b21e7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entrance: {fileID: 399397577}
+  _entrance: {fileID: 399397577}
 --- !u!61 &508638704
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11524,7 +11529,7 @@ PrefabInstance:
     - target: {fileID: 2267681428197159550, guid: 2b5cedd0d70973343a0040cc20539e06,
         type: 3}
       propertyPath: m_Name
-      value: Mirror
+      value: Mirror -45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b5cedd0d70973343a0040cc20539e06, type: 3}
@@ -11713,7 +11718,7 @@ PrefabInstance:
     - target: {fileID: 1079029890966153048, guid: 7118867a6e65cd041a4633ca57f18f7a,
         type: 3}
       propertyPath: m_Name
-      value: Redirector (1)
+      value: Redirector-R
       objectReference: {fileID: 0}
     - target: {fileID: 1079029890966153052, guid: 7118867a6e65cd041a4633ca57f18f7a,
         type: 3}
@@ -11992,18 +11997,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd425cfeb22cdb45b0e36e3a8027b0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
+  _projectilePrefab: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
     type: 3}
-  deathPrefab: {fileID: 555646738199610292, guid: ea42d248248f8d14e81007640430c096,
+  _deathPrefab: {fileID: 555646738199610292, guid: ea42d248248f8d14e81007640430c096,
     type: 3}
-  cooldownTime: 0.3
-  ventSwapDelay: 20
-  ignoreSelf:
+  _cooldownTime: 0.3
+  _ventSwapDelay: 20
+  _ignoreSelf:
     serializedVersion: 2
     m_Bits: 3379
-  topDoor: {fileID: 288275197}
-  bottomDoor: {fileID: 924976192}
-  otherDoors:
+  _topDoor: {fileID: 288275197}
+  _bottomDoor: {fileID: 924976192}
+  _otherDoors:
   - {fileID: 1627739250}
   - {fileID: 307205777}
   - {fileID: 399397577}
@@ -13196,7 +13201,7 @@ PrefabInstance:
     - target: {fileID: 2267681428197159550, guid: 2b5cedd0d70973343a0040cc20539e06,
         type: 3}
       propertyPath: m_Name
-      value: Mirror (2)
+      value: Mirror -135
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b5cedd0d70973343a0040cc20539e06, type: 3}
@@ -15431,7 +15436,7 @@ PrefabInstance:
     - target: {fileID: 1079029890966153048, guid: 7118867a6e65cd041a4633ca57f18f7a,
         type: 3}
       propertyPath: m_Name
-      value: Redirector
+      value: Redirector-L
       objectReference: {fileID: 0}
     - target: {fileID: 1079029890966153053, guid: 7118867a6e65cd041a4633ca57f18f7a,
         type: 3}
@@ -15588,7 +15593,7 @@ PrefabInstance:
     - target: {fileID: 2267681428197159550, guid: 2b5cedd0d70973343a0040cc20539e06,
         type: 3}
       propertyPath: m_Name
-      value: Mirror (1)
+      value: Mirror 45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b5cedd0d70973343a0040cc20539e06, type: 3}
@@ -29446,7 +29451,7 @@ PrefabInstance:
     - target: {fileID: 2267681428197159550, guid: 2b5cedd0d70973343a0040cc20539e06,
         type: 3}
       propertyPath: m_Name
-      value: Mirror (3)
+      value: Mirror 135
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b5cedd0d70973343a0040cc20539e06, type: 3}
