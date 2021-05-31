@@ -29,6 +29,8 @@ public class TitleScreenIntro : MonoBehaviour
     void Start()
     {
         inIntro = true;
+        Camera.main.transform.position = new Vector3(-0.5f, 11f, -10f);
+        buttonCanvas.alpha = 0;
         finalPosition = new Vector3(Camera.main.transform.position.x, cameraY, Camera.main.transform.position.z);
         panDist = Camera.main.transform.position.y - cameraY;
         eventSystem.gameObject.SetActive(false);
@@ -52,7 +54,6 @@ public class TitleScreenIntro : MonoBehaviour
 
         while(buttonCanvas.alpha < 1.0f)
         {
-            Debug.Log("here");
             float alpha = buttonCanvas.alpha;
             alpha += 16 * Time.deltaTime;
             buttonCanvas.alpha = alpha;
@@ -74,6 +75,4 @@ public class TitleScreenIntro : MonoBehaviour
         inIntro = false;
         eventSystem.gameObject.SetActive(true);
     }
-
-
 }
