@@ -51,7 +51,7 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 75702cc62f7c1ed46bfa79edbbd480d7, type: 3}
     - {fileID: 2800000, guid: fb70310bf71e509439621786a25775ff, type: 3}
     - {fileID: 2800000, guid: 9a01b53605aab3548bdc4e8cf3859fbd, type: 3}
-    totalSpriteSurfaceArea: 247681
+    totalSpriteSurfaceArea: 247445
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
@@ -97,6 +97,7 @@ SpriteAtlas:
   - {fileID: -2876893151901155940, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
   - {fileID: 1391611236851110571, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
   - {fileID: -8788327664343328577, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
+  - {fileID: 8681937282729456653, guid: a40223379d22a0b45bda8e8753114d76, type: 3}
   - {fileID: -6885031628506796321, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
   - {fileID: 6205793425759620764, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
   - {fileID: -8790327655586582288, guid: 1e26d3d786117b04ba8fb8072e7d80b8, type: 3}
@@ -163,6 +164,7 @@ SpriteAtlas:
   - PowerSuit_jumping_8
   - PowerSuit_jumping_10
   - PowerSuit_jumping_11
+  - PowerSuit_jumping_12
   - PowerSuit_Running_4
   - PowerSuit_Running_5
   - PowerSuit_Running_6
