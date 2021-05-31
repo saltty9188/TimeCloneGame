@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// The StartFirstBoss class is a trigger that causes the boss fight to begin.
+/// The StartSecondBoss class is a trigger that causes the boss fight to begin.
 /// </summary>
 public class StartSecondBoss : MonoBehaviour
 {

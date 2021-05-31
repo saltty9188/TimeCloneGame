@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6236201fe0231254386419cff089d043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalSpeed: 3
+  _verticalSpeed: 3
 --- !u!1102 &-8403354104107772976
 AnimatorState:
   serializedVersion: 6
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e644656423a588a4283fe91292b4689b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 5
+  _horizontalSpeed: 5
 --- !u!1101 &-7633611233947990494
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -273,8 +273,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e663d58544136ad48acd5a07f085a9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 3
-  jumpForce: 7.5
+  _horizontalSpeed: 3
+  _jumpForce: 7.5
 --- !u!114 &-6071366901071581605
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e3681a1eb6cc36418d15d4ab3c11292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalSpeed: 3
+  _verticalSpeed: 3
 --- !u!1101 &-6006095871023658931
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -961,7 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5566b4caee987664399cf7382137b623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 15
+  _runSpeed: 15
 --- !u!1101 &714241066782535807
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1018,7 +1018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48739e2cab2c6ac4cba70ec9542ab650, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 20
+  _runSpeed: 20
 --- !u!1102 &1179567287009896117
 AnimatorState:
   serializedVersion: 6
@@ -1499,8 +1499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e47851bb154d14d86e62716e9f5780, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 3.5
-  jumpForce: 10
+  _horizontalSpeed: 3.5
+  _jumpForce: 10
 --- !u!114 &5624230087195676722
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1788,7 +1788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f08e87265916840bc28792fdb300dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 10
+  _runSpeed: 10
 --- !u!1101 &8127252445360095696
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -1845,4 +1845,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd9a46c745795540b649fae347cb409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 20
+  _runSpeed: 20

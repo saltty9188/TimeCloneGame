@@ -3,116 +3,131 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
+/// <summary>
+/// The ThirdBossScript class is the main class that drives the actions of the Third Boss.
+/// </summary>
 public class ThirdBossScript : MonoBehaviour
 {
-
     #region Inspector fields
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private GameObject deathPrefab;
-    [SerializeField] private float cooldownTime = 0.3f;
-    [SerializeField] private float ventSwapDelay = 20;
-    [SerializeField] private LayerMask ignoreSelf;
-    [SerializeField] private Door topDoor;
-    [SerializeField] private Door bottomDoor;
-    [SerializeField] private Door[] otherDoors;
+    [Tooltip("Prefab for the bullets the boss fires.")]
+    [SerializeField] private GameObject _projectilePrefab;
+    [Tooltip("Prefab for the piece of the boss that spawns upon its death.")]
+    [SerializeField] private GameObject _deathPrefab;
+    [Tooltip("How long the boss is vulnerable after its weakpoint is hit.")]
+    [SerializeField] private float _cooldownTime = 0.3f;
+    [Tooltip("How long it takes for the vents to switch.")]
+    [SerializeField] private float _ventSwapDelay = 20;
+    [Tooltip("Ignore projectiles and itself.")]
+    [SerializeField] private LayerMask _ignoreSelf;
+    [Tooltip("The horizontal door above that blocks a path to the weak point.")]
+    [SerializeField] private Door _topDoor;
+    [Tooltip("The horizontal door below that blocks a path to the weak point.")]
+    [SerializeField] private Door _bottomDoor;
+    [Tooltip("The other doors behind the boss that must be closed upon the bosses death.")]
+    [SerializeField] private Door[] _otherDoors;
     #endregion
 
     #region Private fields
-    private BossStatus status;
-    private SpriteRenderer spriteRenderer;
-    private Animator animator;
-    private Animator frontVent;
-    private Animator topVent;
-    private Light2D shootLight;
-    private GameObject closestTarget;
-    private GameObject projectileParent;
-    private bool inFight;
-    private float hitCooldown;
-    private bool topVulnerable;
-    private float ventSwapCooldown;
+    private BossStatus _status;
+    private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
+    private Animator _frontVent;
+    private Animator _topVent;
+    private Light2D _shootLight;
+    private GameObject _closestTarget;
+    private GameObject _projectileParent;
+    private bool _inFight;
+    private float _hitCooldown;
+    private bool _topVulnerable;
+    private float _ventSwapCooldown;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        status = GetComponent<BossStatus>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-        shootLight = GetComponentInChildren<Light2D>();   
+        _status = GetComponent<BossStatus>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
+        _shootLight = GetComponentInChildren<Light2D>();   
 
-        topVent =  transform.GetChild(2).GetComponent<Animator>();
-        frontVent = transform.parent.GetChild(1).GetComponent<Animator>();
+        _topVent =  transform.GetChild(2).GetComponent<Animator>();
+        _frontVent = transform.parent.GetChild(1).GetComponent<Animator>();
 
         InitialValues();
 
-        projectileParent = new GameObject(name + " Projectiles");
+        _projectileParent = new GameObject(name + " Projectiles");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(inFight)
+        if(_inFight)
         {
             SelectTarget();
 
-            if(hitCooldown > 0)
+            if(_hitCooldown > 0)
             {
-                // remove or change later?
-                spriteRenderer.color = Color.cyan;
-                hitCooldown -= Time.deltaTime;
+                // make the boss tinted blue when it's vulnerable
+                _spriteRenderer.color = Color.cyan;
+                _hitCooldown -= Time.deltaTime;
             } 
             else
             {
-                spriteRenderer.color = Color.white;
+                _spriteRenderer.color = Color.white;
             }
 
-            if(ventSwapCooldown > 0)
+            if(_ventSwapCooldown > 0)
             {
-                ventSwapCooldown -= Time.deltaTime;
+                _ventSwapCooldown -= Time.deltaTime;
             }
             else
             {
-                ventSwapCooldown = ventSwapDelay;
-                topVulnerable = !topVulnerable;
-                if(topVulnerable)
+                // Swap which vent is open and adjust the doors appropriately
+                _ventSwapCooldown = _ventSwapDelay;
+                _topVulnerable = !_topVulnerable;
+                if(_topVulnerable)
                 {
-                    topVent.SetBool("IsOpen", true);
-                    frontVent.SetBool("IsOpen", false);
-                    bottomDoor.AddActivation();
-                    topDoor.RemoveActivation();
+                    _topVent.SetBool("IsOpen", true);
+                    _frontVent.SetBool("IsOpen", false);
+                    _bottomDoor.AddActivation();
+                    _topDoor.RemoveActivation();
                 }
                 else
                 {
-                    topVent.SetBool("IsOpen", false);
-                    frontVent.SetBool("IsOpen", true);
-                    topDoor.AddActivation();
-                    bottomDoor.RemoveActivation();
+                    _topVent.SetBool("IsOpen", false);
+                    _frontVent.SetBool("IsOpen", true);
+                    _topDoor.AddActivation();
+                    _bottomDoor.RemoveActivation();
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Starts the boss fight.
+    /// </summary>
     public void StartFight()
     {
-        inFight = true;
-        Debug.Log("started");
-
+        _inFight = true;
     }
 
+    /// <summary>
+    /// Resets the boss fight to its default state.
+    /// </summary>
     public void ResetBoss()
     {
-        status.ResetStatus();
-        hitCooldown = 0;
+        _status.ResetStatus();
+        _hitCooldown = 0;
         InitialValues();
 
-        Destroy(projectileParent);
-        projectileParent = new GameObject(name + " Projectiles");
+        Destroy(_projectileParent);
+        _projectileParent = new GameObject(name + " Projectiles");
     }
 
     void SelectTarget()
     {
         float closestDist = float.MaxValue;
-        closestTarget = null;
+        _closestTarget = null;
         for(int i = 0; i < EnemyManager.targets.Count; i++)
         {
             if(EnemyManager.targets[i] == null)
@@ -125,70 +140,86 @@ public class ThirdBossScript : MonoBehaviour
                 GameObject target = EnemyManager.targets[i];
                 float dist = Vector3.Distance(transform.position, target.transform.position);
 
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, target.transform.position - transform.position, float.MaxValue, ignoreSelf);
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, target.transform.position - transform.position, float.MaxValue, _ignoreSelf);
 
                 if(dist < closestDist && hit && (hit.collider.tag == "Player" || hit.collider.tag == "Clone"))
                 {
                     closestDist = dist;
-                    closestTarget = target;
+                    _closestTarget = target;
                 }
             }     
         }
 
-        animator.SetBool("targetFound", closestTarget);
+        _animator.SetBool("targetFound", _closestTarget);
     }
 
+    /// <summary>
+    /// Animation event that fires a bullet prefab out of the barrel on the boss if there is a target to shoot.
+    /// </summary>
     public void Shoot()
     { 
-        if(closestTarget != null)
+        if(_closestTarget != null)
         {
-            Vector2 direction = closestTarget.transform.position - transform.position;
+            Vector2 direction = _closestTarget.transform.position - transform.position;
 
-            GameObject go = Instantiate(projectilePrefab, transform.GetChild(0).position, new Quaternion());
+            GameObject go = Instantiate(_projectilePrefab, transform.GetChild(0).position, new Quaternion());
             Projectile p = go.GetComponent<Projectile>();
             p.direction = direction;
             p.transform.localScale = new Vector3(2, 2, 2);
             p.SetShooter(gameObject, true);
-            p.transform.parent = projectileParent.transform;
+            p.transform.parent = _projectileParent.transform;
 
             AudioManager.Instance.PlaySFX("LaserFire", 0.7f);
         }
     }
 
+    // The inital values for the boss's private fields
     void InitialValues()
     {
-        ventSwapCooldown = ventSwapDelay;
-        topVulnerable = true;
-        animator.SetBool("targetFound", false);
-        topVent.SetBool("IsOpen", true);
-        frontVent.SetBool("IsOpen", false);
-        bottomDoor.ResetEvent();
-        bottomDoor.AddActivation();
-        topDoor.ResetEvent();
-        topDoor.RemoveActivation();
+        _ventSwapCooldown = _ventSwapDelay;
+        _topVulnerable = true;
+        _animator.SetBool("targetFound", false);
+        _topVent.SetBool("IsOpen", true);
+        _frontVent.SetBool("IsOpen", false);
 
-        inFight = false;
-        closestTarget = null;
+        // By default the bottom door is open and the top door is closed
+        _bottomDoor.ResetEvent();
+        _bottomDoor.AddActivation();
+        _topDoor.ResetEvent();
+        _topDoor.RemoveActivation();
+
+        _inFight = false;
+        _closestTarget = null;
     }
 
+    /// <summary>
+    /// Takes damage if the boss is currently vulnerable.
+    /// </summary>
+    /// <param name="damage">The damage to be taken.</param>
     public void GetHit(int damage)
     {
-        if(hitCooldown > 0)
+        if(_hitCooldown > 0)
         {
-            status.TakeDamage(damage);
+            _status.TakeDamage(damage);
         }
     }
 
+    /// <summary>
+    /// Makes the boss vulnerable for the amount of time specified in the inspector.
+    /// </summary>
     public void MakeVulnerable()
     {
-        hitCooldown = cooldownTime;
+        _hitCooldown = _cooldownTime;
     }
 
+    /// <summary>
+    /// Sets all of the doors to be closed except for the entrances which remain open.
+    /// </summary>
     public void SetDoorsClosed()
     {
-        topDoor.ResetAndTurnOff();
-        bottomDoor.ResetAndTurnOff();
-        foreach(Door door in otherDoors)
+        _topDoor.ResetAndTurnOff();
+        _bottomDoor.ResetAndTurnOff();
+        foreach(Door door in _otherDoors)
         {
             if(typeof(RecordingDoor).IsInstanceOfType(door))
             {
@@ -202,11 +233,14 @@ public class ThirdBossScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Instantiates the death prefab and destroys the main boss once the death animation ends.
+    /// </summary>
     public void Death()
     {
-        GameObject go = Instantiate(deathPrefab, transform.position - Vector3.right, Quaternion.Euler(0, 0, 60));
+        GameObject go = Instantiate(_deathPrefab, transform.position - Vector3.right, Quaternion.Euler(0, 0, 60));
         
-        go.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 500);
+        go.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 1000);
 
         transform.parent.GetChild(2).gameObject.SetActive(false);
         Destroy(gameObject);
