@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The SecondBossDamageTrigger class is a trigger that causes the player to take damage when they touch the second boss.
+/// </summary>
 public class SecondBossDamageTrigger : MonoBehaviour
 {
     #region Inspector fields
-    [SerializeField] private int touchDamage = 5;
+    [Tooltip("How much damage will be done to the player.")]
+    [SerializeField] private int _touchDamage = 5;
     #endregion
-
+    
     void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.tag == "Player")
@@ -26,7 +30,7 @@ public class SecondBossDamageTrigger : MonoBehaviour
             PlayerStatus ps = other.GetComponent<PlayerStatus>();
             if(ps)
             {
-                ps.TakeDamage(touchDamage, knockback);
+                ps.TakeDamage(_touchDamage, knockback);
             }
         }
     }

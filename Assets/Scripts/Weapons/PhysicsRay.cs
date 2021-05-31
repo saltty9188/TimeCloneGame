@@ -70,7 +70,6 @@ public class PhysicsRay : Weapon
     protected override void Awake()
     {
         base.Awake();
-        NextRayType();
         recordingStartIndex = index;
 
         pickUpPoint = new Vector3(0.963f, 0.069f, 0);

@@ -124,8 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _projectilePrefab: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
     type: 3}
-  shootingLandCount: 0
-  verticalSpeed: 0
+  SecondJump: 0
+  VerticalSpeed: 0
 --- !u!61 &383817762066587232
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 2.04, y: 2.96}
     newSize: {x: 2.24, y: 2.96}
     adaptiveTilingThreshold: 0.5
@@ -231,7 +231,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 383817762259594328}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.488, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 383817762066587236}
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a26b5e3f7c24df479f337e9ccbc645f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  touchDamage: 5
+  _touchDamage: 5
 --- !u!1 &383817762816761289
 GameObject:
   m_ObjectHideFlags: 0
