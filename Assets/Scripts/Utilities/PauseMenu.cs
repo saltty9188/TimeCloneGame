@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -13,8 +14,19 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private OptionsMenu optionsMenu;
     #endregion
 
+    #region Public enum
+    [System.Serializable]
+    public enum ConfirmationType 
+    {
+        Restart = 0,
+        TitleScreen = 1,
+        Exit = 2
+    }
+    #endregion
+
     #region Private fields
     private Scene currentScene;
+    private GameObject _confirmButton;
     #endregion
 
     void Awake()
@@ -33,6 +45,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         if(!transform.GetChild(1).gameObject.activeSelf) optionsMenu.GoBack();
+        transform.GetChild(3).gameObject.SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -44,8 +57,11 @@ public class PauseMenu : MonoBehaviour
 
     public void RestartCheckpoint()
     {
-        player.Respawn();
-        FindObjectOfType<TimeCloneController>().EmptyAllCloneDevices();
+        if(CheckPoint.lastCheckpoint != null)
+        {
+            player.Respawn();
+            FindObjectOfType<TimeCloneController>().EmptyAllCloneDevices();
+        }
         gameObject.SetActive(false);
         Time.timeScale = 1;
     }
@@ -64,7 +80,38 @@ public class PauseMenu : MonoBehaviour
 
     public void Exit()
     {
+        Debug.Log("Exit");
         Application.Quit();
+    }
+
+    public void AskConfirmation(int confirmationNum)
+    {
+        transform.GetChild(3).gameObject.SetActive(true);
+        SetSelectedGameObject(transform.GetChild(3).GetChild(3).gameObject);
+
+        UnityEngine.UI.Button button = transform.GetChild(3).GetChild(2).GetComponent<UnityEngine.UI.Button>();
+        ConfirmationType confirmationType = (ConfirmationType) confirmationNum;
+        switch(confirmationType)
+        {
+            case ConfirmationType.Restart:
+                button.onClick.AddListener(RestartLevel);
+                _confirmButton = transform.GetChild(1).GetChild(3).gameObject;
+                break;
+            case ConfirmationType.TitleScreen:
+                button.onClick.AddListener(TitleScreen);
+                _confirmButton = transform.GetChild(1).GetChild(5).gameObject;
+                break;
+            case ConfirmationType.Exit:
+                button.onClick.AddListener(Exit);
+                _confirmButton = transform.GetChild(1).GetChild(6).gameObject;
+                break;
+        }
+    }
+
+    public void BackToMenu()
+    {
+        transform.GetChild(3).gameObject.SetActive(false);
+        SetSelectedGameObject(_confirmButton);
     }
 
     void SetSelectedGameObject(GameObject go)
@@ -72,5 +119,4 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(go);
     }
-   
 }
