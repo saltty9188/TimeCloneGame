@@ -65,6 +65,7 @@ public class SecondBossDrop : StateMachineBehaviour
         _bossScript.Flip();
         animator.SetBool("On Right", true);
         animator.ResetTrigger("Drop");
+        animator.ResetTrigger("Land");
 
         if(Random.Range(0, 4) == 1)
         {

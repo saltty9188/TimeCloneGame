@@ -145,6 +145,7 @@ public class Aim : MonoBehaviour
 
     public void DropWeapon()
     {
+        weapon.gameObject.SetActive(true);
         weapon.Drop(gameObject);
         this.weapon = null;
         SetRayTypeText();
