@@ -29,6 +29,7 @@ public class OptionsMenu : MonoBehaviour
 
     #region Private fields
     private Resolution[] resolutions;
+    private bool lastWindowSet;
     #endregion
 
     void Awake()
@@ -42,7 +43,6 @@ public class OptionsMenu : MonoBehaviour
 
         for(int i = 0; i < resolutions.Length; i++)
         {
-
             resolutionsText.Add(resolutions[i].width + " x " + resolutions[i].height);
 
             // By default set the resolution to the current screen resolution
@@ -62,6 +62,7 @@ public class OptionsMenu : MonoBehaviour
         bool windowed = PlayerPrefs.GetInt(WINDOWED_PREF_KEY, 0) == 1;
         windowedToggle.isOn = windowed;
         Screen.fullScreen = !windowed;
+        lastWindowSet = windowed;
 
         //Set volume sliders
         float masterValue = PlayerPrefs.GetFloat(AudioManager.MASTER_VOLUME_PREF_KEY, 1);
@@ -76,6 +77,16 @@ public class OptionsMenu : MonoBehaviour
         SFXVolume.value = SFXValue;
         SetSFXVolume(SFXValue);
 
+    }
+
+    void Update()
+    {
+        // Update the checkbox if the player uses the alt+enter shortcut
+        if(!Screen.fullScreen != lastWindowSet)
+        {
+            SetWindowed(!Screen.fullScreen);
+            windowedToggle.SetIsOnWithoutNotify(lastWindowSet);
+        }
     }
     
     public void OpenMenu()
@@ -103,6 +114,7 @@ public class OptionsMenu : MonoBehaviour
         int prefNumber = (isWindowed ? 1 : 0);
         PlayerPrefs.SetInt(WINDOWED_PREF_KEY, prefNumber);
         Screen.fullScreen = !isWindowed;
+        lastWindowSet = isWindowed;
     }
 
     public void SetMasterVolume(float value)

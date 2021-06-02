@@ -41140,6 +41140,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 3019518285076343683, guid: 175b45aad44c0c743bb1a430936bb733,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3019518285076343742, guid: 175b45aad44c0c743bb1a430936bb733,
         type: 3}
       propertyPath: m_Pivot.x
@@ -41245,7 +41250,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5389702912125253009, guid: 175b45aad44c0c743bb1a430936bb733, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 175b45aad44c0c743bb1a430936bb733, type: 3}
 --- !u!224 &2012512865 stripped
 RectTransform:
