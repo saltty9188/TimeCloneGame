@@ -202,7 +202,7 @@ public class Turret : EnemyBehaviour
         base.ResetEnemy();
         if(hasBase)
         {
-            transform.parent.gameObject.SetActive(startActiveState);
+            transform.parent.gameObject.SetActive(StartActiveState);
         }
     }
 

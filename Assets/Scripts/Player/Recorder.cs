@@ -99,7 +99,6 @@ public class Recorder : MonoBehaviour
         timer = 0;
         AudioManager.Instance.PlaySFX("EndRecording");
 
-        GameObject endingWeapon = (aim.CurrentWeapon ? aim.CurrentWeapon.gameObject : null);
         activeCloneMachine.StoreClone(new List<RecordedCommand>(commands), recordingStartPos);
 
         commands.Clear();
@@ -107,19 +106,19 @@ public class Recorder : MonoBehaviour
         recordingIcon.SetActive(false);
         timeCloneController.RemoveAllActiveClones();
 
+        GetComponent<DamageFlash>().ResetShader();
+
         if(aim.CurrentWeapon != null) aim.DropWeapon();
         if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
         if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
 
-
-        StartCoroutine(TeleportAnimation());
-        
+        StartCoroutine(TeleportAnimation());   
     }
 
     IEnumerator TeleportAnimation()
     {
         // Hide the player
-        DisablePlayer(false);
+        SetPlayerEnabled(false);
         GetComponent<Rigidbody2D>().gravityScale = 0;
         aim.gameObject.SetActive(false);
 
@@ -175,12 +174,13 @@ public class Recorder : MonoBehaviour
 
         // Show the player again
         Destroy(tp);
-        DisablePlayer(true);
+        SetPlayerEnabled(true);
         GetComponent<Rigidbody2D>().gravityScale = 3;
     }
 
-    void DisablePlayer(bool enabled)
+    void SetPlayerEnabled(bool enabled)
     {
+        // Can't disable the gameObject so disable the components
         GetComponent<SpriteRenderer>().enabled = enabled;
         GetComponent<PlayerMovement>().enabled = enabled;
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -228,11 +228,14 @@ public class Recorder : MonoBehaviour
             recording = false;
             accumulatedTime = 0;
             commands.Clear();
+
             activeCloneMachine.SetEmptyLight();
             activeCloneMachine = null;
             recordingIcon.SetActive(false);
             timeCloneController.RemoveAllActiveClones();
             GetComponent<PlayerController>().RecordingCancelled();
+
+            GetComponent<DamageFlash>().ResetShader();
             if(playerDied)
             {
                 ResetAllEvents();
@@ -243,6 +246,7 @@ public class Recorder : MonoBehaviour
                     enemyManager.ResetEnemies();
                     enemyManager.ResetCurrentBoss();
                 }
+
                 if(aim.CurrentWeapon != null) aim.DropWeapon();
                 if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
                 if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);

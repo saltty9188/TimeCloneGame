@@ -436,8 +436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6d41cb55f117d4f90469354b68cec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBackDuration: 0.25
-  knockBackSpeed: 2
+  _knockBackDuration: 0.25
+  _knockBackSpeed: 2
   searchRadius: 10
   moveSpeed: 3
   jumpPower: 200
@@ -469,9 +469,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020bf7ce8242b504da95ffc82fa5e97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 2100000, guid: 5b52bd8ae719599419f51d75d5c46066, type: 2}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  duration: 0.1
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _duration: 0.1
 --- !u!95 &1389526352466648527
 Animator:
   serializedVersion: 3

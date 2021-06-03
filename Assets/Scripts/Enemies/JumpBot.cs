@@ -29,10 +29,10 @@ public class JumpBot : EnemyBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(knockBackTime > 0)
+        if(KnockBackTime > 0)
         {
-            knockBackTime -= Time.deltaTime;
-            rigidbody.velocity = new Vector2(knockBackDirection.x * knockBackSpeed, rigidbody.velocity.y);
+            KnockBackTime -= Time.deltaTime;
+            Rigidbody.velocity = new Vector2(KnockBackDirection.x * _knockBackSpeed, Rigidbody.velocity.y);
         }
         else
         {
@@ -44,11 +44,11 @@ public class JumpBot : EnemyBehaviour
 
             if(target && !grounded)
             {
-                rigidbody.velocity = new Vector2(moveSpeed * (transform.position.x - target.transform.position.x > 0 ? -1 : 1), rigidbody.velocity.y);
+                Rigidbody.velocity = new Vector2(moveSpeed * (transform.position.x - target.transform.position.x > 0 ? -1 : 1), Rigidbody.velocity.y);
             }
             else
             {
-                rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
+                Rigidbody.velocity = new Vector2(0, Rigidbody.velocity.y);
             } 
         }
     }
@@ -143,9 +143,9 @@ public class JumpBot : EnemyBehaviour
     public void Jump()
     {
         animator.ResetTrigger("Jump");
-        rigidbody.drag = 0;
-        rigidbody.velocity = new Vector2(0, rigidbody.velocity.y);
-        rigidbody.AddForce(new Vector2(0, jumpPower*2));
+        Rigidbody.drag = 0;
+        Rigidbody.velocity = new Vector2(0, Rigidbody.velocity.y);
+        Rigidbody.AddForce(new Vector2(0, jumpPower*2));
         grounded = false;
     }
 
