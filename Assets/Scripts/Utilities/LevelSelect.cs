@@ -9,6 +9,7 @@ public class LevelSelect : MonoBehaviour
     #region Inspector fields
     [SerializeField] private GameObject levelSelectTemplate;
     [SerializeField] private GameObject backButton;
+    [SerializeField] private Sprite[] _levelIcons;
     #endregion
 
     #region Private fields
@@ -76,6 +77,9 @@ public class LevelSelect : MonoBehaviour
 
             TextMeshProUGUI levelName = button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             levelName.text = displayName;
+
+            Image levelIcon = button.transform.GetChild(1).GetComponent<Image>();
+            levelIcon.sprite = _levelIcons[i - 1];
         }
 
         UnityEngine.UI.Button UIButton = backButton.GetComponent<UnityEngine.UI.Button>();

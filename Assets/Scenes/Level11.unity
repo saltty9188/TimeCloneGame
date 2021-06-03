@@ -20335,6 +20335,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 140302612}
     m_Modifications:
+    - target: {fileID: 2775328837093207937, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 3362628605233955640, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.44
+      objectReference: {fileID: 0}
     - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
         type: 3}
       propertyPath: roomExit
@@ -22093,6 +22103,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 140302612}
     m_Modifications:
+    - target: {fileID: 2775328837093207937, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 3362628605233955640, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.43
+      objectReference: {fileID: 0}
     - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
         type: 3}
       propertyPath: roomExit
