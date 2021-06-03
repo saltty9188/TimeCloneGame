@@ -3015,6 +3015,16 @@ PrefabInstance:
       propertyPath: timeCloneController
       value: 
       objectReference: {fileID: 138237896}
+    - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
+        type: 3}
+      propertyPath: mirrorMovers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
+        type: 3}
+      propertyPath: mirrorMovers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1384474151}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1d92c333ecf1a146be33d5f05e3dba6, type: 3}
 --- !u!114 &686119617 stripped
@@ -11156,6 +11166,18 @@ Transform:
   m_Father: {fileID: 1828964378}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1384474151 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
+    type: 3}
+  m_PrefabInstance: {fileID: 3339956302811709577}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214c2726fca860d4fb8a78931bdead0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1410482720
 GameObject:
   m_ObjectHideFlags: 0

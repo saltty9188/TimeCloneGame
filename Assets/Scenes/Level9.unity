@@ -17058,7 +17058,7 @@ PrefabInstance:
     - target: {fileID: 671880990779046507, guid: 8cce6f7c79aa5d042bb6c4df723f945a,
         type: 3}
       propertyPath: attachedEvents.Array.size
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 671880990779046507, guid: 8cce6f7c79aa5d042bb6c4df723f945a,
         type: 3}

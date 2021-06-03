@@ -36,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
     private Transform originalParent;
     protected float knockBackTime;
     protected Vector2 knockBackDirection;
+
+    private bool _conntectedToBox;
     #endregion
 
     void Start()
@@ -88,17 +90,19 @@ public class PlayerMovement : MonoBehaviour
             if(nearBox)
             {
                 FixedJoint2D joint = hit.collider.GetComponent<FixedJoint2D>();
-                if(grabbing && grounded)
+                if(grabbing && grounded && Mathf.Abs(hit.collider.GetComponent<Rigidbody2D>().velocity.y) <= 0.1f)
                 {
                     joint.enabled = true;
                     joint.connectedBody = rigidbody;
                     aimScript.enabled = false;
+                    _conntectedToBox = true;
                 }
                 else
                 {
                     joint.enabled = false;
                     joint.connectedBody = null;
                     aimScript.enabled = true;
+                    _conntectedToBox = false;
                 }
             }
 
@@ -146,9 +150,8 @@ public class PlayerMovement : MonoBehaviour
                     }
 
                     //Put in if statement so it doesn't get reset until the player hits the ground
-                    if(jumping && grounded)
+                    if(jumping && grounded && !_conntectedToBox)
                     {
-                        //rigidbody.velocity = new Vector2(rigidbody.velocity.x, 0);
                         Jump();
                     }
 

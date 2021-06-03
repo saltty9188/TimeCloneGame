@@ -43,8 +43,8 @@ TagManager:
   - Objects
   - Button
   - Boss
-  - 
-  - 
+  - Enemy
+  - EnemyBlocker
   - 
   - 
   - 

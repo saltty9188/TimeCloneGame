@@ -85,10 +85,11 @@ public class MirrorMover : MonoBehaviour
             toolTipIcons[0].transform.parent.gameObject.SetActive(false);
             mainCamera.enabled = true;
         }
-
+        
         foreach(GameObject obj in movableObjects)
         {
             Rigidbody2D temp = obj.GetComponent<Rigidbody2D>();
+            temp.velocity = Vector2.zero;
             temp.isKinematic = true;
             temp.useFullKinematicContacts = false;
         }
@@ -98,6 +99,7 @@ public class MirrorMover : MonoBehaviour
 
     public void CycleNextObject()
     {
+        currentObjectRigidbody.velocity = Vector2.zero;
         if(index < movableObjects.Length - 1)
         {
             currentObject = movableObjects[++index];
@@ -115,6 +117,7 @@ public class MirrorMover : MonoBehaviour
 
     public void CyclePrevObject()
     {
+        currentObjectRigidbody.velocity = Vector2.zero;
         if(index > 0)
         {
             currentObject = movableObjects[--index];

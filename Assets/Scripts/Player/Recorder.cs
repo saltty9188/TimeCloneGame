@@ -246,11 +246,6 @@ public class Recorder : MonoBehaviour
                 if(aim.CurrentWeapon != null) aim.DropWeapon();
                 if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
                 if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
-
-                foreach(MirrorMover mover in mirrorMovers)
-                {
-                    mover.ResetPositions();
-                }
             }
             else
             {
@@ -259,6 +254,10 @@ public class Recorder : MonoBehaviour
                     mover.ExitMover();
                 }
             }
+        }
+        foreach(MirrorMover mover in mirrorMovers)
+        {
+            mover.ResetPositions();
         }
     }
 
