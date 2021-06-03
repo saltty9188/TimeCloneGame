@@ -2,73 +2,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The DamageFlash class causes the attached to flash opaque white when taking damage.
+/// </summary>
 public class DamageFlash : MonoBehaviour
 {
-
     #region Inspector fields
-    [SerializeField] private Material flashMaterial;
-    [SerializeField] private Color color = Color.white;
-    [SerializeField] private float duration = 0.1f;
+    [Tooltip("The color the entity will flash.")]
+    [SerializeField] private Color _flashColor = Color.white;
+    [Tooltip("The duration of the flash.")]
+    [SerializeField] private float _duration = 0.1f;
     #endregion
 
     #region Private fields
-    private SpriteRenderer spriteRenderer;
-    private Material startingMaterial;
-
-    private Color startingColor;
-    private Coroutine flashRoutine;
+    private Material _flashMaterial;
+    private SpriteRenderer _spriteRenderer;
+    private Material _startingMaterial;
+    private Color _startingColor;
+    private Coroutine _flashRoutine;
     #endregion
     
     void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        startingMaterial = spriteRenderer.material;
-        startingColor = spriteRenderer.color;
-        color.a = 1;
+        _flashMaterial = Resources.Load<Material>("Flash");
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _startingMaterial = _spriteRenderer.material;
+        _startingColor = _spriteRenderer.color;
+        _flashColor.a = 1;
     }
 
+    /// <summary>
+    /// Causes the entity to flash for the given duration then restores the original material.
+    /// </summary>
     public void Flash()
     {
-        if(flashRoutine != null)
+        if(_flashRoutine != null)
         {
-            StopCoroutine(flashRoutine);
-            flashRoutine = null;
+            StopCoroutine(_flashRoutine);
+            _flashRoutine = null;
         }
 
-        flashRoutine = StartCoroutine(FlashRoutine());
+        _flashRoutine = StartCoroutine(FlashRoutine());
     }
 
+    /// <summary>
+    /// Resets the entites color and material to its default.
+    /// </summary>
     public void ResetShader()
     {
-        SetColour(startingMaterial, startingColor);
-        if(flashRoutine != null)
+        SetColour(_startingMaterial, _startingColor);
+        if(_flashRoutine != null)
         {
-            StopCoroutine(flashRoutine);
-            flashRoutine = null;
+            StopCoroutine(_flashRoutine);
+            _flashRoutine = null;
         }
     }
 
     IEnumerator FlashRoutine()
     {
-        SetColour(flashMaterial, color);
+        SetColour(_flashMaterial, _flashColor);
 
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(_duration);
 
-        SetColour(startingMaterial, startingColor);
+        SetColour(_startingMaterial, _startingColor);
 
-        flashRoutine = null;
+        _flashRoutine = null;
     }
 
+    /// <summary>
+    /// Sets the default tint for the given entity.
+    /// </summary>
+    /// <param name="color">The color for the entity to be tinted.</param>
     public void SetBaseColour(Color color)
     {
-        startingColor = color;
-        SetColour(startingMaterial, startingColor);
+        _startingColor = color;
+        SetColour(_startingMaterial, _startingColor);
     }
 
     void SetColour(Material material, Color color)
-    {
-        spriteRenderer.material = material;
-        spriteRenderer.color = color;
+    {   
+        // Sets the material and color recursively for the entity and all its children
+        _spriteRenderer.material = material;
+        _spriteRenderer.color = color;
         if(transform.childCount > 0) SetColour(material, color, gameObject);
     }
 
