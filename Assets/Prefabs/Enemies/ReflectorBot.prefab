@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5239441097662282391}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 5239441098101910243}
   - component: {fileID: 5239441098101910240}
   - component: {fileID: 5239441098101910241}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Enemy UI
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 5239441098150221959}
   - component: {fileID: 5239441098150221961}
   - component: {fileID: 5239441098150221958}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -221,7 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5239441098278352945}
   - component: {fileID: 5239441098278352942}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +309,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5239441098594444178}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 5239441098685579447}
   - component: {fileID: 5239441098685579449}
   - component: {fileID: 5239441098685579446}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 5239441099142130897}
   - component: {fileID: 5239441099142130894}
   - component: {fileID: 5239441099142130895}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ReflectorBot
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -675,6 +675,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mirror
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267681428197159550, guid: 2b5cedd0d70973343a0040cc20539e06,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3142166088868837955, guid: 2b5cedd0d70973343a0040cc20539e06,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5737218400799683311, guid: 2b5cedd0d70973343a0040cc20539e06,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b5cedd0d70973343a0040cc20539e06, type: 3}

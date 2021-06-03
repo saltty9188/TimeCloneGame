@@ -192,6 +192,7 @@ public class PlayerStatus : MonoBehaviour
         r.CancelRecording(true);
         r.ResetAllEvents();
         DestroyAllProjectiles();
+        GetComponent<PlayerController>().StopMovingMirrors();
         if(enemyManager) 
         {
             enemyManager.ResetCurrentBoss();

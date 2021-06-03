@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1496891347906120596}
   - component: {fileID: 1496891347906120598}
   - component: {fileID: 1496891347906120597}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 1496891348870336246}
   - component: {fileID: 1496891348870336200}
   - component: {fileID: 1496891348870336247}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1496891349010825855}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 1496891349057989704}
   - component: {fileID: 1496891349057989751}
   - component: {fileID: 1496891349057989750}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Enemy UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 1496891349354757612}
   - component: {fileID: 1496891349354757611}
   - component: {fileID: 1389526352466648527}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: JumpBot
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -501,7 +501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1496891349890651989}
   - component: {fileID: 1496891349890651988}
-  m_Layer: 5
+  m_Layer: 13
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -590,7 +590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5747556433307669483}
   - component: {fileID: 4585117155410644433}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

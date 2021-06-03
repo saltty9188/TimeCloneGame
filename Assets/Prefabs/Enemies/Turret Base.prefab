@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 951624873656472302}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Spinner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 1735413381355828136}
   - component: {fileID: 5936286703914200986}
   - component: {fileID: 5936286703914200987}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,6 +137,7 @@ MonoBehaviour:
     type: 3}
   fireCooldown: 0.3
   damage: 10
+  numExplosions: 2
   everythingButBullet:
     serializedVersion: 2
     m_Bits: 3379
@@ -198,7 +199,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1735413381452335814}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,7 +230,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1735413382705221092}
   - component: {fileID: 1735413382705221091}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1809023783102689478}
   - component: {fileID: 5157413733738607873}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +386,7 @@ GameObject:
   - component: {fileID: 5936286703393208531}
   - component: {fileID: 5936286703393208529}
   - component: {fileID: 5936286703393208530}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Turret Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}

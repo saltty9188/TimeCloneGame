@@ -21,8 +21,6 @@ public class LevelSelect : MonoBehaviour
     {
         scrollRect = GetComponentInChildren<ScrollRect>();
         originalHeight = scrollRect.content.rect.height;
-
-        SaveSystem.SaveGame(new SaveData("Test", 14));
     }
 
     public void OpenLoadMenu(GameObject saveFileButton)

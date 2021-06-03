@@ -35,5 +35,6 @@ public class SaveData
         _fileName = fileName;
         _levelIndex = levelIndex;
         if(levelIndex > 14) this._levelIndex = 14;
+        if(levelIndex < 1) this._levelIndex = 1;
     }
 }

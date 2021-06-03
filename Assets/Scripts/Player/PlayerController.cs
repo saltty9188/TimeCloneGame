@@ -152,7 +152,9 @@ public class PlayerController : MonoBehaviour
                         nearbyMirrorMover.StartMover();
                         rigidbody2D.isKinematic = true;
                         rigidbody2D.useFullKinematicContacts = true;
+                        rigidbody2D.velocity = Vector2.zero;
                         mirrorButtonHeld = true;
+                        GetComponent<Animator>().SetFloat("Speed", 0);
                     }
                 }
             };
@@ -262,10 +264,16 @@ public class PlayerController : MonoBehaviour
     public void RecordingCancelled()
     {
         recording = false;
+        StopMovingMirrors();
+    }
+
+    public void StopMovingMirrors()
+    {
         if(_movingMirrors)
         {
             _movingMirrors = false;
             nearbyMirrorMover.ExitMover();
+            nearbyMirrorMover.ResetPositions();
             rigidbody2D.isKinematic = false;
             rigidbody2D.useFullKinematicContacts = false;
         }

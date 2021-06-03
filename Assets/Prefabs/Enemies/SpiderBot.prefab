@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 1572327755477603565}
   - component: {fileID: 1572327755477603563}
   - component: {fileID: 1572327755477603562}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: SpiderBot
   m_TagString: Enemy
   m_Icon: {fileID: 0}

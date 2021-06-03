@@ -79,12 +79,14 @@ public class OptionsMenu : MonoBehaviour
 
     }
 
-    void Update()
+    void LateUpdate()
     {
         // Update the checkbox if the player uses the alt+enter shortcut
         if(!Screen.fullScreen != lastWindowSet)
         {
-            SetWindowed(!Screen.fullScreen);
+            lastWindowSet = !lastWindowSet;
+            int prefNumber = (lastWindowSet ? 1 : 0);
+            PlayerPrefs.SetInt(WINDOWED_PREF_KEY, prefNumber);
             windowedToggle.SetIsOnWithoutNotify(lastWindowSet);
         }
     }
@@ -111,10 +113,10 @@ public class OptionsMenu : MonoBehaviour
 
     public void SetWindowed(bool isWindowed)
     {
-        int prefNumber = (isWindowed ? 1 : 0);
-        PlayerPrefs.SetInt(WINDOWED_PREF_KEY, prefNumber);
         Screen.fullScreen = !isWindowed;
         lastWindowSet = isWindowed;
+        int prefNumber = (isWindowed ? 1 : 0);
+        PlayerPrefs.SetInt(WINDOWED_PREF_KEY, prefNumber);
     }
 
     public void SetMasterVolume(float value)
