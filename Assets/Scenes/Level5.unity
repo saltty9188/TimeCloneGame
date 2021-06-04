@@ -25559,6 +25559,11 @@ PrefabInstance:
       propertyPath: secondBossScript
       value: 
       objectReference: {fileID: 672985035}
+    - target: {fileID: 6205792309929789293, guid: 4892e7c024197ff44af738dc1cca6acb,
+        type: 3}
+      propertyPath: _secondBossScript
+      value: 
+      objectReference: {fileID: 672985035}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4892e7c024197ff44af738dc1cca6acb, type: 3}
 --- !u!1001 &672072727
@@ -31713,10 +31718,15 @@ PrefabInstance:
       propertyPath: searchRadius
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 1496891349354757526, guid: fde2773924f39884289163eded252c65,
+        type: 3}
+      propertyPath: _searchRadius
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1496891349354757609, guid: fde2773924f39884289163eded252c65,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1496891349354757609, guid: fde2773924f39884289163eded252c65,
         type: 3}

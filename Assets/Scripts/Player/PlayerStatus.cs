@@ -37,7 +37,7 @@ public class PlayerStatus : MonoBehaviour
     {
         projectileParent = new GameObject(tag + " Projectiles");
         //add player to target list
-        if(EnemyManager.targets != null) EnemyManager.targets.Add(gameObject);
+        if(EnemyManager.Targets != null) EnemyManager.Targets.Add(gameObject);
         damageCooldown = 0;
         health = maxHealth;
         flashScript = GetComponent<DamageFlash>();

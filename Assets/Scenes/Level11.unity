@@ -20352,8 +20352,23 @@ PrefabInstance:
       objectReference: {fileID: 1354540746}
     - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
         type: 3}
+      propertyPath: _roomExit
+      value: 
+      objectReference: {fileID: 1354540746}
+    - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
       propertyPath: aimRadius
       value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: _aimRadius
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: _moveBoundary
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
         type: 3}
@@ -22120,8 +22135,23 @@ PrefabInstance:
       objectReference: {fileID: 1354540746}
     - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
         type: 3}
+      propertyPath: _roomExit
+      value: 
+      objectReference: {fileID: 1354540746}
+    - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
       propertyPath: aimRadius
       value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: _aimRadius
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: _moveBoundary
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
         type: 3}

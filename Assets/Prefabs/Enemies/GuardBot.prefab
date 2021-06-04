@@ -309,18 +309,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f582af69425418946b10d722ed676b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBackDuration: 1
-  knockBackSpeed: 0.5
-  aimRadius: 10
-  moveBoundaryWidth: 20
-  moveSpeed: 2
-  damage: 5
-  projectilePrefab: {fileID: 7686343687046668330, guid: bbd9761a43b4cf042a5173e0c1023285,
+  _knockBackDuration: 1
+  _knockBackSpeed: 0.5
+  _aimRadius: 10
+  _moveBoundary: 20
+  _moveSpeed: 2
+  _damage: 5
+  _projectilePrefab: {fileID: 7686343687046668330, guid: bbd9761a43b4cf042a5173e0c1023285,
     type: 3}
-  everythingButBullet:
+  _aimBlockers:
     serializedVersion: 2
     m_Bits: 15667
-  roomExit: {fileID: 0}
+  _roomExit: {fileID: 0}
 --- !u!114 &4221395636639372789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,9 +333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35337d2429dc964aac9b750eec131ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  healthBar: {fileID: 6259206328652439598}
-  numExplosions: 5
+  _maxHealth: 100
+  _healthBar: {fileID: 6259206328652439598}
+  _numExplosions: 5
 --- !u!114 &4221395636639372786
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,9 +348,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020bf7ce8242b504da95ffc82fa5e97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 2100000, guid: 5b52bd8ae719599419f51d75d5c46066, type: 2}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  duration: 0.1
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _duration: 0.1
 --- !u!61 &4221395636639372790
 BoxCollider2D:
   m_ObjectHideFlags: 0

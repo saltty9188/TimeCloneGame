@@ -4976,6 +4976,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1554376631}
     m_Modifications:
+    - target: {fileID: 2775328837093207937, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 1.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3362628605233955640, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.36
+      objectReference: {fileID: 0}
     - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
         type: 3}
       propertyPath: roomExit
@@ -4985,6 +4995,16 @@ PrefabInstance:
         type: 3}
       propertyPath: aimRadius
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: _aimRadius
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: _moveBoundary
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
         type: 3}
@@ -20322,7 +20342,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
         type: 3}
+      propertyPath: _damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
+        type: 3}
       propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
+        type: 3}
+    - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
+        type: 3}
+      propertyPath: _projectilePrefab
       value: 
       objectReference: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
         type: 3}
@@ -24758,12 +24789,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
         type: 3}
+      propertyPath: _damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
+        type: 3}
       propertyPath: fireCooldown
       value: 0.31
       objectReference: {fileID: 0}
     - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
         type: 3}
       propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
+        type: 3}
+    - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
+        type: 3}
+      propertyPath: _projectilePrefab
       value: 
       objectReference: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
         type: 3}
@@ -57201,7 +57243,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
         type: 3}
+      propertyPath: _damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
+        type: 3}
       propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
+        type: 3}
+    - target: {fileID: 5365053830334886446, guid: a48aa2887390e614b9c59e92ec15e217,
+        type: 3}
+      propertyPath: _projectilePrefab
       value: 
       objectReference: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
         type: 3}
@@ -58926,7 +58979,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1735413381355828136, guid: d1ad747747b744c4e8533a15b8db8b23,
         type: 3}
+      propertyPath: _damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735413381355828136, guid: d1ad747747b744c4e8533a15b8db8b23,
+        type: 3}
+      propertyPath: aimRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1735413381355828136, guid: d1ad747747b744c4e8533a15b8db8b23,
+        type: 3}
       propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
+        type: 3}
+    - target: {fileID: 1735413381355828136, guid: d1ad747747b744c4e8533a15b8db8b23,
+        type: 3}
+      propertyPath: _projectilePrefab
       value: 
       objectReference: {fileID: 2003472758368583217, guid: 8dfe47f5d422b44458df692257f4246b,
         type: 3}

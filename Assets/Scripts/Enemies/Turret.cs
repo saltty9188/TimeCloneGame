@@ -5,77 +5,69 @@ using UnityEngine;
 public class Turret : EnemyBehaviour
 {
     #region Inspector fields
-    [SerializeField] public bool hasBase = false;
-    [SerializeField] private float aimRadius = 10;
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private float fireCooldown = 0.3f;
-    [SerializeField] private int damage = 10;
-    [SerializeField] private int numExplosions = 2;
-    [SerializeField] private LayerMask everythingButBullet;
+    [Tooltip("Does this turret have a base?")]
+    [SerializeField] private bool _hasBase = false;
+    [Tooltip("The radius that the turret will search for targets in.")]
+    [SerializeField] private float _aimRadius = 10;
+    [Tooltip("The projectile prefab the turret will fire.")]
+    [SerializeField] private GameObject _projectilePrefab;
+    [Tooltip("The amount of team between gun shots.")]
+    [SerializeField] private float _fireCooldown = 0.3f;
+    [Tooltip("The amount of damage the turret does.")]
+    [SerializeField] private int _damage = 10;
+    [Tooltip("The number of explosions that will spawn upon this turret's destruction.")]
+    [SerializeField] private int _numExplosions = 2;
+    [Tooltip("Everything except for projectiles and triggers.")]
+    [SerializeField] private LayerMask _everythingButBullet;
+    #endregion
+
+    #region Public fields
+    /// <value>Returns true if this Turret has a base.</value>
+    public bool HasBase
+    {
+        get {return _hasBase;}
+    }
     #endregion
     
     #region Private fields
-    private float accumulatedTime;
-    private GameObject currentTarget;
-    public bool collisionBelow = false;
-    public bool collisionAbove = false;
-    private Rigidbody2D aboveContact = null;
-    private Rigidbody2D belowContact = null;
+    private float _accumulatedTime;
+    private GameObject _currentTarget;
+    private bool _collisionBelow = false;
+    private bool _collisionAbove = false;
+    private Rigidbody2D _aboveContact = null;
+    private Rigidbody2D _belowContact = null;
     #endregion
 
     protected override void Start()
     {
         base.Start();
-        EnemyManager.enemies.Add(gameObject);
+        EnemyManager.Enemies.Add(gameObject);
     }
 
     void Update()
     {  
-        if(currentTarget == null)
-        {
-            float closestDist = float.MaxValue;
-            GameObject closestTarget = null;
-            for(int i = 0; i < EnemyManager.targets.Count; i++)
-            {
-                if(EnemyManager.targets[i] == null)
-                {
-                    EnemyManager.targets.RemoveAt(i);
-                    i--;
-                }
-                else
-                {
-                    GameObject target = EnemyManager.targets[i];
-                    float dist = Vector3.Distance(transform.position, target.transform.position);
+        if(_currentTarget == null) AcquireTarget();
 
-                    if(dist < closestDist && dist <= aimRadius)
-                    {
-                        closestDist = dist;
-                        closestTarget = target;
-                    }
-                }
-            }
-            currentTarget = closestTarget;
-        }
-
-        if(currentTarget != null)
+        if(_currentTarget != null)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, currentTarget.transform.position - transform.position, aimRadius, everythingButBullet);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, _currentTarget.transform.position - transform.position, _aimRadius, _everythingButBullet);
             if(hit && (hit.collider.tag == "Player" || hit.collider.tag == "Clone"))
             {
-                FaceTarget(currentTarget.transform.position);
-                Shoot(currentTarget.transform.position - transform.position);
+                FaceTarget(_currentTarget.transform.position);
+                Shoot(_currentTarget.transform.position - transform.position);
             }
             else
             {
-                currentTarget = null;
+                _currentTarget = null;
             }
         }
 
-        if(accumulatedTime < fireCooldown) accumulatedTime += Time.deltaTime;
+        if(_accumulatedTime < _fireCooldown) _accumulatedTime += Time.deltaTime;
 
-        if(collisionAbove && collisionBelow)
+        // Get crushed
+        if(_collisionAbove && _collisionBelow)
         {
-            if(hasBase)
+            if(_hasBase)
             {
                 transform.parent.gameObject.SetActive(false);
             }
@@ -86,16 +78,44 @@ public class Turret : EnemyBehaviour
         }
     }
 
+    void AcquireTarget()
+    {
+        float closestDist = float.MaxValue;
+        GameObject closestTarget = null;
+        for(int i = 0; i < EnemyManager.Targets.Count; i++)
+        {
+            // Remove the target from the list if it's been destroyed
+            if(EnemyManager.Targets[i] == null)
+            {
+                EnemyManager.Targets.RemoveAt(i);
+                i--;
+            }
+            else
+            {
+                GameObject target = EnemyManager.Targets[i];
+                float dist = Vector3.Distance(transform.position, target.transform.position);
+
+                if(dist < closestDist && dist <= _aimRadius)
+                {
+                    closestDist = dist;
+                    closestTarget = target;
+                }
+            }
+        }
+        _currentTarget = closestTarget;
+    }
+
+    // Shoots in the given direction
     void Shoot(Vector2 direction)
     {
-        if(accumulatedTime >= fireCooldown)
+        if(_accumulatedTime >= _fireCooldown)
         {
-            GameObject go = Instantiate(projectilePrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, new Quaternion());
+            GameObject go = Instantiate(_projectilePrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, new Quaternion());
             Projectile p = go.GetComponent<Projectile>();
             p.direction = direction;
-            p.damage = damage;
+            p.damage = _damage;
             p.SetShooter(gameObject);
-            accumulatedTime = 0;
+            _accumulatedTime = 0;
 
             if(p.laser)
             {
@@ -108,6 +128,7 @@ public class Turret : EnemyBehaviour
         }
     }
 
+    // Rotates the turret to face the target
     void FaceTarget(Vector3 targetPosition)
     {
         Vector3 direction = targetPosition - transform.position;
@@ -123,24 +144,24 @@ public class Turret : EnemyBehaviour
         {
             if(contact.collider.tag != "Player" && contact.collider.tag != "Clone" && contact.collider.tag != "Projectile")
             {
-                
                 if(contact.point.y < transform.position.y)
                 {
-                    collisionBelow = true;
-                    belowContact = contact.collider.GetComponent<Rigidbody2D>();
+                    _collisionBelow = true;
+                    _belowContact = contact.collider.GetComponent<Rigidbody2D>();
                 }
                 else if(contact.point.y > transform.position.y)
                 {
-                    collisionAbove = true;
-                    aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+                    _collisionAbove = true;
+                    _aboveContact = contact.collider.GetComponent<Rigidbody2D>();
                 }
             }
         }
 
-        if(collisionAbove && collisionBelow)
+        // Get crushed
+        if(_collisionAbove && _collisionBelow)
         {
             CreateExplosions();
-            if(hasBase)
+            if(_hasBase)
             {
                 transform.parent.gameObject.SetActive(false);
             }
@@ -159,20 +180,21 @@ public class Turret : EnemyBehaviour
         {
             if(contact.point.y < transform.position.y)
             {
-                collisionBelow = true;
-                belowContact = contact.collider.GetComponent<Rigidbody2D>();
+                _collisionBelow = true;
+                _belowContact = contact.collider.GetComponent<Rigidbody2D>();
             }
             else if(contact.point.y > transform.position.y)
             {
-                collisionAbove = true;
-                aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+                _collisionAbove = true;
+                _aboveContact = contact.collider.GetComponent<Rigidbody2D>();
             }
         }
 
-        if(collisionAbove && collisionBelow)
+        // Get crushed
+        if(_collisionAbove && _collisionBelow)
         {
             CreateExplosions();
-            if(hasBase)
+            if(_hasBase)
             {
                 transform.parent.gameObject.SetActive(false);
             }
@@ -185,22 +207,25 @@ public class Turret : EnemyBehaviour
 
     void OnCollisionExit2D(Collision2D other) 
     {
-        if(other.collider.GetComponent<Rigidbody2D>() == aboveContact)
+        if(other.collider.GetComponent<Rigidbody2D>() == _aboveContact)
         {
-            aboveContact = null;
-            collisionAbove = false;
+            _aboveContact = null;
+            _collisionAbove = false;
         }
-        else if(other.collider.GetComponent<Rigidbody2D>() == belowContact)
+        else if(other.collider.GetComponent<Rigidbody2D>() == _belowContact)
         {
-            belowContact = null;
-            collisionBelow = false;
+            _belowContact = null;
+            _collisionBelow = false;
         }
     }
 
+    /// <summary>
+    /// Resets the enemy to its cached position, scale, and active state.
+    /// </summary>
     public override void ResetEnemy()
     {
         base.ResetEnemy();
-        if(hasBase)
+        if(_hasBase)
         {
             transform.parent.gameObject.SetActive(StartActiveState);
         }
@@ -209,19 +234,20 @@ public class Turret : EnemyBehaviour
     void CreateExplosions()
     {
         float explosionRadius = GetComponent<SpriteRenderer>().sprite.bounds.size.x / 4.0f;
-        Vector3[] positions = new Vector3[numExplosions];
-        for(int i = 0; i < numExplosions; i++)
+        Vector3[] positions = new Vector3[_numExplosions];
+        for(int i = 0; i < _numExplosions; i++)
         {
             Vector3 position = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0);
             position.Normalize();
             positions[i] = (position * explosionRadius * Random.Range(0.0f, 1.0f)) + transform.position;
         }
 
-        EnemyManager.instance.SpawnExplosions(positions);
+        EnemyManager.Instance.SpawnExplosions(positions);
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos() 
+    {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, aimRadius);
+        Gizmos.DrawWireSphere(transform.position, _aimRadius);
     }
 }

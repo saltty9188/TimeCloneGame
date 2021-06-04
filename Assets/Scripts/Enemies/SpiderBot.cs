@@ -2,52 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The SpiderBot class controls the actions of SpiderBot enemies.
+/// </summary>
 public class SpiderBot : EnemyBehaviour
 {
-
     #region Inspector fields
-    [SerializeField] private float searchRadius = 10;
-    [SerializeField] private float movementSpeed = 5;
-    [SerializeField] private LayerMask runAwayMask;
+    [SerializeField] private float _searchRadius = 10;
+    [SerializeField] private float _movementSpeed = 2;
+    [SerializeField] private LayerMask _runAwayMask;
     #endregion
 
     #region Private fields
-    private Rigidbody2D rigidbody2D;
-    private Animator animator;
-    private GameObject currentTarget;
-    private GameObject heldObject;
-    private Transform heldObjectParent;
-    private Vector2 moveDirection;
+    private Animator _animator;
+    private GameObject _currentTarget;
+    private GameObject _heldObject;
+    private Transform _heldObjectParent;
+    private Vector2 _moveDirection;
     #endregion
 
-    // Start is called before the first frame update
+    
     protected override void Start()
     {
         base.Start();
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-        if(heldObject)
+        // Just move when holding an object
+        if(_heldObject)
         {
-            rigidbody2D.velocity = moveDirection * movementSpeed;
+            Rigidbody.velocity = _moveDirection * _movementSpeed;
         }
         else
         {
             SearchForObject();
-            if(currentTarget)
+            // Move towards the current target if there is one
+            if(_currentTarget)
             {
-                moveDirection = currentTarget.transform.position - transform.position;
-                moveDirection.Normalize();
-                rigidbody2D.velocity = moveDirection * movementSpeed;
+                _moveDirection = _currentTarget.transform.position - transform.position;
+                _moveDirection.Normalize();
+                Rigidbody.velocity = _moveDirection * _movementSpeed;
             }
             else
             {
-                moveDirection = Vector2.zero;
-                rigidbody2D.velocity = Vector2.zero;
+                _moveDirection = Vector2.zero;
+                Rigidbody.velocity = Vector2.zero;
             }
         }
     }
@@ -57,13 +58,14 @@ public class SpiderBot : EnemyBehaviour
         GameObject closestTarget = null;
         float closestDist = float.MaxValue;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, searchRadius);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _searchRadius);
 
         foreach(Collider2D collider in colliders)
         {
             if(collider.GetComponent<MovableObject>())
             {
                 float dist = Vector3.Distance(transform.position, collider.transform.position);
+                // Only count the object if its not already held by another spiderbot
                 if(dist < closestDist && collider.transform.parent.tag != "Enemy")
                 {
                     closestDist = dist;
@@ -72,17 +74,18 @@ public class SpiderBot : EnemyBehaviour
             }
         }
 
-        currentTarget = closestTarget;
-        animator.SetBool("HasTarget", currentTarget != null);
+        _currentTarget = closestTarget;
+        _animator.SetBool("HasTarget", _currentTarget != null);
     }
 
-    bool NotChild(GameObject go, GameObject parent)
+    // Returns true if the potentialChild is not a child of the parent
+    bool NotChild(GameObject potentialChild, GameObject parent)
     {
         if(parent == null)
         {
             return true;
         }
-        if(parent == go)
+        if(parent == potentialChild)
         {
             return false;
         }
@@ -91,34 +94,37 @@ public class SpiderBot : EnemyBehaviour
             for(int i = 0; i < parent.transform.childCount; i++)
             {
                 GameObject child = parent.transform.GetChild(i).gameObject;
-                if(go == child)
+                if(potentialChild == child)
                 {
                     return false;
                 }
             }
         }
-
         return true;
     }
 
+    /// <summary>
+    /// Drops the MovableObject held by the SpiderBot if there is one.
+    /// </summary>
     public void DropObject()
     {
-        if(heldObject)
+        if(_heldObject)
         {
             IgnoreCollisionWithHeld(false);
-            heldObject.transform.parent = heldObjectParent;
-            heldObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            heldObject = null;
-            animator.SetBool("HoldingObject", false);
+            _heldObject.transform.parent = _heldObjectParent;
+            _heldObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            _heldObject = null;
+            _animator.SetBool("HoldingObject", false);
         }
     }
 
+    // Ignores collision with the held object and its children
     void IgnoreCollisionWithHeld(bool ignore)
     {
-        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), heldObject.GetComponent<Collider2D>(), ignore);
-        for(int i = 0; i < heldObject.transform.childCount; i++)
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), _heldObject.GetComponent<Collider2D>(), ignore);
+        for(int i = 0; i < _heldObject.transform.childCount; i++)
         {
-            Collider2D child = heldObject.transform.GetChild(i).GetComponent<Collider2D>();
+            Collider2D child = _heldObject.transform.GetChild(i).GetComponent<Collider2D>();
             if(child)
             {
                 Physics2D.IgnoreCollision(GetComponent<Collider2D>(), child, ignore);
@@ -126,28 +132,36 @@ public class SpiderBot : EnemyBehaviour
         }
     }
 
+    /// <summary>
+    /// Resets the enemy to its cached position, scale, speed, and active state.
+    /// </summary>
     public override void ResetEnemy()
     {
         base.ResetEnemy();
         DropObject();
-        currentTarget = null;
-        animator.ResetTrigger("Reset");
-        rigidbody2D.velocity = Vector2.zero;
-        moveDirection = Vector2.zero;
+        _currentTarget = null;
+        _animator.ResetTrigger("Reset");
+        Rigidbody.velocity = Vector2.zero;
+        _moveDirection = Vector2.zero;
     }
+
     void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.GetContact(0).collider.gameObject != currentTarget && heldObject)
+        if(other.GetContact(0).collider.gameObject != _currentTarget && _heldObject)
         {
             ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
             other.GetContacts(contacts);
 
             foreach(ContactPoint2D contact in contacts)
             {
-                if((runAwayMask == (runAwayMask | (1 << contact.collider.gameObject.layer))) 
-                    && contact.collider.gameObject != gameObject && NotChild(contact.collider.gameObject, heldObject))
+                // if the contact's collision layer is in the layer mask
+                // https://answers.unity.com/questions/50279/check-if-layer-is-in-layermask.html
+                // Have the spiderbot bounce off it if the contact normal is in the oposite direction to the movement direction
+                if((_runAwayMask == (_runAwayMask | (1 << contact.collider.gameObject.layer))) 
+                    && contact.collider.gameObject != gameObject && NotChild(contact.collider.gameObject, _heldObject) 
+                    && Vector2.Dot(_moveDirection, contact.normal) < 0)
                 {
-                    moveDirection = Vector2.Reflect(moveDirection, contact.normal);
+                    _moveDirection = Vector2.Reflect(_moveDirection, contact.normal);
                     return;
                 }
             }
@@ -156,23 +170,24 @@ public class SpiderBot : EnemyBehaviour
 
     void OnCollisionStay2D(Collision2D other)
     {
-        if((other.GetContact(0).collider.gameObject == currentTarget || !NotChild(other.GetContact(0).collider.gameObject, currentTarget)) && !heldObject)
+        if((other.GetContact(0).collider.gameObject == _currentTarget || !NotChild(other.GetContact(0).collider.gameObject, _currentTarget)) && !_heldObject)
         {
-            heldObjectParent = currentTarget.transform.parent;
-            heldObject = currentTarget;
-            heldObject.transform.parent = transform;
-            heldObject.transform.position = transform.position - new Vector3(0, 0.4f, 0);
+            _heldObjectParent = _currentTarget.transform.parent;
+            _heldObject = _currentTarget;
+            _heldObject.transform.parent = transform;
+            _heldObject.transform.position = transform.position - new Vector3(0, 0.4f, 0);
             IgnoreCollisionWithHeld(true);
             
 
-            animator.SetBool("HasTarget", false);
-            animator.SetBool("HoldingObject", true);
+            _animator.SetBool("HasTarget", false);
+            _animator.SetBool("HoldingObject", true);
         }
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos() 
+    {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, searchRadius);
+        Gizmos.DrawWireSphere(transform.position, _searchRadius);
     }
     
 }

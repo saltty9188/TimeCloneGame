@@ -128,16 +128,16 @@ public class ThirdBossScript : MonoBehaviour
     {
         float closestDist = float.MaxValue;
         _closestTarget = null;
-        for(int i = 0; i < EnemyManager.targets.Count; i++)
+        for(int i = 0; i < EnemyManager.Targets.Count; i++)
         {
-            if(EnemyManager.targets[i] == null)
+            if(EnemyManager.Targets[i] == null)
             {
-                EnemyManager.targets.RemoveAt(i);
+                EnemyManager.Targets.RemoveAt(i);
                 i--;
             }
             else
             {
-                GameObject target = EnemyManager.targets[i];
+                GameObject target = EnemyManager.Targets[i];
                 float dist = Vector3.Distance(transform.position, target.transform.position);
 
                 RaycastHit2D hit = Physics2D.Raycast(transform.position, target.transform.position - transform.position, float.MaxValue, _ignoreSelf);
