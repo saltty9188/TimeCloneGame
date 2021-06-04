@@ -365,13 +365,13 @@ SpriteRenderer:
   m_SortingLayerID: 1842072199
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4236093683691195813, guid: 913dd98885ef56141b13147760431e2f,
+  m_Sprite: {fileID: 8275067752183245508, guid: 8dc10cf05e2cb844eacd7bd4e290ad45,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.27, y: 0.26}
+  m_Size: {x: 1.6875, y: 1.625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -416,7 +416,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.6875, y: 1.625}
-    newSize: {x: 0.27, y: 0.26}
+    newSize: {x: 1.6875, y: 1.625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -454,9 +454,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35337d2429dc964aac9b750eec131ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  healthBar: {fileID: 1496891349890651988}
-  numExplosions: 2
+  _maxHealth: 100
+  _healthBar: {fileID: 1496891349890651988}
+  _numExplosions: 2
 --- !u!114 &1496891349354757611
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -160,18 +160,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0eb0b6a605356a4fb1e3d87bed5a781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBackDuration: 1
-  knockBackSpeed: 0.5
-  hasBase: 0
-  aimRadius: 10
-  projectilePrefab: {fileID: 7686343687046668330, guid: bbd9761a43b4cf042a5173e0c1023285,
+  _knockBackDuration: 1
+  _knockBackSpeed: 0.5
+  _hasBase: 0
+  _aimRadius: 10
+  _projectilePrefab: {fileID: 7686343687046668330, guid: bbd9761a43b4cf042a5173e0c1023285,
     type: 3}
-  fireCooldown: 0.35
-  damage: 10
-  numExplosions: 2
-  everythingButBullet:
+  _fireCooldown: 0.3
+  _damage: 10
+  _numExplosions: 2
+  _everythingButBullet:
     serializedVersion: 2
-    m_Bits: 3379
+    m_Bits: 15667
   collisionBelow: 0
   collisionAbove: 0
 --- !u!61 &-8922013221460489282

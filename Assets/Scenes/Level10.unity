@@ -22028,7 +22028,17 @@ PrefabInstance:
       objectReference: {fileID: 1350891919}
     - target: {fileID: 4668204566877302267, guid: 8a3b546939fb842409268d0a765043be,
         type: 3}
+      propertyPath: _enemy
+      value: 
+      objectReference: {fileID: 1350891919}
+    - target: {fileID: 4668204566877302267, guid: 8a3b546939fb842409268d0a765043be,
+        type: 3}
       propertyPath: respawnDelay
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4668204566877302267, guid: 8a3b546939fb842409268d0a765043be,
+        type: 3}
+      propertyPath: _respawnDelay
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4668204566877302269, guid: 8a3b546939fb842409268d0a765043be,

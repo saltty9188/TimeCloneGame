@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -45,7 +43,7 @@ public class EnemyBehaviour : MonoBehaviour
         _startPos = transform.position;
         _startScale = transform.localScale;
         _startActiveState = gameObject.activeSelf;
-        EnemyManager.enemies.Add(gameObject);
+        EnemyManager.Enemies.Add(gameObject);
     }
 
     /// <summary>

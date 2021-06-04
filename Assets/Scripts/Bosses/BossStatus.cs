@@ -120,7 +120,7 @@ public class BossStatus : MonoBehaviour
             positions[i] = (position * explosionRadius * Random.Range(0.0f, 1.0f)) + transform.position;
         }
 
-        EnemyManager.instance.SpawnExplosions(positions);
+        EnemyManager.Instance.SpawnExplosions(positions);
     }
 
     void UpdateUI()

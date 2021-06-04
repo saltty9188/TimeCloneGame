@@ -478,11 +478,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6ff99b112bb2a4e87373f56957ab1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockBackDuration: 1
-  knockBackSpeed: 0.5
+  _knockBackDuration: 1
+  _knockBackSpeed: 0.5
   searchRadius: 10
   movementSpeed: 2
-  runAwayMask:
+  _runAwayMask:
     serializedVersion: 2
     m_Bits: 1281
 --- !u!114 &1572327755477603567
@@ -497,9 +497,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35337d2429dc964aac9b750eec131ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
-  healthBar: {fileID: 1572327754342654576}
-  numExplosions: 2
+  _maxHealth: 30
+  _healthBar: {fileID: 1572327754342654576}
+  _numExplosions: 2
 --- !u!61 &1572327755477603564
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -559,9 +559,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 020bf7ce8242b504da95ffc82fa5e97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flashMaterial: {fileID: 2100000, guid: 5b52bd8ae719599419f51d75d5c46066, type: 2}
-  color: {r: 1, g: 1, b: 1, a: 1}
-  duration: 0.1
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _duration: 0.1
 --- !u!95 &1572327755477603562
 Animator:
   serializedVersion: 3

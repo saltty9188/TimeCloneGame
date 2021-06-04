@@ -1,61 +1,71 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The GuardBot class controls the actions of GuardBot enemies.
+/// </summary>
 public class GuardBot : EnemyBehaviour
 {
 
     #region Inspector fields
-    [SerializeField] private float aimRadius = 10;
-    [SerializeField] private float moveBoundaryWidth = 10;
-    [SerializeField] private float moveSpeed = 3;
-    [SerializeField] private int damage = 5;
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private LayerMask everythingButBullet;
-    [SerializeField] private Door roomExit;
+    [Tooltip("The radius that the enemy will search for targets in.")]
+    [SerializeField] private float _aimRadius = 10;
+    [Tooltip("The length of ground that the enemy will patrol.")]
+    [SerializeField] private float _moveBoundary = 20;
+    [Tooltip("How fast the enemy moves.")]
+    [SerializeField] private float _moveSpeed = 2;
+    [Tooltip("The amount of damage the enemy does.")]
+    [SerializeField] private int _damage = 5;
+    [Tooltip("The projectile prefab the enemy will fire.")]
+    [SerializeField] private GameObject _projectilePrefab;
+    [Tooltip("What can the enemy aim through?")]
+    [SerializeField] private LayerMask _aimBlockers;
+    [Tooltip("The exit to the room this enemy occupies.")]
+    [SerializeField] private Door _roomExit;
     #endregion
     
     #region Private fields
-    private Animator animator;
-    private Rigidbody2D rigidbody2D;
-    private EnemyStatus enemyStatus;
-    private float leftBoundary;
-    private float rightBoundary;
-    private GameObject currentTarget;
-    private float startSpeed;
-    private bool collisionBelow = false;
-    private bool collisionAbove = false;
-    private Rigidbody2D aboveContact = null;
-    private Rigidbody2D belowContact = null;
+    private Animator _animator;
+    private Rigidbody2D _rigidbody2D;
+    private EnemyStatus _enemyStatus;
+    private float _leftBoundary;
+    private float _rightBoundary;
+    private GameObject _currentTarget;
+    private bool _closestTargetIsClone;
+    private float _startSpeed;
+    private bool _collisionBelow = false;
+    private bool _collisionAbove = false;
+    private Rigidbody2D _aboveContact = null;
+    private Rigidbody2D _belowContact = null;
     #endregion
 
-    // Start is called before the first frame update
+    
     protected override void Start()
     {
-        animator = GetComponent<Animator>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        enemyStatus = GetComponent<EnemyStatus>();
-        leftBoundary = transform.position.x - moveBoundaryWidth / 2f;
-        rightBoundary = transform.position.x + moveBoundaryWidth / 2f;
-        currentTarget = null;
-        startSpeed = moveSpeed;
-        EnemyManager.enemies.Add(gameObject);
+        _animator = GetComponent<Animator>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _enemyStatus = GetComponent<EnemyStatus>();
+        _leftBoundary = transform.position.x - _moveBoundary / 2f;
+        _rightBoundary = transform.position.x + _moveBoundary / 2f;
+        _currentTarget = null;
+        _startSpeed = _moveSpeed;
+        EnemyManager.Enemies.Add(gameObject);
         transform.GetChild(1).GetComponent<Animator>().SetBool("IsOpen", true);
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        if(currentTarget == null)
+        // Only patrol and look for a target if one is not found or the current target is not a clone
+        if(_currentTarget == null || !_closestTargetIsClone)
         {
-            Patrol();
+            if(_currentTarget == null) Patrol();
             AcquireTarget();
         }
 
-        if(currentTarget != null)
+        if(_currentTarget != null)
         {
             bool hitTarget = false;
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, currentTarget.transform.position - transform.position, aimRadius, everythingButBullet);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, _currentTarget.transform.position - transform.position, _aimRadius, _aimBlockers);
             if(hits != null)
             {
                 foreach(RaycastHit2D hit in hits)
@@ -70,18 +80,18 @@ public class GuardBot : EnemyBehaviour
             if(hitTarget)
             {
                 //shooting animation
-                animator.SetBool("EnemyNearby", true);
+                _animator.SetBool("EnemyNearby", true);
                 MoveTowardTarget();
             }
             else
             {
-                animator.SetBool("EnemyNearby", false);
-                currentTarget = null;
+                _animator.SetBool("EnemyNearby", false);
+                _currentTarget = null;
             }
         }
 
         //Get crushed
-        if(collisionAbove && collisionBelow)
+        if(_collisionAbove && _collisionBelow)
         {
             gameObject.SetActive(false);
         }
@@ -91,40 +101,58 @@ public class GuardBot : EnemyBehaviour
     {
         float closestDist = float.MaxValue;
         GameObject closestTarget = null;
-        for(int i = 0; i < EnemyManager.targets.Count; i++)
+        _closestTargetIsClone = false;
+        for(int i = 0; i < EnemyManager.Targets.Count; i++)
         {
-            if(EnemyManager.targets[i] == null)
+            // Remove the target from the list if it's been destroyed
+            if(EnemyManager.Targets[i] == null)
             {
-                EnemyManager.targets.RemoveAt(i);
+                EnemyManager.Targets.RemoveAt(i);
                 i--;
             }
             else
             {
-                GameObject target = EnemyManager.targets[i];
+                GameObject target = EnemyManager.Targets[i];
                 float dist = Vector3.Distance(transform.position, target.transform.position);
-
-                if(dist < closestDist && dist <= aimRadius)
+                //Prefer clones
+                if(target.tag == "Clone" && !_closestTargetIsClone)
                 {
+                    _closestTargetIsClone = true;
                     closestDist = dist;
                     closestTarget = target;
+                } 
+                else if(dist < closestDist && dist <= _aimRadius)
+                {
+                    // Update the closest target if a clone was not found or a new clone is closer
+                    if(!_closestTargetIsClone && target.tag == "Player")
+                    {
+                        closestDist = dist;
+                        closestTarget = target;
+                    }
+                    else if(_closestTargetIsClone && target.tag == "Clone")
+                    {
+                        closestDist = dist;
+                        closestTarget = target;
+                    }
                 }
             }
         }
-        currentTarget = closestTarget;
+        _currentTarget = closestTarget;
     }
 
     void Patrol()
     {
-        rigidbody2D.velocity = new Vector2(moveSpeed, 0);
-        if((transform.position.x >= rightBoundary || AtEdge(true)) && moveSpeed > 0)
+        // Change direction and flip at each boundary
+        _rigidbody2D.velocity = new Vector2(_moveSpeed, 0);
+        if((transform.position.x >= _rightBoundary || AtEdge(true)) && _moveSpeed > 0)
         {
-            moveSpeed *= -1;
+            _moveSpeed *= -1;
             Flip();
         }
 
-        if((transform.position.x <= leftBoundary || AtEdge(false)) && moveSpeed < 0)
+        if((transform.position.x <= _leftBoundary || AtEdge(false)) && _moveSpeed < 0)
         {
-            moveSpeed *= -1;
+            _moveSpeed *= -1;
             Flip();
         }
     }
@@ -133,33 +161,36 @@ public class GuardBot : EnemyBehaviour
     {
         Vector2 spriteSize = GetComponent<SpriteRenderer>().bounds.size;
 
-        if(currentTarget.transform.position.x <= transform.position.x - spriteSize.x / 2f)
+        // Only flip if the target is on the other side of the enemy sprite
+        if(_currentTarget.transform.position.x <= transform.position.x - spriteSize.x / 2f)
         {
-            if(moveSpeed > 0)
+            if(_moveSpeed > 0)
             {
-                moveSpeed *= -1;
+                _moveSpeed *= -1;
                 Flip();
             }
         }
-        else if(currentTarget.transform.position.x >= transform.position.x + spriteSize.x / 2f)
+        else if(_currentTarget.transform.position.x >= transform.position.x + spriteSize.x / 2f)
         {
-            if(moveSpeed < 0)
+            if(_moveSpeed < 0)
             {
-                moveSpeed *= -1;
+                _moveSpeed *= -1;
                 Flip();
             }
         }
 
-        if(AtEdge(moveSpeed > 0))
+        // Don't move if the enemy is at an edge
+        if(AtEdge(_moveSpeed > 0))
         {
-            rigidbody2D.velocity = Vector2.zero;
+            _rigidbody2D.velocity = Vector2.zero;
         }
         else
         {
-            rigidbody2D.velocity = new Vector2(moveSpeed, 0);
+            _rigidbody2D.velocity = new Vector2(_moveSpeed, 0);
         }
     }
 
+    // Tests if the enemy is at an edge
     bool AtEdge(bool rightSide)
     {
         Vector2 spriteSize = GetComponent<SpriteRenderer>().bounds.size;
@@ -188,15 +219,18 @@ public class GuardBot : EnemyBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Animation event that fires a bullet towards the current target.
+    /// </summary>
     public void Shoot()
     {
-        if(currentTarget != null)
+        if(_currentTarget != null)
         {
-            Vector2 direction = currentTarget.transform.position - transform.position;
-            GameObject go = Instantiate(projectilePrefab, transform.GetChild(0).position, new Quaternion());
+            Vector2 direction = _currentTarget.transform.position - transform.position;
+            GameObject go = Instantiate(_projectilePrefab, transform.GetChild(0).position, new Quaternion());
             Projectile p = go.GetComponent<Projectile>();
             p.direction = direction;
-            p.damage = damage;
+            p.damage = _damage;
             p.SetShooter(gameObject);   
 
             AudioManager.Instance.PlaySFX("GunShot");
@@ -210,29 +244,38 @@ public class GuardBot : EnemyBehaviour
         transform.localScale = temp;
     }
 
+    /// <summary>
+    /// Caches the enemy's current position, scale, starting speed, and active state
+    /// </summary>
     public override void CacheInfo()
     {
         base.CacheInfo();
-        startSpeed = moveSpeed;
+        _startSpeed = _moveSpeed;
     }
 
+    /// <summary>
+    /// Resets the enemy to its cached position, scale, speed, and active state.
+    /// </summary>
     public override void ResetEnemy()
     {
         base.ResetEnemy();
-        moveSpeed = startSpeed;
-        if(roomExit) roomExit.RemoveActivation();
+        _moveSpeed = _startSpeed;
+        if(_roomExit) _roomExit.RemoveActivation();
     }
 
+    /// <summary>
+    /// Calls <see cref="EnemyStatus.TakeDamage(int, Vector2)">TakeDamage</see> and flips if there is no current target.
+    /// </summary>
+    /// <param name="damage">The damage to be taken.</param>
     public void TakeDamage(int damage)
     {
-        if(currentTarget == null)
+        if(_currentTarget == null)
         {
-            moveSpeed *= -1;
+            _moveSpeed *= -1;
             Flip();
         }
 
-        enemyStatus.TakeDamage(damage);
-
+        _enemyStatus.TakeDamage(damage);
     }
 
     void OnCollisionStay2D(Collision2D other) 
@@ -246,13 +289,13 @@ public class GuardBot : EnemyBehaviour
                 float angle = Vector2.Angle(contact.normal, Vector2.up);
                 if(angle < 0.5f)
                 {
-                    collisionBelow = true;
-                    belowContact = contact.collider.GetComponent<Rigidbody2D>();
+                    _collisionBelow = true;
+                    _belowContact = contact.collider.GetComponent<Rigidbody2D>();
                 }
                 else if(angle > 179.5f)
                 {
-                    collisionAbove = true;
-                    aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+                    _collisionAbove = true;
+                    _aboveContact = contact.collider.GetComponent<Rigidbody2D>();
                 }
             }
         }
@@ -260,25 +303,27 @@ public class GuardBot : EnemyBehaviour
 
     void OnCollisionExit2D(Collision2D other) 
     {
-        if(other.collider.GetComponent<Rigidbody2D>() == aboveContact)
+        if(other.collider.GetComponent<Rigidbody2D>() == _aboveContact)
         {
-            aboveContact = null;
-            collisionAbove = false;
+            _aboveContact = null;
+            _collisionAbove = false;
         }
-        else if(other.collider.GetComponent<Rigidbody2D>() == belowContact)
+        else if(other.collider.GetComponent<Rigidbody2D>() == _belowContact)
         {
-            belowContact = null;
-            collisionBelow = false;
+            _belowContact = null;
+            _collisionBelow = false;
         }
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos() 
+    {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, aimRadius);
+        Gizmos.DrawWireSphere(transform.position, _aimRadius);
     }
 
     void OnDisable() 
     {
-        if(roomExit) roomExit.AddActivation();    
+        // Activate the room exit upon death
+        if(_roomExit) _roomExit.AddActivation();    
     }
 }

@@ -43,9 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215394aa828b2144b9b55b54d7deb5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstBossScript: {fileID: 0}
-  secondBossScript: {fileID: 0}
-  thirdBossScript: {fileID: 0}
-  explosionPrefab: {fileID: 1033175292732073263, guid: 1b324c1ee7b28e246ae2aa10c4239dab,
+  _firstBossScript: {fileID: 0}
+  _secondBossScript: {fileID: 0}
+  _thirdBossScript: {fileID: 0}
+  _explosionPrefab: {fileID: 1033175292732073263, guid: 1b324c1ee7b28e246ae2aa10c4239dab,
     type: 3}
-  explosionDelay: 0.4
+  _explosionDelay: 0.4

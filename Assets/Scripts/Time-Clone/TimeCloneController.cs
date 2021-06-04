@@ -44,7 +44,7 @@ public class TimeCloneController : MonoBehaviour
             }
             else if(go.tag == "Clone")
             {
-                if(EnemyManager.targets != null) EnemyManager.targets.Remove(go);
+                if(EnemyManager.Targets != null) EnemyManager.Targets.Remove(go);
                 if(destroyProjectiles) go.GetComponent<PlayerStatus>().DestroyAllProjectiles(false);
                 activeClones.Remove(go);
                 go.GetComponent<ExecuteCommands>().RemoveWeapon();

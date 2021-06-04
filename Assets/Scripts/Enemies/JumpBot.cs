@@ -1,32 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The JumpBot class controls the actions of JumpBot enemies.
+/// </summary>
 public class JumpBot : EnemyBehaviour
 {
-
     #region Inspector fields
-    [SerializeField] private float searchRadius;
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float jumpPower;
-    [SerializeField] private int touchDamage = 20;
+    [Tooltip("The radius that the enemy will search for targets in.")]
+    [SerializeField] private float _searchRadius = 10;
+    [Tooltip("How fast the enemy moves.")]
+    [SerializeField] private float _moveSpeed = 3;
+    [Tooltip("How high the enemy jumps.")]
+    [SerializeField] private float _jumpPower = 400;
+    [Tooltip("The amount of damage the enemy does.")]
+    [SerializeField] private int _touchDamage = 20;
     #endregion
 
     #region Private fields
-    private Animator animator;
-    private GameObject target;
-    private bool grounded;
-    private bool canLand;
+    private Animator _animator;
+    private GameObject _target;
+    private bool _grounded;
+    private bool _canLand;
     #endregion
 
     protected override void Start()
     {
         base.Start();
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
-
-
-    // Update is called once per frame
+    
     void FixedUpdate()
     {
         if(KnockBackTime > 0)
@@ -36,15 +38,15 @@ public class JumpBot : EnemyBehaviour
         }
         else
         {
-            target = SearchForTargets();
-            if(grounded && canLand)
+            _target = SearchForTargets();
+            if(_grounded && _canLand)
             {
-                animator.SetTrigger("Land");
+                _animator.SetTrigger("Land");
             }
 
-            if(target && !grounded)
+            if(_target && !_grounded)
             {
-                Rigidbody.velocity = new Vector2(moveSpeed * (transform.position.x - target.transform.position.x > 0 ? -1 : 1), Rigidbody.velocity.y);
+                Rigidbody.velocity = new Vector2(_moveSpeed * (transform.position.x - _target.transform.position.x > 0 ? -1 : 1), Rigidbody.velocity.y);
             }
             else
             {
@@ -60,7 +62,7 @@ public class JumpBot : EnemyBehaviour
             PlayerStatus ps = other.GetContact(0).collider.GetComponent<PlayerStatus>();
             if(ps)
             {
-                ps.TakeDamage(touchDamage, -other.GetContact(0).normal);
+                ps.TakeDamage(_touchDamage, -other.GetContact(0).normal);
             }
         }
 
@@ -71,7 +73,7 @@ public class JumpBot : EnemyBehaviour
             float angle = Vector2.Angle(contact.normal, Vector2.up);
             if (angle < 40)
             {
-                grounded = true;
+                _grounded = true;
             }
         }
     }
@@ -85,7 +87,7 @@ public class JumpBot : EnemyBehaviour
             float angle = Vector2.Angle(contact.normal, Vector2.up);
             if (angle < 40)
             {
-                grounded = true;
+                _grounded = true;
             }
         }
 
@@ -94,30 +96,30 @@ public class JumpBot : EnemyBehaviour
             PlayerStatus ps = other.GetContact(0).collider.GetComponent<PlayerStatus>();
             if(ps)
             {
-                ps.TakeDamage(touchDamage, -other.GetContact(0).normal);
+                ps.TakeDamage(_touchDamage, -other.GetContact(0).normal);
             }
         }
     }
 
     void OnCollisionExit2D(Collision2D other)
     {
-        grounded = false;
+        _grounded = false;
     }
 
     GameObject SearchForTargets()
     {
         float closestDist = float.MaxValue;
         GameObject closestTarget = null;
-        for (int i = 0; i < EnemyManager.targets.Count; i++)
+        for (int i = 0; i < EnemyManager.Targets.Count; i++)
         {
-            if (EnemyManager.targets[i] == null)
+            if (EnemyManager.Targets[i] == null)
             {
-                EnemyManager.targets.RemoveAt(i);
+                EnemyManager.Targets.RemoveAt(i);
                 i--;
             }
             else
             {
-                GameObject target = EnemyManager.targets[i];
+                GameObject target = EnemyManager.Targets[i];
                 float dist = Vector3.Distance(transform.position, target.transform.position);
 
                 if (dist < closestDist)
@@ -128,34 +130,44 @@ public class JumpBot : EnemyBehaviour
             }
         }
 
-        if(closestDist > searchRadius) closestTarget = null;
+        if(closestDist > _searchRadius) closestTarget = null;
 
         return closestTarget;
     }
 
+    /// <summary>
+    /// Animation event that determines the landing animation is complete.
+    /// </summary>
     public void LandingComplete()
     {
-        animator.ResetTrigger("Land");
-        animator.SetTrigger("Jump");
-        canLand = false;
+        _animator.ResetTrigger("Land");
+        _animator.SetTrigger("Jump");
+        _canLand = false;
     }
 
+    /// <summary>
+    /// Animation event that causes the enemy to jump.
+    /// </summary>
     public void Jump()
     {
-        animator.ResetTrigger("Jump");
+        _animator.ResetTrigger("Jump");
         Rigidbody.drag = 0;
         Rigidbody.velocity = new Vector2(0, Rigidbody.velocity.y);
-        Rigidbody.AddForce(new Vector2(0, jumpPower*2));
-        grounded = false;
+        Rigidbody.AddForce(new Vector2(0, _jumpPower));
+        _grounded = false;
     }
 
+    /// <summary>
+    /// Animation event that indicates the jump animation is complete.
+    /// </summary>
     public void JumpFinished()
     {
-        canLand = true;
+        _canLand = true;
     }
 
-    private void OnDrawGizmos() {
+    private void OnDrawGizmos() 
+    {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, searchRadius);
+        Gizmos.DrawWireSphere(transform.position, _searchRadius);
     }
 }

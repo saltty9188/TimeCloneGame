@@ -20370,11 +20370,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1735413381355828136, guid: d1ad747747b744c4e8533a15b8db8b23,
         type: 3}
-      propertyPath: aimRadius
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1735413381355828136, guid: d1ad747747b744c4e8533a15b8db8b23,
-        type: 3}
       propertyPath: everythingButBullet.m_Bits
       value: 3379
       objectReference: {fileID: 0}
@@ -20396,7 +20391,7 @@ PrefabInstance:
     - target: {fileID: 5936286703393208529, guid: d1ad747747b744c4e8533a15b8db8b23,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5936286703393208531, guid: d1ad747747b744c4e8533a15b8db8b23,
         type: 3}
