@@ -505,7 +505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
         type: 3}
-      propertyPath: startsOn
+      propertyPath: _startsOn
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094095, guid: 0985d78f2849f7f47abcf02de8c196ae,
@@ -2216,7 +2216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2356414493360494910, guid: 999b941d4605fd144b89dbc6eec702f1,
         type: 3}
-      propertyPath: playerRecorder
+      propertyPath: _playerRecorder
       value: 
       objectReference: {fileID: 1120878256}
     - target: {fileID: 2356414493360494911, guid: 999b941d4605fd144b89dbc6eec702f1,
@@ -4064,7 +4064,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
         type: 3}
-      propertyPath: startsOn
+      propertyPath: _startsOn
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094095, guid: 0985d78f2849f7f47abcf02de8c196ae,
@@ -11687,6 +11687,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1238146083}
     m_Modifications:
+    - target: {fileID: 5396491290231450074, guid: 7bcc58f2547112b4cbc7e813065d2ab6,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8167153989646902171, guid: 7bcc58f2547112b4cbc7e813065d2ab6,
         type: 3}
       propertyPath: m_RootOrder
@@ -11764,7 +11769,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8302076624452944762, guid: 7bcc58f2547112b4cbc7e813065d2ab6,
         type: 3}
+      propertyPath: _floatHeight
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8302076624452944762, guid: 7bcc58f2547112b4cbc7e813065d2ab6,
+        type: 3}
+      propertyPath: _initialBounceSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8302076624452944762, guid: 7bcc58f2547112b4cbc7e813065d2ab6,
+        type: 3}
       propertyPath: initialBounceHeight
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8302076624452944762, guid: 7bcc58f2547112b4cbc7e813065d2ab6,
+        type: 3}
+      propertyPath: _initialBounceHeight
       value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -15363,7 +15383,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2356414493360494910, guid: 999b941d4605fd144b89dbc6eec702f1,
         type: 3}
-      propertyPath: playerRecorder
+      propertyPath: _playerRecorder
       value: 
       objectReference: {fileID: 1120878256}
     - target: {fileID: 2356414493360494911, guid: 999b941d4605fd144b89dbc6eec702f1,
@@ -29514,7 +29534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
         type: 3}
-      propertyPath: startsOn
+      propertyPath: _startsOn
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094095, guid: 0985d78f2849f7f47abcf02de8c196ae,

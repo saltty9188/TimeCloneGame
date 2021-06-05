@@ -2,56 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The RecordingDoor class is subtype of Door that only opens when the player is recording a time-clone.
+/// </summary>
 public class RecordingDoor : Door
 {
-
     #region Inspector fields
-    [SerializeField] private Recorder playerRecorder = null;
+    [Tooltip("The player's recorder script.")]
+    [SerializeField] private Recorder _playerRecorder = null;
     #endregion
 
     #region Private fields
-    private bool inFight;
-    private bool stayOpen;
+    private bool _inFight;
+    private bool _stayOpen;
     #endregion
 
-    // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        inFight = false;
-        stayOpen = false;
+        _inFight = false;
+        _stayOpen = false;
     }
 
-    // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-        if(!playerRecorder.IsRecording) 
+        if(!_playerRecorder.IsRecording) 
         {
-            inFight = false;
+            _inFight = false;
         }
 
-        if(playerRecorder.IsRecording && !inFight)
+        // Open if the player is recording a clone and they aren't in a boss fight
+        if(_playerRecorder.IsRecording && !_inFight)
         {
-            activations = requiredActivations;
+            Activations = RequiredActivations;
         }
-        else if(!stayOpen)
+        else if(!_stayOpen)
         {
-            activations = 0;
+            Activations = 0;
         }  
 
         TriggerIfValid();
     }
 
+    /// <summary>
+    /// Opens the door and keeps it open regardless of whether or not the player is recording.
+    /// </summary>
     public void KeepOpen()
     {
-        stayOpen = true;
-        activations = requiredActivations;
+        _stayOpen = true;
+        Activations = RequiredActivations;
         TriggerIfValid();
     }
 
+    /// <summary>
+    /// Sets whether or not the player is in a boss fight.
+    /// </summary>
+    /// <param name="inFight">Whether the player is in a boss fight or not.</param>
     public void SetInFight(bool inFight)
     {
-        this.inFight = inFight;
+        this._inFight = inFight;
     }
 }

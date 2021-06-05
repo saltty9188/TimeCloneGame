@@ -517,12 +517,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 671880990779046507, guid: 8cce6f7c79aa5d042bb6c4df723f945a,
         type: 3}
-      propertyPath: attachedEvents.Array.size
+      propertyPath: _attachedEvents.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 671880990779046507, guid: 8cce6f7c79aa5d042bb6c4df723f945a,
         type: 3}
-      propertyPath: attachedEvents.Array.data[0]
+      propertyPath: _attachedEvents.Array.data[0]
       value: 
       objectReference: {fileID: 1974703023}
     m_RemovedComponents: []
@@ -767,12 +767,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
         type: 3}
-      propertyPath: tempText
+      propertyPath: _doorText
       value: 
       objectReference: {fileID: 72762755}
     - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
         type: 3}
       propertyPath: requiredActivations
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
+        type: 3}
+      propertyPath: _requiredActivations
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094095, guid: 0985d78f2849f7f47abcf02de8c196ae,
@@ -1335,7 +1340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2855427892781623574, guid: 315d8ea273c3bd949bb8feab90a486a7,
         type: 3}
-      propertyPath: attachedEvent
+      propertyPath: _attachedEvent
       value: 
       objectReference: {fileID: 1343467529}
     - target: {fileID: 2855427892781623576, guid: 315d8ea273c3bd949bb8feab90a486a7,
@@ -1621,7 +1626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2855427892781623574, guid: 315d8ea273c3bd949bb8feab90a486a7,
         type: 3}
-      propertyPath: attachedEvent
+      propertyPath: _attachedEvent
       value: 
       objectReference: {fileID: 1343467529}
     - target: {fileID: 2855427892781623576, guid: 315d8ea273c3bd949bb8feab90a486a7,
@@ -1774,12 +1779,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
         type: 3}
-      propertyPath: tempText
+      propertyPath: _doorText
       value: 
       objectReference: {fileID: 2076541639}
     - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
         type: 3}
       propertyPath: requiredActivations
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
+        type: 3}
+      propertyPath: _requiredActivations
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094095, guid: 0985d78f2849f7f47abcf02de8c196ae,
@@ -3428,7 +3438,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7401025821046632477, guid: 69b6a9dd362f6534a8b85c97005a14ed,
         type: 3}
-      propertyPath: attachedEvent
+      propertyPath: _attachedEvent
       value: 
       objectReference: {fileID: 72762756}
     - target: {fileID: 7401025821046632479, guid: 69b6a9dd362f6534a8b85c97005a14ed,
@@ -11326,17 +11336,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7401025821046632477, guid: 69b6a9dd362f6534a8b85c97005a14ed,
         type: 3}
-      propertyPath: resetTime
+      propertyPath: _resetTime
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7401025821046632477, guid: 69b6a9dd362f6534a8b85c97005a14ed,
         type: 3}
-      propertyPath: attachedEvent
+      propertyPath: _attachedEvent
       value: 
       objectReference: {fileID: 1302185340}
     - target: {fileID: 7401025821046632477, guid: 69b6a9dd362f6534a8b85c97005a14ed,
         type: 3}
-      propertyPath: dontResetWhenActive
+      propertyPath: _dontResetWhenActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7401025821046632479, guid: 69b6a9dd362f6534a8b85c97005a14ed,
@@ -21043,7 +21053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2855427892781623574, guid: 315d8ea273c3bd949bb8feab90a486a7,
         type: 3}
-      propertyPath: attachedEvent
+      propertyPath: _attachedEvent
       value: 
       objectReference: {fileID: 1343467529}
     - target: {fileID: 2855427892781623576, guid: 315d8ea273c3bd949bb8feab90a486a7,
@@ -21266,12 +21276,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
         type: 3}
-      propertyPath: tempText
+      propertyPath: _doorText
       value: 
       objectReference: {fileID: 1768970445}
     - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
         type: 3}
       propertyPath: requiredActivations
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1294672955900094094, guid: 0985d78f2849f7f47abcf02de8c196ae,
+        type: 3}
+      propertyPath: _requiredActivations
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1294672955900094095, guid: 0985d78f2849f7f47abcf02de8c196ae,
@@ -21560,7 +21575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2855427892781623574, guid: 315d8ea273c3bd949bb8feab90a486a7,
         type: 3}
-      propertyPath: attachedEvent
+      propertyPath: _attachedEvent
       value: 
       objectReference: {fileID: 1556499552}
     - target: {fileID: 2855427892781623576, guid: 315d8ea273c3bd949bb8feab90a486a7,
@@ -22556,7 +22571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7401025821046632477, guid: 69b6a9dd362f6534a8b85c97005a14ed,
         type: 3}
-      propertyPath: attachedEvent
+      propertyPath: _attachedEvent
       value: 
       objectReference: {fileID: 72762756}
     - target: {fileID: 7401025821046632479, guid: 69b6a9dd362f6534a8b85c97005a14ed,
@@ -23300,17 +23315,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7401025821046632477, guid: 69b6a9dd362f6534a8b85c97005a14ed,
         type: 3}
-      propertyPath: resetTime
+      propertyPath: _resetTime
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7401025821046632477, guid: 69b6a9dd362f6534a8b85c97005a14ed,
         type: 3}
-      propertyPath: attachedEvent
+      propertyPath: _attachedEvent
       value: 
       objectReference: {fileID: 1302185340}
     - target: {fileID: 7401025821046632477, guid: 69b6a9dd362f6534a8b85c97005a14ed,
         type: 3}
-      propertyPath: dontResetWhenActive
+      propertyPath: _dontResetWhenActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7401025821046632479, guid: 69b6a9dd362f6534a8b85c97005a14ed,

@@ -3,110 +3,121 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
+/// <summary>
+/// The PhysicsObject class represents objects that can be altered by the PhysicsRay.
+/// </summary>
 public class PhysicsObject : MonoBehaviour
 {
     #region Inspector fields
-    [SerializeField] private float lightMass;
-
-    [SerializeField] private float heavyMass;
-
-    [SerializeField] private PhysicsMaterial2D bounceMaterial;
-    [SerializeField] private float initialBounceHeight = 10;
-
-    [SerializeField] private float floatHeight;
-
-    [SerializeField] private float floatSpeed;
+    [Tooltip("The mass of this object when it's under the \"Light\" physics effect.")]
+    [SerializeField] private float _lightMass = 50;
+    [Tooltip("The mass of this object when it's under the \"Heavy\" physics effect.")]
+    [SerializeField] private float _heavyMass = 300;
+    [Tooltip("The PhysicsMaterial that causes the object to bounce.")]
+    [SerializeField] private PhysicsMaterial2D _bounceMaterial;
+    [Tooltip("The inital speed of the bounce when it launches from the ground.")]
+    [SerializeField] private float _initialBounceSpeed = 10;
+    [Tooltip("How high the object can float.")]
+    [SerializeField] private float _floatHeight = 10;
+    [Tooltip("How fast the object is when floating upwards.")]
+    [SerializeField] private float _floatSpeed = 2;
 
     #endregion
 
     #region  Private fields
-    private static List<PhysicsObject> allPhysicsObjects;
-    private Transform originalParent;
-    private Rigidbody2D rigidbody2D;
-    private SpriteRenderer spriteRenderer;
-    private float initialMass;
-    private Vector3 recordingStartPosition;
-    private PhysicsMaterial2D initialPhysicsMaterial;
-    private float yPosOnGround;
-    private float yPosInAir;
-    private bool touchingCeiling;
-    private Coroutine floatRoutine;
-    private Light2D light;
+    private static List<PhysicsObject> _allPhysicsObjects;
+    private Rigidbody2D _rigidbody2D;
+    private SpriteRenderer _spriteRenderer;
+    private float _initialMass;
+    private Vector3 _startingPosition;
+    private PhysicsMaterial2D _initialPhysicsMaterial;
+    private float _yPosOnGround;
+    private float _yPosInAir;
+    private bool _touchingCeiling;
+    private Coroutine _floatRoutine;
+    private Light2D _light;
     #endregion
 
     void Awake()
     {
-        if (allPhysicsObjects == null) allPhysicsObjects = new List<PhysicsObject>();
+        if (_allPhysicsObjects == null) _allPhysicsObjects = new List<PhysicsObject>();
     }
 
     void Start()
     {
-        originalParent = transform;
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        initialMass = rigidbody2D.mass;
-        recordingStartPosition = transform.position;
-        initialPhysicsMaterial = rigidbody2D.sharedMaterial;
-        yPosOnGround = transform.position.y;
-        allPhysicsObjects.Add(this);
-        light = transform.GetChild(0).GetComponent<Light2D>();
-        light.pointLightOuterRadius *= transform.localScale.x;
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _initialMass = _rigidbody2D.mass;
+        _startingPosition = transform.position;
+        _initialPhysicsMaterial = _rigidbody2D.sharedMaterial;
+        _yPosOnGround = transform.position.y;
+        _allPhysicsObjects.Add(this);
+        _light = transform.GetChild(0).GetComponent<Light2D>();
+        _light.pointLightOuterRadius *= transform.localScale.x;
     }
 
     void Update()
     {
-        if (rigidbody2D.gravityScale == 0 && floatRoutine == null)
+        // Stop the box from moving up or down after the float routine has ended
+        if (_rigidbody2D.gravityScale == 0 && _floatRoutine == null)
         {
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
+            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, 0);
         }
     }
 
-    public void UpdateRecordingStartPosition()
+    /// <summary>
+    /// Updates the starting position.
+    /// </summary>
+    public void UpdateStartingPosition()
     {
-        recordingStartPosition = transform.position;
+        _startingPosition = transform.position;
     }
 
+    // Resets the properites of the object back to its default state
     void ResetPhysics(bool resetVelocity)
     {
-        if(resetVelocity) rigidbody2D.velocity = Vector2.zero;
-        rigidbody2D.isKinematic = false;
-        rigidbody2D.mass = initialMass;
-        rigidbody2D.sharedMaterial = initialPhysicsMaterial;
-        rigidbody2D.gravityScale = 1;
-        rigidbody2D.drag = 0;
-        if (floatRoutine != null) StopCoroutine(floatRoutine);
+        if(resetVelocity) _rigidbody2D.velocity = Vector2.zero;
+        _rigidbody2D.isKinematic = false;
+        _rigidbody2D.mass = _initialMass;
+        _rigidbody2D.sharedMaterial = _initialPhysicsMaterial;
+        _rigidbody2D.gravityScale = 1;
+        _rigidbody2D.drag = 0;
+        if (_floatRoutine != null) StopCoroutine(_floatRoutine);
 
-        spriteRenderer.color = Color.white;
+        _spriteRenderer.color = Color.white;
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    public void ResetParent()
-    {
-        transform.parent = originalParent;
-    }
-
+    /// <summary>
+    /// Calls <see cref="UpdateStartingPosition"/> on all of the <see cref="PhysicsObject">PhysicsObjects</see> in the scene.
+    /// </summary>
     public static void UpdateAllInitialPositions()
     {
-        if (allPhysicsObjects != null)
+        if (_allPhysicsObjects != null)
         {
-            foreach (PhysicsObject physicsObject in allPhysicsObjects)
+            foreach (PhysicsObject physicsObject in _allPhysicsObjects)
             {
-                physicsObject.UpdateRecordingStartPosition();
+                physicsObject.UpdateStartingPosition();
             }
         }
     }
 
+    /// <summary>
+    /// Resets the properties of every PhysicsObject in the scene back to their default state.
+    /// </summary>
+    /// <param name="resetPosition">Whether or not the position should be reset as well.</param>
+    /// <param name="resetVelocity">Whether or not the velocity should be reset to zero as well.</param>
     public static void ResetAllPhysics(bool resetPosition, bool resetVelocity)
     {
-        if (allPhysicsObjects != null)
+        if (_allPhysicsObjects != null)
         {
-            foreach (PhysicsObject physicsObject in allPhysicsObjects)
+            foreach (PhysicsObject physicsObject in _allPhysicsObjects)
             {
                 physicsObject.ResetPhysics(resetVelocity);
                 if (resetPosition) 
                 {
-                    physicsObject.transform.position = physicsObject.recordingStartPosition;
-                    physicsObject.yPosOnGround = physicsObject.transform.position.y;
+                    physicsObject.transform.position = physicsObject._startingPosition;
+                    physicsObject._yPosOnGround = physicsObject.transform.position.y;
                 }
             }
         }
@@ -114,49 +125,58 @@ public class PhysicsObject : MonoBehaviour
 
     void MakeLight()
     {
-        rigidbody2D.mass = lightMass;
-        spriteRenderer.color = Color.cyan;
+        _rigidbody2D.mass = _lightMass;
+        _spriteRenderer.color = Color.cyan;
     }
 
     void MakeHeavy()
     {
-        rigidbody2D.mass = heavyMass;
-        spriteRenderer.color = Color.red;
+        _rigidbody2D.mass = _heavyMass;
+        _spriteRenderer.color = Color.red;
     }
 
     void MakeBouncy()
     {
-        rigidbody2D.sharedMaterial = bounceMaterial;
-        rigidbody2D.drag = 0;
+        _rigidbody2D.sharedMaterial = _bounceMaterial;
+        _rigidbody2D.drag = 0;
 
         //Starting bounce if the object was stationary
-        if (Mathf.Abs(rigidbody2D.velocity.y) < 1 &&
-            Mathf.Abs(transform.position.y - yPosOnGround) < 0.1f)
+        if (Mathf.Abs(_rigidbody2D.velocity.y) < 1 &&
+            Mathf.Abs(transform.position.y - _yPosOnGround) < 0.1f)
         {
-            rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, initialBounceHeight);
+            _rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x, _initialBounceSpeed);
         }
 
-        spriteRenderer.color = Color.green;
+        _spriteRenderer.color = Color.green;
     }
 
     void MakeFloat()
     {
-        yPosInAir = yPosOnGround + floatHeight;
-        floatRoutine = StartCoroutine(GoUp());
-        rigidbody2D.gravityScale = 0;
-        spriteRenderer.color = Color.yellow;
+        _yPosInAir = _yPosOnGround + _floatHeight;
+        _floatRoutine = StartCoroutine(GoUp());
+        _rigidbody2D.gravityScale = 0;
+        _spriteRenderer.color = Color.yellow;
     }
 
     IEnumerator GoUp()
     {
-        while (transform.position.y < yPosInAir)
+        while (transform.position.y < _yPosInAir)
         {
-            rigidbody2D.velocity = new Vector2(0, floatSpeed);
+            _rigidbody2D.velocity = new Vector2(0, _floatSpeed);
             yield return null;
         }
-        floatRoutine = null;
+        _floatRoutine = null;
     }
 
+    /// <summary>
+    /// Alters the physical properties of this PhysicsObject to make it Light, Heavy, Bouncy or Float.
+    /// </summary>
+    /// <remarks>
+    /// Also resets the physics of every other PhysicsObject in the scene without reseting their position or velocity.
+    /// </remarks>
+    /// <seealso cref="PhysicsRay"/>
+    /// <seealso cref="ResetAllPhysics(bool, bool)"/>
+    /// <param name="rayType">The type of alteration that is to be made to this object.</param>
     public void AlterPhysics(PhysicsRay.RayType rayType)
     {
         ResetAllPhysics(false, false);
@@ -186,8 +206,8 @@ public class PhysicsObject : MonoBehaviour
                     break;
                 }
         }
-        light.gameObject.SetActive(true);
-        light.color = spriteRenderer.color;
+        _light.gameObject.SetActive(true);
+        _light.color = _spriteRenderer.color;
     }
 
     void OnCollisionStay2D(Collision2D other)
@@ -195,16 +215,17 @@ public class PhysicsObject : MonoBehaviour
         ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
         other.GetContacts(contacts);
 
+        // Resets the last ground position to adjust the height this object can float
         foreach(ContactPoint2D contact in contacts)
         {
-            if(contact.normal == Vector2.up && rigidbody2D.gravityScale > 0)
+            if(contact.normal == Vector2.up && _rigidbody2D.gravityScale > 0)
             {
-                yPosOnGround = transform.position.y;
+                _yPosOnGround = transform.position.y;
             }
         }
     }
     void OnDestroy()
     {
-        allPhysicsObjects.Remove(this);
+        if(_allPhysicsObjects != null) _allPhysicsObjects.Remove(this);
     }
 }

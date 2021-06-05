@@ -119,13 +119,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54fa2851bd09785448becd8a3cc727d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canActivateButton:
+  _canActivateButton:
     serializedVersion: 2
     m_Bits: 1024
-  buttonSensitivity: 0.3
-  minWeight: 300
-  stayDown: 0
-  attachedEvents: []
+  _buttonSensitivity: 0.3
+  _minWeight: 300
+  _stayDown: 0
+  _attachedEvents: []
 --- !u!60 &3951330807107098735
 PolygonCollider2D:
   m_ObjectHideFlags: 0

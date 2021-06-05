@@ -2,41 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The TimedTarget class is a variant of Target that resets itself on a timer.
+/// </summary>
 public class TimedTarget : Target
 {
     #region Inspector fields
-    [SerializeField] private float resetTime = 5;
-    [SerializeField] private bool dontResetWhenActive;
+    [Tooltip("How long it takes for the target to reset itself.")]
+    [SerializeField] private float _resetTime = 5;
+    [Tooltip("Should the timer stop when the attached event is active?")]
+    [SerializeField] private bool _dontResetWhenActive;
     #endregion
 
     #region Private fields
-    private BoxCollider2D boxCollider2D;
-    private SpriteRenderer spriteRenderer;
-    private float timer;
+    private BoxCollider2D _boxCollider2D;
+    private SpriteRenderer _spriteRenderer;
+    private float _timer;
     #endregion
 
     void Start()
     {
-        boxCollider2D = GetComponent<BoxCollider2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        timer = resetTime;
+        _boxCollider2D = GetComponent<BoxCollider2D>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _timer = _resetTime;
     }
 
     void Update()
     {
-        if(timer < resetTime) timer += Time.deltaTime;
-        else if(!boxCollider2D.enabled) Deactivate();
+        if(_timer < _resetTime) _timer += Time.deltaTime;
+        else if(!_boxCollider2D.enabled) Deactivate();
 
-        if(dontResetWhenActive && attachedEvent.IsActivated)
+        if(_dontResetWhenActive && _attachedEvent.IsActivated)
         {
             AudioManager.Instance.StopTargetCountdown();
         }
     }
 
+    /// <summary>
+    /// Adds an activation to the attached ButtonEvent and starts the timer.
+    /// </summary>
+    /// <seealso cref="ButtonEvent.AddActivation"/>    
     public override void Activate()
     {
-        attachedEvent.AddActivation();
-        timer = 0;
+        _attachedEvent.AddActivation();
+        _timer = 0;
         SetTargetVisibility(false);
         AudioManager.Instance.PlayTargetCountdown();
     }
@@ -45,11 +54,11 @@ public class TimedTarget : Target
     {
         // Only deactivate if the don't reset when active flag is set
         // or it is set and the attached event is not active (i.e. not all targets were hit in time)
-        if(!dontResetWhenActive || (dontResetWhenActive && !attachedEvent.IsActivated))
+        if(!_dontResetWhenActive || (_dontResetWhenActive && !_attachedEvent.IsActivated))
         {
             AudioManager.Instance.StopTargetCountdown();
             SetTargetVisibility(true);
-            attachedEvent.RemoveActivation();
+            _attachedEvent.RemoveActivation();
         }
     }
 
@@ -61,7 +70,7 @@ public class TimedTarget : Target
 
     void SetTargetVisibility(bool visible)
     {
-        boxCollider2D.enabled = visible;
-        spriteRenderer.enabled = visible;
+        _boxCollider2D.enabled = visible;
+        _spriteRenderer.enabled = visible;
     }
 }
