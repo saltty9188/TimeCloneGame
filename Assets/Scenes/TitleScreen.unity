@@ -123,6 +123,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &189386903 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7844402169055828264, guid: 97e2e645fc166e14eaddb80e44734483,
+    type: 3}
+  m_PrefabInstance: {fileID: 1033276476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cef8de2d36e4d064eab6f1163a93c53c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &294237451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,7 +1040,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7796594091226435, guid: 97e2e645fc166e14eaddb80e44734483, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.0000030268761
       objectReference: {fileID: 0}
     - target: {fileID: 7796594398632392, guid: 97e2e645fc166e14eaddb80e44734483, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1040,7 +1052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7796594398632392, guid: 97e2e645fc166e14eaddb80e44734483, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.02719307
+      value: 0.027192993
       objectReference: {fileID: 0}
     - target: {fileID: 7796594890699321, guid: 97e2e645fc166e14eaddb80e44734483, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1154,6 +1166,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -1.6074
       objectReference: {fileID: 0}
+    - target: {fileID: 1013917386640617469, guid: 97e2e645fc166e14eaddb80e44734483,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013917386640617469, guid: 97e2e645fc166e14eaddb80e44734483,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 189386903}
+    - target: {fileID: 1013917386640617469, guid: 97e2e645fc166e14eaddb80e44734483,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NewGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013917386640617469, guid: 97e2e645fc166e14eaddb80e44734483,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FileManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1190702353073124104, guid: 97e2e645fc166e14eaddb80e44734483,
         type: 3}
       propertyPath: m_Type
@@ -1174,6 +1206,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: NewFile
+      objectReference: {fileID: 0}
+    - target: {fileID: 4874134870895584355, guid: 97e2e645fc166e14eaddb80e44734483,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1814980156}
+    - target: {fileID: 4874134870895584355, guid: 97e2e645fc166e14eaddb80e44734483,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4874134870895584355, guid: 97e2e645fc166e14eaddb80e44734483,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FileViewer, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5067984727135952796, guid: 97e2e645fc166e14eaddb80e44734483,
         type: 3}
@@ -1266,6 +1313,11 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 8588855928308380035, guid: 97e2e645fc166e14eaddb80e44734483,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8734023295775778070, guid: 97e2e645fc166e14eaddb80e44734483,
         type: 3}
       propertyPath: m_fontSize
@@ -1295,6 +1347,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8961138680486540122, guid: 97e2e645fc166e14eaddb80e44734483,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 9162598148096508619, guid: 97e2e645fc166e14eaddb80e44734483,
         type: 3}

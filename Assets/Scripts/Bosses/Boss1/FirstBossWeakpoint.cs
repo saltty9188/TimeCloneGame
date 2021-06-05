@@ -28,7 +28,7 @@ public class FirstBossWeakpoint : ButtonEvent
     /// </summary>
     public override void ResetEvent()
     {
-        activations = 0;
+        Activations = 0;
         Deactivate();
     }
 

@@ -2,101 +2,112 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The Lift class is a ButtonEvent that controls how the lifts in the game move up and down.
+/// </summary>
 public class Lift : ButtonEvent
 {
-
     #region Inspector fields
-    [SerializeField] private float speed = 2.0f;
+    [Tooltip("How fast the lift moves.")]
+    [SerializeField] private float _speed = 2.0f;
+    [Tooltip("Does the lift start in the up posiiton?")]
     [SerializeField] private bool startsUp = true;
     #endregion
 
     #region Private fields
-    private float upY;
-    private float downY;
-
-    private Rigidbody2D rigidbody2D;
-
-    private Coroutine coroutine;
+    private float _upY;
+    private float _downY;
+    private Rigidbody2D _rigidbody2D;
+    private Coroutine _coroutine;
     #endregion
 
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         if(startsUp)
         {
-            upY = transform.position.y;
-            downY = transform.position.y - GetComponent<SpriteRenderer>().bounds.size.y;
+            _upY = transform.position.y;
+            _downY = transform.position.y - GetComponent<SpriteRenderer>().bounds.size.y;
         }
         else
         {
-            downY = transform.position.y;
-            upY = transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y;
+            _downY = transform.position.y;
+            _upY = transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y;
         }
     }
 
+    /// <summary>
+    /// Causes the Lift to move towards its activate position.
+    /// </summary>
     protected override void Activate() 
     {
         if(startsUp)
        {
-           if(coroutine != null) StopCoroutine(coroutine);
-           coroutine = StartCoroutine(GoDown());
+           if(_coroutine != null) StopCoroutine(_coroutine);
+           _coroutine = StartCoroutine(GoDown());
        }
        else
        {
-           if(coroutine != null) StopCoroutine(coroutine);
-           coroutine = StartCoroutine(GoUp());
+           if(_coroutine != null) StopCoroutine(_coroutine);
+           _coroutine = StartCoroutine(GoUp());
        }
     }
 
+    /// <summary>
+    /// Causes the Lift to move towards its default position.
+    /// </summary>
     protected override void Deactivate()
     {
        if(startsUp)
        {
-           if(coroutine != null) StopCoroutine(coroutine);
-           coroutine = StartCoroutine(GoUp());
+           if(_coroutine != null) StopCoroutine(_coroutine);
+           _coroutine = StartCoroutine(GoUp());
        }
        else
        {
-           if(coroutine != null) StopCoroutine(coroutine);
-           coroutine = StartCoroutine(GoDown());
+           if(_coroutine != null) StopCoroutine(_coroutine);
+           _coroutine = StartCoroutine(GoDown());
        }
     }
 
+     /// <summary>
+    /// Resets the Lift immediately back to its default position.
+    /// </summary>
     public override void ResetEvent()
     {
-        rigidbody2D.velocity = Vector2.zero;
+        _rigidbody2D.velocity = Vector2.zero;
         if(startsUp)
         {
-            transform.position = new Vector3(transform.position.x, upY, transform.position.z);
+            transform.position = new Vector3(transform.position.x, _upY, transform.position.z);
         }
         else
         {
-            transform.position = new Vector3(transform.position.x, downY, transform.position.z);
+            transform.position = new Vector3(transform.position.x, _downY, transform.position.z);
         }
 
-        activations = 0;
+        Activations = 0;
         StopAllCoroutines();
     }
 
     IEnumerator GoUp()
     {
-        while(transform.position.y < upY)
+        while(transform.position.y < _upY)
         {
             //transform.Translate(new Vector3(0, speed * Time.deltaTime, 0), Space.World);
-            rigidbody2D.velocity = Vector2.up * speed;
+            _rigidbody2D.velocity = Vector2.up * _speed;
             yield return null;
         }
-        rigidbody2D.velocity = Vector2.zero;
+        _rigidbody2D.velocity = Vector2.zero;
     }
 
     IEnumerator GoDown()
     {
-        while(transform.position.y > downY)
+        while(transform.position.y > _downY)
         {
             //transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0), Space.World);
-            rigidbody2D.velocity = Vector2.up * -speed;
+            _rigidbody2D.velocity = Vector2.up * -_speed;
             yield return null;
         }
-        rigidbody2D.velocity = Vector2.zero;
+        _rigidbody2D.velocity = Vector2.zero;
     }
 }
