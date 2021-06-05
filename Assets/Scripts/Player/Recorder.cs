@@ -108,7 +108,7 @@ public class Recorder : MonoBehaviour
 
         GetComponent<DamageFlash>().ResetShader();
 
-        if(aim.CurrentWeapon != null) aim.DropWeapon();
+        if(aim.CurrentWeapon != null) aim.DropWeapon(Vector3.zero);
         if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
         if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
 
@@ -247,7 +247,7 @@ public class Recorder : MonoBehaviour
                     enemyManager.ResetCurrentBoss();
                 }
 
-                if(aim.CurrentWeapon != null) aim.DropWeapon();
+                if(aim.CurrentWeapon != null) aim.DropWeapon(Vector3.zero);
                 if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
                 if(startingWeapon != null) aim.PickUpWeapon(startingWeapon);
             }

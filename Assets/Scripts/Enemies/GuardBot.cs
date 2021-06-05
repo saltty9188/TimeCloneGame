@@ -49,7 +49,6 @@ public class GuardBot : EnemyBehaviour
         _currentTarget = null;
         _startSpeed = _moveSpeed;
         EnemyManager.Enemies.Add(gameObject);
-        transform.GetChild(1).GetComponent<Animator>().SetBool("IsOpen", true);
     }
 
     
