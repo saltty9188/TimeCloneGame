@@ -144,7 +144,7 @@ public class PlayerStatus : MonoBehaviour
                 if(aim.CurrentWeapon)
                 {
                     aim.CurrentWeapon.gameObject.SetActive(false);
-                    aim.DropWeapon();
+                    aim.DropWeapon(Vector3.zero);
                     aim.gameObject.SetActive(false);
                 }
                 deathAnimation = StartCoroutine(DeathAnimation());
@@ -187,6 +187,7 @@ public class PlayerStatus : MonoBehaviour
     {
         animator.SetTrigger("Respawn");
         rigidbody2D.gravityScale = 3;
+        rigidbody2D.velocity = Vector2.zero;
         rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         Recorder r = GetComponent<Recorder>();
         r.CancelRecording(true);
@@ -199,7 +200,7 @@ public class PlayerStatus : MonoBehaviour
             enemyManager.ResetEnemies();
         }
         PhysicsObject.ResetAllPhysics(true, true);
-        if(aim.CurrentWeapon != null) aim.DropWeapon();
+        if(aim.CurrentWeapon != null) aim.DropWeapon(Vector3.zero);
         if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
         if(startingWeapon != null) 
         {

@@ -73,11 +73,11 @@ public class Weapon : MonoBehaviour
         transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     }
 
-    public void Drop(GameObject oldHolder)
+    public void Drop(Vector3 newPos)
     {
         transform.SetParent(null);
         transform.rotation = new Quaternion();
-        transform.position = oldHolder.transform.position;
+        transform.position = newPos;
         baseY = transform.position.y;
         held = false;
         justDropped = true;

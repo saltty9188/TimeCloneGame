@@ -126,7 +126,7 @@ public class Aim : MonoBehaviour
     {
         if(this.weapon != null)
         {
-            DropWeapon();
+            DropWeapon(weapon.transform.position);
         }
         this.weapon = weapon;
         weapon.PickUp(gameObject);
@@ -143,10 +143,10 @@ public class Aim : MonoBehaviour
         SetRayTypeText();
     }
 
-    public void DropWeapon()
+    public void DropWeapon(Vector3 oldWepPosition)
     {
         weapon.gameObject.SetActive(true);
-        weapon.Drop(gameObject);
+        weapon.Drop(oldWepPosition);
         this.weapon = null;
         SetRayTypeText();
     }

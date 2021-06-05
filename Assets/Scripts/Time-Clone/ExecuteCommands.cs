@@ -244,4 +244,8 @@ public class ExecuteCommands : MonoBehaviour
             nearbyMirrorMover = other.GetComponent<MirrorMover>();
         }
     }
+    void OnDestroy()
+    {
+        DestroyPreviousWeapons(null);
+    }
 }
