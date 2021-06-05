@@ -19,6 +19,7 @@ public class FileViewer : MonoBehaviour
     private ScrollRect scrollRect;
     private float originalHeight;
     private bool newGame;
+    private GameObject _confirmButton;
     #endregion
 
     void Awake()
@@ -114,7 +115,7 @@ public class FileViewer : MonoBehaviour
                 FileManager fm = button.GetComponent<FileManager>();
                 if(newGame)
                 {
-                    b.onClick.AddListener(fm.NewGame);
+                    b.onClick.AddListener(delegate{AskConfirmation(button);});
                 }
                 else
                 {
@@ -166,6 +167,23 @@ public class FileViewer : MonoBehaviour
     {
         levelSelectMenu.OpenLoadMenu(saveFileButton);
         gameObject.SetActive(false);
+    }
+
+    public void AskConfirmation(GameObject fileButton)
+    {
+        transform.GetChild(4).gameObject.SetActive(true);
+        SetSelectedGameObject(transform.GetChild(4).GetChild(3).gameObject);
+        _confirmButton = fileButton;
+
+        UnityEngine.UI.Button button = transform.GetChild(4).GetChild(2).GetComponent<UnityEngine.UI.Button>();
+        FileManager fm = fileButton.GetComponent<FileManager>();
+        button.onClick.AddListener(fm.NewGame);
+    }
+
+    public void BackToMenu()
+    {
+        transform.GetChild(4).gameObject.SetActive(false);
+        SetSelectedGameObject(_confirmButton);
     }
     void SetSelectedGameObject(GameObject go)
     {
