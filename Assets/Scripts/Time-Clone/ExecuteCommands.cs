@@ -135,8 +135,8 @@ public class ExecuteCommands : MonoBehaviour
                     {
                         aim.PrevRayType();
                     }
-                    playerMovement.move(rc.movement, rc.jumping, rc.grabbing);
-                    aim.CloneRotate(rc.aimAngle, rc.shooting);
+                    playerMovement.Move(rc.movement, rc.jumping, rc.grabbing);
+                    aim.RotateAndFire(rc.aimAngle, rc.shooting);
                 }
 
                 wasMovingMirror = rc.movingMirror;
@@ -147,10 +147,10 @@ public class ExecuteCommands : MonoBehaviour
         else
         {
             //Stop moving clone once commands end
-            playerMovement.move(Vector2.zero, false, false);
+            playerMovement.Move(Vector2.zero, false, false);
             RecordedCommand rc = recordedCommands[commandIndex - 1];
             DestroyPreviousWeapons(aim.CurrentWeapon);
-            aim.CloneRotate(rc.aimAngle, rc.shooting);
+            aim.RotateAndFire(rc.aimAngle, rc.shooting);
         }
 
         // Wait a second before enabling collision with the player/other clones

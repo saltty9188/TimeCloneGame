@@ -3,113 +3,131 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// The PlayerStatus class is responsible for performing actions related to the health of the player and time-clones.
+/// </summary>
 public class PlayerStatus : MonoBehaviour
 {
-
     #region Inspector fields
-    [SerializeField] private float maxHealth = 100;
-    [SerializeField] private Slider healthBar;
-    [SerializeField] private TextMeshProUGUI healthText;
-    [SerializeField] private EnemyManager enemyManager = null;
-    [SerializeField] private float invincibleTime = 2f;
-    [SerializeField] private GameObject cloneDeathPrefab;
+    [Tooltip("The maximum health of the player.")]
+    [SerializeField] private float _maxHealth = 100;
+    [Tooltip("The slider that displays the player's current health.")]
+    [SerializeField] private Slider _healthBar;
+    [Tooltip("The text that displays the player's current health.")]
+    [SerializeField] private TextMeshProUGUI _healthText;
+    [Tooltip("The amount of time the player is invincible for after taking a hit.")]
+    [SerializeField] private float _invincibleTime = 0.3f;
+    [Tooltip("The prefab for the clone death animation.")]
+    [SerializeField] private GameObject _cloneDeathPrefab;
     #endregion
 
     #region Private fields
-    private GameObject projectileParent;
-    private DamageFlash flashScript;
-    private PlayerMovement movementScript;
-    private Aim aim;
-    private Rigidbody2D rigidbody2D;
-    private Animator animator;
-    private float health;
-    private float damageCooldown;
-    private float invincibiltyTimer;
-    private Weapon startingWeapon;
-    private bool collisionBelow = false;
-    private bool collisionAbove = false;
-    private Rigidbody2D aboveContact = null;
-    private Rigidbody2D belowContact = null;
-    private Coroutine deathAnimation;
+    private GameObject _projectileParent;
+    private DamageFlash _flashScript;
+    private PlayerMovement _movementScript;
+    private Aim _aim;
+    private Rigidbody2D _rigidbody2D;
+    private Animator _animator;
+    private float _health;
+    private float _damageCooldown;
+    private float _invincibiltyTimer;
+    private Weapon _startingWeapon;
+    private bool _collisionBelow = false;
+    private bool _collisionAbove = false;
+    private Rigidbody2D _aboveContact = null;
+    private Rigidbody2D _belowContact = null;
+    private Coroutine _deathAnimation;
     #endregion
 
     void Start()
     {
-        projectileParent = new GameObject(tag + " Projectiles");
+        // Set up the empty game object that will handle fired projectiles
+        _projectileParent = new GameObject(tag + " Projectiles");
         //add player to target list
         if(EnemyManager.Targets != null) EnemyManager.Targets.Add(gameObject);
-        damageCooldown = 0;
-        health = maxHealth;
-        flashScript = GetComponent<DamageFlash>();
-        movementScript = GetComponent<PlayerMovement>();
-        aim = transform.GetChild(0).GetComponent<Aim>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        startingWeapon = null;
-        deathAnimation = null;
+        _damageCooldown = 0;
+        _health = _maxHealth;
+        _flashScript = GetComponent<DamageFlash>();
+        _movementScript = GetComponent<PlayerMovement>();
+        _aim = transform.GetChild(0).GetComponent<Aim>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _animator = GetComponent<Animator>();
+        _startingWeapon = null;
+        _deathAnimation = null;
     }
     void Update()
     {
-        if(healthBar.transform.parent.gameObject.GetComponent<Canvas>().renderMode == RenderMode.WorldSpace)
+        // Clone health bar only
+        if(_healthBar.transform.parent.gameObject.GetComponent<Canvas>().renderMode == RenderMode.WorldSpace)
         {
-            if(health < maxHealth)
+            // Only show the health bar if not at max health
+            if(_health < _maxHealth)
             {
-                healthBar.gameObject.SetActive(true);
+                _healthBar.gameObject.SetActive(true);
+                 // For the clone health bar make sure it doesn't flip
                 if(transform.localScale.x < 0)
                 {
-                    Vector3 temp = healthBar.transform.localScale;
+                    Vector3 temp = _healthBar.transform.localScale;
                     temp.x = -Mathf.Abs(temp.x);
-                    healthBar.transform.localScale = temp;
+                    _healthBar.transform.localScale = temp;
                 }
                 else
                 {
-                    Vector3 temp = healthBar.transform.localScale;
+                    Vector3 temp = _healthBar.transform.localScale;
                     temp.x = Mathf.Abs(temp.x);
-                    healthBar.transform.localScale = temp;
+                    _healthBar.transform.localScale = temp;
                 }
             }
             else
             {
-                healthBar.gameObject.SetActive(false);
+                _healthBar.gameObject.SetActive(false);
             }
         }
 
-        if(damageCooldown > 0) damageCooldown -= Time.deltaTime;
+        // Regen health after the cooldown
+        if(_damageCooldown > 0) _damageCooldown -= Time.deltaTime;
         else
         {
-            if(health < maxHealth && deathAnimation == null)
+            if(_health < _maxHealth && _deathAnimation == null)
             {
-                health += 10 * Time.deltaTime;
-                if(health > maxHealth) health = maxHealth;
+                _health += 10 * Time.deltaTime;
+                if(_health > _maxHealth) _health = _maxHealth;
 
                 UpdateUI();
             }
         }
 
-        if(collisionAbove && collisionBelow && ((aboveContact && aboveContact.velocity.y < 0) || (belowContact && belowContact.velocity.y > 0)))
+        // Get crushed
+        if(_collisionAbove && _collisionBelow && ((_aboveContact && _aboveContact.velocity.y < 0) || (_belowContact && _belowContact.velocity.y > 0)))
         {
             Die();
         }
 
-        if(invincibiltyTimer > 0) invincibiltyTimer -= Time.deltaTime;
+        if(_invincibiltyTimer > 0) _invincibiltyTimer -= Time.deltaTime;
     }
 
+    /// <summary>
+    /// Causes the player to take damage.
+    /// </summary>
+    /// <param name="damage">The amount of damage to be taken.</param>
+    /// <param name="knockBackDirection">The direction of knock back to be applied. Set to Vector2.zero if no knock back.</param>
     public void TakeDamage(int damage, Vector2 knockBackDirection = new Vector2())
     {
-       if(invincibiltyTimer <= 0)
-       {
-            health -= damage;
+        // only take damage if the invincibily time is up
+        if(_invincibiltyTimer <= 0)
+        {
+            _health -= damage;
             UpdateUI();
-            if(health < 1) 
+            if(_health < 1) 
             {
                 Die();
                 return;
             }
             AudioManager.Instance.PlaySFX("Hit");
-            flashScript.Flash();
+            _flashScript.Flash();
 
-            damageCooldown = 3;
-            invincibiltyTimer = invincibleTime;
+            _damageCooldown = 3;
+            _invincibiltyTimer = _invincibleTime;
             if(knockBackDirection != Vector2.zero)
             {
                 if(knockBackDirection.x == 0)
@@ -123,36 +141,44 @@ public class PlayerStatus : MonoBehaviour
                         knockBackDirection.x = 1;
                     }
                 }
-                movementScript.ReceiveKnockBack(knockBackDirection);
+                _movementScript.ReceiveKnockBack(knockBackDirection);
             }
         }
     }
 
+    /// <summary>
+    /// Kills the player and plays the death animation.
+    /// </summary>
+    /// <remarks>
+    /// Respawns the player at the <see cref="CheckPoint">last checkpoint</see>.
+    /// </remarks>
     public void Die()
     {
-        health = 0;
+        _health = 0;
         // just in case they were stopped on a ladder before dying
-        movementScript.OffLadder();
+        _movementScript.OffLadder();
         if(tag == "Player")
         {
-            if(deathAnimation == null)
+            // only start the death animation once
+            if(_deathAnimation == null)
             {
                 AudioManager.Instance.PlaySFX("PlayerDeath");
-                animator.ResetTrigger("Respawn");
-                animator.SetBool("Jump", false);
-                movementScript.enabled = false;
-                if(aim.CurrentWeapon)
+                _animator.ResetTrigger("Respawn");
+                _animator.SetBool("Jump", false);
+                _movementScript.enabled = false;
+                if(_aim.CurrentWeapon)
                 {
-                    aim.CurrentWeapon.gameObject.SetActive(false);
-                    aim.DropWeapon(Vector3.zero);
-                    aim.gameObject.SetActive(false);
+                    _aim.CurrentWeapon.gameObject.SetActive(false);
+                    _aim.DropWeapon(Vector3.zero);
+                    _aim.gameObject.SetActive(false);
                 }
-                deathAnimation = StartCoroutine(DeathAnimation());
+                _deathAnimation = StartCoroutine(DeathAnimation());
             }
         }
         else
         {
-            GameObject go = Instantiate(cloneDeathPrefab, transform.position, new Quaternion());
+            // instantiate the clone death animation then destroy the clone
+            GameObject go = Instantiate(_cloneDeathPrefab, transform.position, new Quaternion());
             go.transform.localScale = transform.localScale;
             go.GetComponent<CloneDeath>().SetColor(GetComponent<SpriteRenderer>().color);
             Destroy(gameObject);
@@ -161,13 +187,14 @@ public class PlayerStatus : MonoBehaviour
 
     IEnumerator DeathAnimation()
     {
-        animator.SetTrigger("Die");
+        _animator.SetTrigger("Die");
         // Have player drop to the ground more quickly and not be able to be moved by other objects
-        rigidbody2D.gravityScale = 30;
-        rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        _rigidbody2D.gravityScale = 30;
+        _rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         // Wait one frame for animation to start
         yield return null;
-        AnimationClip[] ac = animator.runtimeAnimatorController.animationClips;
+        // wait for a bit after the animation is finished
+        AnimationClip[] ac = _animator.runtimeAnimatorController.animationClips;
         float animationTime = 0;
         foreach(AnimationClip clip in ac)
         {
@@ -176,71 +203,90 @@ public class PlayerStatus : MonoBehaviour
                 animationTime = clip.length;
             }
         }
-        animator.ResetTrigger("Die");
+        _animator.ResetTrigger("Die");
         yield return new WaitForSeconds(animationTime + 1);
 
         Respawn();
-        deathAnimation = null;
-        
+        _deathAnimation = null;
     }   
+
+    /// <summary>
+    /// Respawns the player at the <see cref="CheckPoint">last checkpoint</see>.
+    /// </summary>
     public void Respawn()
     {
-        animator.SetTrigger("Respawn");
+        _animator.SetTrigger("Respawn");
 
-        rigidbody2D.gravityScale = 3;
-        rigidbody2D.velocity = Vector2.zero;
-        rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+        // Restore the rigidbody back to normal
+        _rigidbody2D.gravityScale = 3;
+        _rigidbody2D.velocity = Vector2.zero;
+        _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 
+        // Reset events and objects and cancel the recording
         Recorder r = GetComponent<Recorder>();
         r.CancelRecording(true);
         r.ResetAllEvents();
+        PhysicsObject.ResetAllPhysics(true, true);
 
         DestroyAllProjectiles();
         GetComponent<PlayerController>().StopMovingMirrors();
 
-        if(enemyManager) 
+        // Reset enemies and bosses
+        if(EnemyManager.Instance) 
         {
-            enemyManager.ResetCurrentBoss();
-            enemyManager.ResetEnemies();
+            EnemyManager.Instance.ResetCurrentBoss();
+            EnemyManager.Instance.ResetEnemies();
         }
         
-        PhysicsObject.ResetAllPhysics(true, true);
-        if(aim.CurrentWeapon != null) aim.DropWeapon(Vector3.zero);
+        // Reset the weapon to the one used at the last check point
+        if(_aim.CurrentWeapon != null) _aim.DropWeapon(Vector3.zero);
         if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
-        if(startingWeapon != null) 
+        if(_startingWeapon != null) 
         {
-            aim.gameObject.SetActive(true);
-            aim.PickUpWeapon(startingWeapon);
+            _aim.gameObject.SetActive(true);
+            _aim.PickUpWeapon(_startingWeapon);
         }
-        health = maxHealth;
+        
+        _health = _maxHealth;
         UpdateUI();
         transform.position = CheckPoint.lastCheckpoint.transform.position;
-        movementScript.enabled = true;
+        _movementScript.enabled = true;
     }
 
     void UpdateUI()
     {
-        if(healthBar != null) healthBar.value = (int) health;
-        if(healthText != null) healthText.text = ((int) health < 0 ? "0" : ((int) health).ToString());
+        if(_healthBar != null) _healthBar.value = (int) _health;
+        if(_healthText != null) _healthText.text = ((int) _health < 0 ? "0" : ((int) _health).ToString());
     }
 
-    
+    /// <summary>
+    /// Adds the given projectile to the projectile parent so it can destroyed when needed.
+    /// </summary>
+    /// <param name="projectile">The projectile to be added.</param>
     public void AddProjectile(GameObject projectile)
     {
-        projectile.transform.parent = projectileParent.transform;
+        projectile.transform.parent = _projectileParent.transform;
     }
 
+    /// <summary>
+    /// Destroys all of the projectiles fired by the player/time-clone.
+    /// </summary>
+    /// <param name="createNewParent">Whether or not to create a new projectile parent.</param>
     public void DestroyAllProjectiles(bool createNewParent = true)
     {
-        Destroy(projectileParent);
-        if(createNewParent) projectileParent = new GameObject(tag  + " Projectiles");
+        Destroy(_projectileParent);
+        if(createNewParent) _projectileParent = new GameObject(tag  + " Projectiles");
     }
 
+    /// <summary>
+    /// Sets the starting weapon for the player to re-equip upon their respawn.
+    /// </summary>
     public void SetStartingWeapon()
     {
-        startingWeapon = aim.CurrentWeapon;
+        _startingWeapon = _aim.CurrentWeapon;
     }
 
+    // Check for above and below contacts for crusher deaths
     void OnCollisionStay2D(Collision2D other) 
     {
         ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
@@ -252,13 +298,13 @@ public class PlayerStatus : MonoBehaviour
                 float angle = Vector2.Angle(contact.normal, Vector2.up);
                 if(angle < 0.5f)
                 {
-                    collisionBelow = true;
-                    belowContact = contact.collider.GetComponent<Rigidbody2D>();
+                    _collisionBelow = true;
+                    _belowContact = contact.collider.GetComponent<Rigidbody2D>();
                 }
                 else if(angle > 179.5f)
                 {
-                    collisionAbove = true;
-                    aboveContact = contact.collider.GetComponent<Rigidbody2D>();
+                    _collisionAbove = true;
+                    _aboveContact = contact.collider.GetComponent<Rigidbody2D>();
                 }
             }
         }
@@ -266,15 +312,15 @@ public class PlayerStatus : MonoBehaviour
 
     void OnCollisionExit2D(Collision2D other) 
     {
-        if(other.collider.GetComponent<Rigidbody2D>() == aboveContact)
+        if(other.collider.GetComponent<Rigidbody2D>() == _aboveContact)
         {
-            aboveContact = null;
-            collisionAbove = false;
+            _aboveContact = null;
+            _collisionAbove = false;
         }
-        else if(other.collider.GetComponent<Rigidbody2D>() == belowContact)
+        else if(other.collider.GetComponent<Rigidbody2D>() == _belowContact)
         {
-            belowContact = null;
-            collisionBelow = false;
+            _belowContact = null;
+            _collisionBelow = false;
         }
     }
 }

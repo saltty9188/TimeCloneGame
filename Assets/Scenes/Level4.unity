@@ -2972,7 +2972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2879771957952551435, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: pauseMenu
+      propertyPath: _pauseMenu
       value: 
       objectReference: {fileID: 462730935}
     - target: {fileID: 2879771957952551447, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -2987,12 +2987,12 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: healthBar
+      propertyPath: _healthBar
       value: 
       objectReference: {fileID: 701991084}
     - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: healthText
+      propertyPath: _healthText
       value: 
       objectReference: {fileID: 701991083}
     - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -3002,12 +3002,12 @@ PrefabInstance:
       objectReference: {fileID: 329603967}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: events
+      propertyPath: _allEvents
       value: 
       objectReference: {fileID: 1828964377}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: timerText
+      propertyPath: _timerText
       value: 
       objectReference: {fileID: 701991082}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -3017,7 +3017,7 @@ PrefabInstance:
       objectReference: {fileID: 329603967}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: recordingIcon
+      propertyPath: _recordingIcon
       value: 
       objectReference: {fileID: 701991085}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -3027,12 +3027,12 @@ PrefabInstance:
       objectReference: {fileID: 138237896}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: mirrorMovers.Array.size
+      propertyPath: _mirrorMovers.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: mirrorMovers.Array.data[0]
+      propertyPath: _mirrorMovers.Array.data[0]
       value: 
       objectReference: {fileID: 1384474151}
     m_RemovedComponents: []

@@ -2,222 +2,242 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The PlayerMovement class is responsible for handling all movement performed by the player and time-clones.
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
-
     #region Inspector fields
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float jumpPower;
-    [SerializeField] private float knockBackSpeed = 6;
-    [SerializeField] private float knockBackDuration = 0.25f;
-    [SerializeField] private float boxGrabDistance = 0.75f;
-    [SerializeField] private LayerMask allButPlayer;
-    #endregion
-
-    #region Public fields
-    public bool PushingBox
-    {
-        get {return nearBox;}
-    }
+    [Tooltip("The movement speed of the player.")]
+    [SerializeField] private float _moveSpeed = 5;
+    [Tooltip("The initial force of the player's jump.")]
+    [SerializeField] private float _jumpPower = 600;
+    [Tooltip("The speed at which the player is knocked back.")]
+    [SerializeField] private float _knockBackSpeed = 10;
+    [Tooltip("The amount of time the knock back is effective for.")]
+    [SerializeField] private float _knockBackDuration = 0.2f;
+    [Tooltip("The distance from which the player can grab a box.")]
+    [SerializeField] private float _boxGrabDistance = 0.75f;
+    [Tooltip("Only check for boxes to grab.")]
+    [SerializeField] private LayerMask _objectsOnly;
     #endregion
 
     #region Private fields
-    private Aim aimScript;
-    private ToolTips toolTips;
-    private Rigidbody2D rigidbody;
-    private Animator animator;
-    private Vector2 playerSize;
-    private GameObject nearbyLadder;
-    private bool betweenTwoLadders;
-    private bool onLadder;
-    private bool grounded;
-    private bool facingRight;
-    private bool nearBox;
-    private Transform originalParent;
-    protected float knockBackTime;
-    protected Vector2 knockBackDirection;
-
+    private Aim _aimScript;
+    private ToolTips _toolTips;
+    private Rigidbody2D _rigidbody2D;
+    private Animator _animator;
+    private Vector2 _playerSize;
+    private GameObject _nearbyLadder;
+    private bool _onLadder;
+    private bool _grounded;
+    private bool _facingRight;
+    private bool _nearBox;
+    private Transform _originalParent;
+    private float _knockBackTime;
+    private Vector2 _knockBackDirection;
     private bool _conntectedToBox;
     #endregion
 
     void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody2D>();
-        animator = gameObject.GetComponent<Animator>();
-        playerSize = GetComponent<CapsuleCollider2D>().size;
-        originalParent = transform.parent;
-        aimScript = transform.GetChild(0).GetComponent<Aim>();
-        toolTips = GetComponent<ToolTips>();
+        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        _animator = gameObject.GetComponent<Animator>();
+        _playerSize = GetComponent<CapsuleCollider2D>().size;
+        _originalParent = transform.parent;
+        _aimScript = transform.GetChild(0).GetComponent<Aim>();
+        _toolTips = GetComponent<ToolTips>();
     }
 
     void FixedUpdate()
     {
-        bool wasGrounded = grounded;
+        bool wasGrounded = _grounded;
 
         //Disable jump animation upon landing
-        if(grounded)// && wasGrounded) 
+        if(_grounded)
         {
-            animator.SetBool("Jump", false); 
+            _animator.SetBool("Jump", false); 
         } 
     }
 
-    public void move(Vector2 movement, bool jumping, bool grabbing)
+    /// <summary>
+    /// Moves the player in the given direction and causes them to jump and/or grab if needed.
+    /// </summary>
+    /// <param name="movement">The direction of movement for the player.</param>
+    /// <param name="jumping">Whether or not the player is jumping.</param>
+    /// <param name="grabbing">Whether or not the player is holding the grab button.</param>
+    public void Move(Vector2 movement, bool jumping, bool grabbing)
     {
-
         if(this.enabled)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, boxGrabDistance, allButPlayer);
+            // Check if the player is near a box
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * transform.localScale.x, _boxGrabDistance, _objectsOnly);
+            _nearBox = hit && hit.collider.tag == "Box";
 
-            nearBox = hit && hit.collider.tag == "Box";
-
-            if(aimScript.CurrentWeapon == null && !nearBox)
+            // only display the arm sprite if it's needed
+            if(_aimScript.CurrentWeapon == null && !_nearBox)
             {
-                aimScript.gameObject.SetActive(false);
-                aimScript.enabled = false;
+                _aimScript.gameObject.SetActive(false);
+                _aimScript.enabled = false;
             }
             else
             {
-                aimScript.gameObject.SetActive(true);
-                aimScript.enabled = true;
+                _aimScript.gameObject.SetActive(true);
+                _aimScript.GetComponent<SpriteRenderer>().enabled = true;
+                _aimScript.enabled = true;
             }
 
-            animator.SetBool("HasWeapon", aimScript.gameObject.activeSelf);
+            _animator.SetBool("HasWeapon", _aimScript.gameObject.activeSelf);
 
             // Set grab tool tip for the player only
-            if(tag == "Player") toolTips.GrabToolTip(nearBox);
-            aimScript.GrabArm(nearBox);
+            if(tag == "Player") _toolTips.GrabToolTip(_nearBox);
+            _aimScript.GrabArm(_nearBox);
 
-            if(nearBox)
+            // Attach the player to the box to allow pulling if the player is near a box and holding the grab button
+            if(_nearBox)
             {
                 FixedJoint2D joint = hit.collider.GetComponent<FixedJoint2D>();
-                if(grabbing && grounded && Mathf.Abs(hit.collider.GetComponent<Rigidbody2D>().velocity.y) <= 0.1f)
+                if(grabbing && _grounded && Mathf.Abs(hit.collider.GetComponent<Rigidbody2D>().velocity.y) <= 0.1f)
                 {
                     joint.enabled = true;
-                    joint.connectedBody = rigidbody;
-                    aimScript.enabled = false;
+                    joint.connectedBody = _rigidbody2D;
+                    _aimScript.enabled = false;
                     _conntectedToBox = true;
                 }
                 else
                 {
                     joint.enabled = false;
                     joint.connectedBody = null;
-                    aimScript.enabled = true;
+                    _aimScript.enabled = true;
                     _conntectedToBox = false;
                 }
             }
 
-            if(knockBackTime > 0)
+            // Don't move the player if they are under the effect of knock back
+            if(_knockBackTime > 0)
             {
-                knockBackTime -= Time.deltaTime;
-                rigidbody.velocity = new Vector2(knockBackDirection.x * knockBackSpeed, rigidbody.velocity.y);
-                animator.SetFloat("Speed", 0);
+                _knockBackTime -= Time.deltaTime;
+                _rigidbody2D.velocity = new Vector2(_knockBackDirection.x * _knockBackSpeed, _rigidbody2D.velocity.y);
+                _animator.SetFloat("Speed", 0);
             }
             else
             {
-
-                if(nearbyLadder && ((movement.y > 0.5 && transform.position.y < nearbyLadder.transform.GetChild(0).position.y)
-                    || movement.y < -0.5 && transform.position.y > nearbyLadder.transform.position.y))
+                // Start climbing a ladder if the player is nearby one and holding up or down
+                if(_nearbyLadder && ((movement.y > 0.5 && transform.position.y < _nearbyLadder.transform.GetChild(0).position.y)
+                    || movement.y < -0.5 && transform.position.y > _nearbyLadder.transform.position.y))
                 {
-                    onLadder = true;
-                    transform.position = new Vector3(nearbyLadder.transform.position.x, transform.position.y, transform.position.z);
+                    _onLadder = true;
+                    transform.position = new Vector3(_nearbyLadder.transform.position.x, transform.position.y, transform.position.z);
                 }
 
-                if(onLadder && nearbyLadder)
+                // Climb the ladder if on one
+                if(_onLadder && _nearbyLadder)
                 {
                     ClimbLadder(movement, jumping);
                 }
                 else
                 {
+                    // move the player as normal
                     OffLadder();
-                    rigidbody.velocity = new Vector2(movement.x * moveSpeed, rigidbody.velocity.y);
-                    if(!aimScript.gameObject.activeSelf)
+                    _rigidbody2D.velocity = new Vector2(movement.x * _moveSpeed, _rigidbody2D.velocity.y);
+
+                    // Only flip the player based on movement if the player is not holding a weapon
+                    if(!_aimScript.gameObject.activeSelf)
                     {
-                        facingRight = transform.localScale.x > 0;
-                        if(movement.x < 0 && facingRight)
+                        _facingRight = transform.localScale.x > 0;
+                        if(movement.x < 0 && _facingRight)
                         {
-                            Debug.Log(facingRight);
+                            Debug.Log(_facingRight);
                             Flip();
                         }
-                        else if(movement.x > 0 && !facingRight)
+                        else if(movement.x > 0 && !_facingRight)
                         {
                             Flip();
                         }
                     }
                     else
                     {
+                        // Use the running backwards animation if the player id running backwards with a weapon
                         bool runningBackwards = movement.x * transform.localScale.x < 0;
-                        animator.SetBool("RunningBackwards", runningBackwards);
+                        _animator.SetBool("RunningBackwards", runningBackwards);
                     }
 
-                    //Put in if statement so it doesn't get reset until the player hits the ground
-                    if(jumping && grounded && !_conntectedToBox)
+                    //Jump if the player is grounded
+                    if(jumping && _grounded && !_conntectedToBox)
                     {
                         Jump();
                     }
 
-                    animator.SetFloat("Speed", Mathf.Abs(movement.x));
+                    _animator.SetFloat("Speed", Mathf.Abs(movement.x));
                 }
             }
         }
     }
 
+    // Move up or down on the ladder
     void ClimbLadder(Vector2 movement, bool jumping)
     {
         SetArmActive(false);
-        animator.SetBool("OnLadder", onLadder);
-        animator.SetBool("Jump", false);
-        rigidbody.isKinematic = true;
-        rigidbody.velocity = new Vector2(0, 0);
-        transform.Translate(0, movement.y * moveSpeed * Time.deltaTime, 0, Space.World);
+        _animator.SetBool("OnLadder", _onLadder);
+        _animator.SetBool("Jump", false);
+        _rigidbody2D.isKinematic = true;
+        _rigidbody2D.velocity = new Vector2(0, 0);
+        transform.Translate(0, movement.y * _moveSpeed * Time.deltaTime, 0, Space.World);
 
+        // Pause the animation if not moving
         if(movement.y == 0)
         {
-            animator.enabled = false;
+            _animator.enabled = false;
         }
         else
         {
-            animator.enabled = true;
+            _animator.enabled = true;
         }
 
+        // allow the player to jump off the ladder
         if(jumping)
         {
-            rigidbody.isKinematic = false;
-            animator.enabled = true;
-            onLadder = false;
-            animator.SetBool("OnLadder", onLadder);
-            animator.SetFloat("Speed", 0);
+            _rigidbody2D.isKinematic = false;
+            _animator.enabled = true;
+            _onLadder = false;
+            _animator.SetBool("OnLadder", _onLadder);
+            _animator.SetFloat("Speed", 0);
             Jump();
         }
-        else if(transform.position.y - playerSize.y / 2 >= nearbyLadder.transform.GetChild(0).position.y && movement.y >= 0)
+        else if(transform.position.y - _playerSize.y / 2 >= _nearbyLadder.transform.GetChild(0).position.y && movement.y >= 0)
         {
-            //transform.position = new Vector3(transform.position.x, nearbyLadder.transform.GetChild(0).position.y + playerSize.y / 2, transform.position.z);
-            rigidbody.isKinematic = false;
-            onLadder = false;
-            animator.SetBool("OnLadder", onLadder);
+            // Get off from the top
+            _rigidbody2D.isKinematic = false;
+            _onLadder = false;
+            _animator.SetBool("OnLadder", _onLadder);
         }
-        else if((transform.position.y - playerSize.y / 2) <= (nearbyLadder.transform.GetChild(1).position.y) && movement.y <= 0)
+        else if((transform.position.y - _playerSize.y / 2) <= (_nearbyLadder.transform.GetChild(1).position.y) && movement.y <= 0)
         {
-            rigidbody.isKinematic = false;
-            onLadder = false;
-            animator.SetBool("OnLadder", onLadder);
+            // Get off from the bottom
+            _rigidbody2D.isKinematic = false;
+            _onLadder = false;
+            _animator.SetBool("OnLadder", _onLadder);
         }
     }
 
+    // Cause the player to jump
     void Jump()
     {
-        rigidbody.drag = 0;
-        rigidbody.AddForce(new Vector2(0, jumpPower));
-        grounded = false;
-        animator.SetBool("Jump", true);
+        _rigidbody2D.drag = 0;
+        _rigidbody2D.AddForce(new Vector2(0, _jumpPower));
+        _grounded = false;
+        _animator.SetBool("Jump", true);
         AudioManager.Instance.PlaySFX("PlayerJump");
     }
 
+    // Set whether or not the aim script and arm game object are active
     void SetArmActive(bool active)
     {
         transform.GetChild(0).GetComponent<Aim>().enabled = active;
         transform.GetChild(0).gameObject.SetActive(active);
     }
 
+    // Parent the player to a lift or physics object to allow smooth movement when riding one
     void OnCollisionEnter2D(Collision2D other)
     {
         Lift l = other.GetContact(0).collider.GetComponent<Lift>();
@@ -233,9 +253,9 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.parent = other.GetContact(0).collider.transform;
         }
-
     }
 
+    // Check if the player is touching the ground
     void OnCollisionStay2D(Collision2D other)
     {
         ContactPoint2D[] contacts = new ContactPoint2D[other.contactCount];
@@ -246,56 +266,53 @@ public class PlayerMovement : MonoBehaviour
             float angle = Vector2.Angle(contact.normal, Vector2.up);
 
             if(angle < 40) {
-                grounded = true; 
+                _grounded = true; 
             }
         }
     }
 
     void OnCollisionExit2D(Collision2D other)
     {
-        transform.parent = originalParent;
-        grounded = false;
+        transform.parent = _originalParent;
+        _grounded = false;
     }  
 
+    /// <summary>
+    /// Receives knockback in the given direction.
+    /// </summary>
+    /// <param name="direction">The direction of the knock back.</param>
     public void ReceiveKnockBack(Vector2 direction)
     {
-        knockBackTime = knockBackDuration;
-        knockBackDirection = direction;
+        _knockBackTime = _knockBackDuration;
+        _knockBackDirection = direction;
     }
 
+    /// <summary>
+    /// Gets the player off of a ladder.
+    /// </summary>
     public void OffLadder()
     {
-        animator.enabled = true;
-        rigidbody.isKinematic = false;
-        rigidbody.useFullKinematicContacts = false;
-        onLadder = false;
-        animator.SetBool("OnLadder", onLadder);
+        // Ensure the animator is enabled once off the ladder
+        _animator.enabled = true;
+        _rigidbody2D.isKinematic = false;
+        _rigidbody2D.useFullKinematicContacts = false;
+        _onLadder = false;
+        _animator.SetBool("OnLadder", _onLadder);
     }
 
     void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.tag == "Ladder")
         {
-            if(nearbyLadder)
-            {
-                betweenTwoLadders = true;
-            }
-            nearbyLadder = other.gameObject;
+            _nearbyLadder = other.gameObject;
         }    
     }
 
     private void OnTriggerExit2D(Collider2D other) 
     {
         if(other.tag == "Ladder")
-        {
-            if(betweenTwoLadders)
-            {
-                betweenTwoLadders = false;
-            }
-            else
-            {
-                nearbyLadder = null;
-            }
+        {    
+            _nearbyLadder = null;
         }
     }
 
