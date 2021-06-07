@@ -502,20 +502,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214c2726fca860d4fb8a78931bdead0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movableObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  moveCamera: {fileID: 2903929118254241879}
-  mainCamera: {fileID: 0}
-  objectMoveSpeed: 5
-  solidColour: {fileID: 2100000, guid: 5b52bd8ae719599419f51d75d5c46066, type: 2}
-  color: {r: 0.086240634, g: 0.9622642, b: 0.6889993, a: 1}
-  toolTipIcons:
+  _movableObjects: []
+  _moveCamera: {fileID: 2903929118254241879}
+  _mainCamera: {fileID: 0}
+  _objectMoveSpeed: 5
+  _toolTipIcons:
   - {fileID: 1311559863592375946}
   - {fileID: 1442985479508963885}
-  backImage: {fileID: 1644463162361949642}
+  _backImage: {fileID: 1644463162361949642}
 --- !u!61 &3339956301723709526
 BoxCollider2D:
   m_ObjectHideFlags: 0

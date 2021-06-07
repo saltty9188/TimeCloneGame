@@ -40,7 +40,7 @@ public class Button : MonoBehaviour
         _buttonDown = false;
         _eventsTriggered = new bool[_attachedEvents.Length];
 
-        _buttonHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y * transform.localPosition.y;
+        _buttonHeight = GetComponent<SpriteRenderer>().sprite.bounds.size.y * transform.localScale.y;
         _startPoint = transform.position - transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
         _endPoint = transform.position + transform.right * GetComponent<SpriteRenderer>().sprite.bounds.size.x * transform.localScale.x / 2;
     }

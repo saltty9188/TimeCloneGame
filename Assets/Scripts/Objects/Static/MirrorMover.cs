@@ -4,89 +4,115 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Experimental.Rendering.Universal;
 
+/// <summary>
+/// The MirrorMover class is responsible for allowing the player to adjust the position of <see cref="MovableObject">MovableObjects</see>.
+/// </summary>
 public class MirrorMover : MonoBehaviour
 {
     #region Inspector fields
-    
-    [SerializeField] public GameObject[] movableObjects;
-    [SerializeField] private Camera moveCamera;
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private float objectMoveSpeed = 0.4f;
-    [SerializeField] private Material solidColour;
-    [SerializeField] private Color color = Color.white;
-    [SerializeField] private Image[] toolTipIcons;
-    [SerializeField] private Image backImage;
+    [Tooltip("Array of the objects this mirror mover can move.")]
+    [SerializeField] public GameObject[] _movableObjects;
+    [Tooltip("The camera that will be used when moving objects.")]
+    [SerializeField] private Camera _moveCamera;
+    [Tooltip("The main gameplay camera.")]
+    [SerializeField] private Camera _mainCamera;
+    [Tooltip("How fast the objects move.")]
+    [SerializeField] private float _objectMoveSpeed = 5f;
+    [Tooltip("The controller tool tip icons for cycling objects.")]
+    [SerializeField] private Image[] _toolTipIcons;
+    [Tooltip("The image that displays the tool tip for exiting the mirror mover.")]
+    [SerializeField] private Image _backImage;
     #endregion
 
     #region Private fields
-    private GameObject currentObject;
-    private bool usingCamera;
-    private int index;
-    private Rigidbody2D currentObjectRigidbody;
+    private GameObject _currentObject;
+    private bool _usingCamera;
+    private int _index;
+    private Rigidbody2D _currentObjectRigidbody;
     #endregion
 
     void Start()
     {
-        index = 0;
-        currentObject = movableObjects[0];
-        currentObjectRigidbody = currentObject.GetComponent<Rigidbody2D>();
-        color.a = 1;
+        _index = 0;
+        _currentObject = _movableObjects[0];
+        _currentObjectRigidbody = _currentObject.GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        if(currentObject.transform.parent.tag == "Enemy") UpdateRigidBodies();
+        if(_currentObject.transform.parent.tag == "Enemy") UpdateRigidBodies();
     }
 
     void Initialise()
     {
-        index = 0;
-        currentObject = movableObjects[0];
-        currentObjectRigidbody = currentObject.GetComponent<Rigidbody2D>();
+        _index = 0;
+        _currentObject = _movableObjects[0];
+        _currentObjectRigidbody = _currentObject.GetComponent<Rigidbody2D>();
         UpdateCamera();
         UpdateRigidBodies();
         MakeOutline();
     }
 
+    /// <summary>
+    /// Sets the initial position of all the <see cref="MovableObject">MovableObjects</see> attached to this MirrorMover.
+    /// </summary>
+    /// <seealso cref="MovableObject.SetInitialPosition"/>
     public void SetInitialPositions()
     {
-        foreach(GameObject go in movableObjects)
+        foreach(GameObject go in _movableObjects)
         {
             go.GetComponent<MovableObject>().SetInitialPosition();
         }
     }
 
+    /// <summary>
+    /// Resets the position of all the <see cref="MovableObject">MovableObjects</see> attached to this MirrorMover.
+    /// </summary>
+    /// <seealso cref="MovableObject.ResetPosition"/>
     public void ResetPositions()
     {
-        foreach(GameObject go in movableObjects)
+        foreach(GameObject go in _movableObjects)
         {
             go.GetComponent<MovableObject>().ResetPosition();
             go.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         }
     }
 
+    /// <summary>
+    /// Sets up the MirrorMover to be used by the player.
+    /// </summary>
+    /// <remarks>
+    /// Swaps the active camera if the player is using it and initialises the MovableObject Rigidbodies.
+    /// </remarks>
+    /// <param name="switchCam">Whether or not the active camera should switch to the one that is used by the MirrorMover.</param>
     public void StartMover(bool switchCam = true)
     {
-        usingCamera = switchCam;
+        _usingCamera = switchCam;
         if(switchCam)
         {
-            moveCamera.enabled = true;
-            toolTipIcons[0].transform.parent.gameObject.SetActive(true);
-            mainCamera.enabled = false;
+            _moveCamera.enabled = true;
+            _toolTipIcons[0].transform.parent.gameObject.SetActive(true);
+            _mainCamera.enabled = false;
         }
         Initialise();
     }
 
+    /// <summary>
+    /// Cleans up the MirrorMover for when the player stops using it.
+    /// </summary>
+    /// <remarks>
+    /// Swaps the camera back to the main camera if needed and makes the attached <see cref="MovableObject">MovableObjects</see> kinematic again.
+    /// </remarks>
     public void ExitMover()
     {
-        if(usingCamera)
+        if(_usingCamera)
         {
-            moveCamera.enabled = false;
-            toolTipIcons[0].transform.parent.gameObject.SetActive(false);
-            mainCamera.enabled = true;
+            _moveCamera.enabled = false;
+            _toolTipIcons[0].transform.parent.gameObject.SetActive(false);
+            _mainCamera.enabled = true;
         }
         
-        foreach(GameObject obj in movableObjects)
+        foreach(GameObject obj in _movableObjects)
         {
             Rigidbody2D temp = obj.GetComponent<Rigidbody2D>();
             temp.velocity = Vector2.zero;
@@ -97,91 +123,111 @@ public class MirrorMover : MonoBehaviour
         ResetOutline();
     }
 
+    /// <summary>
+    /// Cycles the current selected GameObject to the next one in the array.
+    /// </summary>
     public void CycleNextObject()
     {
-        currentObjectRigidbody.velocity = Vector2.zero;
-        if(index < movableObjects.Length - 1)
+        _currentObjectRigidbody.velocity = Vector2.zero;
+        if(_index < _movableObjects.Length - 1)
         {
-            currentObject = movableObjects[++index];
+            _currentObject = _movableObjects[++_index];
         }
         else
         {
-            currentObject = movableObjects[0];
-            index = 0;
+            _currentObject = _movableObjects[0];
+            _index = 0;
         }
-        currentObjectRigidbody = currentObject.GetComponent<Rigidbody2D>();
+        _currentObjectRigidbody = _currentObject.GetComponent<Rigidbody2D>();
         UpdateCamera();
         UpdateRigidBodies();
         MakeOutline();
     }
 
+    /// <summary>
+    /// Cycles the current selected GameObject to the previous one in the array.
+    /// </summary>
     public void CyclePrevObject()
     {
-        currentObjectRigidbody.velocity = Vector2.zero;
-        if(index > 0)
+        _currentObjectRigidbody.velocity = Vector2.zero;
+        if(_index > 0)
         {
-            currentObject = movableObjects[--index];
+            _currentObject = _movableObjects[--_index];
         }
         else
         {
-            currentObject = movableObjects[movableObjects.Length - 1];
-            index = movableObjects.Length - 1;
+            _currentObject = _movableObjects[_movableObjects.Length - 1];
+            _index = _movableObjects.Length - 1;
         }
-        currentObjectRigidbody = currentObject.GetComponent<Rigidbody2D>();
+        _currentObjectRigidbody = _currentObject.GetComponent<Rigidbody2D>();
         UpdateCamera();
         UpdateRigidBodies();
         MakeOutline();
     }
 
+    /// <summary>
+    /// Moves the current MovableObject in the direction specified by the direction parameter.
+    /// </summary>
+    /// <param name="direction">The direction for the MovableObject to move.</param>
     public void Move(Vector2 direction)
     {
-        if(currentObject.transform.parent.tag != "Enemy") currentObjectRigidbody.velocity = direction * objectMoveSpeed;
+        // Don't move the object if it's being carried by a SpiderBot
+        if(_currentObject.transform.parent.tag != "Enemy") _currentObjectRigidbody.velocity = direction * _objectMoveSpeed;
         UpdateCamera();
     }
 
     void UpdateCamera()
     {
-        if(usingCamera) moveCamera.transform.position = currentObject.transform.position + new Vector3(0, 0, moveCamera.transform.position.z);
+        if(_usingCamera) _moveCamera.transform.position = _currentObject.transform.position + new Vector3(0, 0, _moveCamera.transform.position.z);
     }
 
     void UpdateRigidBodies()
     {
-        foreach(GameObject obj in movableObjects)
+        // Set everything to be kinematic
+        foreach(GameObject obj in _movableObjects)
         {
             Rigidbody2D temp = obj.GetComponent<Rigidbody2D>();
             temp.isKinematic = true;
             temp.useFullKinematicContacts = true;
         }
 
-        if(currentObject.transform.parent.tag != "Enemy")
+        // Set the current object to be dynamic with no gravity if its not being grabbed by an enemy
+        if(_currentObject.transform.parent.tag != "Enemy")
         {
-            currentObjectRigidbody.isKinematic = false;
-            currentObjectRigidbody.useFullKinematicContacts = false;
-            currentObjectRigidbody.gravityScale = 0;
+            _currentObjectRigidbody.isKinematic = false;
+            _currentObjectRigidbody.useFullKinematicContacts = false;
+            _currentObjectRigidbody.gravityScale = 0;
         }
     }
 
+    // Outline the curent object with a cyan light
     void MakeOutline()
     {
         ResetOutline();
 
-        Light2D currentLight = currentObject.GetComponentInChildren<Light2D>();
+        Light2D currentLight = _currentObject.GetComponentInChildren<Light2D>();
         currentLight.color = Color.cyan;
     }
 
+    // reset the movable object lights
     void ResetOutline()
     {
-        foreach(GameObject go in movableObjects)
+        foreach(GameObject go in _movableObjects)
         {    
             Light2D light = go.GetComponentInChildren<Light2D>();
             light.color = Color.white;
         }
     }
 
+    /// <summary>
+    /// Sets the next, previous, and back tool tips to correspond to the appropriate control scheme.
+    /// </summary>
+    /// <param name="sprites">The next and previous tool tip sprites.</param>
+    /// <param name="backSprite">The back tool tip sprite.</param>
     public void SetToolTips(Sprite[] sprites, Sprite backSprite)
     {
-        toolTipIcons[0].sprite = sprites[0];
-        toolTipIcons[1].sprite = sprites[1];
-        backImage.sprite = backSprite;
+        _toolTipIcons[0].sprite = sprites[0];
+        _toolTipIcons[1].sprite = sprites[1];
+        _backImage.sprite = backSprite;
     }
 }

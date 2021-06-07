@@ -186,19 +186,24 @@ public class PlayerStatus : MonoBehaviour
     public void Respawn()
     {
         animator.SetTrigger("Respawn");
+
         rigidbody2D.gravityScale = 3;
         rigidbody2D.velocity = Vector2.zero;
         rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
         Recorder r = GetComponent<Recorder>();
         r.CancelRecording(true);
         r.ResetAllEvents();
+
         DestroyAllProjectiles();
         GetComponent<PlayerController>().StopMovingMirrors();
+
         if(enemyManager) 
         {
             enemyManager.ResetCurrentBoss();
             enemyManager.ResetEnemies();
         }
+        
         PhysicsObject.ResetAllPhysics(true, true);
         if(aim.CurrentWeapon != null) aim.DropWeapon(Vector3.zero);
         if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
