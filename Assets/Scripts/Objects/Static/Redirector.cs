@@ -1,10 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
+/// <summary>
+/// The Redirector class redirects lasers that collide with it.
+/// </summary>
 public class Redirector : MovableObject
 {
+    // Redirect incoming lasers to be fired out of the fire point.
     void OnCollisionEnter2D(Collision2D other)
     {
         Projectile p = other.GetContact(0).collider.GetComponent<Projectile>();

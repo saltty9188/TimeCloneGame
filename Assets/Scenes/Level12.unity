@@ -2768,7 +2768,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: mainCamera
+      propertyPath: _mainCamera
       value: 
       objectReference: {fileID: 1547640583}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
@@ -2778,37 +2778,37 @@ PrefabInstance:
       objectReference: {fileID: 604520146}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.size
+      propertyPath: _movableObjects.Array.size
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[0]
+      propertyPath: _movableObjects.Array.data[0]
       value: 
       objectReference: {fileID: 1486780782}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[1]
+      propertyPath: _movableObjects.Array.data[1]
       value: 
       objectReference: {fileID: 899517213}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[2]
+      propertyPath: _movableObjects.Array.data[2]
       value: 
       objectReference: {fileID: 1856444679}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[3]
+      propertyPath: _movableObjects.Array.data[3]
       value: 
       objectReference: {fileID: 1379342482}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[4]
+      propertyPath: _movableObjects.Array.data[4]
       value: 
       objectReference: {fileID: 2007369550}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[5]
+      propertyPath: _movableObjects.Array.data[5]
       value: 
       objectReference: {fileID: 868546390}
     - target: {fileID: 3339956301723709527, guid: ab3515d08798ea1498b1848765824d1f,
@@ -37663,7 +37663,7 @@ PrefabInstance:
     - target: {fileID: 8452132976790772941, guid: 57e615f6fb79d084a9fe1ebc67eb5ec4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8452132976790772941, guid: 57e615f6fb79d084a9fe1ebc67eb5ec4,
         type: 3}

@@ -22570,7 +22570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: mainCamera
+      propertyPath: _mainCamera
       value: 
       objectReference: {fileID: 946585064}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
@@ -22580,37 +22580,37 @@ PrefabInstance:
       objectReference: {fileID: 1395032452}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.size
+      propertyPath: _movableObjects.Array.size
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[0]
+      propertyPath: _movableObjects.Array.data[0]
       value: 
       objectReference: {fileID: 1559951660}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[1]
+      propertyPath: _movableObjects.Array.data[1]
       value: 
       objectReference: {fileID: 1884668662}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[2]
+      propertyPath: _movableObjects.Array.data[2]
       value: 
       objectReference: {fileID: 1540492705}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[3]
+      propertyPath: _movableObjects.Array.data[3]
       value: 
       objectReference: {fileID: 1939753005}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[4]
+      propertyPath: _movableObjects.Array.data[4]
       value: 
       objectReference: {fileID: 753154024}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[5]
+      propertyPath: _movableObjects.Array.data[5]
       value: 
       objectReference: {fileID: 584271971}
     - target: {fileID: 3339956301723709527, guid: ab3515d08798ea1498b1848765824d1f,
@@ -57659,7 +57659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: mainCamera
+      propertyPath: _mainCamera
       value: 
       objectReference: {fileID: 946585064}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
@@ -57669,37 +57669,37 @@ PrefabInstance:
       objectReference: {fileID: 1849533994}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.size
+      propertyPath: _movableObjects.Array.size
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[0]
+      propertyPath: _movableObjects.Array.data[0]
       value: 
       objectReference: {fileID: 944503030}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[1]
+      propertyPath: _movableObjects.Array.data[1]
       value: 
       objectReference: {fileID: 1471076692}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[2]
+      propertyPath: _movableObjects.Array.data[2]
       value: 
       objectReference: {fileID: 547558813}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[3]
+      propertyPath: _movableObjects.Array.data[3]
       value: 
       objectReference: {fileID: 103310598}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[4]
+      propertyPath: _movableObjects.Array.data[4]
       value: 
       objectReference: {fileID: 710780702}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: movableObjects.Array.data[5]
+      propertyPath: _movableObjects.Array.data[5]
       value: 
       objectReference: {fileID: 869648048}
     - target: {fileID: 3339956301723709527, guid: ab3515d08798ea1498b1848765824d1f,
