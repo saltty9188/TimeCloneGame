@@ -1,16 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The TimeCloneController singleton class is responsible for controlling the time-clones and <see cref="TimeCloneDevice">TimeCloneDevices</see> in the level.
+/// </summary>
 public class TimeCloneController : MonoBehaviour
 {
     #region Public fields
+    /// <summary>
+    /// The single instance of the TimeCloneController.
+    /// </summary>
     public static TimeCloneController Instance;
+    /// <summary>
+    /// List of the time-clones currently active in the level.
+    /// </summary>
     public List<GameObject> activeClones;
     #endregion
 
     #region Inspector fields
-    [SerializeField] private GameObject timeCloneText;
+    [Tooltip("The text used to display if a clone is out of synch.")]
+    [SerializeField] private GameObject _timeCloneText;
     #endregion
     void Awake()
     {
@@ -27,6 +36,10 @@ public class TimeCloneController : MonoBehaviour
         activeClones = new List<GameObject>();
     }
 
+    /// <summary>
+    /// Plays back all of the time-clones recorded in the level except for the one being currently recorded on.
+    /// </summary>
+    /// <param name="leaveOut">The TimeCloneDevice to not playback.</param>
     public void PlayBack(TimeCloneDevice leaveOut = null)
     {
         RemoveAllActiveClones();
@@ -41,13 +54,18 @@ public class TimeCloneController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Destroys any time-clones that are active in the scene.
+    /// </summary>
+    /// <param name="destroyProjectiles">Whether or not to also destroy the clone's projectiles</param>
     public void RemoveAllActiveClones(bool destroyProjectiles = true)
     {
         //Remove any previous time-clones
-        timeCloneText.SetActive(false);
+        _timeCloneText.SetActive(false);
         for(int i = 0; i < activeClones.Count; i++)
         {
             GameObject go = activeClones[i];
+            // remove the clone from the list if it's already been destroyed
             if(go == null)
             {
                 activeClones.Remove(go);
@@ -65,6 +83,9 @@ public class TimeCloneController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Removes the <see cref="RecordedCommand">RecordedCommands</see> from all of the <see cref="TimeCloneDevice">TimeCloneDevices</see> in the scene.
+    /// </summary>
     public void EmptyAllCloneDevices()
     {
         RemoveAllActiveClones(false);
@@ -78,8 +99,11 @@ public class TimeCloneController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Display the out of synch text.
+    /// </summary>
     public void OutOfSynch()
     {
-        timeCloneText.SetActive(true);
+        _timeCloneText.SetActive(true);
     }
 }

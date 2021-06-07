@@ -1,82 +1,104 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
+/// <summary>
+/// The TimeCloneDevice class stores the <see cref="RecordedCommand">RecordedCommands</see> needed for a time-clone and has the ability to play them back.
+/// </summary>
 public class TimeCloneDevice : MonoBehaviour
 {
     #region Inspector fields
-    [SerializeField] private GameObject recordingTemplate;
-    [SerializeField] private bool unstable = false;
+    [Tooltip("The prefab for a time-clone.")]
+    [SerializeField] private GameObject _recordingTemplate;
+    [Tooltip("Does this time-clone device produce unstable time-clones?")]
+    [SerializeField] private bool _unstable = false;
     #endregion
 
     #region Private fields
+    // light intensity multipliers
     private const float NO_CLONE_LIGHT_INTENSITY = 1f;
     private const float STORED_CLONE_LIGHT_INTENSITY = 2f;
     private const float RECORDING_CLONE_LIGHT_INTENSITY = 3f;
-    private Light2D light;
-    private float baseIntensity;
-    private List<RecordedCommand> commands;
-    private Vector3 spawn;
-    private TimeCloneController timeCloneController;
+    private Light2D _light;
+    private float _baseIntensity;
+    private List<RecordedCommand> _commands;
+    private Vector3 _spawn;
+    private TimeCloneController _timeCloneController;
     #endregion
     
     void Awake()
     {
-        commands = null;
-        light = GetComponentInChildren<Light2D>();
-        baseIntensity = light.intensity;
+        _commands = null;
+        _light = GetComponentInChildren<Light2D>();
+        _baseIntensity = _light.intensity;
     }
 
     void Start()
     {
-        timeCloneController = transform.parent.GetComponent<TimeCloneController>();
+        _timeCloneController = transform.parent.GetComponent<TimeCloneController>();
     }
 
+    /// <summary>
+    /// Stores the <see cref="RecordedCommand">RecordedCommands</see> and spawn position for a time-clone.
+    /// </summary>
+    /// <param name="commands">The <see cref="RecordedCommand">RecordedCommands</see> that will control the time-clone</param>
+    /// <param name="spawn">The spawn position for the time-clone.</param>
     public void StoreClone(List<RecordedCommand> commands, Vector3 spawn)
     {
-        this.commands = commands;
-        this.spawn = spawn;
-        light.intensity = baseIntensity * STORED_CLONE_LIGHT_INTENSITY;
+        this._commands = commands;
+        this._spawn = spawn;
+        _light.intensity = _baseIntensity * STORED_CLONE_LIGHT_INTENSITY;
     }
 
+    /// <summary>
+    /// Creates a time-clone and gives it the <see cref="RecordedCommand">RecordedCommands</see> to act out.
+    /// </summary>
     public void Play()
     {
-        if(commands != null)
+        if(_commands != null)
         {
-            GameObject clone = Instantiate(recordingTemplate, spawn, new Quaternion());
+            GameObject clone = Instantiate(_recordingTemplate, _spawn, new Quaternion());
             clone.transform.SetParent(transform.parent);
             
-            timeCloneController.activeClones.Add(clone);
+            _timeCloneController.activeClones.Add(clone);
 
             ExecuteCommands ec = clone.GetComponent<ExecuteCommands>();
-            ec.SetCommands(new List<RecordedCommand>(commands));
-            if(unstable) ec.MakeUnstable();
+            ec.SetCommands(new List<RecordedCommand>(_commands));
+            if(_unstable) ec.MakeUnstable();
+            // Colour code the clone
             Color cloneColour = GetComponent<SpriteRenderer>().color;
             cloneColour.a = 0.59f;
             ec.GetComponent<DamageFlash>().SetBaseColour(cloneColour);
-            Aim cloneArm = clone.transform.GetChild(0).GetComponent<Aim>();
         }
     }
 
+    /// <summary>
+    /// Clears the <see cref="RecordedCommand">RecordedCommands</see> stored in this TimeCloneDevice.
+    /// </summary>
     public void Empty()
     {
-        if(commands != null)
+        if(_commands != null)
         {
-            commands.Clear();
-            commands = null;
-            spawn = Vector3.zero;
-            light.intensity = baseIntensity * NO_CLONE_LIGHT_INTENSITY;
+            _commands.Clear();
+            _commands = null;
+            _spawn = Vector3.zero;
+            _light.intensity = _baseIntensity * NO_CLONE_LIGHT_INTENSITY;
         }
     }
 
+    /// <summary>
+    /// Sets the light attached to this TimeCloneDevice to be 3 times its base intensity.
+    /// </summary>
     public void SetActiveLight()
     {
-        light.intensity = baseIntensity * RECORDING_CLONE_LIGHT_INTENSITY;
+        _light.intensity = _baseIntensity * RECORDING_CLONE_LIGHT_INTENSITY;
     }
 
+    /// <summary>
+    /// Sets the light attached to this TimeCloneDevice to be its base intensity.
+    /// </summary>
     public void SetEmptyLight()
     {
-        light.intensity = baseIntensity * NO_CLONE_LIGHT_INTENSITY;
+        _light.intensity = _baseIntensity * NO_CLONE_LIGHT_INTENSITY;
     }
 }

@@ -199,9 +199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498abc09e19bba54cb5d54149ec6828a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordingTemplate: {fileID: 1764168679735045601, guid: 6eea3d24cce54c1449920e9f32360c93,
+  _recordingTemplate: {fileID: 1764168679735045601, guid: 6eea3d24cce54c1449920e9f32360c93,
     type: 3}
-  unstable: 1
+  _unstable: 1
 --- !u!1 &7270328433829767987
 GameObject:
   m_ObjectHideFlags: 0

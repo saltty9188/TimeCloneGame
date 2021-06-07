@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The ExecuteCommands class is responsible for controlling a time-clone's actions.
+/// </summary>
 public class ExecuteCommands : MonoBehaviour
 {
-
     #region Private struct
+    // Used to keep track of weapons previously picked up by the time-clone
     private struct OldWeapon
     {
         public GameObject originalWeapon;
@@ -20,199 +22,224 @@ public class ExecuteCommands : MonoBehaviour
     #endregion
 
     #region Private fields
-    private Rigidbody2D rigidbody2D;
-    private PlayerMovement playerMovement;
-    private Aim aim;
-    private List<RecordedCommand> recordedCommands;
-    private int commandIndex;
-    private float playbackTime;
-    private bool unstable; 
-    private MirrorMover nearbyMirrorMover;
-    private bool wasMovingMirror;
-    private List<OldWeapon> oldWeapons;
-    private SpriteRenderer spriteRenderer;
-    private float flickerTime;
+    private Rigidbody2D _rigidbody2D;
+    private PlayerMovement _playerMovement;
+    private Aim _aim;
+    private List<RecordedCommand> _recordedCommands;
+    private int _commandIndex;
+    private float _playbackTime;
+    private bool _unstable; 
+    private MirrorMover _nearbyMirrorMover;
+    private bool _wasMovingMirror;
+    private List<OldWeapon> _oldWeapons;
+    private SpriteRenderer _spriteRenderer;
+    // Flickering for unstable clones
+    private float _flickerTime;
     #endregion
 
     void Awake()
     {
-        recordedCommands = null;
-        commandIndex = -1;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        playerMovement = GetComponent<PlayerMovement>();
-        aim = transform.GetChild(0).GetComponent<Aim>();
-        playbackTime = 0;
-        nearbyMirrorMover = null;
-        wasMovingMirror = false;
-        oldWeapons = new List<OldWeapon>();
+        _recordedCommands = null;
+        _commandIndex = -1;
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+        _playerMovement = GetComponent<PlayerMovement>();
+        _aim = transform.GetChild(0).GetComponent<Aim>();
+        _playbackTime = 0;
+        _nearbyMirrorMover = null;
+        _wasMovingMirror = false;
+        _oldWeapons = new List<OldWeapon>();
     }
 
     void FixedUpdate()
     {
-        if(commandIndex >= 0 && commandIndex < recordedCommands.Count)
+        // playback the commands while there are some in the List
+        if(_commandIndex >= 0 && _commandIndex < _recordedCommands.Count)
         {
-            RecordedCommand rc = recordedCommands[commandIndex];
-            if(rc.time >= playbackTime)
+            RecordedCommand rc = _recordedCommands[_commandIndex];
+            // Keep in time with the playback time
+            if(rc.AccumulatedTime >= _playbackTime)
             {
                 //Equip the weapon the clone just picked up
-                if(rc.newWeapon)
+                if(rc.NewWeapon)
                 {
-                    if(PickedUpBefore(rc.newWeapon))
+                    // Switch back to the previous weapon if this one has already been picked up before
+                    if(PickedUpBefore(rc.NewWeapon))
                     {
-                        Weapon weapon = GetPreviousWeapon(rc.newWeapon);
+                        Weapon weapon = GetPreviousWeapon(rc.NewWeapon);
                         weapon.gameObject.SetActive(true);
                         GameObject oldWeapon = null;
-                        if(aim.CurrentWeapon != null) oldWeapon = aim.CurrentWeapon.gameObject;
+                        if(_aim.CurrentWeapon != null) oldWeapon = _aim.CurrentWeapon.gameObject;
                         if(oldWeapon != null) oldWeapon.gameObject.SetActive(false);
-                        aim.PickUpWeapon(weapon);
+                        _aim.PickUpWeapon(weapon);
                     }
                     else
                     {
-                        GameObject newWeapon = Instantiate(rc.newWeapon, new Vector3(), new Quaternion());
+                        GameObject newWeapon = Instantiate(rc.NewWeapon, new Vector3(), new Quaternion());
                         Weapon weaponScript = newWeapon.GetComponent<Weapon>();
                         Color baseCol = newWeapon.GetComponent<SpriteRenderer>().color;
                         baseCol.a = GetComponent<SpriteRenderer>().color.a;
                         newWeapon.GetComponent<SpriteRenderer>().color = baseCol;
                         
+                        // swap weapons
                         GameObject oldWeapon = null;
-                        if(aim.CurrentWeapon != null) oldWeapon = aim.CurrentWeapon.gameObject;
-                        aim.PickUpWeapon(weaponScript);
+                        if(_aim.CurrentWeapon != null) oldWeapon = _aim.CurrentWeapon.gameObject;
+                        _aim.PickUpWeapon(weaponScript);
                         if(oldWeapon != null) oldWeapon.gameObject.SetActive(false);
 
+                        // Keep the physics ray with the same starting ray type as the original
                         if(typeof(PhysicsRay).IsInstanceOfType(weaponScript))
                         {
                             PhysicsRay clonePhysicsRay = (PhysicsRay) weaponScript;
-                            PhysicsRay originalPhysicsRay = rc.newWeapon.GetComponent<PhysicsRay>();
+                            PhysicsRay originalPhysicsRay = rc.NewWeapon.GetComponent<PhysicsRay>();
                             clonePhysicsRay.SetRayType(originalPhysicsRay.CurrentRay); 
                         }
 
-                        oldWeapons.Add(new OldWeapon(rc.newWeapon, weaponScript));
+                        // Add the weapon to the list of old weapons
+                        _oldWeapons.Add(new OldWeapon(rc.NewWeapon, weaponScript));
                     }
                 } 
 
-                if(rc.movingMirror)
+                // Use the mirror mover if the player was doing so while recording
+                if(rc.MovingMirror)
                 {
-                    if(!wasMovingMirror && nearbyMirrorMover)
+                    // Start the mover if its the first frame using it
+                    if(!_wasMovingMirror && _nearbyMirrorMover)
                     {
-                        nearbyMirrorMover.StartMover(false);
-                        rigidbody2D.isKinematic = true;
-                        rigidbody2D.useFullKinematicContacts = true;
+                        _nearbyMirrorMover.StartMover(false);
+                        _rigidbody2D.isKinematic = true;
+                        _rigidbody2D.useFullKinematicContacts = true;
                     }
-                    else if(!wasMovingMirror && !nearbyMirrorMover)
+                    // Time-clone is not near a mirror mover so they must be out of synch
+                    else if(!_wasMovingMirror && !_nearbyMirrorMover)
                     {
                         transform.parent.GetComponent<TimeCloneController>().OutOfSynch();
                         //skip to end
-                        commandIndex = recordedCommands.Count;
+                        _commandIndex = _recordedCommands.Count;
                         return;
                     }
 
-                    if(rc.mirrorMoveValue > 0)
+                    // Cycle to the next or previous movable object 
+                    if(rc.MirrorMoveValue > 0)
                     {
-                        nearbyMirrorMover.CycleNextObject();
+                        _nearbyMirrorMover.CycleNextObject();
                     }
-                    else if(rc.mirrorMoveValue < 0)
+                    else if(rc.MirrorMoveValue < 0)
                     {
-                        nearbyMirrorMover.CyclePrevObject();
+                        _nearbyMirrorMover.CyclePrevObject();
                     }
-                    nearbyMirrorMover.Move(rc.movement);      
+                    _nearbyMirrorMover.Move(rc.Movement);      
                 }
                 else
                 {
-                    if(wasMovingMirror)
+                    // If the clone was using the mover last frame then exit from it now
+                    if(_wasMovingMirror)
                     {
-                        nearbyMirrorMover.ExitMover();
-                        rigidbody2D.isKinematic = false;
-                        rigidbody2D.useFullKinematicContacts = false;
+                        _nearbyMirrorMover.ExitMover();
+                        _rigidbody2D.isKinematic = false;
+                        _rigidbody2D.useFullKinematicContacts = false;
                     }
 
-
-                    if(rc.raySwitchValue > 0)
+                    // cycle to the next ray type if needed
+                    if(rc.RaySwitchValue > 0)
                     {
-                        aim.NextRayType();
+                        _aim.NextRayType();
                     }
-                    else if (rc.raySwitchValue < 0)
+                    else if (rc.RaySwitchValue < 0)
                     {
-                        aim.PrevRayType();
+                        _aim.PrevRayType();
                     }
-                    playerMovement.Move(rc.movement, rc.jumping, rc.grabbing);
-                    aim.RotateAndFire(rc.aimAngle, rc.shooting);
+                    _playerMovement.Move(rc.Movement, rc.Jumping, rc.Grabbing);
+                    _aim.RotateAndFire(rc.AimAngle, rc.Shooting);
                 }
 
-                wasMovingMirror = rc.movingMirror;
-                playbackTime += Time.fixedDeltaTime;
+                _wasMovingMirror = rc.MovingMirror;
+                _playbackTime += Time.fixedDeltaTime;
             }
-            commandIndex++;
+            _commandIndex++;
         }
         else
         {
             //Stop moving clone once commands end
-            playerMovement.Move(Vector2.zero, false, false);
-            RecordedCommand rc = recordedCommands[commandIndex - 1];
-            DestroyPreviousWeapons(aim.CurrentWeapon);
-            aim.RotateAndFire(rc.aimAngle, rc.shooting);
+            _playerMovement.Move(Vector2.zero, false, false);
+            RecordedCommand rc = _recordedCommands[_commandIndex - 1];
+            DestroyPreviousWeapons(_aim.CurrentWeapon);
+            _aim.RotateAndFire(rc.AimAngle, rc.Shooting);
         }
 
         // Wait a second before enabling collision with the player/other clones
-        if(playbackTime < 1.0f) Physics2D.IgnoreLayerCollision(8, 8, true);
+        if(_playbackTime < 1.0f) Physics2D.IgnoreLayerCollision(8, 8, true);
         else Physics2D.IgnoreLayerCollision(8, 8, false);
 
     }
 
     void Update()
     {
-        if(unstable)
+        // Make the clone flicker if its unstable
+        if(_unstable)
         {
-            if(flickerTime > 0)
+            if(_flickerTime > 0)
             {
-                flickerTime -= Time.deltaTime;
-                spriteRenderer.enabled = false;
+                _flickerTime -= Time.deltaTime;
+                _spriteRenderer.enabled = false;
             }
             else
             {
-                spriteRenderer.enabled = true;
+                _spriteRenderer.enabled = true;
                 int chance = Random.Range(0, 20);
                 if(chance == 0)
                 {
-                    flickerTime = 0.083f;
+                    _flickerTime = 0.083f;
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Marks the time-clone as unstable, meaning it will kill the player or other time-clones on contact.
+    /// </summary>
     public void MakeUnstable()
     {
-        this.unstable = true;
+        this._unstable = true;
+        // Activate the red light
         transform.GetChild(2).gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Sets the <see cref="RecordedCommand">RecordedCommands</see> to be played back.
+    /// </summary>
+    /// <param name="commands">The <see cref="RecordedCommand">RecordedCommands</see> to be played back.</param>
     public void SetCommands(List<RecordedCommand> commands)
     {
-        recordedCommands = commands;
-        commandIndex = 0;
+        _recordedCommands = commands;
+        _commandIndex = 0;
     }
 
+    /// <summary>
+    /// Destroys the weapon the time-clone is holding.
+    /// </summary>
     public void RemoveWeapon()
     {
-        if(aim.CurrentWeapon != null)
+        if(_aim.CurrentWeapon != null)
         {
-            Destroy(aim.CurrentWeapon.gameObject);
+            Destroy(_aim.CurrentWeapon.gameObject);
         }
     }
 
+    // Checks if the weapon has been picked up before
     bool PickedUpBefore(GameObject newWeapon)
     {
-        foreach(OldWeapon oldWeapon in oldWeapons)
+        foreach(OldWeapon oldWeapon in _oldWeapons)
         {
             if(oldWeapon.originalWeapon == newWeapon) return true;
         }
-
         return false;
     }
 
+    // If a weapon has been picked up before it is retrieved
     Weapon GetPreviousWeapon(GameObject originalWeapon)
     {
-        foreach(OldWeapon oldWeapon in oldWeapons)
+        foreach(OldWeapon oldWeapon in _oldWeapons)
         {
             if(oldWeapon.originalWeapon == originalWeapon) return oldWeapon.clonedWeapon;
         }
@@ -220,17 +247,19 @@ public class ExecuteCommands : MonoBehaviour
         return null;
     }
 
+    // Destroys all of the weapons except for the currently held one
     void DestroyPreviousWeapons(Weapon ignoreWeapon)
     {
-        foreach(OldWeapon oldWeapon in oldWeapons)
+        foreach(OldWeapon oldWeapon in _oldWeapons)
         {
             if(oldWeapon.clonedWeapon != ignoreWeapon && oldWeapon.clonedWeapon != null) Destroy(oldWeapon.clonedWeapon.gameObject);
         }
     }
 
+    // kill the clone and player if they collide when the clone is unstable
     void OnCollisionEnter2D(Collision2D other) 
     {
-        if(unstable && (other.GetContact(0).collider.tag == "Player" || other.GetContact(0).collider.tag == "Clone"))
+        if(_unstable && (other.GetContact(0).collider.tag == "Player" || other.GetContact(0).collider.tag == "Clone"))
         {
             other.GetContact(0).collider.GetComponent<PlayerStatus>().Die();
             GetComponent<PlayerStatus>().Die();
@@ -241,7 +270,7 @@ public class ExecuteCommands : MonoBehaviour
     {
         if(other.tag != "Weapon")
         {
-            nearbyMirrorMover = other.GetComponent<MirrorMover>();
+            _nearbyMirrorMover = other.GetComponent<MirrorMover>();
         }
     }
     void OnDestroy()

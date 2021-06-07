@@ -1,31 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
+/// <summary>
+/// The CloneDeath class is responsible for playing the clone death animation then destroying itself.
+/// </summary>
 public class CloneDeath : MonoBehaviour
 {
-
     #region Private fields
-    private Animator animator;
-    private Light2D light;
-    private float lightIntensity;
+    private Animator _animator;
+    private Light2D _light;
+    private float _lightIntensity;
     #endregion
 
-    // Start is called before the first frame update
+    
     void Awake()
     {
-        animator = GetComponent<Animator>();
-        light = transform.GetChild(0).GetComponent<Light2D>();
-        lightIntensity = light.intensity;
+        _animator = GetComponent<Animator>();
+        _light = transform.GetChild(0).GetComponent<Light2D>();
+        _lightIntensity = _light.intensity;
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
-        float animatorTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        float animatorTime = _animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 
-        light.intensity = lightIntensity * (1.0f - animatorTime);
+        _light.intensity = _lightIntensity * (1.0f - animatorTime);
 
         if(animatorTime >= 1)
         {
@@ -33,14 +33,13 @@ public class CloneDeath : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the color of the CloneDeath.
+    /// </summary>
+    /// <param name="color">The color for the CloneDeath.</param>
     public void SetColor(Color color)
     {
-        Color temp = color;
-        temp.a = 1;
-        if(temp != Color.white)
-        {
-            GetComponent<SpriteRenderer>().color = color;
-            light.color = color;
-        }
+        GetComponent<SpriteRenderer>().color = color;
+        _light.color = color;
     }
 }
