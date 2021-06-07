@@ -23185,7 +23185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2879771957952551435, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: pauseMenu
+      propertyPath: _pauseMenu
       value: 
       objectReference: {fileID: 1318430564}
     - target: {fileID: 2879771957952551447, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -23205,17 +23205,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 49255064}
-    - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
-        type: 3}
       propertyPath: maxHealth
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: healthText
+      propertyPath: _healthBar
+      value: 
+      objectReference: {fileID: 49255064}
+    - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
+        type: 3}
+      propertyPath: _healthText
       value: 
       objectReference: {fileID: 1437523160}
     - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -23230,7 +23230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: events
+      propertyPath: _allEvents
       value: 
       objectReference: {fileID: 1729746060}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -23240,7 +23240,7 @@ PrefabInstance:
       objectReference: {fileID: 748882401}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: timerText
+      propertyPath: _timerText
       value: 
       objectReference: {fileID: 1219778547}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -23250,7 +23250,7 @@ PrefabInstance:
       objectReference: {fileID: 330386104}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: recordingIcon
+      propertyPath: _recordingIcon
       value: 
       objectReference: {fileID: 247661286}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,

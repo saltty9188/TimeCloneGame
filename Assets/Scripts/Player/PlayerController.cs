@@ -2,23 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
 
+/// <summary>
+/// The PlayerController class is responsible for handling input from the player.
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
-
     #region Inspector fields
-    [SerializeField] private PauseMenu pauseMenu;
+    [Tooltip("The pause menu used in this level.")]
+    [SerializeField] private PauseMenu _pauseMenu;
     #endregion
 
     #region Public fields
-    public static string controlScheme;
-    public PlayerControls CurrentControls
+    /// <value>A string representing the current control scheme in use by the player.</value>
+    public static string ControlScheme
     {
-        get {return controls;}
+        get {return _controlScheme;}
     }
 
-    // Returns true if the player is currently using the mirror mover
+    /// <value>Returns the PlayerControls in use by the player.</value>
+    public PlayerControls CurrentControls
+    {
+        get {return _controls;}
+    }
+    
+    /// <value>Returns whether or not the player is currently using a MirrorMover.</value>
     public bool MovingMirrors
     {
         get {return _movingMirrors;}
@@ -26,59 +34,60 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Private fields
-    private Rigidbody2D rigidbody2D;
-    private ToolTips toolTips;
-    private PlayerMovement playerMovement;
-    private PlayerControls controls;
-    private Aim aim;
-    private Recorder recorder;
-    private TimeCloneDevice nearbyCloneMachine;
-    private MirrorMover nearbyMirrorMover;
-    private Vector2 aimVector;
-    private Vector2 movement;
-    private bool jumping;
-    private bool shooting;
-    private bool grabbing;
-    private float raySwitchValue;
-    private bool recording;
-    private GameObject prevWeapon;
+    private static string _controlScheme;
+    private Rigidbody2D _rigidbody2D;
+    private ToolTips _toolTips;
+    private PlayerMovement _playerMovement;
+    private PlayerControls _controls;
+    private Aim _aim;
+    private Recorder _recorder;
+    private TimeCloneDevice _nearbyCloneMachine;
+    private MirrorMover _nearbyMirrorMover;
+    private Vector2 _aimVector;
+    private Vector2 _movement;
+    private bool _jumping;
+    private bool _shooting;
+    private bool _grabbing;
+    private float _raySwitchValue;
+    private bool _recording;
+    private GameObject _prevWeapon;
     private bool _movingMirrors;
-    float mirrorMoveValue;
-    private bool mirrorButtonHeld;
+    float _mirrorMoveValue;
+    private bool _mirrorButtonHeld;
     #endregion
 
     void Awake()
     {
-        rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
-        toolTips = GetComponent<ToolTips>();
-        playerMovement = gameObject.GetComponent<PlayerMovement>();
-        aim = gameObject.GetComponentInChildren<Aim>();
-        recorder = GetComponent<Recorder>();
-        controls = new PlayerControls();
-        controlScheme = "KeyboardMouse";
+        _rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
+        _toolTips = GetComponent<ToolTips>();
+        _playerMovement = gameObject.GetComponent<PlayerMovement>();
+        _aim = gameObject.GetComponentInChildren<Aim>();
+        _recorder = GetComponent<Recorder>();
+        _controls = new PlayerControls();
+        _controlScheme = "KeyboardMouse";
 
-        recording = false;
-        prevWeapon = null;
-        nearbyCloneMachine = null;
-        nearbyMirrorMover = null;
+        _recording = false;
+        _prevWeapon = null;
+        _nearbyCloneMachine = null;
+        _nearbyMirrorMover = null;
         _movingMirrors = false;
 
 
         //Jumping
-        controls.Gameplay.Jump.performed += ctx => 
+        _controls.Gameplay.Jump.performed += ctx => 
             {
-                jumping = true;
+                _jumping = true;
             };
-        controls.Gameplay.Jump.canceled += ctx => 
+        _controls.Gameplay.Jump.canceled += ctx => 
             {
-                jumping = false;
+                _jumping = false;
             };
 
 
 
         //Movement
-        controls.Gameplay.Move.performed += ctx => movement = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Move.canceled += ctx => movement = Vector2.zero;
+        _controls.Gameplay.Move.performed += ctx => _movement = ctx.ReadValue<Vector2>();
+        _controls.Gameplay.Move.canceled += ctx => _movement = Vector2.zero;
 
         //Detect Input Device
         InputSystem.onActionChange += (obj, change) =>
@@ -93,128 +102,128 @@ public class PlayerController : MonoBehaviour
             };
 
         //Aiming
-        controls.Gameplay.AimStick.performed += ctx => aimVector = ctx.ReadValue<Vector2>();
-        controls.Gameplay.AimStick.canceled += ctx => aimVector = Vector2.zero;
+        _controls.Gameplay.AimStick.performed += ctx => _aimVector = ctx.ReadValue<Vector2>();
+        _controls.Gameplay.AimStick.canceled += ctx => _aimVector = Vector2.zero;
 
-        controls.Gameplay.AimMouse.performed += ctx => aimVector = ctx.ReadValue<Vector2>();
+        _controls.Gameplay.AimMouse.performed += ctx => _aimVector = ctx.ReadValue<Vector2>();
 
         //Shooting
-        controls.Gameplay.Shoot.performed += ctx => 
+        _controls.Gameplay.Shoot.performed += ctx => 
             {
-                shooting = true;
+                _shooting = true;
             };
 
-        controls.Gameplay.Shoot.canceled += ctx => 
+        _controls.Gameplay.Shoot.canceled += ctx => 
             {
-                shooting = false;
+                _shooting = false;
             };
 
         //recording
-        controls.Gameplay.Record.performed += ctx =>
+        _controls.Gameplay.Record.performed += ctx =>
             {
-                if(nearbyCloneMachine && !recording && !_movingMirrors)
+                if(_nearbyCloneMachine && !_recording && !_movingMirrors)
                 {
-                    recording = true;
-                    prevWeapon = null;
-                    recorder.StartRecording(nearbyCloneMachine, aim.CurrentWeapon);
+                    _recording = true;
+                    _prevWeapon = null;
+                    _recorder.StartRecording(_nearbyCloneMachine, _aim.CurrentWeapon);
                 }
-                else if(recording && !_movingMirrors)
+                else if(_recording && !_movingMirrors)
                 {
-                    recording = false;
-                    prevWeapon = null;
-                    recorder.StopRecording();
+                    _recording = false;
+                    _prevWeapon = null;
+                    _recorder.StopRecording();
                 }
             };
     
         //Physics type cycle
-        controls.Gameplay.CyclePhysics.performed += ctx =>
+        _controls.Gameplay.CyclePhysics.performed += ctx =>
             {
-                raySwitchValue = ctx.ReadValue<Vector2>().y;
+                _raySwitchValue = ctx.ReadValue<Vector2>().y;
 
-                if(raySwitchValue > 0)
+                if(_raySwitchValue > 0)
                 {
-                    aim.NextRayType();
+                    _aim.NextRayType();
                 }
-                else if(raySwitchValue < 0)
+                else if(_raySwitchValue < 0)
                 {
-                    aim.PrevRayType();
+                    _aim.PrevRayType();
                 }
             }; 
 
         // Interact
-        controls.Gameplay.Interact.performed += ctx =>
+        _controls.Gameplay.Interact.performed += ctx =>
             {
-                if(nearbyMirrorMover)
+                if(_nearbyMirrorMover)
                 {
                     if(!_movingMirrors)
                     {
                         _movingMirrors = true;
-                        nearbyMirrorMover.StartMover();
-                        rigidbody2D.isKinematic = true;
-                        rigidbody2D.useFullKinematicContacts = true;
-                        rigidbody2D.velocity = Vector2.zero;
-                        mirrorButtonHeld = true;
+                        _nearbyMirrorMover.StartMover();
+                        _rigidbody2D.isKinematic = true;
+                        _rigidbody2D.useFullKinematicContacts = true;
+                        _rigidbody2D.velocity = Vector2.zero;
+                        _mirrorButtonHeld = true;
                         GetComponent<Animator>().SetFloat("Speed", 0);
                     }
                 }
             };
 
-        controls.Gameplay.Interact.canceled += ctx => 
+        _controls.Gameplay.Interact.canceled += ctx => 
             {
-                mirrorButtonHeld = false;
+                _mirrorButtonHeld = false;
             };
 
         // Cycle between movable objects
-        controls.Gameplay.CycleObjects.performed += ctx =>
+        _controls.Gameplay.CycleObjects.performed += ctx =>
             {
-                if(_movingMirrors && !mirrorButtonHeld)
+                if(_movingMirrors && !_mirrorButtonHeld)
                 {
-                    mirrorMoveValue = ctx.ReadValue<float>();
-                    if(mirrorMoveValue > 0)
+                    _mirrorMoveValue = ctx.ReadValue<float>();
+                    if(_mirrorMoveValue > 0)
                     {
-                        nearbyMirrorMover.CycleNextObject();
+                        _nearbyMirrorMover.CycleNextObject();
                     }
-                    else if(mirrorMoveValue < 0)
+                    else if(_mirrorMoveValue < 0)
                     {
-                        nearbyMirrorMover.CyclePrevObject();
+                        _nearbyMirrorMover.CyclePrevObject();
                     }
                 }
             };
 
         // Cancel
-        controls.Gameplay.Cancel.performed += ctx =>
+        _controls.Gameplay.Cancel.performed += ctx =>
             {
                 if(_movingMirrors)
                 {
                     _movingMirrors = false;
-                    nearbyMirrorMover.ExitMover();
-                    rigidbody2D.isKinematic = false;
-                    rigidbody2D.useFullKinematicContacts = false;
+                    _nearbyMirrorMover.ExitMover();
+                    _rigidbody2D.isKinematic = false;
+                    _rigidbody2D.useFullKinematicContacts = false;
                 }
             };
 
         // Grab
-        controls.Gameplay.Grab.performed += ctx =>
+        _controls.Gameplay.Grab.performed += ctx =>
             {
-                grabbing = true;
+                _grabbing = true;
             };
 
-        controls.Gameplay.Grab.canceled += ctx =>
+        _controls.Gameplay.Grab.canceled += ctx =>
             {
-                grabbing = false;
+                _grabbing = false;
             };
 
 
         //pause
-        controls.Gameplay.Pause.performed += ctx =>
+        _controls.Gameplay.Pause.performed += ctx =>
             {
                 if(Time.timeScale > 0)
                 {
-                    pauseMenu.Pause();
+                    _pauseMenu.Pause();
                 }
                 else
                 {
-                    pauseMenu.Resume();
+                    _pauseMenu.Resume();
                 }
             };
     }
@@ -223,59 +232,67 @@ public class PlayerController : MonoBehaviour
     {
         float angle = 0;
 
+        // Use the mirror mover
         if(_movingMirrors)
         {
-            nearbyMirrorMover.Move(movement);
-            toolTips.SetMoverToolTips(nearbyMirrorMover);
+            _nearbyMirrorMover.Move(_movement);
+            _toolTips.SetMoverToolTips(_nearbyMirrorMover);
         }
         else
         {
-            playerMovement.move(movement, jumping, grabbing);
-            angle = aim.Rotate(aimVector, shooting);
+            // move the player
+            _playerMovement.Move(_movement, _jumping, _grabbing);
+            angle = _aim.CalculateRotation(_aimVector);
+            _aim.RotateAndFire(angle, _shooting);
         }
-        
 
-        if(recording)
+        // Record the input
+        if(_recording)
         {
             //Check if weapon changed while recording
             GameObject newWeapon = null;
-            if(aim.CurrentWeapon != null && prevWeapon != aim.CurrentWeapon.gameObject) newWeapon = aim.CurrentWeapon.gameObject;
-            prevWeapon = (aim.CurrentWeapon == null ? null : aim.CurrentWeapon.gameObject);
+            if(_aim.CurrentWeapon != null && _prevWeapon != _aim.CurrentWeapon.gameObject) newWeapon = _aim.CurrentWeapon.gameObject;
+            _prevWeapon = (_aim.CurrentWeapon == null ? null : _aim.CurrentWeapon.gameObject);
 
-            recorder.AddCommand(movement, jumping, angle, shooting, raySwitchValue, grabbing, _movingMirrors, mirrorMoveValue, newWeapon); // bool for mirror moving
+            _recorder.AddCommand(_movement, _jumping, angle, _shooting, _raySwitchValue, _grabbing, _movingMirrors, _mirrorMoveValue, newWeapon); // bool for mirror moving
         }
 
         //Reset move values after they have been recorded
-        raySwitchValue = 0;
-        mirrorMoveValue = 0;
+        _raySwitchValue = 0;
+        _mirrorMoveValue = 0;
     }
 
     void OnEnable() 
     {
-        controls.Gameplay.Enable();      
-        
+        _controls.Gameplay.Enable();      
     }
 
     void OnDisable()
     {
-        controls.Gameplay.Disable();
+        _controls.Gameplay.Disable();
     }
 
+    /// <summary>
+    /// Stops the recording if the timer ran out or a CheckPoint was crossed.
+    /// </summary>
     public void RecordingCancelled()
     {
-        recording = false;
+        _recording = false;
         StopMovingMirrors();
     }
 
+    /// <summary>
+    /// Safely stops the player using the MirrorMover if their recording timer ran out or they returned to the last CheckPoint.
+    /// </summary>
     public void StopMovingMirrors()
     {
         if(_movingMirrors)
         {
             _movingMirrors = false;
-            nearbyMirrorMover.ExitMover();
-            nearbyMirrorMover.ResetPositions();
-            rigidbody2D.isKinematic = false;
-            rigidbody2D.useFullKinematicContacts = false;
+            _nearbyMirrorMover.ExitMover();
+            _nearbyMirrorMover.ResetPositions();
+            _rigidbody2D.isKinematic = false;
+            _rigidbody2D.useFullKinematicContacts = false;
         }
     }
 
@@ -283,11 +300,11 @@ public class PlayerController : MonoBehaviour
     {
         if(other.tag == "MirrorMover")
         {
-            nearbyMirrorMover = other.GetComponent<MirrorMover>();
+            _nearbyMirrorMover = other.GetComponent<MirrorMover>();
         }
         else if(other.tag == "CloneDevice")
         {
-            nearbyCloneMachine = other.GetComponent<TimeCloneDevice>();
+            _nearbyCloneMachine = other.GetComponent<TimeCloneDevice>();
         }
     }
 
@@ -295,23 +312,23 @@ public class PlayerController : MonoBehaviour
     {
         if(other.tag == "MirrorMover")
         {
-            nearbyMirrorMover = null;
+            _nearbyMirrorMover = null;
         }
         else if(other.tag == "CloneDevice")
         {
-            nearbyCloneMachine = null;
+            _nearbyCloneMachine = null;
         }
     }
-
-    public void SetControlScheme(InputDevice device)
+    
+    void SetControlScheme(InputDevice device)
     {
         if(device.displayName == "Mouse" || device.displayName == "Keyboard")
         {
-            controlScheme = "KeyboardMouse";
+            _controlScheme = "KeyboardMouse";
         }
         else
         {
-            controlScheme = "Gamepad";
+            _controlScheme = "Gamepad";
         }
     }
 }

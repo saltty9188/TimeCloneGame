@@ -5,14 +5,25 @@ using UnityEngine;
 public class TimeCloneController : MonoBehaviour
 {
     #region Public fields
+    public static TimeCloneController Instance;
     public List<GameObject> activeClones;
     #endregion
 
     #region Inspector fields
     [SerializeField] private GameObject timeCloneText;
     #endregion
-    void Start()
+    void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         activeClones = new List<GameObject>();
     }
 

@@ -87,7 +87,7 @@ public class ToolTips : MonoBehaviour
 
     string GetToolTip(InputAction action)
     {
-        int bindingIndex = action.GetBindingIndex(InputBinding.MaskByGroup(PlayerController.controlScheme));
+        int bindingIndex = action.GetBindingIndex(InputBinding.MaskByGroup(PlayerController.ControlScheme));
         string output = action.GetBindingDisplayString(bindingIndex).ToLower();
 
         if(action.bindings[bindingIndex].isPartOfComposite)
@@ -105,7 +105,7 @@ public class ToolTips : MonoBehaviour
 
     string GetToolTip(InputAction action, int compositeIndex)
     {
-        int bindingIndex = action.GetBindingIndex(InputBinding.MaskByGroup(PlayerController.controlScheme));
+        int bindingIndex = action.GetBindingIndex(InputBinding.MaskByGroup(PlayerController.ControlScheme));
         string output = action.GetBindingDisplayString(bindingIndex).ToLower();
 
         if(action.bindings[bindingIndex].isPartOfComposite)
@@ -133,7 +133,7 @@ public class ToolTips : MonoBehaviour
             {
                 icon.gameObject.SetActive(true);
             }
-            if(PlayerController.controlScheme == "KeyboardMouse")
+            if(PlayerController.ControlScheme == "KeyboardMouse")
             {
                 physicsCycleIcons[1].sprite = ToolTipIcons.instance.GetIcon("scroll-down");
                 physicsCycleIcons[0].sprite = ToolTipIcons.instance.GetIcon("scroll-up");

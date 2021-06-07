@@ -358,7 +358,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2879771957952551435, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: pauseMenu
+      propertyPath: _pauseMenu
       value: 
       objectReference: {fileID: 471126291}
     - target: {fileID: 2879771957952551447, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -368,17 +368,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2879771958325902123, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: rayTypeText
+      propertyPath: _rayTypeText
       value: 
       objectReference: {fileID: 504001314}
     - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: healthBar
+      propertyPath: _healthBar
       value: 
       objectReference: {fileID: 149476577}
     - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: healthText
+      propertyPath: _healthText
       value: 
       objectReference: {fileID: 1379720496}
     - target: {fileID: 7145441696750806144, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -388,12 +388,12 @@ PrefabInstance:
       objectReference: {fileID: 1081387521}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: events
+      propertyPath: _allEvents
       value: 
       objectReference: {fileID: 2084162495}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: timerText
+      propertyPath: _timerText
       value: 
       objectReference: {fileID: 1003961654}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
@@ -403,7 +403,7 @@ PrefabInstance:
       objectReference: {fileID: 1081387521}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: recordingIcon
+      propertyPath: _recordingIcon
       value: 
       objectReference: {fileID: 1376013}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,

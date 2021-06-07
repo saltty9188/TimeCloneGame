@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 /// <summary>
-/// The EnemyStatus class is responsible for performing actions related to the health of the boss.
+/// The EnemyStatus class is responsible for performing actions related to the health of the enemy.
 /// </summary>
 public class EnemyStatus : MonoBehaviour
 {

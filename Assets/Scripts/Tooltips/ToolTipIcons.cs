@@ -27,7 +27,7 @@ public class ToolTipIcons : MonoBehaviour
 
     public Sprite GetIcon(string key)
     {
-        if(PlayerController.controlScheme == "KeyboardMouse")
+        if(PlayerController.ControlScheme == "KeyboardMouse")
         {
             foreach(Sprite sprite in keyboardIcons)
             {
