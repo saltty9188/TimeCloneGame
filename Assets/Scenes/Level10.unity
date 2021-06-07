@@ -1042,7 +1042,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5244534058242890784, guid: 5e7a9b47da3805b42a4a2b354931caaa,
         type: 3}
-      propertyPath: timeCloneText
+      propertyPath: _timeCloneText
       value: 
       objectReference: {fileID: 44545057}
     - target: {fileID: 5244534058242890785, guid: 5e7a9b47da3805b42a4a2b354931caaa,
