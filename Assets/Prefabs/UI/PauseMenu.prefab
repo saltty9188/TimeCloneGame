@@ -52,14 +52,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b8e9b859716be41ab06a2b6407c9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsButton: {fileID: 3019518283831657754}
-  firstOption: {fileID: 5777583454726928809}
-  resolutionDropdown: {fileID: 8313591426831221154}
-  windowedToggle: {fileID: 6171495983759406851}
-  masterVolume: {fileID: 8810807792591722405}
-  musicVolume: {fileID: 8161576240440599401}
-  SFXVolume: {fileID: 761497021564266398}
-  audioMixer: {fileID: 24100000, guid: 4439e088ae4b0bd41b2d5ccbde20a343, type: 2}
+  _optionsButton: {fileID: 3019518283831657754}
+  _firstOption: {fileID: 5777583454726928809}
+  _resolutionDropdown: {fileID: 8313591426831221154}
+  _windowedToggle: {fileID: 6171495983759406851}
+  _masterVolume: {fileID: 8810807792591722405}
+  _musicVolume: {fileID: 8161576240440599401}
+  _SFXVolume: {fileID: 761497021564266398}
+  _audioMixer: {fileID: 24100000, guid: 4439e088ae4b0bd41b2d5ccbde20a343, type: 2}
 --- !u!1 &613319252604053028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2462,9 +2462,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6193fc02290a6dd45824e549b539a360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resumeButton: {fileID: 3019518283747220130}
-  player: {fileID: 0}
-  optionsMenu: {fileID: 6309927903760174192}
+  _resumeButton: {fileID: 3019518283747220130}
+  _player: {fileID: 0}
+  _optionsMenu: {fileID: 6309927903760174192}
 --- !u!1 &3019518285187785187
 GameObject:
   m_ObjectHideFlags: 0

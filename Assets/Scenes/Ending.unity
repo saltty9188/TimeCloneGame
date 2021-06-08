@@ -6730,7 +6730,7 @@ GameObject:
   - component: {fileID: 1140704358}
   - component: {fileID: 1140704359}
   m_Layer: 0
-  m_Name: background
+  m_Name: _backGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7013,7 +7013,7 @@ GameObject:
   - component: {fileID: 1902713510}
   - component: {fileID: 1902713511}
   m_Layer: 0
-  m_Name: background (1)
+  m_Name: _backGround (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7236,7 +7236,7 @@ GameObject:
   - component: {fileID: 2098351043}
   - component: {fileID: 2098351044}
   m_Layer: 0
-  m_Name: background (2)
+  m_Name: _backGround (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

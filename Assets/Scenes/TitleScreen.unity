@@ -544,13 +544,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c74f356068e09344be8c1ee52bfd3ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeCanvas: {fileID: 859615793}
-  titleCanvas: {fileID: 2545875079164355817}
-  buttonCanvas: {fileID: 2545875079164355819}
-  cameraY: 1.61
-  panSpeed: 2
-  eventSystem: {fileID: 945010749}
-  inIntro: 0
+  _fadeCanvas: {fileID: 859615793}
+  _titleCanvas: {fileID: 2545875079164355817}
+  _buttonCanvas: {fileID: 2545875079164355819}
+  _cameraY: 1.61
+  _panSpeed: 2
+  _eventSystem: {fileID: 945010749}
 --- !u!4 &507048932
 Transform:
   m_ObjectHideFlags: 0
@@ -668,11 +667,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d490b85179064e84db895c22cb5c8caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsMenu: {fileID: 170113115268939587}
-  fileViewer: {fileID: 1814980156}
-  levelSelect: {fileID: 6127957038364890584}
-  credits: {fileID: 2024743833}
-  intro: {fileID: 507048931}
+  _optionsMenu: {fileID: 170113115268939587}
+  _fileViewer: {fileID: 0}
+  _levelSelect: {fileID: 6127957038364890584}
+  _credits: {fileID: 2024743833}
+  _intro: {fileID: 507048931}
 --- !u!4 &603371164
 Transform:
   m_ObjectHideFlags: 0
@@ -1232,6 +1231,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5335772724898029527, guid: 97e2e645fc166e14eaddb80e44734483,
+        type: 3}
+      propertyPath: _fileViewer
+      value: 
+      objectReference: {fileID: 1814980156}
     - target: {fileID: 5717762021916353535, guid: 97e2e645fc166e14eaddb80e44734483,
         type: 3}
       propertyPath: m_Type
@@ -1245,17 +1249,17 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 6773679005680840453, guid: 97e2e645fc166e14eaddb80e44734483,
         type: 3}
-      propertyPath: newGameButton
+      propertyPath: _newGameButton
       value: 
       objectReference: {fileID: 398795009}
     - target: {fileID: 6773679005680840453, guid: 97e2e645fc166e14eaddb80e44734483,
         type: 3}
-      propertyPath: loadGameButton
+      propertyPath: _loadGameButton
       value: 
       objectReference: {fileID: 2545875079164355815}
     - target: {fileID: 6773679005680840453, guid: 97e2e645fc166e14eaddb80e44734483,
         type: 3}
-      propertyPath: levelSelectMenu
+      propertyPath: _levelSelectMenu
       value: 
       objectReference: {fileID: 6127957038364890584}
     - target: {fileID: 6889448780617977845, guid: 97e2e645fc166e14eaddb80e44734483,
@@ -1290,7 +1294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7844402169055828264, guid: 97e2e645fc166e14eaddb80e44734483,
         type: 3}
-      propertyPath: fileViewer
+      propertyPath: _fileViewer
       value: 
       objectReference: {fileID: 1814980156}
     - target: {fileID: 8302057153544286410, guid: 97e2e645fc166e14eaddb80e44734483,
@@ -1366,6 +1370,12 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97e2e645fc166e14eaddb80e44734483, type: 3}
+--- !u!1 &1033276477 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7796595937304786, guid: 97e2e645fc166e14eaddb80e44734483,
+    type: 3}
+  m_PrefabInstance: {fileID: 1033276476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1105544445 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 170113115989981309, guid: 1c1b20a806b02994cac58c64a091b1bb,
@@ -4889,7 +4899,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1033276476}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1033276477}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74a297818cb620b429baa010299bef21, type: 3}
@@ -5904,7 +5914,7 @@ PrefabInstance:
       objectReference: {fileID: 1105544445}
     - target: {fileID: 2449685050227339162, guid: 1c1b20a806b02994cac58c64a091b1bb,
         type: 3}
-      propertyPath: optionsButton
+      propertyPath: _optionsButton
       value: 
       objectReference: {fileID: 1954233202}
     - target: {fileID: 4005852364645245611, guid: 1c1b20a806b02994cac58c64a091b1bb,
@@ -6089,17 +6099,17 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2260567454360059378, guid: 24c84638e49c4f942b78ac8680c4686c,
         type: 3}
-      propertyPath: lights
+      propertyPath: _lights
       value: 
       objectReference: {fileID: 357013112}
     - target: {fileID: 2260567454360059378, guid: 24c84638e49c4f942b78ac8680c4686c,
         type: 3}
-      propertyPath: backGround
+      propertyPath: _backGround
       value: 
       objectReference: {fileID: 753954107}
     - target: {fileID: 2260567454360059378, guid: 24c84638e49c4f942b78ac8680c4686c,
         type: 3}
-      propertyPath: creditsButton
+      propertyPath: _creditsButton
       value: 
       objectReference: {fileID: 1519112625}
     - target: {fileID: 2260567454360059379, guid: 24c84638e49c4f942b78ac8680c4686c,
@@ -6489,22 +6499,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2545875078912091971, guid: 43da3bf426073a04ab5979c468705706,
         type: 3}
-      propertyPath: credits
+      propertyPath: _credits
       value: 
       objectReference: {fileID: 2024743833}
     - target: {fileID: 2545875078912091971, guid: 43da3bf426073a04ab5979c468705706,
         type: 3}
-      propertyPath: fileMenu
+      propertyPath: _fileMenu
       value: 
       objectReference: {fileID: 1814980156}
     - target: {fileID: 2545875078912091971, guid: 43da3bf426073a04ab5979c468705706,
         type: 3}
-      propertyPath: loadMenu
+      propertyPath: _loadMenu
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2545875078912091971, guid: 43da3bf426073a04ab5979c468705706,
         type: 3}
-      propertyPath: optionsMenu
+      propertyPath: _optionsMenu
       value: 
       objectReference: {fileID: 170113115268939587}
     - target: {fileID: 2545875078912091972, guid: 43da3bf426073a04ab5979c468705706,
@@ -7296,8 +7306,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbd6beb9e6ab9654f838c150fe6c0224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSelectTemplate: {fileID: 760386687882722033}
-  backButton: {fileID: 4925326358887151955}
+  _fileSelectMenu: {fileID: 1033276477}
+  _levelSelectTemplate: {fileID: 760386687882722033}
+  _backButton: {fileID: 4925326358887151955}
   _levelIcons:
   - {fileID: 21300000, guid: 768179d6169e6dc4a946582d4f44b80d, type: 3}
   - {fileID: 21300000, guid: c594ed5f7239aca4888a8531866f6b3c, type: 3}

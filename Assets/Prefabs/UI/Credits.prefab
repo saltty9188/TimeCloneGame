@@ -113,13 +113,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e8fea0316b6c94fab5a989da3126d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditsFile: {fileID: 4900000, guid: a14af9ae39d6594478fc50087e0f54b9, type: 3}
-  creditsText: {fileID: 2260567454376190018}
-  thankYouText: {fileID: 4590990946911993674}
-  creditsButton: {fileID: 0}
-  backGround: {fileID: 0}
-  lights: {fileID: 0}
-  scrollSpeed: 100
+  _creditsFile: {fileID: 4900000, guid: a14af9ae39d6594478fc50087e0f54b9, type: 3}
+  _creditsText: {fileID: 2260567454376190018}
+  _thankYouText: {fileID: 4590990946911993674}
+  _creditsButton: {fileID: 0}
+  _backGround: {fileID: 0}
+  _lights: {fileID: 0}
+  _scrollSpeed: 100
 --- !u!1 &2260567454376190019
 GameObject:
   m_ObjectHideFlags: 0

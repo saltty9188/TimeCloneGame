@@ -1,28 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// The LevelSelectButton class is responsible for loading the selected level.
+/// </summary>
 public class LevelSelectButton : MonoBehaviour
 {
-    public static int totalLevelNumber = 0;
-
+    #region Private fields
+    private static int _totalLevelNumber = 0;
     private int levelNumber;
+    #endregion
 
     void Awake() 
     {
         if(name == "LevelSelectTemplate")
         {
-            totalLevelNumber = 0;
+            _totalLevelNumber = 0;
         }
         else
         {
-            levelNumber = ++totalLevelNumber;
+            levelNumber = ++_totalLevelNumber;
         }
     }
 
+    /// <summary>
+    /// Loads the level represented by this button.
+    /// </summary>
     public void LoadLevel()
     {
         SceneManager.LoadScene(levelNumber);
+    }
+
+    /// <summary>
+    /// Resets the total level number.
+    /// </summary>
+    public static void ResetTotalLevelNumber()
+    {
+        _totalLevelNumber = 0;
     }
 }

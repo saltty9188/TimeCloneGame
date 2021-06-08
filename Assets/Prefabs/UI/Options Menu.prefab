@@ -117,15 +117,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b8e9b859716be41ab06a2b6407c9ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionsButton: {fileID: 0}
-  firstOption: {fileID: 170113115517666641}
-  resolutionDropdown: {fileID: 170113115517666643}
-  windowedToggle: {fileID: 170113115869281722}
-  masterVolume: {fileID: 170113116238428217}
-  musicVolume: {fileID: 170113115171512368}
-  SFXVolume: {fileID: 170113115578031260}
-  audioMixer: {fileID: 24100000, guid: 4439e088ae4b0bd41b2d5ccbde20a343, type: 2}
-  audioMultiplier: 30
+  _optionsButton: {fileID: 0}
+  _firstOption: {fileID: 170113115517666641}
+  _resolutionDropdown: {fileID: 170113115517666643}
+  _windowedToggle: {fileID: 170113115869281722}
+  _masterVolume: {fileID: 170113116238428217}
+  _musicVolume: {fileID: 170113115171512368}
+  _SFXVolume: {fileID: 170113115578031260}
+  _audioMixer: {fileID: 24100000, guid: 4439e088ae4b0bd41b2d5ccbde20a343, type: 2}
+  _audioMultiplier: 30
 --- !u!1 &170113114801544943
 GameObject:
   m_ObjectHideFlags: 0
