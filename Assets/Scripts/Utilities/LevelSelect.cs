@@ -1,45 +1,59 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using TMPro;
 
+/// <summary>
+/// The LevelSelect class is responsible for displaying the available levels to play to the player.
+/// </summary>
 public class LevelSelect : MonoBehaviour
 {
     #region Inspector fields
-    [SerializeField] private GameObject levelSelectTemplate;
-    [SerializeField] private GameObject backButton;
+    [Tooltip("The load menu game object.")]
+    [SerializeField] private GameObject _fileSelectMenu;
+    [Tooltip("The template for creating level select buttons.")]
+    [SerializeField] private GameObject _levelSelectTemplate;
+    [Tooltip("Button that goes back to the file select screen.")]
+    [SerializeField] private GameObject _backButton;
+    [Tooltip("Array of the level icons.")]
     [SerializeField] private Sprite[] _levelIcons;
     #endregion
 
     #region Private fields
-    private GameObject saveFileButton;
-    private ScrollRect scrollRect;
-    private float originalHeight;
+    private GameObject _saveFileButton;
+    private ScrollRect _scrollRect;
+    private float _originalHeight;
     #endregion
 
     void Awake()
     {
-        scrollRect = GetComponentInChildren<ScrollRect>();
-        originalHeight = scrollRect.content.rect.height;
+        _scrollRect = GetComponentInChildren<ScrollRect>();
+        _originalHeight = _scrollRect.content.rect.height;
     }
 
-    public void OpenLoadMenu(GameObject saveFileButton)
+    /// <summary>
+    /// Opens the LevelSelect menu.
+    /// </summary>
+    /// <param name="saveFileButton">The save button from the FileViewer that opened this menu.</param>
+    public void OpenLevelSelectMenu(GameObject saveFileButton)
     {
         gameObject.SetActive(true);
-        this.saveFileButton = saveFileButton;
+        this._saveFileButton = saveFileButton;
         PopulateMenu();
-        SetSelectedGameObject(scrollRect.content.transform.GetChild(1).gameObject);
+        SetSelectedGameObject(_scrollRect.content.transform.GetChild(1).gameObject);
     }
 
+    /// <summary>
+    /// Goes back to the FileViewer load menu.
+    /// </summary>
     public void GoBack()
     {
-        saveFileButton.transform.parent.parent.parent.parent.gameObject.SetActive(true);
-        SetSelectedGameObject(saveFileButton);
+        _fileSelectMenu.SetActive(true);
+        SetSelectedGameObject(_saveFileButton);
 
-        foreach(Transform child in scrollRect.content)
+        foreach(Transform child in _scrollRect.content)
         {
-            if(child.gameObject != levelSelectTemplate)
+            if(child.gameObject != _levelSelectTemplate)
             {
                 Destroy(child.gameObject);
             }
@@ -48,49 +62,57 @@ public class LevelSelect : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    // populates the menu with the available levels
     void PopulateMenu()
     {
-        levelSelectTemplate.SetActive(true);
-        LevelSelectButton.totalLevelNumber = 0;
-        scrollRect.content.sizeDelta = new Vector2(0, originalHeight);
+        _levelSelectTemplate.SetActive(true);
+        LevelSelectButton.ResetTotalLevelNumber();
+        // reset the scrollrect height
+        _scrollRect.content.sizeDelta = new Vector2(0, _originalHeight);
 
         int unlockedLevels = SaveData.currentSaveFile.LevelIndex;
-        Vector3 buttonPos = levelSelectTemplate.transform.localPosition;
+        Vector3 buttonPos = _levelSelectTemplate.transform.localPosition;
 
-        float totalHeight = unlockedLevels * levelSelectTemplate.GetComponent<RectTransform>().rect.height;
+        float totalHeight = unlockedLevels * _levelSelectTemplate.GetComponent<RectTransform>().rect.height;
 
-        if(totalHeight > scrollRect.content.rect.height)
+        if(totalHeight > _scrollRect.content.rect.height)
         {
-            scrollRect.content.sizeDelta = new Vector2(0, totalHeight);
+            _scrollRect.content.sizeDelta = new Vector2(0, totalHeight);
         }
 
+        // populate the menu
         for(int i = 1; i <= unlockedLevels; i++)
         {
             string displayName = "Level " + i.ToString();
             if(i == 14) displayName = "Final Boss";
-            GameObject button = Instantiate(levelSelectTemplate, buttonPos, new Quaternion());
+
+            // create the button
+            GameObject button = Instantiate(_levelSelectTemplate, buttonPos, new Quaternion());
             button.name = displayName;
-            button.transform.parent = levelSelectTemplate.transform.parent;
+            button.transform.parent = _levelSelectTemplate.transform.parent;
             button.transform.localScale = Vector3.one;
             button.transform.localPosition = buttonPos;
-            buttonPos.y -= levelSelectTemplate.GetComponent<RectTransform>().rect.height;
+            buttonPos.y -= _levelSelectTemplate.GetComponent<RectTransform>().rect.height;
 
+            // set the level name
             TextMeshProUGUI levelName = button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             levelName.text = displayName;
 
+            // Set the level icon
             Image levelIcon = button.transform.GetChild(1).GetComponent<Image>();
             levelIcon.sprite = _levelIcons[i - 1];
         }
 
-        UnityEngine.UI.Button UIButton = backButton.GetComponent<UnityEngine.UI.Button>();
+        // Set the back button navigation
+        UnityEngine.UI.Button UIButton = _backButton.GetComponent<UnityEngine.UI.Button>();
         Navigation nav = new Navigation();
         nav.mode = Navigation.Mode.Explicit;
-        nav.selectOnUp = scrollRect.content.GetChild(scrollRect.content.childCount - 1).GetComponent<Selectable>();
+        nav.selectOnUp = _scrollRect.content.GetChild(_scrollRect.content.childCount - 1).GetComponent<Selectable>();
         
-        nav.selectOnDown = scrollRect.content.transform.GetChild(1).GetComponent<Selectable>();
+        nav.selectOnDown = _scrollRect.content.transform.GetChild(1).GetComponent<Selectable>();
         UIButton.navigation = nav;
 
-        levelSelectTemplate.SetActive(false);
+        _levelSelectTemplate.SetActive(false);
     }
 
     void SetSelectedGameObject(GameObject go)

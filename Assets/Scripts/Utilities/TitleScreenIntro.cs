@@ -1,78 +1,98 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// The TitleScreenIntro class is responsible for playing the title screen intro sequence to the player.
+/// </summary>
 public class TitleScreenIntro : MonoBehaviour
 {
-
     #region Inspector fields
-    [SerializeField] private CanvasGroup fadeCanvas;
-    [SerializeField] private CanvasGroup titleCanvas;
-    [SerializeField] private CanvasGroup buttonCanvas;
-    [SerializeField] private float cameraY;
-    [SerializeField] private float panSpeed;
-    [SerializeField] EventSystem eventSystem;
+    [Tooltip("The canvas group used for fading in.")]
+    [SerializeField] private CanvasGroup _fadeCanvas;
+    [Tooltip("The canvas group used fade the title in.")]
+    [SerializeField] private CanvasGroup _titleCanvas;
+    [Tooltip("The canvas group used to fade the buttons in.")]
+    [SerializeField] private CanvasGroup _buttonCanvas;
+    [Tooltip("The desired final Y position of the camera.")]
+    [SerializeField] private float _cameraY;
+    [Tooltip("The speed the camera pans.")]
+    [SerializeField] private float _panSpeed;
+    [Tooltip("The current event system.")]
+    [SerializeField] EventSystem _eventSystem;
     #endregion
 
     #region Public fields
-    public bool inIntro;
+    /// <value>True if the intro is playing, false otherwise.</value>
+    public bool InIntro
+    {
+        get {return _inIntro;}
+    }
     #endregion
 
     #region Private fields
-    private Coroutine coroutine;
-    private Vector3 finalPosition;
-    private float panDist;
+    private bool _inIntro;
+    private Coroutine _coroutine;
+    private Vector3 _finalPosition;
+    private float _panDist;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        inIntro = true;
+        _inIntro = true;
         Camera.main.transform.position = new Vector3(-0.5f, 11f, -10f);
-        buttonCanvas.alpha = 0;
-        finalPosition = new Vector3(Camera.main.transform.position.x, cameraY, Camera.main.transform.position.z);
-        panDist = Camera.main.transform.position.y - cameraY;
-        eventSystem.gameObject.SetActive(false);
-        coroutine = StartCoroutine(Intro());
+        _buttonCanvas.alpha = 0;
+        _finalPosition = new Vector3(Camera.main.transform.position.x, _cameraY, Camera.main.transform.position.z);
+        _panDist = Camera.main.transform.position.y - _cameraY;
+        // deactivate the event system so button inputs don't stack
+        _eventSystem.gameObject.SetActive(false);
+        _coroutine = StartCoroutine(Intro());
         AudioManager.Instance.PlayMusic("TitleTheme");
     }
 
+    // pan the camera and adjust the canvas group fades
     IEnumerator Intro()
     {
-        while(Camera.main.transform.position.y != cameraY)
+        // pan the camera down and crossfade the black screen and title
+        while(Camera.main.transform.position.y != _cameraY)
         {
-            Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, finalPosition, panSpeed * Time.deltaTime);
-            float distToFade = Camera.main.transform.position.y - cameraY;
-            float fadeAlpha = distToFade / panDist;
-            fadeCanvas.alpha = fadeAlpha;
-            titleCanvas.alpha = 1.0f - fadeAlpha;
+            Camera.main.transform.position = Vector3.MoveTowards(Camera.main.transform.position, _finalPosition, _panSpeed * Time.deltaTime);
+            float distToFade = Camera.main.transform.position.y - _cameraY;
+            float fadeAlpha = distToFade / _panDist;
+            _fadeCanvas.alpha = fadeAlpha;
+            _titleCanvas.alpha = 1.0f - fadeAlpha;
             yield return null;
         }
 
+        // wait a bit before quickly fading the buttons in
         yield return new WaitForSeconds(1.5f);
 
-        while(buttonCanvas.alpha < 1.0f)
+        while(_buttonCanvas.alpha < 1.0f)
         {
-            float alpha = buttonCanvas.alpha;
+            float alpha = _buttonCanvas.alpha;
             alpha += 16 * Time.deltaTime;
-            buttonCanvas.alpha = alpha;
+            _buttonCanvas.alpha = alpha;
             yield return null;
         }
 
-        coroutine = null;
-        inIntro = false;
-        eventSystem.gameObject.SetActive(true);
+        _coroutine = null;
+        _inIntro = false;
+        // reactivate the event system
+        _eventSystem.gameObject.SetActive(true);
     }
 
+    /// <summary>
+    /// Skips the intro animation to the end.
+    /// </summary>
     public void SkipIntro()
     {
-        StopCoroutine(coroutine);
-        fadeCanvas.alpha = 0;
-        titleCanvas.alpha = 1;
-        buttonCanvas.alpha = 1;
-        Camera.main.transform.position = finalPosition;
-        inIntro = false;
-        eventSystem.gameObject.SetActive(true);
+        StopCoroutine(_coroutine);
+        _fadeCanvas.alpha = 0;
+        _titleCanvas.alpha = 1;
+        _buttonCanvas.alpha = 1;
+        Camera.main.transform.position = _finalPosition;
+        _inIntro = false;
+        _eventSystem.gameObject.SetActive(true);
     }
 }

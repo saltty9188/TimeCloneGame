@@ -2,57 +2,65 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The MenuInput class is responsible for handling player input on the title menu.
+/// </summary>
 public class MenuInput : MonoBehaviour
 {
-    
     #region Inspector fields
-    [SerializeField] private OptionsMenu optionsMenu;
-    [SerializeField] private FileViewer fileViewer;
-    [SerializeField] private LevelSelect levelSelect;
-    [SerializeField] private Credits credits;
-    [SerializeField] private TitleScreenIntro intro;
+    [Tooltip("The options menu.")]
+    [SerializeField] private OptionsMenu _optionsMenu;
+    [Tooltip("The file view menu.")]
+    [SerializeField] private FileViewer _fileViewer;
+    [Tooltip("The level select menu.")]
+    [SerializeField] private LevelSelect _levelSelect;
+    [Tooltip("The credits sequence.")]
+    [SerializeField] private Credits _credits;
+    [Tooltip("The intro sequence.")]
+    [SerializeField] private TitleScreenIntro _intro;
     #endregion
 
     #region Private fields
-    private PlayerControls controls;
+    private PlayerControls _controls;
     #endregion
 
     void Awake()
     {
-        controls = new PlayerControls();
+        _controls = new PlayerControls();
         
-        controls.Menus.Back.performed += ctx =>
+        // sets what the go back button will do when each menu is active
+        _controls.Menus.Back.performed += ctx =>
         {
-            if(intro.inIntro)
+            if(_intro.InIntro)
             {
-                intro.SkipIntro();
+                _intro.SkipIntro();
             }
-            else if(optionsMenu.gameObject.activeSelf)
+            else if(_optionsMenu.gameObject.activeSelf)
             {
-                optionsMenu.GoBack();
+                _optionsMenu.GoBack();
             }
-            else if(fileViewer.gameObject.activeSelf)
+            else if(_fileViewer.gameObject.activeSelf)
             {
-                fileViewer.GoBack();
+                _fileViewer.GoBack();
             }
-            else if(levelSelect.gameObject.activeSelf)
+            else if(_levelSelect.gameObject.activeSelf)
             {
-                levelSelect.GoBack();
+                _levelSelect.GoBack();
             }
-            else if(credits.gameObject.activeSelf)
+            else if(_credits.gameObject.activeSelf)
             {
-                credits.GoBack();
+                _credits.GoBack();
             }
         };
     }
 
     void OnEnable()
     {
-        controls.Menus.Enable();
+        _controls.Menus.Enable();
     }
 
     void OnDisable()
     {
-        controls.Menus.Disable();
+        _controls.Menus.Disable();
     }
 }

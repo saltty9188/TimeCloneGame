@@ -4,14 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// The DropDownScroll class is attached to items in ScrollViews so that they remain on screen when navigated with controller.
+/// </summary>
 public class DropDownScroll : MonoBehaviour
 {
-    private ScrollRect scrollRect;
-    private RectTransform content;
+    #region Private fields
+    private ScrollRect _scrollRect;
+    private RectTransform _content;
+    #endregion
+
     void Start()
     {
-        content = transform.parent.GetComponent<RectTransform>();
-        scrollRect = transform.parent.parent.parent.GetComponent<ScrollRect>();
+        _content = transform.parent.GetComponent<RectTransform>();
+        _scrollRect = transform.parent.parent.parent.GetComponent<ScrollRect>();
     }
 
     // Update is called once per frame
@@ -22,8 +28,8 @@ public class DropDownScroll : MonoBehaviour
 
             //adapted from https://www.alexandrow.org/blog/autoscroll-dropdowns-in-unity/
 
-            float contentHeight = scrollRect.content.rect.height;
-            float viewportHeight = scrollRect.viewport.rect.height;
+            float contentHeight = _scrollRect.content.rect.height;
+            float viewportHeight = _scrollRect.viewport.rect.height;
     
             // visible bounds of this object
             float centerLine = transform.localPosition.y;
@@ -31,7 +37,7 @@ public class DropDownScroll : MonoBehaviour
             float lowerBound = centerLine - (GetComponent<RectTransform>().rect.height / 2f); 
     
             // bounds of the currently visible area
-            float lowerVisible = (contentHeight - viewportHeight) * scrollRect.normalizedPosition.y - contentHeight;
+            float lowerVisible = (contentHeight - viewportHeight) * _scrollRect.normalizedPosition.y - contentHeight;
             float upperVisible = lowerVisible + viewportHeight;
     
             // check if item is currently visible
@@ -54,7 +60,7 @@ public class DropDownScroll : MonoBehaviour
     
             // normalize and set the desired viewport
             float normalizedDesired = (desiredLowerBound + contentHeight) / (contentHeight - viewportHeight);
-            scrollRect.normalizedPosition = new Vector2(0f, Mathf.Clamp01(normalizedDesired));
+            _scrollRect.normalizedPosition = new Vector2(0f, Mathf.Clamp01(normalizedDesired));
         }
     }
 }

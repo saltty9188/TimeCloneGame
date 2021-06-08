@@ -5,7 +5,7 @@ using UnityEngine;
 public class Intro : MonoBehaviour
 {
     #region Inspector fields
-    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject _player;
     #endregion  
 
 
@@ -17,6 +17,6 @@ public class Intro : MonoBehaviour
 
     public void ShowPlayer()
     {
-        player.SetActive(true);
+        _player.SetActive(true);
     }
 }

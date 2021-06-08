@@ -10,7 +10,7 @@ public class LevelTransition : MonoBehaviour
     [SerializeField] private float elevatorSpeed = 2;
     [SerializeField] private float elevatorTravelHeight = 10;
     [SerializeField] private CanvasGroup fadeGroup;
-    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject _player;
     #endregion
 
     #region Private fields
@@ -26,13 +26,13 @@ public class LevelTransition : MonoBehaviour
         cameraTracker = Camera.main.GetComponent<CameraTracker>();
         if(isEntrance)
         {
-            player.transform.position = new Vector3(transform.position.x, player.transform.position.y, 0);
-            fadeinHeight = (player.transform.position.y + cameraTracker.verticalOffset) - elevatorTravelHeight;
-            Camera.main.transform.position = new Vector3(player.transform.position.x, fadeinHeight, Camera.main.transform.position.z);
+            _player.transform.position = new Vector3(transform.position.x, _player.transform.position.y, 0);
+            fadeinHeight = (_player.transform.position.y + cameraTracker.verticalOffset) - elevatorTravelHeight;
+            Camera.main.transform.position = new Vector3(_player.transform.position.x, fadeinHeight, Camera.main.transform.position.z);
             cameraTracker.enabled = false;
-            player.GetComponent<PlayerMovement>().enabled = false;
-            player.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-            player.transform.GetChild(0).GetComponent<Aim>().enabled = false;
+            _player.GetComponent<PlayerMovement>().enabled = false;
+            _player.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            _player.transform.GetChild(0).GetComponent<Aim>().enabled = false;
             StartCoroutine(EnterLevelTransition());
             AudioManager.Instance.PlayLevelTheme(SceneManager.GetActiveScene().buildIndex);
         }
@@ -64,7 +64,7 @@ public class LevelTransition : MonoBehaviour
         }
         yield return new WaitForSeconds(animationTime);
         
-        player.GetComponent<PlayerMovement>().enabled = true;
+        _player.GetComponent<PlayerMovement>().enabled = true;
         cameraTracker.enabled = true;
 
         animator.SetTrigger("Close");

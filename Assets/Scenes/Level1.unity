@@ -8240,7 +8240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3019518285076343682, guid: 175b45aad44c0c743bb1a430936bb733,
         type: 3}
-      propertyPath: player
+      propertyPath: _player
       value: 
       objectReference: {fileID: 1679684565}
     - target: {fileID: 3019518285076343683, guid: 175b45aad44c0c743bb1a430936bb733,
@@ -19549,7 +19549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db78641f949554448d656200e6e19ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1125621532}
+  _player: {fileID: 1125621532}
 --- !u!95 &1801335963
 Animator:
   serializedVersion: 3
@@ -20852,7 +20852,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5928043426539943033, guid: cf496e19a409b2142b071a3097e01e70,
         type: 3}
-      propertyPath: player
+      propertyPath: _player
       value: 
       objectReference: {fileID: 1125621532}
     - target: {fileID: 5928043426539943033, guid: cf496e19a409b2142b071a3097e01e70,

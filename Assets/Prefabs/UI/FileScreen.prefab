@@ -615,12 +615,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a297818cb620b429baa010299bef21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newGameButton: {fileID: 0}
-  loadGameButton: {fileID: 0}
-  fileSelectTemplate: {fileID: 6889448780617977845}
-  newFileButton: {fileID: 4328085221159176023}
-  backButton: {fileID: 1246112509610609751}
-  levelSelectMenu: {fileID: 0}
+  _newGameButton: {fileID: 0}
+  _loadGameButton: {fileID: 0}
+  _fileSelectTemplate: {fileID: 6889448780617977845}
+  _newFileButton: {fileID: 4328085221159176023}
+  _backButton: {fileID: 1246112509610609751}
+  _levelSelectMenu: {fileID: 0}
 --- !u!1 &7796596112138929
 GameObject:
   m_ObjectHideFlags: 0
