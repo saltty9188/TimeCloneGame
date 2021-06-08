@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce522bccd004e4468d32beab5048779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboardIcons:
+  _keyboardIcons:
   - {fileID: -5263310844400493299, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
   - {fileID: 2542707744995195014, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
   - {fileID: 5545413270143534739, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
@@ -53,7 +53,7 @@ MonoBehaviour:
   - {fileID: -429637653282652726, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
   - {fileID: -5699620784097544111, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
   - {fileID: -2145124410647425405, guid: 31c4eb40a1f8abf408cab29572dad6b7, type: 3}
-  xboxIcons:
+  _xboxIcons:
   - {fileID: 21300052, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
   - {fileID: 21300054, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
   - {fileID: 21300048, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
@@ -63,7 +63,7 @@ MonoBehaviour:
   - {fileID: 21300028, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
   - {fileID: 21300036, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
   - {fileID: 21300046, guid: fe9aa33e50412c242bd73e9324bc7922, type: 3}
-  psIcons:
+  _psIcons:
   - {fileID: 21300052, guid: 10045ad39fef69944b33bedc39310592, type: 3}
   - {fileID: 21300050, guid: 10045ad39fef69944b33bedc39310592, type: 3}
   - {fileID: 21300046, guid: 10045ad39fef69944b33bedc39310592, type: 3}

@@ -1574,7 +1574,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1405204331780054622, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: cancelRecordingImage
+      propertyPath: _cancelRecordingImage
       value: 
       objectReference: {fileID: 1005660694}
     - target: {fileID: 2879771957952551433, guid: d1d92c333ecf1a146be33d5f05e3dba6,
