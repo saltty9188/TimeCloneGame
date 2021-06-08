@@ -15167,17 +15167,17 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1405204331780054622, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: cancelRecordingImage
+      propertyPath: _cancelRecordingImage
       value: 
       objectReference: {fileID: 267602115}
     - target: {fileID: 1405204331780054622, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: physicsCycleIcons.Array.data[0]
+      propertyPath: _physicsCycleIcons.Array.data[0]
       value: 
       objectReference: {fileID: 267602113}
     - target: {fileID: 1405204331780054622, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: physicsCycleIcons.Array.data[1]
+      propertyPath: _physicsCycleIcons.Array.data[1]
       value: 
       objectReference: {fileID: 267602114}
     - target: {fileID: 2879771957952551433, guid: d1d92c333ecf1a146be33d5f05e3dba6,

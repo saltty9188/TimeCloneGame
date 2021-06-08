@@ -397,11 +397,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eda5a1fbfcf7d8f458c2899ea5f75da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolTipIcon: {fileID: 907459733346608803}
-  physicsCycleIcons:
+  _toolTipIcon: {fileID: 907459733346608803}
+  _physicsCycleIcons:
   - {fileID: 0}
   - {fileID: 0}
-  cancelRecordingImage: {fileID: 0}
+  _cancelRecordingImage: {fileID: 0}
 --- !u!1 &2879771958325902120
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,52 +1,56 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+/// <summary>
+/// The ToolTips class is responsible for displaying tool tips to the player.
+/// </summary>
 public class ToolTips : MonoBehaviour
 {
-
-    [SerializeField] private Image toolTipIcon;
-    [SerializeField] private Image[] physicsCycleIcons;
-    [SerializeField] private Image cancelRecordingImage;
-    private PlayerControls controls;
-    private PlayerController playerController;
-    private Aim aim;
-    private Recorder recorder;
+    #region Inspector fields
+    [SerializeField] private Image _toolTipIcon;
+    [SerializeField] private Image[] _physicsCycleIcons;
+    [SerializeField] private Image _cancelRecordingImage;
+    #endregion
+    #region Private regions
+    private PlayerControls _controls;
+    private PlayerController _playerController;
+    private Aim _aim;
+    private Recorder _recorder;
+    #endregion
 
     void Start()
     {
-        playerController = GetComponent<PlayerController>();
-        controls = playerController.CurrentControls;
-        recorder = GetComponent<Recorder>();
-        aim = transform.GetChild(0).GetComponent<Aim>();
+        _playerController = GetComponent<PlayerController>();
+        _controls = _playerController.CurrentControls;
+        _recorder = GetComponent<Recorder>();
+        _aim = transform.GetChild(0).GetComponent<Aim>();
     }
 
     void Update()
     {
         if(transform.localScale.x < 0)
         {
-            Vector3 temp = toolTipIcon.transform.localScale;
+            Vector3 temp = _toolTipIcon.transform.localScale;
             temp.x = -Mathf.Abs(temp.x);        
-            toolTipIcon.transform.localScale = temp;
+            _toolTipIcon.transform.localScale = temp;
         }
         else
         {
-            Vector3 temp = toolTipIcon.transform.localScale;
+            Vector3 temp = _toolTipIcon.transform.localScale;
             temp.x = Mathf.Abs(temp.x);        
-            toolTipIcon.transform.localScale = temp;
+            _toolTipIcon.transform.localScale = temp;
         }
 
         SetPhysicsIcons();
-        if(recorder.IsRecording && !playerController.MovingMirrors)
+        if(_recorder.IsRecording && !_playerController.MovingMirrors)
         {
-            cancelRecordingImage.gameObject.SetActive(true);
-            cancelRecordingImage.sprite = ToolTipIcons.instance.GetIcon(GetToolTip(controls.Gameplay.Record));
+            _cancelRecordingImage.gameObject.SetActive(true);
+            _cancelRecordingImage.sprite = ToolTipIcons.Instance.GetIcon(GetToolTip(_controls.Gameplay.Record));
         }
         else
         {
-            cancelRecordingImage.gameObject.SetActive(false);
+            _cancelRecordingImage.gameObject.SetActive(false);
         }
     }
 
@@ -54,12 +58,12 @@ public class ToolTips : MonoBehaviour
     {
         if(hit)
         {
-            toolTipIcon.gameObject.SetActive(true);
-            toolTipIcon.sprite = ToolTipIcons.instance.GetIcon(GetToolTip(controls.Gameplay.Grab));
+            _toolTipIcon.gameObject.SetActive(true);
+            _toolTipIcon.sprite = ToolTipIcons.Instance.GetIcon(GetToolTip(_controls.Gameplay.Grab));
         }
         else
         {
-            toolTipIcon.gameObject.SetActive(false);
+            _toolTipIcon.gameObject.SetActive(false);
         }
     }
 
@@ -67,13 +71,13 @@ public class ToolTips : MonoBehaviour
     {
         if(other.tag == "CloneDevice")
         {
-            toolTipIcon.gameObject.SetActive(true);
-            toolTipIcon.sprite = FindObjectOfType<ToolTipIcons>().GetIcon(GetToolTip(controls.Gameplay.Record));
+            _toolTipIcon.gameObject.SetActive(true);
+            _toolTipIcon.sprite = FindObjectOfType<ToolTipIcons>().GetIcon(GetToolTip(_controls.Gameplay.Record));
         }
         else if(other.tag == "MirrorMover")
         {
-            toolTipIcon.gameObject.SetActive(true);
-            toolTipIcon.sprite = FindObjectOfType<ToolTipIcons>().GetIcon(GetToolTip(controls.Gameplay.Interact));
+            _toolTipIcon.gameObject.SetActive(true);
+            _toolTipIcon.sprite = FindObjectOfType<ToolTipIcons>().GetIcon(GetToolTip(_controls.Gameplay.Interact));
         }
     }
 
@@ -81,7 +85,7 @@ public class ToolTips : MonoBehaviour
     {
         if(other.tag == "CloneDevice" || other.tag == "MirrorMover")
         {
-            toolTipIcon.gameObject.SetActive(false);
+            _toolTipIcon.gameObject.SetActive(false);
         }
     }
 
@@ -120,35 +124,35 @@ public class ToolTips : MonoBehaviour
     public void SetMoverToolTips(MirrorMover mover)
     {
         Sprite[] sprites = new Sprite[2];
-        sprites[0] = ToolTipIcons.instance.GetIcon(GetToolTip(controls.Gameplay.CycleObjects, 0));
-        sprites[1] = ToolTipIcons.instance.GetIcon(GetToolTip(controls.Gameplay.CycleObjects, 1));
-        mover.SetToolTips(sprites, ToolTipIcons.instance.GetIcon(GetToolTip(controls.Gameplay.Cancel)));
+        sprites[0] = ToolTipIcons.Instance.GetIcon(GetToolTip(_controls.Gameplay.CycleObjects, 0));
+        sprites[1] = ToolTipIcons.Instance.GetIcon(GetToolTip(_controls.Gameplay.CycleObjects, 1));
+        mover.SetToolTips(sprites, ToolTipIcons.Instance.GetIcon(GetToolTip(_controls.Gameplay.Cancel)));
     }
 
     void SetPhysicsIcons()
     {
-        if(aim.CurrentWeapon && typeof(PhysicsRay).IsInstanceOfType(aim.CurrentWeapon))
+        if(_aim.CurrentWeapon && typeof(PhysicsRay).IsInstanceOfType(_aim.CurrentWeapon))
         {
-            foreach(Image icon in physicsCycleIcons)
+            foreach(Image icon in _physicsCycleIcons)
             {
                 icon.gameObject.SetActive(true);
             }
             if(PlayerController.ControlScheme == "KeyboardMouse")
             {
-                physicsCycleIcons[1].sprite = ToolTipIcons.instance.GetIcon("scroll-down");
-                physicsCycleIcons[0].sprite = ToolTipIcons.instance.GetIcon("scroll-up");
+                _physicsCycleIcons[1].sprite = ToolTipIcons.Instance.GetIcon("scroll-down");
+                _physicsCycleIcons[0].sprite = ToolTipIcons.Instance.GetIcon("scroll-up");
             }   
             else
             {
-                for(int i = 0; i < physicsCycleIcons.Length; i++)
+                for(int i = 0; i < _physicsCycleIcons.Length; i++)
                 {
-                    physicsCycleIcons[i].sprite = ToolTipIcons.instance.GetIcon(GetToolTip(controls.Gameplay.CyclePhysics, i));
+                    _physicsCycleIcons[i].sprite = ToolTipIcons.Instance.GetIcon(GetToolTip(_controls.Gameplay.CyclePhysics, i));
                 }
             }
         }
         else
         {
-            foreach(Image icon in physicsCycleIcons)
+            foreach(Image icon in _physicsCycleIcons)
             {
                if(icon) icon.gameObject.SetActive(false);
             }

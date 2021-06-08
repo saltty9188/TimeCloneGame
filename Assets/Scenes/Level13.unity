@@ -59650,17 +59650,17 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1405204331780054622, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: cancelRecordingImage
+      propertyPath: _cancelRecordingImage
       value: 
       objectReference: {fileID: 1286359037}
     - target: {fileID: 1405204331780054622, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: physicsCycleIcons.Array.data[0]
+      propertyPath: _physicsCycleIcons.Array.data[0]
       value: 
       objectReference: {fileID: 1286359035}
     - target: {fileID: 1405204331780054622, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: physicsCycleIcons.Array.data[1]
+      propertyPath: _physicsCycleIcons.Array.data[1]
       value: 
       objectReference: {fileID: 1286359036}
     - target: {fileID: 2879771957952551433, guid: d1d92c333ecf1a146be33d5f05e3dba6,
