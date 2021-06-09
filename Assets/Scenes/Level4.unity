@@ -1311,12 +1311,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -3945,12 +3945,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -4178,12 +4178,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -4347,22 +4347,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 1343467529}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: previousEnemyGroup
+      propertyPath: _previousEnemyGroup
       value: 
       objectReference: {fileID: 1758732998}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -21442,10 +21442,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e942d6a7b1f9af48b341e898e930afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 1597776107}
-  verticalOffset: 4
-  maxYPos: 3
-  minYPos: 3
+  _playerTransform: {fileID: 1597776107}
+  _verticalOffset: 4
+  _maxYPos: 3
+  _minYPos: 3
 --- !u!1001 &1552738063
 PrefabInstance:
   m_ObjectHideFlags: 0

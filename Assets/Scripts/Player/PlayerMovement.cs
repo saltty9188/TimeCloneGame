@@ -145,7 +145,6 @@ public class PlayerMovement : MonoBehaviour
                         _facingRight = transform.localScale.x > 0;
                         if(movement.x < 0 && _facingRight)
                         {
-                            Debug.Log(_facingRight);
                             Flip();
                         }
                         else if(movement.x > 0 && !_facingRight)

@@ -470,12 +470,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -3557,10 +3557,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e942d6a7b1f9af48b341e898e930afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 1942153916}
-  verticalOffset: 4
-  maxYPos: 11
-  minYPos: 1
+  _playerTransform: {fileID: 1942153916}
+  _verticalOffset: 4
+  _maxYPos: 11
+  _minYPos: 1
 --- !u!1 &709303182
 GameObject:
   m_ObjectHideFlags: 0

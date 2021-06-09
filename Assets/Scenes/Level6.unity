@@ -428,17 +428,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 298172645}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -1496,10 +1496,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e942d6a7b1f9af48b341e898e930afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 1032800119}
-  verticalOffset: 4
-  maxYPos: 7
-  minYPos: 3
+  _playerTransform: {fileID: 1032800119}
+  _verticalOffset: 4
+  _maxYPos: 7
+  _minYPos: 3
 --- !u!114 &449380694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1639,17 +1639,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -2017,17 +2017,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 1929652114}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -2423,17 +2423,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 64609662}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -16165,12 +16165,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,

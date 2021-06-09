@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The Turret class is responsible for controlling Turret enemy behaviour.
+/// </summary>
 public class Turret : EnemyBehaviour
 {
     #region Inspector fields

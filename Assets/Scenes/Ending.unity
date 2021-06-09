@@ -2668,10 +2668,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5187a7b83cc9934cb836330b45f3de7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  elevator: {fileID: 9195279524643221127}
-  fadeToBlack: {fileID: 1097623946249092003}
-  player: {fileID: 4037339561815972090}
-  credits: {fileID: 1941110543}
+  _elevator: {fileID: 9195279524643221127}
+  _fadeToBlack: {fileID: 1097623946249092003}
+  _player: {fileID: 4037339561815972090}
+  _credits: {fileID: 1941110543}
 --- !u!4 &255935657
 Transform:
   m_ObjectHideFlags: 0
