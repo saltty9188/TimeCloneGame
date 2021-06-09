@@ -1,35 +1,42 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// The LevelTransition class is responsible for transitioning the player between levels.
+/// </summary>
 public class LevelTransition : MonoBehaviour
 {
     #region Inspector fields
-    [SerializeField] private bool isEntrance;
-    [SerializeField] private float elevatorSpeed = 2;
-    [SerializeField] private float elevatorTravelHeight = 10;
-    [SerializeField] private CanvasGroup fadeGroup;
+    [Tooltip("Is theis transition the entrace?")]
+    [SerializeField] private bool _isEntrance;
+    [Tooltip("How fast the elevator moves.")]
+    [SerializeField] private float _elevatorSpeed = 2;
+    [Tooltip("How far the elevator travels.")]
+    [SerializeField] private float _elevatorTravelHeight = 10;
+    [Tooltip("The canvas group that fades to black.")]
+    [SerializeField] private CanvasGroup _fadeGroup;
+    [Tooltip("The player.")]
     [SerializeField] private GameObject _player;
     #endregion
 
     #region Private fields
-    private Animator animator;
-    private float fadeoutHeight;
-    private float fadeinHeight;
-    private CameraTracker cameraTracker;
+    private Animator _animator;
+    private float _fadeoutHeight;
+    private float _fadeinHeight;
+    private CameraTracker _cameraTracker;
     #endregion
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        cameraTracker = Camera.main.GetComponent<CameraTracker>();
-        if(isEntrance)
+        _animator = GetComponent<Animator>();
+        _cameraTracker = Camera.main.GetComponent<CameraTracker>();
+        if(_isEntrance)
         {
             _player.transform.position = new Vector3(transform.position.x, _player.transform.position.y, 0);
-            fadeinHeight = (_player.transform.position.y + cameraTracker.verticalOffset) - elevatorTravelHeight;
-            Camera.main.transform.position = new Vector3(_player.transform.position.x, fadeinHeight, Camera.main.transform.position.z);
-            cameraTracker.enabled = false;
+            _fadeinHeight = (_player.transform.position.y + _cameraTracker.VerticalOffset) - _elevatorTravelHeight;
+            Camera.main.transform.position = new Vector3(_player.transform.position.x, _fadeinHeight, Camera.main.transform.position.z);
+            _cameraTracker.enabled = false;
             _player.GetComponent<PlayerMovement>().enabled = false;
             _player.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
             _player.transform.GetChild(0).GetComponent<Aim>().enabled = false;
@@ -40,20 +47,21 @@ public class LevelTransition : MonoBehaviour
 
     IEnumerator EnterLevelTransition()
     {
-        while(Camera.main.transform.position.y < fadeinHeight + elevatorTravelHeight)
+        // pan up and fade in
+        while(Camera.main.transform.position.y < _fadeinHeight + _elevatorTravelHeight)
         {
-            Camera.main.transform.Translate(new Vector3(0, elevatorSpeed*Time.deltaTime, 0), Space.World);
-            float distToFade = (fadeinHeight + elevatorTravelHeight) - Camera.main.transform.position.y;
-            float fadeAlpha = distToFade / elevatorTravelHeight;
-            fadeGroup.alpha = fadeAlpha;
+            Camera.main.transform.Translate(new Vector3(0, _elevatorSpeed*Time.deltaTime, 0), Space.World);
+            float distToFade = (_fadeinHeight + _elevatorTravelHeight) - Camera.main.transform.position.y;
+            float fadeAlpha = distToFade / _elevatorTravelHeight;
+            _fadeGroup.alpha = fadeAlpha;
             yield return null;
         }
 
-        animator.SetTrigger("EnterLevel");
+        _animator.SetTrigger("EnterLevel");
         // Wait one frame for the animation to start
         yield return null;
 
-        AnimationClip[] ac = animator.runtimeAnimatorController.animationClips;
+        AnimationClip[] ac = _animator.runtimeAnimatorController.animationClips;
         float animationTime = 0;
         foreach(AnimationClip clip in ac)
         {
@@ -65,18 +73,18 @@ public class LevelTransition : MonoBehaviour
         yield return new WaitForSeconds(animationTime);
         
         _player.GetComponent<PlayerMovement>().enabled = true;
-        cameraTracker.enabled = true;
+        _cameraTracker.enabled = true;
 
-        animator.SetTrigger("Close");
+        _animator.SetTrigger("Close");
     }
 
     IEnumerator ExitLevelTransition()
     {
-        animator.SetTrigger("ExitLevel");
+        _animator.SetTrigger("ExitLevel");
         // Wait one frame for the animation to start
         yield return null;
 
-        AnimationClip[] ac = animator.runtimeAnimatorController.animationClips;
+        AnimationClip[] ac = _animator.runtimeAnimatorController.animationClips;
         float animationTime = 0;
         foreach(AnimationClip clip in ac)
         {
@@ -87,17 +95,19 @@ public class LevelTransition : MonoBehaviour
         }
         yield return new WaitForSeconds(animationTime);
 
-        while(Camera.main.transform.position.y < fadeoutHeight)
+        // pan up and fade to black
+        while(Camera.main.transform.position.y < _fadeoutHeight)
         {
-            Camera.main.transform.Translate(new Vector3(0, elevatorSpeed*Time.deltaTime, 0), Space.World);
-            float distToFade = fadeoutHeight - Camera.main.transform.position.y;
-            float fadeAlpha = 1.0f - (distToFade / elevatorTravelHeight);
-            fadeGroup.alpha = fadeAlpha;
+            Camera.main.transform.Translate(new Vector3(0, _elevatorSpeed*Time.deltaTime, 0), Space.World);
+            float distToFade = _fadeoutHeight - Camera.main.transform.position.y;
+            float fadeAlpha = 1.0f - (distToFade / _elevatorTravelHeight);
+            _fadeGroup.alpha = fadeAlpha;
             yield return null;
         }
         LoadNextLevel();
     }
 
+    // stop the player from being able to move
     void StopPlayerMoving(GameObject playerObject)
     {
         playerObject.GetComponent<PlayerMovement>().enabled = false;
@@ -111,12 +121,13 @@ public class LevelTransition : MonoBehaviour
         }
     }
     
+    // start the level exit
     void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.tag == "Player")
         {
-            fadeoutHeight = Camera.main.transform.position.y + elevatorTravelHeight;
-            cameraTracker.enabled = false;
+            _fadeoutHeight = Camera.main.transform.position.y + _elevatorTravelHeight;
+            _cameraTracker.enabled = false;
             other.transform.position = new Vector3(transform.position.x, other.transform.position.y, 0);
             StopPlayerMoving(other.gameObject);
             StartCoroutine(ExitLevelTransition());

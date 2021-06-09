@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The Intro class is responsible for playing the introduction cutscene.
+/// </summary>
 public class Intro : MonoBehaviour
 {
     #region Inspector fields
@@ -15,6 +16,9 @@ public class Intro : MonoBehaviour
         AudioManager.Instance.PlayMusic("Intro");
     }
 
+    /// <summary>
+    /// Animation event that allows the player to move.
+    /// </summary>
     public void ShowPlayer()
     {
         _player.SetActive(true);

@@ -13261,22 +13261,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 1354540746}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: previousEnemyGroup
+      propertyPath: _previousEnemyGroup
       value: 
       objectReference: {fileID: 140302611}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -13647,10 +13647,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e942d6a7b1f9af48b341e898e930afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 84524987}
-  verticalOffset: 4
-  maxYPos: 100
-  minYPos: -10
+  _playerTransform: {fileID: 84524987}
+  _verticalOffset: 4
+  _maxYPos: 100
+  _minYPos: -10
 --- !u!1001 &340250153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14983,12 +14983,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -21594,22 +21594,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 291725231}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: previousEnemyGroup
+      propertyPath: _previousEnemyGroup
       value: 
       objectReference: {fileID: 140302611}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -23898,17 +23898,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 1262197747}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,

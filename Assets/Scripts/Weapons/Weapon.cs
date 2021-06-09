@@ -2,7 +2,7 @@
 using UnityEngine.Experimental.Rendering.Universal;
 
 /// <summary>
-/// The Weapon class is used to fire <seealso cref="Projectile">Projectiles</see>.
+/// The Weapon class is used to fire <see cref="Projectile">Projectiles</see>.
 /// </summary>
 public class Weapon : MonoBehaviour
 {

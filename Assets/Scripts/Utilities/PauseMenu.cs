@@ -105,7 +105,6 @@ public class PauseMenu : MonoBehaviour
     /// </summary>
     public void Exit()
     {
-        Debug.Log("Exit");
         Application.Quit();
     }
 

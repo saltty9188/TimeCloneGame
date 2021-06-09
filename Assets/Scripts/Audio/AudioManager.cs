@@ -200,7 +200,6 @@ public class AudioManager : MonoBehaviour
     public bool FadeOutSong(float delta)
     {
         _currentTrack.LowerVolume(delta);
-        Debug.Log(_currentTrack.Volume);
         if(_currentTrack.Volume <= 0)
         {
             _currentTrack.Stop();

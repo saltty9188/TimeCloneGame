@@ -956,17 +956,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 1953377080}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: previousEnemyGroup
+      propertyPath: _previousEnemyGroup
       value: 
       objectReference: {fileID: 777485259}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -5659,22 +5659,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 1704715019}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: previousEnemyGroup
+      propertyPath: _previousEnemyGroup
       value: 
       objectReference: {fileID: 1554376630}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -19884,10 +19884,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e942d6a7b1f9af48b341e898e930afb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 2134605671}
-  verticalOffset: 4
-  maxYPos: 6.5
-  minYPos: 0
+  _playerTransform: {fileID: 2134605671}
+  _verticalOffset: 4
+  _maxYPos: 6.5
+  _minYPos: 0
 --- !u!4 &947455377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4221395636639372788, guid: f554a8e57c507b644919a43792a91238,
@@ -57496,12 +57496,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
@@ -59610,22 +59610,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: doorBehind
+      propertyPath: _doorBehind
       value: 
       objectReference: {fileID: 2144118378}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: maxCameraY
+      propertyPath: _maxCameraY
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: minCameraY
+      propertyPath: _minCameraY
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,
         type: 3}
-      propertyPath: previousEnemyGroup
+      propertyPath: _previousEnemyGroup
       value: 
       objectReference: {fileID: 1554376630}
     - target: {fileID: 1796333678008245543, guid: 99fe4e13cd9fdf54c901daaec4d9e79d,

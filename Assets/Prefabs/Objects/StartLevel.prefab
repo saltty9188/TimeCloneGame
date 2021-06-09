@@ -171,11 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a785d164be87dbf478c05985d18a7d9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isEntrance: 1
-  elevatorSpeed: 2
-  elevatorTravelHeight: 10
-  fadeGroup: {fileID: 6704522843441787400}
-  player: {fileID: 0}
+  _isEntrance: 1
+  _elevatorSpeed: 2
+  _elevatorTravelHeight: 10
+  _fadeGroup: {fileID: 6704522843441787400}
+  _player: {fileID: 0}
 --- !u!95 &3291279389408192300
 Animator:
   serializedVersion: 3
