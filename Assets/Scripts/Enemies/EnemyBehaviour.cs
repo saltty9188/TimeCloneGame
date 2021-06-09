@@ -6,8 +6,8 @@ using UnityEngine;
 public class EnemyBehaviour : MonoBehaviour
 {
     #region Inspector fields
-    [SerializeField] protected float _knockBackDuration = 1f;
-    [SerializeField] protected float _knockBackSpeed = 0.5f;
+    [SerializeField] private float _knockBackDuration = 1f;
+    [SerializeField] private float _knockBackSpeed = 0.5f;
     #endregion
 
     #region Protected fields
@@ -23,6 +23,11 @@ public class EnemyBehaviour : MonoBehaviour
     /// The direction of the knock back inflicted on this enemy.
     /// </summary>
     protected Vector2 KnockBackDirection;
+    /// <value>The speed at which knock back is applied.</value>
+    protected float KnockBackSpeed
+    {
+        get {return _knockBackSpeed;}
+    }
     /// <value>Whether this enemy's GameObject was active or not when a time-clone recording started.</value>
     protected bool StartActiveState
     {

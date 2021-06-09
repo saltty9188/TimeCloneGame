@@ -9,7 +9,15 @@ public class Target : MonoBehaviour
 {
     #region Inspector fields
     [Tooltip("The event the target activates.")]
-    [SerializeField] protected ButtonEvent _attachedEvent;
+    [SerializeField] private ButtonEvent _attachedEvent;
+    #endregion
+
+    #region Protected fields
+    /// <value>The ButtonEvent this Target activates.</value>
+    protected ButtonEvent AttachedEvent
+    {
+        get {return _attachedEvent;}
+    }
     #endregion
 
     /// <summary>

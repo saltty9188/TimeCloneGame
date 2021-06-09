@@ -34,7 +34,7 @@ public class JumpBot : EnemyBehaviour
         if(KnockBackTime > 0)
         {
             KnockBackTime -= Time.deltaTime;
-            Rigidbody.velocity = new Vector2(KnockBackDirection.x * _knockBackSpeed, Rigidbody.velocity.y);
+            Rigidbody.velocity = new Vector2(KnockBackDirection.x * KnockBackSpeed, Rigidbody.velocity.y);
         }
         else
         {

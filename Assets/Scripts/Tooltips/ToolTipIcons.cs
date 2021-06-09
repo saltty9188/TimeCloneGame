@@ -8,16 +8,21 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class ToolTipIcons : MonoBehaviour
 {
+    #region Public fields
     /// <summary>
     /// The static instance of this class.
     /// </summary>
     public static ToolTipIcons Instance;
+    #endregion
+
+    #region Inspector fields
     [Tooltip("The tool tip icons for keyboard and mouse.")]
-    [SerializeField] public Sprite[] _keyboardIcons;
+    [SerializeField] private Sprite[] _keyboardIcons;
     [Tooltip("The tool tip icons for Xbox controllers.")]
-    [SerializeField] public Sprite[] _xboxIcons;
+    [SerializeField] private Sprite[] _xboxIcons;
     [Tooltip("The tool tip icons for PlayStation controllers.")]
-    [SerializeField] public Sprite[] _psIcons;
+    [SerializeField] private Sprite[] _psIcons;
+    #endregion
 
     void Awake()
     {
