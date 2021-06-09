@@ -187,7 +187,8 @@ public class PlayerStatus : MonoBehaviour
 
     IEnumerator DeathAnimation()
     {
-        _animator.SetTrigger("Die");
+        _animator.SetBool("HasWeapon", false);
+        _animator.SetBool("Dying", true);
         // Have player drop to the ground more quickly and not be able to be moved by other objects
         _rigidbody2D.gravityScale = 30;
         _rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
@@ -203,9 +204,8 @@ public class PlayerStatus : MonoBehaviour
                 animationTime = clip.length;
             }
         }
-        _animator.ResetTrigger("Die");
         yield return new WaitForSeconds(animationTime + 1);
-
+        _animator.SetBool("Dying", false);
         Respawn();
         _deathAnimation = null;
     }   

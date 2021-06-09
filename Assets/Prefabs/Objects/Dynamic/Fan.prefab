@@ -100,12 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609e9c0e18ad9bd4f9f455efd2388a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
+  _pushableObjects:
     serializedVersion: 2
-    m_Bits: 1280
-  fanDist: 10
-  fanPower: 2000
-  windPrefab: {fileID: 8865730356888571698}
+    m_Bits: 0
+  _fanDist: 9
+  _fanPower: 2000
+  _windPrefab: {fileID: 8865730356888571698}
 --- !u!61 &5556887518245627372
 BoxCollider2D:
   m_ObjectHideFlags: 0

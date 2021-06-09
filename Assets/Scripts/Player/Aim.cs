@@ -135,6 +135,8 @@ public class Aim : MonoBehaviour
             _weaponArm = _armSprites[0];
         }
 
+        _weapon.GetComponent<Collider2D>().enabled = false;
+
         GetComponent<SpriteRenderer>().sprite = _weaponArm;
         SetRayTypeText();
     }
@@ -147,7 +149,8 @@ public class Aim : MonoBehaviour
     {
         _weapon.gameObject.SetActive(true);
         _weapon.Drop(dropPosition);
-        this._weapon = null;
+        _weapon.GetComponent<Collider2D>().enabled = true;
+        _weapon = null;
         SetRayTypeText();
     }
 
