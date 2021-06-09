@@ -164,7 +164,7 @@ public class ThirdBossScript : MonoBehaviour
 
             GameObject go = Instantiate(_projectilePrefab, transform.GetChild(0).position, new Quaternion());
             Projectile p = go.GetComponent<Projectile>();
-            p.direction = direction;
+            p.Redirect(direction);
             p.transform.localScale = new Vector3(2, 2, 2);
             p.SetShooter(gameObject, true);
             p.transform.parent = _projectileParent.transform;

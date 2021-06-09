@@ -3079,17 +3079,32 @@ PrefabInstance:
       objectReference: {fileID: 589646322}
     - target: {fileID: 8022273910570347247, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
         type: 3}
-      propertyPath: allowedTypes.Array.data[1].allowed
+      propertyPath: _allowedTypes.Array.data[1].Allowed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8022273910570347247, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
         type: 3}
-      propertyPath: allowedTypes.Array.data[2].allowed
+      propertyPath: _allowedTypes.Array.data[1].allowed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022273910570347247, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
+        type: 3}
+      propertyPath: _allowedTypes.Array.data[2].Allowed
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8022273910570347247, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
         type: 3}
-      propertyPath: allowedTypes.Array.data[3].allowed
+      propertyPath: _allowedTypes.Array.data[2].allowed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022273910570347247, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
+        type: 3}
+      propertyPath: _allowedTypes.Array.data[3].Allowed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022273910570347247, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
+        type: 3}
+      propertyPath: _allowedTypes.Array.data[3].allowed
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8702583776777004103, guid: a080d3ec392a6084fa2d0e20e98f0ff4,

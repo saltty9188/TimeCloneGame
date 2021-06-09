@@ -1,13 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// The PhysicsRay class is a type of Weapon that fires <see cref="PhysicsProjectile">PhysicsProjectiles</see> to effect <see cref="PhysicsObject">PhysicsObjects</see>.
+/// </summary>
 public class PhysicsRay : Weapon
 {
 
     #region Public enum
+    /// <summary>
+    /// The RayType enum is used for deteriming the type of change to be applied to a PhysicsObject.
+    /// </summary>
     public enum RayType
     {
         Light,
@@ -18,34 +21,24 @@ public class PhysicsRay : Weapon
     #endregion
 
     #region Type allowed class
+    // small class that contains a raytype and a boolean to determine if that type is available or not
+    // would be a struct but unity doesn't support them in the inspector
     [System.Serializable]
     private class TypeAllowed
     {
-        public RayType type;
-        public bool allowed;
-
+        public RayType Type;
+        public bool Allowed;
+        
         public TypeAllowed(RayType type, bool allowed)
         {
-            this.type = type;
-            this.allowed = allowed;
-        }
-
-        public static TypeAllowed[] GenerateAllowedTypes(RayType[] allTypes)
-        {
-            TypeAllowed[] types = new TypeAllowed[allTypes.Length - 1];
-
-            for(int i = 0; i < types.Length; i++)
-            {
-                types[i] = new TypeAllowed(allTypes[i + 1], false);
-            }
-
-            return types;
+            this.Type = type;
+            this.Allowed = allowed;
         }
     }
     #endregion
 
     #region Inspector fields   
-    [SerializeField] TypeAllowed[] allowedTypes = new TypeAllowed[]
+    [SerializeField] private TypeAllowed[] _allowedTypes = new TypeAllowed[]
     {
         new TypeAllowed(RayType.Light, true),
         new TypeAllowed(RayType.Heavy, true),
@@ -55,122 +48,155 @@ public class PhysicsRay : Weapon
     #endregion
 
     #region Public fields
+    /// <value>The currently selected RayType of this PhysicsRay.</value>
     public RayType CurrentRay
     {
-        get {return currentRayType;}
+        get {return _currentRayType;}
     }
     #endregion
 
     #region Private fields
-    private RayType currentRayType;
-    private int index;
-
-    private int recordingStartIndex = -1;
+    private RayType _currentRayType;
+    private int _index;
+    private int _recordingStartIndex = -1;
     #endregion
     protected override void Awake()
     {
         base.Awake();
-        recordingStartIndex = index;
+        _recordingStartIndex = _index;
 
-        pickUpPoint = new Vector3(0.963f, 0.069f, 0);
+        PickUpPoint = new Vector3(0.963f, 0.069f, 0);
     }
 
+    /// <summary>
+    /// Shoots a PhysicsProjectile in a direction given by the rotation.
+    /// </summary>
+    /// <remarks>
+    /// The RayType of the PhysicsProjectile is the same as the <see cref="CurrentRay"/>.
+    /// </remarks>
+    /// <seealso cref="PlayerStatus.AddProjectile(GameObject)"/>
+    /// <param name="rotation">The rotation of the parent object.</param>
+    /// <returns>The fired PhysicsProjectile to be added to the projectile parent.</returns>
     public override GameObject Shoot(Quaternion rotation)
     {
-        if(accumulatedTime >= fireCooldown)
+        if(AccumulatedTime >= FireCooldown)
         {
-            GameObject go = Instantiate(projectile, transform.GetChild(0).position, rotation);
+            GameObject go = Instantiate(Projectile, transform.GetChild(0).position, rotation);
             go.layer = 9;
             PhysicsProjectile p = go.GetComponent<PhysicsProjectile>();
-            p.direction = transform.parent.GetChild(0).position - transform.parent.position;
+            p.Redirect(transform.parent.GetChild(0).position - transform.parent.position);
             p.SetShooter(transform.parent.parent.gameObject);
-            p.rayType = currentRayType;
-            accumulatedTime = 0;
+            p.RayType = _currentRayType;
+            AccumulatedTime = 0;
             AudioManager.Instance.PlaySFX("PhysicsRay");
             return go;
         }
         return null;
     }
 
+    /// <summary>
+    /// Cycles to the next allowed RayType.
+    /// </summary>
     public void NextRayType()
     {
-        if(index < allowedTypes.Length - 1)
+        if(_index < _allowedTypes.Length - 1)
         {
-            index++;
-            while(!allowedTypes[index].allowed)
+            _index++;
+            while(!_allowedTypes[_index].Allowed)
             {
-                index++;
-                if(index >= allowedTypes.Length) index = 0;
+                _index++;
+                if(_index >= _allowedTypes.Length) _index = 0;
             }
-            currentRayType = allowedTypes[index].type;
+            _currentRayType = _allowedTypes[_index].Type;
         }
         else
         {
-            index = 0;
-            while(!allowedTypes[index].allowed)
+            _index = 0;
+            while(!_allowedTypes[_index].Allowed)
             {
-                index++;
-                if(index >= allowedTypes.Length) index = 0;
+                _index++;
+                if(_index >= _allowedTypes.Length) _index = 0;
             }
-            currentRayType = allowedTypes[index].type;
+            _currentRayType = _allowedTypes[_index].Type;
         }
     }
 
+    /// <summary>
+    /// Cycles to the previous allowed RayType.
+    /// </summary>
     public void PrevRayType()
     {
-        if(index > 0)
+        if(_index > 0)
         {
-            index--;
-            while(!allowedTypes[index].allowed)
+            _index--;
+            while(!_allowedTypes[_index].Allowed)
             {
-                index--;
-                if(index < 0) index = allowedTypes.Length - 1;
+                _index--;
+                if(_index < 0) _index = _allowedTypes.Length - 1;
             }
-            currentRayType = allowedTypes[index].type;
+            _currentRayType = _allowedTypes[_index].Type;
         }
         else
         {
-            index = allowedTypes.Length - 1;
-            while(!allowedTypes[index].allowed)
+            _index = _allowedTypes.Length - 1;
+            while(!_allowedTypes[_index].Allowed)
             {
-                index--;
-                if(index < 0) index = allowedTypes.Length - 1;
+                _index--;
+                if(_index < 0) _index = _allowedTypes.Length - 1;
             }
-            currentRayType = allowedTypes[index].type;
+            _currentRayType = _allowedTypes[_index].Type;
         }
     }
 
+    /// <summary>
+    /// Sets the given text component to be the current RayType.
+    /// </summary>
+    /// <param name="text">The text component to change.</param>
     public void SetUIText(TextMeshProUGUI text)
     {
-       text.text = currentRayType.ToString();
+       text.text = _currentRayType.ToString();
     }
 
+    /// <summary>
+    /// Resets the position of the PhysicsRay and restores it to its starting RayType.
+    /// </summary>
+    /// <seealso cref="ResetRayType"/>
     public override void ResetWeapon()
     {
         base.ResetWeapon();
         ResetRayType();
     }
 
+    /// <summary>
+    /// Resets the PhysicsRay to its starting RayType.
+    /// </summary>
     public void ResetRayType()
     {
-        index = recordingStartIndex;
-        currentRayType = allowedTypes[index].type;
+        _index = _recordingStartIndex;
+        _currentRayType = _allowedTypes[_index].Type;
     }
 
+    /// <summary>
+    /// Sets the starting RayType to the current RayType.
+    /// </summary>
     public void SetStartingType()
     {
-        recordingStartIndex = index;
+        _recordingStartIndex = _index;
     }
 
+    /// <summary>
+    /// Sets the RayType of this PhysicsRay.
+    /// </summary>
+    /// <param name="rayType">The RayType this PhysicsRay is to be changed to.</param>
     public void SetRayType(RayType rayType)
     {   
         bool indexFound = false;
-        currentRayType = rayType;
-        for(int i = 0; (i < allowedTypes.Length && !indexFound); i++)
+        _currentRayType = rayType;
+        for(int i = 0; (i < _allowedTypes.Length && !indexFound); i++)
         {
-            if(rayType == allowedTypes[i].type) 
+            if(rayType == _allowedTypes[i].Type) 
             {
-                index = i;
+                _index = i;
                 indexFound = true;
             }
         }    

@@ -18980,7 +18980,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8022273910570347247, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
         type: 3}
-      propertyPath: allowedTypes.Array.data[2].allowed
+      propertyPath: _allowedTypes.Array.data[2].Allowed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022273910570347247, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
+        type: 3}
+      propertyPath: _allowedTypes.Array.data[2].allowed
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8702583776777004103, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
@@ -22303,14 +22308,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: _mainCamera
-      value: 
-      objectReference: {fileID: 1228143209}
-    - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
-        type: 3}
       propertyPath: moveCamera
       value: 
       objectReference: {fileID: 1338380377}
+    - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
+        type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 1228143209}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
       propertyPath: objectMoveSpeed
@@ -40890,7 +40895,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8022273910570347247, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
         type: 3}
-      propertyPath: allowedTypes.Array.data[3].allowed
+      propertyPath: _allowedTypes.Array.data[3].Allowed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022273910570347247, guid: a080d3ec392a6084fa2d0e20e98f0ff4,
+        type: 3}
+      propertyPath: _allowedTypes.Array.data[3].allowed
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8702583776777004103, guid: a080d3ec392a6084fa2d0e20e98f0ff4,

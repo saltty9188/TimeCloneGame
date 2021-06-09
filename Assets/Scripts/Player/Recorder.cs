@@ -88,7 +88,7 @@ public class Recorder : MonoBehaviour
             mover.SetInitialPositions();
         }
         if(EnemyManager.Instance) EnemyManager.Instance.CacheEnemyInfo();
-        if(WeaponManager.weapons != null) WeaponManager.SetDefaultPosition();
+        if(WeaponManager.Weapons != null) WeaponManager.SetDefaultPosition();
 
         // Playback previous recordings
         TimeCloneController.Instance.PlayBack(_activeCloneMachine);
@@ -146,7 +146,7 @@ public class Recorder : MonoBehaviour
                 }
 
                 if(_aim.CurrentWeapon != null) _aim.DropWeapon(Vector3.zero);
-                if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
+                if(WeaponManager.Weapons != null) WeaponManager.ResetAllWeapons();
                 if(_startingWeapon != null) _aim.PickUpWeapon(_startingWeapon);
             }
             else
@@ -188,7 +188,7 @@ public class Recorder : MonoBehaviour
         GetComponent<DamageFlash>().ResetShader();
 
         if(_aim.CurrentWeapon != null) _aim.DropWeapon(Vector3.zero);
-        if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
+        if(WeaponManager.Weapons != null) WeaponManager.ResetAllWeapons();
         if(_startingWeapon != null) _aim.PickUpWeapon(_startingWeapon);
 
         StartCoroutine(TeleportAnimation());   

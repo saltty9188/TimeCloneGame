@@ -112,12 +112,12 @@ public class Turret : EnemyBehaviour
         {
             GameObject go = Instantiate(_projectilePrefab, transform.GetChild(0).GetChild(0).GetChild(0).position, new Quaternion());
             Projectile p = go.GetComponent<Projectile>();
-            p.direction = direction;
-            p.damage = _damage;
+            p.Redirect(direction);
+            p.Damage = _damage;
             p.SetShooter(gameObject);
             _accumulatedTime = 0;
 
-            if(p.laser)
+            if(p.Laser)
             {
                 AudioManager.Instance.PlaySFX("LaserFire", 0.7f);
             }

@@ -228,8 +228,8 @@ public class GuardBot : EnemyBehaviour
             Vector2 direction = _currentTarget.transform.position - transform.position;
             GameObject go = Instantiate(_projectilePrefab, transform.GetChild(0).position, new Quaternion());
             Projectile p = go.GetComponent<Projectile>();
-            p.direction = direction;
-            p.damage = _damage;
+            p.Redirect(direction);
+            p.Damage = _damage;
             p.SetShooter(gameObject);   
 
             AudioManager.Instance.PlaySFX("GunShot");

@@ -97,11 +97,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8658bf83c62054d86bd73a513c72d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 30
-  damage: 10
-  noHitTime: 0.1
+  _speed: 30
+  Damage: 10
+  NoHitTime: 0.1
   direction: {x: -1, y: 0}
-  laser: 0
+  Laser: 0
 --- !u!61 &-7326795978932883765
 BoxCollider2D:
   m_ObjectHideFlags: 0
