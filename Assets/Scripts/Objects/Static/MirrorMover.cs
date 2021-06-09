@@ -11,7 +11,7 @@ public class MirrorMover : MonoBehaviour
 {
     #region Inspector fields
     [Tooltip("Array of the objects this mirror mover can move.")]
-    [SerializeField] public GameObject[] _movableObjects;
+    [SerializeField] private GameObject[] _movableObjects;
     [Tooltip("The camera that will be used when moving objects.")]
     [SerializeField] private Camera _moveCamera;
     [Tooltip("The main gameplay camera.")]
