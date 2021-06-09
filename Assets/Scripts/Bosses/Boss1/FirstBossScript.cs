@@ -84,9 +84,9 @@ public class FirstBossScript : MonoBehaviour
             Vector2 direction = _closestTarget.transform.position - transform.position;
             GameObject go = Instantiate(_bulletPrefab, transform.GetChild(0).position, new Quaternion());
             Projectile p = go.GetComponent<Projectile>();
-            p.noHitTime = 0.4f;
-            p.damage = _damage;
-            p.direction = direction;
+            p.NoHitTime = 0.4f;
+            p.Damage = _damage;
+            p.Redirect(direction);
             p.transform.localScale = new Vector3(2, 2, 2);
             p.IgnoreCollision(transform.GetChild(2).gameObject);
             p.SetShooter(gameObject);
@@ -94,9 +94,9 @@ public class FirstBossScript : MonoBehaviour
             //Shoulder launcher 2
             go = Instantiate(_bulletPrefab, transform.GetChild(1).position, new Quaternion());
             p = go.GetComponent<Projectile>();
-            p.noHitTime = 0.4f;
-            p.damage = _damage;
-            p.direction = direction;
+            p.NoHitTime = 0.4f;
+            p.Damage = _damage;
+            p.Redirect(direction);
             p.transform.localScale = new Vector3(2, 2, 2);
             p.IgnoreCollision(transform.GetChild(2).gameObject);
             p.SetShooter(gameObject);

@@ -99,11 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc9320a80e2ad8f45bb956e28b26d06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  damage: 0
-  noHitTime: 0.1
+  _speed: 10
+  Damage: 0
+  NoHitTime: 0.1
   direction: {x: 0, y: 0}
-  laser: 0
+  Laser: 0
   rayType: 0
 --- !u!58 &4493161999699640122
 CircleCollider2D:

@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5260e53d49bc794f946821e8e194677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 7686343687046668330, guid: bbd9761a43b4cf042a5173e0c1023285,
+  _projectile: {fileID: 7686343687046668330, guid: bbd9761a43b4cf042a5173e0c1023285,
     type: 3}
-  fireCooldown: 0.4
+  _fireCooldown: 0.4
   held: 0
 --- !u!61 &8520075116864898377
 BoxCollider2D:

@@ -10,7 +10,7 @@ public class Redirector : MovableObject
     void OnCollisionEnter2D(Collision2D other)
     {
         Projectile p = other.GetContact(0).collider.GetComponent<Projectile>();
-        if(p && p.laser)
+        if(p && p.Laser)
         {
             GameObject template = p.gameObject;
 
@@ -20,7 +20,7 @@ public class Redirector : MovableObject
             GameObject go = Instantiate(template, transform.GetChild(0).position, Quaternion.identity);
             go.transform.GetChild(0).GetComponent<Light2D>().enabled = true;
             Projectile p1 = go.GetComponent<Projectile>();
-            p1.direction = direction;
+            p1.Redirect(direction);
             p1.SetShooter(gameObject, true);
             p1.enabled = true;
             p1.GetComponent<Collider2D>().enabled = true;

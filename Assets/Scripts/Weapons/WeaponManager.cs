@@ -1,50 +1,63 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The WeaponManager class is responsible for managing all of the <see cref="Weapons">Weapons</see> in a scene.
+/// </summary>
 public class WeaponManager : MonoBehaviour
 {
-    public static List<Weapon> weapons;
+    #region  Public fields
+    /// <summary>
+    /// Static list of all the <see cref="Weapon">Weapons</see> in the scene.
+    /// </summary>
+    public static List<Weapon> Weapons;
+    #endregion 
 
     void Awake()
     {
-        weapons = new List<Weapon>();
+        Weapons = new List<Weapon>();
     }
 
+    /// <summary>
+    /// Sets the initial position of every Weapon in the scene.
+    /// </summary>
+    /// <seealso cref="Weapon.SetInitalPosition"/>
     public static void SetDefaultPosition()
     {
-        for(int i = 0; i < weapons.Count; i++)
+        for(int i = 0; i < Weapons.Count; i++)
         {
-            Weapon weapon = weapons[i];
+            Weapon weapon = Weapons[i];
             if(weapon == null)
             {
-                weapons.Remove(weapon);
+                Weapons.Remove(weapon);
                 i--;
             }
             else
             {
-                weapon.SetDefaultPosition();
+                weapon.SetInitalPosition();
             }
         }
     }
 
-    public static void ResetAllWeapons(Weapon exclude = null)
+    /// <summary>
+    /// Resets the position of every Weapon in the scene.
+    /// </summary>
+    /// <seealso cref="Weapon.ResetWeapon"/>
+    /// <param name="exclude"></param>
+    public static void ResetAllWeapons()
     {
-        for(int i = 0; i < weapons.Count; i++)
+        for(int i = 0; i < Weapons.Count; i++)
         {
-            Weapon weapon = weapons[i];
+            Weapon weapon = Weapons[i];
             if(weapon == null)
             {
-                weapons.Remove(weapon);
+                Weapons.Remove(weapon);
                 i--;
             }
             else
             {
                 weapon.gameObject.SetActive(true);
-                if(weapon != exclude)
-                {
-                    weapon.ResetWeapon();
-                }
+                weapon.ResetWeapon();
             }
         }
     }

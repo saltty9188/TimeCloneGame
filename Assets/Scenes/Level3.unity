@@ -23230,14 +23230,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
-      propertyPath: _allEvents
-      value: 
-      objectReference: {fileID: 1729746060}
-    - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
-        type: 3}
       propertyPath: firstBoss
       value: 
       objectReference: {fileID: 748882401}
+    - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
+        type: 3}
+      propertyPath: _allEvents
+      value: 
+      objectReference: {fileID: 1729746060}
     - target: {fileID: 7965813964980945995, guid: d1d92c333ecf1a146be33d5f05e3dba6,
         type: 3}
       propertyPath: _timerText
@@ -24475,6 +24475,11 @@ PrefabInstance:
     - target: {fileID: 2727843132525766664, guid: d0500a326a0ffdc4982ae855a937f961,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727843132525766667, guid: d0500a326a0ffdc4982ae855a937f961,
+        type: 3}
+      propertyPath: startsUp
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2727843132525766667, guid: d0500a326a0ffdc4982ae855a937f961,

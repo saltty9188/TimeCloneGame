@@ -217,8 +217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8658bf83c62054d86bd73a513c72d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  damage: 15
-  noHitTime: 0.1
+  _speed: 15
+  Damage: 15
+  NoHitTime: 0.1
   direction: {x: 0, y: 0}
-  laser: 1
+  Laser: 1

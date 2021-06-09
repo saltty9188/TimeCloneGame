@@ -240,7 +240,7 @@ public class PlayerStatus : MonoBehaviour
         
         // Reset the weapon to the one used at the last check point
         if(_aim.CurrentWeapon != null) _aim.DropWeapon(Vector3.zero);
-        if(WeaponManager.weapons != null) WeaponManager.ResetAllWeapons();
+        if(WeaponManager.Weapons != null) WeaponManager.ResetAllWeapons();
         if(_startingWeapon != null) 
         {
             _aim.gameObject.SetActive(true);
