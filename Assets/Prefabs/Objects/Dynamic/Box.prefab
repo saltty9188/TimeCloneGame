@@ -245,12 +245,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35e832acea21a3845a12707cec3cb9f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightMass: 50
-  heavyMass: 300
-  bounceMaterial: {fileID: 6200000, guid: 2457d30e55d1a8f45a820ff0060d40fa, type: 2}
-  initialBounceHeight: 10
-  floatHeight: 10
-  floatSpeed: 2
+  _lightMass: 50
+  _heavyMass: 300
+  _bounceMaterial: {fileID: 6200000, guid: 2457d30e55d1a8f45a820ff0060d40fa, type: 2}
+  _initialBounceSpeed: 10
+  _floatHeight: 10
+  _floatSpeed: 2
 --- !u!255 &2453985268409474740
 FixedJoint2D:
   m_ObjectHideFlags: 0

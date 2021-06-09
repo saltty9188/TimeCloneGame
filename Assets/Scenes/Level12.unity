@@ -2768,14 +2768,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: _mainCamera
-      value: 
-      objectReference: {fileID: 1547640583}
-    - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
-        type: 3}
       propertyPath: moveCamera
       value: 
       objectReference: {fileID: 604520146}
+    - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
+        type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 1547640583}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
       propertyPath: _movableObjects.Array.size
@@ -6934,6 +6934,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 13.045053
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283890761635377335, guid: 719b450b18867dd49a84d20117a4efa3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7283890761635377335, guid: 719b450b18867dd49a84d20117a4efa3,
         type: 3}
