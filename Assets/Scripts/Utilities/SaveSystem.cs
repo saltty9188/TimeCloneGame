@@ -55,6 +55,20 @@ public static class SaveSystem
         }
     }
 
+    public static void DeleteGame(string fileName)
+    {
+        // strip .sav file extension to be safe
+        if(fileName.Contains("*.sav"))
+        {
+            fileName.Remove(fileName.IndexOf("."));
+        }
+        string path = Application.persistentDataPath + "/" + fileName + ".sav";
+        if(File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
+
     /// <summary>
     /// Returns an array containging the names of all of the files saved on disk.
     /// </summary>

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
 
 /// <summary>
 /// The FileManager class is responsible for maintaining exisiting SaveData.
@@ -28,8 +29,32 @@ public class FileManager : MonoBehaviour
         // Create new file with new name
         if(tag == "NewFile")
         {
-            int numFiles = transform.parent.childCount - 2;
-            fileName = string.Format("File{0:D2}", numFiles + 1);    
+            string[] allFileNames = SaveSystem.AllFileNames();
+            int fileNum = -1;
+            for(int i = 0; i < allFileNames.Length && fileNum == -1; i++)
+            {
+                string currentFile = allFileNames[i];
+                // check that name follows normal conventions
+                if(currentFile.Contains("File") && currentFile.Length >= 6)
+                {
+                    string currentFileNum = currentFile.Remove(currentFile.IndexOf(".")).Substring(4);
+                    if(Int32.TryParse(currentFileNum, out int value))
+                    {
+                        // if there's a missing number (ie File01 -> File03) set the new file num to the missing number
+                        if(value != i+1)
+                        {
+                            fileNum = i+1;
+                        }
+                    }
+                }
+            }
+            // if no number was found set it to the next number
+            if(fileNum == -1)
+            {
+                fileNum = allFileNames.Length + 1;
+            }
+
+            fileName = string.Format("File{0:D2}", fileNum);    
         }
         else if(tag == "ExistingFile")
         {
@@ -52,5 +77,14 @@ public class FileManager : MonoBehaviour
         SaveData data = SaveSystem.LoadGame(fileName);
         SaveData.currentSaveFile = data;
         _fileViewer.OpenLevelSelect(gameObject);
+    }
+
+    /// <summary>
+    /// Deletes the selected SaveData.
+    /// </summary>
+    public void DeleteGame()
+    {
+        string fileName = transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
+        SaveSystem.DeleteGame(fileName);
     }
 }

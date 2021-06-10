@@ -569,6 +569,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Erase"",
+                    ""type"": ""Button"",
+                    ""id"": ""251caa6d-7200-4ed4-9abc-07e10f73fbcb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -602,6 +610,28 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
                     ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2420bbd3-a851-45a8-85a4-00f7e4d3ab59"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""Erase"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53fece0f-26db-4194-a97d-9458df083d5b"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Erase"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -655,6 +685,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         // Menus
         m_Menus = asset.FindActionMap("Menus", throwIfNotFound: true);
         m_Menus_Back = m_Menus.FindAction("Back", throwIfNotFound: true);
+        m_Menus_Erase = m_Menus.FindAction("Erase", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -826,11 +857,13 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Menus;
     private IMenusActions m_MenusActionsCallbackInterface;
     private readonly InputAction m_Menus_Back;
+    private readonly InputAction m_Menus_Erase;
     public struct MenusActions
     {
         private @PlayerControls m_Wrapper;
         public MenusActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Back => m_Wrapper.m_Menus_Back;
+        public InputAction @Erase => m_Wrapper.m_Menus_Erase;
         public InputActionMap Get() { return m_Wrapper.m_Menus; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -843,6 +876,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Back.started -= m_Wrapper.m_MenusActionsCallbackInterface.OnBack;
                 @Back.performed -= m_Wrapper.m_MenusActionsCallbackInterface.OnBack;
                 @Back.canceled -= m_Wrapper.m_MenusActionsCallbackInterface.OnBack;
+                @Erase.started -= m_Wrapper.m_MenusActionsCallbackInterface.OnErase;
+                @Erase.performed -= m_Wrapper.m_MenusActionsCallbackInterface.OnErase;
+                @Erase.canceled -= m_Wrapper.m_MenusActionsCallbackInterface.OnErase;
             }
             m_Wrapper.m_MenusActionsCallbackInterface = instance;
             if (instance != null)
@@ -850,6 +886,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Back.started += instance.OnBack;
                 @Back.performed += instance.OnBack;
                 @Back.canceled += instance.OnBack;
+                @Erase.started += instance.OnErase;
+                @Erase.performed += instance.OnErase;
+                @Erase.canceled += instance.OnErase;
             }
         }
     }
@@ -890,5 +929,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     public interface IMenusActions
     {
         void OnBack(InputAction.CallbackContext context);
+        void OnErase(InputAction.CallbackContext context);
     }
 }

@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// The MenuInput class is responsible for handling player input on the title menu.
@@ -20,8 +20,23 @@ public class MenuInput : MonoBehaviour
     [SerializeField] private TitleScreenIntro _intro;
     #endregion
 
+    #region Public fields
+    /// <value>A string representing the currently used control scheme.</value>
+    public static string ControlScheme
+    {
+        get {return _controlScheme;}
+    }
+
+    /// <value>The PlayerControls in use by the player.</value>
+    public PlayerControls CurrentControls
+    {
+        get {return _controls;}
+    }
+    #endregion
+
     #region Private fields
     private PlayerControls _controls;
+    private static string _controlScheme;
     #endregion
 
     void Awake()
@@ -30,28 +45,61 @@ public class MenuInput : MonoBehaviour
         
         // sets what the go back button will do when each menu is active
         _controls.Menus.Back.performed += ctx =>
+            {
+                if(_intro.InIntro)
+                {
+                    _intro.SkipIntro();
+                }
+                else if(_optionsMenu.gameObject.activeSelf)
+                {
+                    _optionsMenu.GoBack();
+                }
+                else if(_fileViewer.gameObject.activeSelf)
+                {
+                    _fileViewer.GoBack();
+                }
+                else if(_levelSelect.gameObject.activeSelf)
+                {
+                    _levelSelect.GoBack();
+                }
+                else if(_credits.gameObject.activeSelf)
+                {
+                    _credits.GoBack();
+                }
+            };
+
+        _controls.Menus.Erase.performed += ctx =>
+            {
+                if(_fileViewer.gameObject.activeSelf && !_fileViewer.InConfirmation)
+                {
+                    _fileViewer.AskConfirmation(EventSystem.current.currentSelectedGameObject, true);
+                }
+                
+            };
+        
+        //Detect Input Device
+        InputSystem.onActionChange += (obj, change) =>
+            {
+                if (change == InputActionChange.ActionPerformed)
+                {
+                    var inputAction = (InputAction) obj;
+                    var lastControl = inputAction.activeControl;
+                    var lastDevice = lastControl.device;
+                    SetControlScheme(lastDevice);
+                }
+            };
+    }
+
+    void SetControlScheme(InputDevice device)
+    {
+        if(device.displayName == "Mouse" || device.displayName == "Keyboard")
         {
-            if(_intro.InIntro)
-            {
-                _intro.SkipIntro();
-            }
-            else if(_optionsMenu.gameObject.activeSelf)
-            {
-                _optionsMenu.GoBack();
-            }
-            else if(_fileViewer.gameObject.activeSelf)
-            {
-                _fileViewer.GoBack();
-            }
-            else if(_levelSelect.gameObject.activeSelf)
-            {
-                _levelSelect.GoBack();
-            }
-            else if(_credits.gameObject.activeSelf)
-            {
-                _credits.GoBack();
-            }
-        };
+            _controlScheme = "KeyboardMouse";
+        }
+        else
+        {
+            _controlScheme = "Gamepad";
+        }
     }
 
     void OnEnable()

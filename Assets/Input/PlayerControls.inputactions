@@ -556,6 +556,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Erase",
+                    "type": "Button",
+                    "id": "251caa6d-7200-4ed4-9abc-07e10f73fbcb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -589,6 +597,28 @@
                     "processors": "",
                     "groups": "KeyboardMouse",
                     "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2420bbd3-a851-45a8-85a4-00f7e4d3ab59",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Erase",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53fece0f-26db-4194-a97d-9458df083d5b",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Erase",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

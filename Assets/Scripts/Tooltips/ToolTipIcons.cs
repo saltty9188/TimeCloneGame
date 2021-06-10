@@ -46,8 +46,24 @@ public class ToolTipIcons : MonoBehaviour
     /// <returns>The required tool tip sprite.</returns>
     public Sprite GetIcon(string key)
     {
+        string controlScheme = "";
+        
+        if(PlayerController.ControlScheme != null)
+        {
+            controlScheme = PlayerController.ControlScheme;
+        }
+        else if(MenuInput.ControlScheme != null)
+        {
+            controlScheme = MenuInput.ControlScheme;
+        }
+        else
+        {
+            Debug.LogError("No ControlScheme found.");
+            return null;
+        }
+
         // keyboard icon
-        if(PlayerController.ControlScheme == "KeyboardMouse")
+        if(controlScheme == "KeyboardMouse")
         {
             foreach(Sprite sprite in _keyboardIcons)
             {
