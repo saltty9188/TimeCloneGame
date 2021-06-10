@@ -70,9 +70,10 @@ public class MenuInput : MonoBehaviour
 
         _controls.Menus.Erase.performed += ctx =>
             {
+                GameObject selectedButton = EventSystem.current.currentSelectedGameObject;
                 if(_fileViewer.gameObject.activeSelf && !_fileViewer.InConfirmation)
                 {
-                    _fileViewer.AskConfirmation(EventSystem.current.currentSelectedGameObject, true);
+                    _fileViewer.AskConfirmation(selectedButton, true);
                 }
                 
             };
