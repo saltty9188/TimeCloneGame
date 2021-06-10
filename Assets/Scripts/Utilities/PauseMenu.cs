@@ -122,6 +122,7 @@ public class PauseMenu : MonoBehaviour
         SetSelectedGameObject(transform.GetChild(3).GetChild(3).gameObject);
 
         UnityEngine.UI.Button button = transform.GetChild(3).GetChild(2).GetComponent<UnityEngine.UI.Button>();
+        button.onClick.RemoveAllListeners();
 
         // Cast the number to enum
         ConfirmationType confirmationType = (ConfirmationType) confirmationNum;

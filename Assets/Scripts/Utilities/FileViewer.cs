@@ -53,6 +53,15 @@ public class FileViewer : MonoBehaviour
         int bindingIndex = _input.CurrentControls.Menus.Erase.GetBindingIndex(InputBinding.MaskByGroup(MenuInput.ControlScheme));
         string key = _input.CurrentControls.Menus.Erase.GetBindingDisplayString(bindingIndex).ToLower();
         _eraseFileIcon.sprite = ToolTipIcons.Instance.GetIcon(key);
+
+        if(EventSystem.current.currentSelectedGameObject == _newFileButton)
+        {
+            _eraseFileIcon.gameObject.SetActive(false);
+        }
+        else
+        {
+            _eraseFileIcon.gameObject.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -78,6 +87,7 @@ public class FileViewer : MonoBehaviour
     /// </summary>
     public void GoBack()
     {
+        BackToMenu();
         _loadGameButton.transform.parent.parent.gameObject.SetActive(true);
         if(_newGame)
         {
@@ -234,6 +244,9 @@ public class FileViewer : MonoBehaviour
     /// <param name="eraseGame">True if the confirmation is to erase a save, false if it is to overwrite the save with a new file.</param>
     public void AskConfirmation(GameObject fileButton, bool eraseGame)
     {
+        // don't bring up screen for new file button
+        if(fileButton == _newFileButton) return;
+
         _inConfirmation = true;
         GameObject confirmScreen = transform.GetChild(4).gameObject;
         confirmScreen.SetActive(true);
@@ -245,12 +258,14 @@ public class FileViewer : MonoBehaviour
         if(eraseGame)
         {
             confirmScreen.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Erase Game?";
+            button.onClick.RemoveAllListeners();
             button.onClick.AddListener(delegate{DeleteFile(fileButton);});
         }
         else
         {
             confirmScreen.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Are You Sure?";
             FileManager fm = fileButton.GetComponent<FileManager>();
+            button.onClick.RemoveAllListeners();
             button.onClick.AddListener(fm.NewGame);
         }
     }
