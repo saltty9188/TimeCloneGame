@@ -3477,8 +3477,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerTransform: {fileID: 1867185724}
   _verticalOffset: 4
-  _maxYPos: 3
   _minYPos: -5
+  _maxYPos: 3
 --- !u!114 &587250412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23075,6 +23075,11 @@ PrefabInstance:
         type: 3}
       propertyPath: speed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727843132525766667, guid: d0500a326a0ffdc4982ae855a937f961,
+        type: 3}
+      propertyPath: startsUp
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2727843132525766667, guid: d0500a326a0ffdc4982ae855a937f961,
         type: 3}

@@ -1198,6 +1198,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 1332545751803889425, guid: 0985d78f2849f7f47abcf02de8c196ae,
+        type: 3}
+      propertyPath: m_IsCustomRangeActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0985d78f2849f7f47abcf02de8c196ae, type: 3}
 --- !u!114 &196786641 stripped
@@ -3121,6 +3126,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 1332545751803889425, guid: 0985d78f2849f7f47abcf02de8c196ae,
+        type: 3}
+      propertyPath: m_IsCustomRangeActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0985d78f2849f7f47abcf02de8c196ae, type: 3}
 --- !u!4 &446430379 stripped
@@ -3830,6 +3840,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332545751803889425, guid: 0985d78f2849f7f47abcf02de8c196ae,
+        type: 3}
+      propertyPath: m_IsCustomRangeActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0985d78f2849f7f47abcf02de8c196ae, type: 3}
@@ -4856,6 +4871,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8545622456284958509, guid: a6eabab40665c34428398667bda6e5f6,
         type: 3}
+      propertyPath: _stayDown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8545622456284958509, guid: a6eabab40665c34428398667bda6e5f6,
+        type: 3}
       propertyPath: _attachedEvents.Array.data[0]
       value: 
       objectReference: {fileID: 1396157493}
@@ -5009,6 +5029,11 @@ PrefabInstance:
     - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
         type: 3}
       propertyPath: roomExit
+      value: 
+      objectReference: {fileID: 1704715019}
+    - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
+        type: 3}
+      propertyPath: _roomExit
       value: 
       objectReference: {fileID: 1704715019}
     - target: {fileID: 4221395636639372776, guid: f554a8e57c507b644919a43792a91238,
@@ -5569,6 +5594,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332545751803889425, guid: 0985d78f2849f7f47abcf02de8c196ae,
+        type: 3}
+      propertyPath: m_IsCustomRangeActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0985d78f2849f7f47abcf02de8c196ae, type: 3}
@@ -19886,8 +19916,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerTransform: {fileID: 2134605671}
   _verticalOffset: 4
-  _maxYPos: 6.5
   _minYPos: 0
+  _maxYPos: 6.5
 --- !u!4 &947455377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4221395636639372788, guid: f554a8e57c507b644919a43792a91238,
@@ -22570,14 +22600,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: _mainCamera
-      value: 
-      objectReference: {fileID: 946585064}
-    - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
-        type: 3}
       propertyPath: moveCamera
       value: 
       objectReference: {fileID: 1395032452}
+    - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
+        type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 946585064}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
       propertyPath: _movableObjects.Array.size
@@ -22748,6 +22778,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332545751803889425, guid: 0985d78f2849f7f47abcf02de8c196ae,
+        type: 3}
+      propertyPath: m_IsCustomRangeActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0985d78f2849f7f47abcf02de8c196ae, type: 3}
@@ -57659,14 +57694,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
-      propertyPath: _mainCamera
-      value: 
-      objectReference: {fileID: 946585064}
-    - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
-        type: 3}
       propertyPath: moveCamera
       value: 
       objectReference: {fileID: 1849533994}
+    - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
+        type: 3}
+      propertyPath: _mainCamera
+      value: 
+      objectReference: {fileID: 946585064}
     - target: {fileID: 3339956301723709525, guid: ab3515d08798ea1498b1848765824d1f,
         type: 3}
       propertyPath: _movableObjects.Array.size

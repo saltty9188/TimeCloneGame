@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pushableObjects:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 9472
   _fanDist: 9
   _fanPower: 2000
   _windPrefab: {fileID: 8865730356888571698}

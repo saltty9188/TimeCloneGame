@@ -1757,18 +1757,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!114 &1335981942 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2545875078566772631, guid: 43da3bf426073a04ab5979c468705706,
-    type: 3}
-  m_PrefabInstance: {fileID: 2545875079164355813}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1350137552 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 170113116238428217, guid: 1c1b20a806b02994cac58c64a091b1bb,
@@ -5691,6 +5679,11 @@ PrefabInstance:
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 170113115989981308, guid: 1c1b20a806b02994cac58c64a091b1bb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -21.6
+      objectReference: {fileID: 0}
     - target: {fileID: 170113116037285228, guid: 1c1b20a806b02994cac58c64a091b1bb,
         type: 3}
       propertyPath: m_Type
@@ -5766,6 +5759,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 170113116224985569, guid: 1c1b20a806b02994cac58c64a091b1bb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 170113116238428214, guid: 1c1b20a806b02994cac58c64a091b1bb,
         type: 3}
@@ -6351,6 +6349,11 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 2545875078566772629, guid: 43da3bf426073a04ab5979c468705706,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2545875078566772630, guid: 43da3bf426073a04ab5979c468705706,
         type: 3}
       propertyPath: m_Type
@@ -6590,6 +6593,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2545875079526255588, guid: 43da3bf426073a04ab5979c468705706,
         type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 2545875079164355820}
+    - target: {fileID: 2545875079526255588, guid: 43da3bf426073a04ab5979c468705706,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -6721,11 +6729,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: e67454bc0f0e79e4bb1a2471bcecdb41,
         type: 3}
+    - target: {fileID: 3855323884522310316, guid: 43da3bf426073a04ab5979c468705706,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3943770502551309901, guid: 43da3bf426073a04ab5979c468705706,
         type: 3}
       propertyPath: m_Navigation.m_SelectOnUp
       value: 
-      objectReference: {fileID: 1335981942}
+      objectReference: {fileID: 2545875079164355820}
     - target: {fileID: 3943770502551309901, guid: 43da3bf426073a04ab5979c468705706,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -6882,6 +6895,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2545875079164355820 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2545875078566772631, guid: 43da3bf426073a04ab5979c468705706,
+    type: 3}
+  m_PrefabInstance: {fileID: 2545875079164355813}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3180712773439410194
 MonoBehaviour:
   m_ObjectHideFlags: 0
