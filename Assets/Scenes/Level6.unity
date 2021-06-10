@@ -1498,8 +1498,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerTransform: {fileID: 1032800119}
   _verticalOffset: 4
-  _maxYPos: 7
   _minYPos: 3
+  _maxYPos: 7
 --- !u!114 &449380694
 MonoBehaviour:
   m_ObjectHideFlags: 0

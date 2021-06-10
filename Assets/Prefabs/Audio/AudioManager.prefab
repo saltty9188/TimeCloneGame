@@ -119,7 +119,7 @@ MonoBehaviour:
       type: 2}
   - _name: LaserFire
     _clip: {fileID: 8300000, guid: 0d48af0651a9c874eb907b1e29884809, type: 3}
-    _volume: 1
+    _volume: 0.7
     _pitch: 1.6
     _loop: 0
     _audioGroup: {fileID: 1778148207370014231, guid: 4439e088ae4b0bd41b2d5ccbde20a343,

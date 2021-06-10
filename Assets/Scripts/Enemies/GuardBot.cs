@@ -114,7 +114,7 @@ public class GuardBot : EnemyBehaviour
                 GameObject target = EnemyManager.Targets[i];
                 float dist = Vector3.Distance(transform.position, target.transform.position);
                 //Prefer clones
-                if(target.tag == "Clone" && !_closestTargetIsClone)
+                if(target.tag == "Clone" && !_closestTargetIsClone && dist < _aimRadius)
                 {
                     _closestTargetIsClone = true;
                     closestDist = dist;
@@ -259,6 +259,7 @@ public class GuardBot : EnemyBehaviour
     {
         base.ResetEnemy();
         _moveSpeed = _startSpeed;
+        _closestTargetIsClone = false;
         if(_roomExit) _roomExit.RemoveActivation();
     }
 
