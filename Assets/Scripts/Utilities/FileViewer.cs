@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using TMPro;
 
 /// <summary>
@@ -21,19 +22,37 @@ public class FileViewer : MonoBehaviour
     [SerializeField] private GameObject _backButton;
     [Tooltip("The level select menu.")]
     [SerializeField] private LevelSelect _levelSelectMenu;
+    [Tooltip("Tool tip image showing how to erase a file.")]
+    [SerializeField] private Image _eraseFileIcon;
+    [Tooltip("The menu input game object.")]
+    [SerializeField] private MenuInput _input;
     #endregion
+
+    public bool InConfirmation
+    {
+        get {return _inConfirmation;}
+    }
 
     #region Private fields
     private ScrollRect _scrollRect;
     private float _originalHeight;
     private bool _newGame;
     private GameObject _confirmButton;
+    private bool _inConfirmation;
     #endregion
 
     void Awake()
     {
         _scrollRect = GetComponentInChildren<ScrollRect>();
         _originalHeight = _scrollRect.content.rect.height;
+    }
+
+    void Update()
+    {
+        // update erase tool tip
+        int bindingIndex = _input.CurrentControls.Menus.Erase.GetBindingIndex(InputBinding.MaskByGroup(MenuInput.ControlScheme));
+        string key = _input.CurrentControls.Menus.Erase.GetBindingDisplayString(bindingIndex).ToLower();
+        _eraseFileIcon.sprite = ToolTipIcons.Instance.GetIcon(key);
     }
 
     /// <summary>
@@ -85,6 +104,8 @@ public class FileViewer : MonoBehaviour
     void PopulateMenu(bool newGame)
     {
         this._newGame = newGame;
+        _inConfirmation = false;
+
         _fileSelectTemplate.SetActive(true);
         // reset the scrollrect height
         _scrollRect.content.sizeDelta = new Vector2(0, _originalHeight);
@@ -141,7 +162,7 @@ public class FileViewer : MonoBehaviour
                 FileManager fm = button.GetComponent<FileManager>();
                 if(newGame)
                 {
-                    b.onClick.AddListener(delegate{AskConfirmation(button);});
+                    b.onClick.AddListener(delegate{AskConfirmation(button, false);});
                 }
                 else
                 {
@@ -203,16 +224,35 @@ public class FileViewer : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // ask for confirmation before overwriting a save
-    void AskConfirmation(GameObject fileButton)
+    /// <summary>
+    /// Brings up a screen asking the player for confirmation before performing an action on a file.
+    /// </summary>
+    /// <remarks>
+    /// This screen can ask if the player wants to overwrite a save or erase one.
+    /// </remarks>
+    /// <param name="fileButton">The GameObject representing the save file.</param>
+    /// <param name="eraseGame">True if the confirmation is to erase a save, false if it is to overwrite the save with a new file.</param>
+    public void AskConfirmation(GameObject fileButton, bool eraseGame)
     {
-        transform.GetChild(4).gameObject.SetActive(true);
-        SetSelectedGameObject(transform.GetChild(4).GetChild(3).gameObject);
+        _inConfirmation = true;
+        GameObject confirmScreen = transform.GetChild(4).gameObject;
+        confirmScreen.SetActive(true);
+        SetSelectedGameObject(confirmScreen.transform.GetChild(3).gameObject);
         _confirmButton = fileButton;
 
-        UnityEngine.UI.Button button = transform.GetChild(4).GetChild(2).GetComponent<UnityEngine.UI.Button>();
-        FileManager fm = fileButton.GetComponent<FileManager>();
-        button.onClick.AddListener(fm.NewGame);
+        UnityEngine.UI.Button button = confirmScreen.transform.GetChild(2).GetComponent<UnityEngine.UI.Button>();
+
+        if(eraseGame)
+        {
+            confirmScreen.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Erase Game?";
+            button.onClick.AddListener(delegate{DeleteFile(fileButton);});
+        }
+        else
+        {
+            confirmScreen.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "Are You Sure?";
+            FileManager fm = fileButton.GetComponent<FileManager>();
+            button.onClick.AddListener(fm.NewGame);
+        }
     }
 
     /// <summary>
@@ -220,6 +260,7 @@ public class FileViewer : MonoBehaviour
     /// </summary>
     public void BackToMenu()
     {
+        _inConfirmation = false;
         transform.GetChild(4).gameObject.SetActive(false);
         SetSelectedGameObject(_confirmButton);
     }
@@ -229,5 +270,22 @@ public class FileViewer : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(go);
+    }
+
+    // deletes the file represented by the fileButton
+    void DeleteFile(GameObject fileButton)
+    {
+        fileButton.GetComponent<FileManager>().DeleteGame();
+
+        // clear out the created buttons
+        foreach(Transform child in _scrollRect.content)
+        {
+            if(child.gameObject != _fileSelectTemplate && child.gameObject != _newFileButton)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        BackToMenu();
+        PopulateMenu(_newGame);
     }
 }

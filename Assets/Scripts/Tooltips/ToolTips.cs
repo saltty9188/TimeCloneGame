@@ -72,12 +72,12 @@ public class ToolTips : MonoBehaviour
         if(other.tag == "CloneDevice")
         {
             _toolTipIcon.gameObject.SetActive(true);
-            _toolTipIcon.sprite = FindObjectOfType<ToolTipIcons>().GetIcon(GetToolTip(_controls.Gameplay.Record));
+            _toolTipIcon.sprite = ToolTipIcons.Instance.GetIcon(GetToolTip(_controls.Gameplay.Record));
         }
         else if(other.tag == "MirrorMover")
         {
             _toolTipIcon.gameObject.SetActive(true);
-            _toolTipIcon.sprite = FindObjectOfType<ToolTipIcons>().GetIcon(GetToolTip(_controls.Gameplay.Interact));
+            _toolTipIcon.sprite = ToolTipIcons.Instance.GetIcon(GetToolTip(_controls.Gameplay.Interact));
         }
     }
 
