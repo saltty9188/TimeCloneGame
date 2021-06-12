@@ -1763,12 +1763,18 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 170113115268939585}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1483977786}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1483977786 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 170113116238428215, guid: 1c1b20a806b02994cac58c64a091b1bb,
+    type: 3}
+  m_PrefabInstance: {fileID: 170113115268939585}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1519112625 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3855323884522310316, guid: 43da3bf426073a04ab5979c468705706,
@@ -5682,7 +5688,7 @@ PrefabInstance:
     - target: {fileID: 170113115989981308, guid: 1c1b20a806b02994cac58c64a091b1bb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -21.6
+      value: -1.2
       objectReference: {fileID: 0}
     - target: {fileID: 170113116037285228, guid: 1c1b20a806b02994cac58c64a091b1bb,
         type: 3}
@@ -5770,6 +5776,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 10.6
       objectReference: {fileID: 0}
+    - target: {fileID: 170113116238428217, guid: 1c1b20a806b02994cac58c64a091b1bb,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnUp
+      value: 
+      objectReference: {fileID: 304369697}
     - target: {fileID: 170113116537726456, guid: 1c1b20a806b02994cac58c64a091b1bb,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -5917,6 +5928,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2449685050227339162, guid: 1c1b20a806b02994cac58c64a091b1bb,
         type: 3}
+      propertyPath: _firstOption
+      value: 
+      objectReference: {fileID: 1483977786}
+    - target: {fileID: 2449685050227339162, guid: 1c1b20a806b02994cac58c64a091b1bb,
+        type: 3}
       propertyPath: volumeHeader
       value: 
       objectReference: {fileID: 1105544445}
@@ -5925,6 +5941,11 @@ PrefabInstance:
       propertyPath: _optionsButton
       value: 
       objectReference: {fileID: 1954233202}
+    - target: {fileID: 4005852364645245611, guid: 1c1b20a806b02994cac58c64a091b1bb,
+        type: 3}
+      propertyPath: m_Navigation.m_SelectOnDown
+      value: 
+      objectReference: {fileID: 671795045}
     - target: {fileID: 4005852364645245611, guid: 1c1b20a806b02994cac58c64a091b1bb,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

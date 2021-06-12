@@ -3717,6 +3717,11 @@ PrefabInstance:
       propertyPath: fanDist
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2689593257295968897, guid: 7830f34bbffb9a7439942a5164cec168,
+        type: 3}
+      propertyPath: _fanDist
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 2689593257295968899, guid: 7830f34bbffb9a7439942a5164cec168,
         type: 3}
       propertyPath: m_Name

@@ -54,7 +54,7 @@ public class FileViewer : MonoBehaviour
         string key = _input.CurrentControls.Menus.Erase.GetBindingDisplayString(bindingIndex).ToLower();
         _eraseFileIcon.sprite = ToolTipIcons.Instance.GetIcon(key);
 
-        if(EventSystem.current.currentSelectedGameObject == _newFileButton)
+        if(EventSystem.current.currentSelectedGameObject == _newFileButton || EventSystem.current.currentSelectedGameObject == _backButton)
         {
             _eraseFileIcon.gameObject.SetActive(false);
         }
@@ -244,8 +244,8 @@ public class FileViewer : MonoBehaviour
     /// <param name="eraseGame">True if the confirmation is to erase a save, false if it is to overwrite the save with a new file.</param>
     public void AskConfirmation(GameObject fileButton, bool eraseGame)
     {
-        // don't bring up screen for new file button
-        if(fileButton == _newFileButton) return;
+        // don't bring up screen for new file button or the back button
+        if(fileButton == _newFileButton || fileButton == _backButton) return;
 
         _inConfirmation = true;
         GameObject confirmScreen = transform.GetChild(4).gameObject;
