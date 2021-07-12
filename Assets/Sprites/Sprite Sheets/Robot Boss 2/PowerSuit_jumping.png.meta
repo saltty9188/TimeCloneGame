@@ -1,0 +1,420 @@
+fileFormatVersion: 2
+guid: a40223379d22a0b45bda8e8753114d76
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5148468397919444833
+    second: PowerSuit_jumping_0
+  - first:
+      213: -663491127349239750
+    second: PowerSuit_jumping_1
+  - first:
+      213: 7506232066055013735
+    second: PowerSuit_jumping_2
+  - first:
+      213: -4775907451638007761
+    second: PowerSuit_jumping_3
+  - first:
+      213: -3548589398853215386
+    second: PowerSuit_jumping_4
+  - first:
+      213: 679236103791966377
+    second: PowerSuit_jumping_5
+  - first:
+      213: 6852443156055125507
+    second: PowerSuit_jumping_6
+  - first:
+      213: -1995750730701402263
+    second: PowerSuit_jumping_7
+  - first:
+      213: -2876893151901155940
+    second: PowerSuit_jumping_8
+  - first:
+      213: -8473699420372463174
+    second: PowerSuit_jumping_9
+  - first:
+      213: 1391611236851110571
+    second: PowerSuit_jumping_10
+  - first:
+      213: -8788327664343328577
+    second: PowerSuit_jumping_11
+  - first:
+      213: 8681937282729456653
+    second: PowerSuit_jumping_12
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 25
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: PowerSuit_jumping_0
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 27
+        width: 56
+        height: 74
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f90efa41547fc88b0800000000000000
+      internalID: -5148468397919444833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_1
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 27
+        width: 56
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a30a9b2c55ecac6f0800000000000000
+      internalID: -663491127349239750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_2
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 30
+        width: 57
+        height: 77
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7650bda5b4e7b2860800000000000000
+      internalID: 7506232066055013735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_3
+      rect:
+        serializedVersion: 2
+        x: 424
+        y: 41
+        width: 57
+        height: 77
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f28b9f00a7198bdb0800000000000000
+      internalID: -4775907451638007761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_4
+      rect:
+        serializedVersion: 2
+        x: 551
+        y: 30
+        width: 58
+        height: 77
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66b13a33eb0e0cec0800000000000000
+      internalID: -3548589398853215386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_5
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 27
+        width: 56
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a8f32d33a12d6900800000000000000
+      internalID: 679236103791966377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_6
+      rect:
+        serializedVersion: 2
+        x: 809
+        y: 27
+        width: 56
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30ee830aeb4c81f50800000000000000
+      internalID: 6852443156055125507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_7
+      rect:
+        serializedVersion: 2
+        x: 937
+        y: 27
+        width: 56
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96f015cc84bad44e0800000000000000
+      internalID: -1995750730701402263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_8
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 27
+        width: 56
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9d7d28bbe83318d0800000000000000
+      internalID: -2876893151901155940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_9
+      rect:
+        serializedVersion: 2
+        x: 1192
+        y: 27
+        width: 63
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab11443d54f576a80800000000000000
+      internalID: -8473699420372463174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_10
+      rect:
+        serializedVersion: 2
+        x: 1321
+        y: 27
+        width: 56
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba2d3fdfb0fff4310800000000000000
+      internalID: 1391611236851110571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_11
+      rect:
+        serializedVersion: 2
+        x: 1449
+        y: 27
+        width: 56
+        height: 74
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb8d3154d86990680800000000000000
+      internalID: -8788327664343328577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PowerSuit_jumping_12
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 32
+        width: 4
+        height: 4
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d043f43b5ff6c7870800000000000000
+      internalID: 8681937282729456653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

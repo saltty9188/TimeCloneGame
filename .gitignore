@@ -10,13 +10,33 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
-# Ignore assets that cannot be freely distributed
-/[Aa]ssets/[Aa]udio/[Mm]usic/
-/[Aa]ssets/[Aa]udio/SFX/
-/[Aa]ssets/Controller Icons Pack (by NullSave)/
-/[Aa]ssets/[Ss]prites/
-/[Aa]ssets/Thaleah_PixelFont/
-/[Aa]ssets/Warped Shooting Fx/
+# Ignore assets that cannot be freely distributed while leaving meta files
+/[Aa]ssets/[Aa]udio/**/*.mp3
+/[Aa]ssets/[Aa]udio/**/*.wav
+/[Aa]ssets/[Aa]udio/**/*.ogg
+/[Aa]ssets/Controller Icons Pack (by NullSave)/Textures/Filled/Sheets/*.png
+/[Aa]ssets/[Ss]prites/**/*.png
+
+/[Aa]ssets/Thaleah_PixelFont/*
+!/[Aa]ssets/Thaleah_PixelFont/**/
+!/[Aa]ssets/Thaleah_PixelFont/*.meta
+/[Aa]ssets/Thaleah_PixelFont/Materials/*
+!/[Aa]ssets/Thaleah_PixelFont/Materials/*.meta
+
+
+/[Aa]ssets/Warped Shooting Fx/*
+!/[Aa]ssets/Warped Shooting Fx/**/
+/[Aa]ssets/Warped Shooting Fx/Music/*
+!/[Aa]ssets/Warped Shooting Fx/Music/*.meta
+/[Aa]ssets/Warped Shooting Fx/Pixel Art/*
+!/[Aa]ssets/Warped Shooting Fx/Pixel Art/*.meta
+!/[Aa]ssets/Warped Shooting Fx/Pixel Art/**/
+/[Aa]ssets/Warped Shooting Fx/Pixel Art/**/*.png
+/[Aa]ssets/Warped Shooting Fx/Pixel Art/**/*.anim
+/[Aa]ssets/Warped Shooting Fx/Pixel Art/**/*.mat
+/[Aa]ssets/Warped Shooting Fx/Pixel Art/**/*.controller
+
+
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
