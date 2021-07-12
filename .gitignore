@@ -10,6 +10,14 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+# Ignore assets that cannot be freely distributed
+/[Aa]ssets/[Aa]udio/[Mm]usic/
+/[Aa]ssets/[Aa]udio/SFX/
+/[Aa]ssets/Controller Icons Pack (by NullSave)/
+/[Aa]ssets/[Ss]prites/
+/[Aa]ssets/Thaleah_PixelFont/
+/[Aa]ssets/Warped Shooting Fx/
+
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
